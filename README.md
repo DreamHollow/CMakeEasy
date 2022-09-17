@@ -17,3 +17,30 @@ HOW IT WORKS
 The program's design is extremely simple.
 
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
+
+COMPILATION
+-----------
+
+If you need to compile CMakeEasy, it should be done as follows.
+*If you're on Linux (Ubuntu/Debian):*
+Open up Terminal.
+Make sure you have the GNU C++ compiler (g++) installed. To check, use `g++ --version`
+If it doesn't tell you the g++ version, you don't have it installed.
+
+Just install g++ along with it's build-essentials to get things rolling.
+`sudo apt install g++`
+
+then
+`sudo apt install build-essential`
+
+Once that's done, you should be able to compile CMakeEasy from Terminal using the GNU compiler.
+To do that, you should enter:
+`g++ -o CMakeEasy Main.cpp`
+
+Then to run it, enter:
+`./CMakeEasy`
+
+GNU's built in Bash shell should automatically run the program on the Terminal.
+
+*If you're on Windows:*
+(Still working on this section, sorry!)
