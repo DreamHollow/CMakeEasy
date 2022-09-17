@@ -35,9 +35,11 @@ then
 
 Once that's done, you should be able to compile CMakeEasy from Terminal using the GNU compiler.
 To do that, you should enter:
+
 `g++ -o CMakeEasy Main.cpp`
 
 Then to run it, enter:
+
 `./CMakeEasy`
 
 GNU's built in Bash shell should automatically run the program on the Terminal.
