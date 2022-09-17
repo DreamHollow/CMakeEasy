@@ -5,6 +5,8 @@
 // Most of the actual program is just explanation
 // Sorry about the mess - DH
 
+// Commit test
+
 int entry_fail();
 
 int main()
@@ -270,7 +272,7 @@ int entry_fail()
         std::cout << "for the program to process." << "\n";
         std::cout << "\n";
         std::cout << "If you don't understand why you have this error," << "\n";
-        std::cout << "please report the error to the developer at their" << "\n"; 
+        std::cout << "please report the error to the developer at their" << "\n";
         std::cout << "primary contact address." << "\n";
         std::cout << "\n";
 
