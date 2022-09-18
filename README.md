@@ -22,7 +22,8 @@ COMPILATION
 -----------
 
 If you need to compile CMakeEasy, it should be done as follows.
-*If you're on Linux (Ubuntu/Debian):*
+
+**If you're on Linux (Ubuntu/Debian):**
 Open up Terminal.
 Make sure you have the GNU C++ compiler (g++) installed. To check, use `g++ --version`
 If it doesn't tell you the g++ version, you don't have it installed.
