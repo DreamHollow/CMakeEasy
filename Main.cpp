@@ -1,6 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "Manager.hpp"
 
 // Most of the actual program is just explanation
 // Sorry about the mess - DH
@@ -9,11 +7,13 @@ int entry_fail();
 
 int main()
 {
+    Manager ext_file;
+
     bool debugging = true;
     bool valid_stand = false;
 
     // Strings
-    const std::string filename = "CMakeLists.txt";
+    // const std::string filename = "CMakeLists.txt";
     char project_name[64]; // Use character array for stability
     std::string declaration;
 
@@ -76,37 +76,28 @@ int main()
 
     // Start writing actual CMakeFile
     std::cout << "\n";
-    std::cout << "Saving " << filename << " to your current directory..." << "\n";
+    std::cout << "Saving " << ext_file.name() << " to your current directory..." << "\n";
 
-    std::ofstream file(filename);
-    if(file.is_open())
+    // std::ofstream file(filename);
+    ext_file.write("cmake_minimum_required(VERSION ");
+    ext_file.write(major);
+    ext_file.write(".");
+    ext_file.write(minor);
+    ext_file.write(".");
+    ext_file.write(release);
+    ext_file.write(")");
+    ext_file.write("\n");
+
+    if(debugging)
     {
-        file << "cmake_minimum_required(VERSION ";
-        file << major << "." << minor << "." << release << ")";
-        file << "\n";
-
-        if(debugging)
-        {
-            std::cout << "DEBUG:" << "\n";
-            std::cout << "Line in file should read as" << "\n";
-            std::cout << "'cmake_minimum_required(VERSION x.x.x')" << "\n";
-            std::cout << "\n";
-        }
-
-        std::cout << "Wrote 'cmake_minimum_required' line automatically." << "\n";
+        std::cout << "DEBUG:" << "\n";
+        std::cout << "Line in file should read as" << "\n";
+        std::cout << "'cmake_minimum_required(VERSION x.x.x')" << "\n";
         std::cout << "\n";
     }
-    else
-    {
-        std::cout << "\n";
-        std::cout << "The file could not be created or opened." << "\n";
-        std::cout << "If this error persists, please contact the developer." << "\n";
-        std::cout << "Thank you." << "\n";
 
-        file.close(); // If applicable
-
-        return 1;
-    }
+    std::cout << "Wrote 'cmake_minimum_required' line automatically." << "\n";
+    std::cout << "\n";
 
     std::cout << "\n";
     std::cout << "Please enter the name of the project that you are trying to create." << "\n";
@@ -122,11 +113,10 @@ int main()
     std::cout << "', and will be saved as such." << "\n";
     std::cout << "\n";
 
-    if(file.is_open())
-    {
-        file << "project(" << project_name << ")";
-        file << "\n";
-    }
+    ext_file.write("project(");
+    ext_file.write(project_name);
+    ext_file.write(")");
+    ext_file.write("\n");
 
     if(debugging)
     {
@@ -217,34 +207,28 @@ int main()
         }
     }
 
-    if(file.is_open())
+    if(valid_stand)
+    {
+        ext_file.write("set(");
+        ext_file.write(declaration);
+        ext_file.write(")");
+    }
+
+    if(debugging)
     {
         if(valid_stand)
         {
-            file << "set(" << declaration << ")";
-            file << "\n";
+            std::cout << "DEBUG:" << "\n";
+            std::cout << "Line in file should read as" << "\n";
+            std::cout << "'set(" << declaration << ")'";
+            std::cout << "\n";
         }
-
-        if(debugging)
+        else
         {
-            if(valid_stand)
-            {
-                std::cout << "DEBUG:" << "\n";
-                std::cout << "Line in file should read as" << "\n";
-                std::cout << "'set(" << declaration << ")'";
-                std::cout << "\n";
-            }
-            else
-            {
-                std::cout << "DEBUG:" << "\n";
-                std::cout << "Declaration was either invalid or not assigned." << "\n";
-            }
+            std::cout << "DEBUG:" << "\n";
+            std::cout << "Declaration was either invalid or not assigned." << "\n";
         }
     }
-
-
-
-    file.close(); // Always close the file afterwards
 
     std::cout << "\n";
 
@@ -255,9 +239,6 @@ int main()
         std::cout << "DEBUG:" << "\n";
         std::cout << "Reached end of program." << "\n";
     }
-
-    // Check one last time for sake of stability
-    if(file.is_open()) { file.close(); };
 
     return 0;
 };
