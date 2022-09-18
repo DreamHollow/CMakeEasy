@@ -18,11 +18,13 @@ int main()
     std::string declaration;
 
     // Shorts used to avoid unnecessary memory allocation
+    // These are recycled exactly once
     short major = 0;
     short minor = 0;
     short release = 0;
 
     short standard = 0;
+    short prog_vers = 0;
 
     std::cout << "Welcome to the CMakeLists all-purpose generator!" << "\n";
     std::cout << "This generator will help further simplify CMakeLists.txt generation" << "\n";
@@ -115,14 +117,83 @@ int main()
 
     ext_file.write("project(");
     ext_file.write(project_name);
-    ext_file.write(")");
-    ext_file.write("\n");
+
+    // Reassign shorts to 0
+    major = 0;
+    minor = 0;
+
+    std::cout << "Would you like to add a program version? Example: project(MyProgram VERSION 1.0)" << "\n";
+    std::cout << "1. Yes, add a version number." << "\n";
+    std::cout << "2. No, leave as-is." << "\n";
+    std::cout << "Your choice: ";
+    std::cin >> prog_vers;
+
+    std::cout << "\n";
+
+    if(entry_fail() != 0)
+    {
+        return 1;
+    }
+
+    if(prog_vers == 1)
+    {
+        std::cout << "Please enter the major version number for your program." << "\n";
+        std::cout << "Example: [1].0" << "\n";
+        std::cout << "Your version: ";
+        std::cin >> major;
+
+        if(entry_fail() != 0)
+        {
+            return 1;
+        }
+
+        std::cout << "Please enter the minor version number for your program." << "\n";
+        std::cout << "Example: 1.[0]" << "\n";
+        std::cout << "Your version: ";
+        std::cin >> minor;
+
+        if(entry_fail() != 0)
+        {
+            return 1;
+        }
+
+        ext_file.write(" ");
+        ext_file.write("VERSION ");
+        ext_file.write(major);
+        ext_file.write(".");
+        ext_file.write(minor);
+        ext_file.write(")");
+
+        std::cout << "\n";
+    }
+    else if(prog_vers == 2)
+    {
+        std::cout << "Understood. No version number will be added to your program build at this time." << "\n";
+        std::cout << "\n";
+
+        ext_file.write(")");
+    }
+    else
+    {
+        std::cout << "Sorry, that is not a valid list choice." << "\n";
+        std::cout << "Defaulting to choice 2, no program version will be added." << "\n";
+        std::cout << "\n";
+    }
+
+    ext_file.write("\n"); // Formats next line no matter what
 
     if(debugging)
     {
+        std::cout << "\n";
         std::cout << "DEBUG:" << "\n";
         std::cout << "Line in file should read as" << "\n";
-        std::cout << "'project(" << project_name << ")'" << "\n";
+        std::cout << "'project(" << project_name;
+
+        if(major != 0 || minor != 0)
+        {
+            std::cout << " ";
+            std::cout << "VERSION " << major << "." << minor << ")";
+        }
         std::cout << "\n";
     }
 
