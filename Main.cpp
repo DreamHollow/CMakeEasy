@@ -5,8 +5,6 @@
 // Most of the actual program is just explanation
 // Sorry about the mess - DH
 
-// Commit test
-
 int entry_fail();
 
 int main()
@@ -243,6 +241,8 @@ int main()
             }
         }
     }
+
+
 
     file.close(); // Always close the file afterwards
 
