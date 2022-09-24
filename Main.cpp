@@ -14,7 +14,8 @@ int main()
 
     // Strings
     // const std::string filename = "CMakeLists.txt";
-    char project_name[64]; // Use character array for stability
+    char project_name[64]; // Use character arrays for stability
+    char exe_name[64];
     std::string declaration;
 
     // Shorts used to avoid unnecessary memory allocation
@@ -26,12 +27,17 @@ int main()
     short standard = 0;
     short prog_vers = 0;
 
+    short num_sources = 0;
+
     std::cout << "Welcome to the CMakeLists all-purpose generator!" << "\n";
     std::cout << "This generator will help further simplify CMakeLists.txt generation" << "\n";
     std::cout << "for inexperienced users." << "\n";
     std::cout << "\n";
     std::cout << "Please keep in mind that incorrect inputs will force the program to" << "\n";
     std::cout << "terminate prematurely." << "\n";
+    std::cout << "\n";
+    std::cout << "Please keep in mind that this version of CMakeEasy works exclusively for" << "\n";
+    std::cout << "configuring CMake to work with C++ files." << "\n";
     std::cout << "\n";
     std::cout << "You will be asked what version of CMake you are using." << "\n";
     std::cout << "A major and minor version of the program must be provided." << "\n";
@@ -46,6 +52,8 @@ int main()
     {
         return 1;
     }
+
+    // Version numbering (CMake)
 
     std::cout << "\n";
     std::cout << "What is the minor version of CMake that you are using?" << "\n";
@@ -80,7 +88,6 @@ int main()
     std::cout << "\n";
     std::cout << "Saving " << ext_file.name() << " to your current directory..." << "\n";
 
-    // std::ofstream file(filename);
     ext_file.write("cmake_minimum_required(VERSION ");
     ext_file.write(major);
     ext_file.write(".");
@@ -110,6 +117,11 @@ int main()
     std::cin.ignore();
     std::cin.getline(project_name,64);
 
+    if(entry_fail() != 0)
+    {
+        return 1;
+    }
+
     std::cout << "\n";
     std::cout << "Your project's name has been evaluated as '" << project_name;
     std::cout << "', and will be saved as such." << "\n";
@@ -118,7 +130,6 @@ int main()
     ext_file.write("project(");
     ext_file.write(project_name);
 
-    // Reassign shorts to 0
     major = 0;
     minor = 0;
 
@@ -194,8 +205,14 @@ int main()
             std::cout << " ";
             std::cout << "VERSION " << major << "." << minor << ")";
         }
+        else
+        {
+            std::cout << ")'";
+        }
         std::cout << "\n";
     }
+
+    // Setting modern C++ standards
 
     std::cout << "Please set the standard for your C++ application." << "\n";
     std::cout << "\n";
@@ -303,8 +320,58 @@ int main()
 
     std::cout << "\n";
 
+    // Setting subdirectories
+
+    // TO-DO
+
+    // Setting source files
+    // and so much more!
+
+    // Add executable
+
+    std::cout << "Please set the 'source files' that allow your program to run." << "\n";
+    std::cout << "Source files are necessary for your program to run." << "\n";
+    std::cout << "They are NOT libraries." << "\n";
+    std::cout << "Example: main.cpp" << "\n";
+
+    std::cout << "\n";
+
+    num_sources = 1; // Required
+
+    std::cout << "Please enter the name of your main executable, along with .cpp: ";
+    std::cin.ignore();
+    std::cin.getline(exe_name, 64);
+
+    std::cout << "\n";
+
+    ext_file.write("add_executable(${PROJECT_NAME}");
+    ext_file.write(" ");
+    ext_file.write(exe_name);
+    // Extra files - TODO
+    ext_file.write(")");
+
+    ext_file.write("\n");
+
+    if(entry_fail() != 0)
+    {
+        return 1;
+    }
+
+    // Enter more necessary files
+    // - TODO
+
     if(debugging)
     {
+        std::cout << "DEBUG:" << "\n";
+        std::cout << "Line in file should read as" << "\n";
+        std::cout << "add_executable(${PROJECT_NAME} ";
+        std::cout << exe_name;
+        std::cout << ")" << "\n";
+    }
+
+    if(debugging)
+    {
+        std::cout << "\n";
         std::cout << "DEBUG: File closed." << "\n";
         std::cout << "\n";
         std::cout << "DEBUG:" << "\n";
