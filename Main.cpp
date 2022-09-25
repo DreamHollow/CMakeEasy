@@ -300,6 +300,7 @@ int main()
         ext_file.write("set(");
         ext_file.write(declaration);
         ext_file.write(")");
+        ext_file.write("\n");
     }
 
     if(debugging)
@@ -308,7 +309,7 @@ int main()
         {
             std::cout << "DEBUG:" << "\n";
             std::cout << "Line in file should read as" << "\n";
-            std::cout << "'set(" << declaration << ")'";
+            std::cout << "'set(" << declaration << ")'" << "\n";
             std::cout << "\n";
         }
         else
