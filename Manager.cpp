@@ -7,10 +7,7 @@ Manager::Manager()
 
 Manager::~Manager()
 {
-  if(this->file.is_open())
-  {
-    this->file.close();
-  }
+  this->file.close();
 };
 
 void Manager::init_file()
@@ -20,7 +17,7 @@ void Manager::init_file()
     this->file.open(file_name);
 
     std::cout << "\n";
-    std::cout << file_name << "is ready to be modified." << "\n";
+    std::cout << file_name << " is ready to be modified." << "\n";
     std::cout << "\n";
   }
 };

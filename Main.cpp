@@ -26,8 +26,10 @@ int main()
 
     short standard = 0;
     short prog_vers = 0;
+    short subdir_choice = 0;
 
     short num_sources = 0;
+    short subdir = 0;
 
     std::cout << "Welcome to the CMakeLists all-purpose generator!" << "\n";
     std::cout << "This generator will help further simplify CMakeLists.txt generation" << "\n";
@@ -323,9 +325,49 @@ int main()
 
     // Setting subdirectories
 
-    // TO-DO
+    /*
+    std::cout << "Will you use any subdirectories for your program?" << "\n";
+    std::cout << "1. I will use subdirectories." << "\n";
+    std::cout << "2. I will not be using subdirectories." << "\n";
+    std::cout << "Your choice: ";
+    std::cin >> subdir_choice;
+
+    if(entry_fail() != 0)
+    {
+        return 1;
+    }
+
+    std::cout << "\n";
+
+    switch(subdir)
+    {
+        case 1:
+        {
+            break;
+        }
+        case 2:
+        {
+            std::cout << "No subdirectories will be added." << "\n";
+            std::cout << "Skipping to next section." << "\n";
+            std::cout << "\n";
+            break;
+        }
+        default:
+        {
+            std::cout << "This is not a valid choice." << "\n";
+            std::cout << "No subdirectories will be added." << "\n";
+            std::cout << "\n";
+            break;
+        }
+    }
+
+    ext_file.write("\n");
+    */
 
     // Setting source files
+
+    // Adding tests
+
     // and so much more!
 
     // Add executable

@@ -20,6 +20,8 @@ public:
 
 private:
   // Variables
+
+  // Constants
   const std::string file_name = "CMakeLists.txt";
 
   // Functions
