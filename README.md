@@ -11,12 +11,16 @@ As per the Unlicense, you can do whatever you want with this code.
 
 It is simply a program that is designed to procedurally generate an automatic CMakeLists.txt file for inexperienced users who aren't familiar the format of CMake. As such, it should be known that the developers on this project are not necessarily associated with CMake.
 
+CMakeEasy runs best with the latest version of CMake (2.24.2) and may sometimes be problematic with older versions.
+
 HOW IT WORKS
 ------------
 
 The program's design is extremely simple.
 
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
+
+This program currently has no dependencies and should work fine if all the relevant files are included.
 
 COMPILATION
 -----------
