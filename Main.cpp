@@ -25,7 +25,7 @@ int main()
     short release = 0;
 
     short standard = 0;
-    short prog_vers = 0;
+    short yes_no = 0;
     short subdir_choice = 0;
 
     short num_sources = 0;
@@ -139,7 +139,7 @@ int main()
     std::cout << "1. Yes, add a version number." << "\n";
     std::cout << "2. No, leave as-is." << "\n";
     std::cout << "Your choice: ";
-    std::cin >> prog_vers;
+    std::cin >> yes_no;
 
     std::cout << "\n";
 
@@ -148,7 +148,7 @@ int main()
         return 1;
     }
 
-    if(prog_vers == 1)
+    if(yes_no == 1)
     {
         std::cout << "Please enter the major version number for your program." << "\n";
         std::cout << "Example: [1].0" << "\n";
@@ -179,7 +179,7 @@ int main()
 
         std::cout << "\n";
     }
-    else if(prog_vers == 2)
+    else if(yes_no == 2)
     {
         std::cout << "Understood. No version number will be added to your program build at this time." << "\n";
         std::cout << "\n";
@@ -323,7 +323,47 @@ int main()
 
     std::cout << "\n";
 
-    // Setting subdirectories
+    std::cout << "Please set the 'source files' that allow your program to run." << "\n";
+    std::cout << "Source files are necessary for your program to run." << "\n";
+    std::cout << "They are NOT libraries." << "\n";
+    std::cout << "Example: main.cpp" << "\n";
+
+    std::cout << "\n";
+
+    num_sources = 1; // Required
+
+    std::cout << "Please enter the name of your main executable, along with .cpp: ";
+    std::cin.ignore();
+    std::cin.getline(exe_name, 64);
+
+    std::cout << "\n";
+
+    ext_file.write("add_executable(${PROJECT_NAME}");
+    ext_file.write(" ");
+    ext_file.write(exe_name);
+    // Extra files - TODO
+    ext_file.write(")");
+
+    ext_file.write("\n");
+
+    if(entry_fail() != 0)
+    {
+        return 1;
+    }
+
+    // Enter more necessary files
+    // - TODO
+
+    if(debugging)
+    {
+        std::cout << "DEBUG:" << "\n";
+        std::cout << "Line in file should read as" << "\n";
+        std::cout << "add_executable(${PROJECT_NAME} ";
+        std::cout << exe_name;
+        std::cout << ")" << "\n";
+    }
+
+    // Set the subdirectories
 
     /*
     std::cout << "Will you use any subdirectories for your program?" << "\n";
@@ -364,53 +404,23 @@ int main()
     ext_file.write("\n");
     */
 
-    // Setting source files
+    // Set the libraries
 
-    // Adding tests
-
-    // and so much more!
-
-    // Add executable
-
-    std::cout << "Please set the 'source files' that allow your program to run." << "\n";
-    std::cout << "Source files are necessary for your program to run." << "\n";
-    std::cout << "They are NOT libraries." << "\n";
-    std::cout << "Example: main.cpp" << "\n";
-
+    /*
+    
+    std::cout << "Would you like to link a library or libraries?" << "\n";
+    std::cout << "1. Yes, I would like to add a library or multiple libraries." << "\n";
+    std::cout << "2. No, I don't need to add any libraries." << "\n";
     std::cout << "\n";
-
-    num_sources = 1; // Required
-
-    std::cout << "Please enter the name of your main executable, along with .cpp: ";
-    std::cin.ignore();
-    std::cin.getline(exe_name, 64);
-
-    std::cout << "\n";
-
-    ext_file.write("add_executable(${PROJECT_NAME}");
-    ext_file.write(" ");
-    ext_file.write(exe_name);
-    // Extra files - TODO
-    ext_file.write(")");
-
-    ext_file.write("\n");
+    std::cout << "Your choice: ";
+    std::cin >> yes_no;
 
     if(entry_fail() != 0)
     {
         return 1;
     }
 
-    // Enter more necessary files
-    // - TODO
-
-    if(debugging)
-    {
-        std::cout << "DEBUG:" << "\n";
-        std::cout << "Line in file should read as" << "\n";
-        std::cout << "add_executable(${PROJECT_NAME} ";
-        std::cout << exe_name;
-        std::cout << ")" << "\n";
-    }
+    */
 
     if(debugging)
     {

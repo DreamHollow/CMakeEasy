@@ -22,6 +22,10 @@ It will take in raw text output provided by the user, configure it into a format
 
 This program currently has no dependencies and should work fine if all the relevant files are included.
 
+Any code that is commented out is still being evaluated and tested.
+
+You may uncomment the code if you wish, but please keep in mind that this code is not guaranteed to work.
+
 COMPILATION
 -----------
 
