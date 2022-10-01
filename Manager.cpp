@@ -12,6 +12,8 @@ Manager::~Manager()
 
 void Manager::init_file()
 {
+  this->debug = true;
+
   if(!this->file.is_open())
   {
     this->file.open(file_name);

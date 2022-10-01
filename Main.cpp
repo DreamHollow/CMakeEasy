@@ -1,13 +1,14 @@
 #include "Manager.hpp"
+#include <memory>
 
 // Most of the actual program is just explanation
 // Sorry about the mess - DH
 
-int entry_fail();
-
 int main()
 {
-    Manager ext_file;
+    // Changed to heap in unlikely case of stack overflow
+    std::unique_ptr<Manager> ext_file = std::make_unique<Manager>();
+    Explainer tell;
 
     bool debugging = true;
     bool valid_stand = false;
@@ -31,26 +32,12 @@ int main()
     short num_sources = 0;
     short subdir = 0;
 
-    std::cout << "Welcome to the CMakeLists all-purpose generator!" << "\n";
-    std::cout << "This generator will help further simplify CMakeLists.txt generation" << "\n";
-    std::cout << "for inexperienced users." << "\n";
-    std::cout << "\n";
-    std::cout << "Please keep in mind that incorrect inputs will force the program to" << "\n";
-    std::cout << "terminate prematurely." << "\n";
-    std::cout << "\n";
-    std::cout << "Please keep in mind that this version of CMakeEasy works exclusively for" << "\n";
-    std::cout << "configuring CMake to work with C++ files." << "\n";
-    std::cout << "\n";
-    std::cout << "You will be asked what version of CMake you are using." << "\n";
-    std::cout << "A major and minor version of the program must be provided." << "\n";
-    std::cout << "This will designate the 'minimum version' needed for things to work." << "\n";
-    std::cout << "\n";
-    std::cout << "What is the major version of CMake that you are using?" << "\n";
-    std::cout << "Example: [3].24.2" << "\n";
+    tell.start();
+
     std::cout << "Your version: ";
     std::cin >> major;
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -63,7 +50,7 @@ int main()
     std::cout << "Your version: ";
     std::cin >> minor;
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -74,7 +61,7 @@ int main()
     std::cout << "Your version: ";
     std::cin >> release;
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -88,16 +75,16 @@ int main()
 
     // Start writing actual CMakeFile
     std::cout << "\n";
-    std::cout << "Saving " << ext_file.name() << " to your current directory..." << "\n";
+    std::cout << "Saving " << ext_file->name() << " to your current directory..." << "\n";
 
-    ext_file.write("cmake_minimum_required(VERSION ");
-    ext_file.write(major);
-    ext_file.write(".");
-    ext_file.write(minor);
-    ext_file.write(".");
-    ext_file.write(release);
-    ext_file.write(")");
-    ext_file.write("\n");
+    ext_file->write("cmake_minimum_required(VERSION ");
+    ext_file->write(major);
+    ext_file->write(".");
+    ext_file->write(minor);
+    ext_file->write(".");
+    ext_file->write(release);
+    ext_file->write(")");
+    ext_file->write("\n");
 
     if(debugging)
     {
@@ -119,7 +106,7 @@ int main()
     std::cin.ignore();
     std::cin.getline(project_name,64);
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -129,8 +116,8 @@ int main()
     std::cout << "', and will be saved as such." << "\n";
     std::cout << "\n";
 
-    ext_file.write("project(");
-    ext_file.write(project_name);
+    ext_file->write("project(");
+    ext_file->write(project_name);
 
     major = 0;
     minor = 0;
@@ -143,7 +130,7 @@ int main()
 
     std::cout << "\n";
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -155,7 +142,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> major;
 
-        if(entry_fail() != 0)
+        if(tell.entry_fail() != 0)
         {
             return 1;
         }
@@ -165,17 +152,17 @@ int main()
         std::cout << "Your version: ";
         std::cin >> minor;
 
-        if(entry_fail() != 0)
+        if(tell.entry_fail() != 0)
         {
             return 1;
         }
 
-        ext_file.write(" ");
-        ext_file.write("VERSION ");
-        ext_file.write(major);
-        ext_file.write(".");
-        ext_file.write(minor);
-        ext_file.write(")");
+        ext_file->write(" ");
+        ext_file->write("VERSION ");
+        ext_file->write(major);
+        ext_file->write(".");
+        ext_file->write(minor);
+        ext_file->write(")");
 
         std::cout << "\n";
     }
@@ -184,7 +171,7 @@ int main()
         std::cout << "Understood. No version number will be added to your program build at this time." << "\n";
         std::cout << "\n";
 
-        ext_file.write(")");
+        ext_file->write(")");
     }
     else
     {
@@ -193,7 +180,7 @@ int main()
         std::cout << "\n";
     }
 
-    ext_file.write("\n"); // Formats next line no matter what
+    ext_file->write("\n"); // Formats next line no matter what
 
     if(debugging)
     {
@@ -216,22 +203,15 @@ int main()
 
     // Setting modern C++ standards
 
-    std::cout << "Please set the standard for your C++ application." << "\n";
-    std::cout << "\n";
-    std::cout << "If you're not using any newer C++ standards, you can select option 4." << "\n";
-    std::cout << "\n";
-    std::cout << "This list may be updated in the future as more standards are added." << "\n";
-    std::cout << "1. C++20" << "\n";
-    std::cout << "2. C++17" << "\n";
-    std::cout << "3. C++14" << "\n";
-    std::cout << "4. Not following standard, N/A" << "\n";
+    tell.standard();
+    
     std::cout << "Your standard: ";
     std::cin.clear();
     std::cin >> standard;
 
     std::cout << "\n";
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -299,10 +279,10 @@ int main()
 
     if(valid_stand)
     {
-        ext_file.write("set(");
-        ext_file.write(declaration);
-        ext_file.write(")");
-        ext_file.write("\n");
+        ext_file->write("set(");
+        ext_file->write(declaration);
+        ext_file->write(")");
+        ext_file->write("\n");
     }
 
     if(debugging)
@@ -338,15 +318,15 @@ int main()
 
     std::cout << "\n";
 
-    ext_file.write("add_executable(${PROJECT_NAME}");
-    ext_file.write(" ");
-    ext_file.write(exe_name);
+    ext_file->write("add_executable(${PROJECT_NAME}");
+    ext_file->write(" ");
+    ext_file->write(exe_name);
     // Extra files - TODO
-    ext_file.write(")");
+    ext_file->write(")");
 
-    ext_file.write("\n");
+    ext_file->write("\n");
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -372,7 +352,7 @@ int main()
     std::cout << "Your choice: ";
     std::cin >> subdir_choice;
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
     }
@@ -401,12 +381,14 @@ int main()
         }
     }
 
-    ext_file.write("\n");
+    ext_file->write("\n");
     */
 
     // Set the libraries
 
     /*
+
+    bool more_libs = false;
     
     std::cout << "Would you like to link a library or libraries?" << "\n";
     std::cout << "1. Yes, I would like to add a library or multiple libraries." << "\n";
@@ -415,9 +397,19 @@ int main()
     std::cout << "Your choice: ";
     std::cin >> yes_no;
 
-    if(entry_fail() != 0)
+    if(tell.entry_fail() != 0)
     {
         return 1;
+    }
+
+    switch(yes_no)
+    {
+        case 1:
+        break;
+        case 2:
+        break;
+        default:
+        break;
     }
 
     */
@@ -432,24 +424,4 @@ int main()
     }
 
     return 0;
-};
-
-int entry_fail()
-{
-    if(std::cin.fail())
-    {
-        std::cout << "\n";
-        std::cout << "Sorry, the program encountered an error." << "\n";
-        std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-        std::cout << "for the program to process." << "\n";
-        std::cout << "\n";
-        std::cout << "If you don't understand why you have this error," << "\n";
-        std::cout << "please report the error to the developer at their" << "\n";
-        std::cout << "primary contact address." << "\n";
-        std::cout << "\n";
-
-        return 1; // Input error
-    }
-
-    return 0; // Continue
 };

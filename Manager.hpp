@@ -2,8 +2,8 @@
 #define MANAGER_HPP
 
 #include <fstream>
-#include <iostream>
-#include <string>
+
+#include "Explainer.hpp"
 
 class Manager
 {
@@ -13,6 +13,7 @@ public:
 
   // Public Const Declarations
   const std::string name() const { return this->file_name; };
+  const bool is_debugging() const { return this->debug; };
 
   // Public Functions
   void write(std::string context);
@@ -20,6 +21,7 @@ public:
 
 private:
   // Variables
+  bool debug;
 
   // Constants
   const std::string file_name = "CMakeLists.txt";
