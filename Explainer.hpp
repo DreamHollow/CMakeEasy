@@ -15,6 +15,7 @@ public:
     // Public Functions
     void start();
     void standard();
+    void source();
     int entry_fail();
 
 private:

@@ -303,10 +303,7 @@ int main()
 
     std::cout << "\n";
 
-    std::cout << "Please set the 'source files' that allow your program to run." << "\n";
-    std::cout << "Source files are necessary for your program to run." << "\n";
-    std::cout << "They are NOT libraries." << "\n";
-    std::cout << "Example: main.cpp" << "\n";
+    tell.source();
 
     std::cout << "\n";
 

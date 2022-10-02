@@ -44,6 +44,14 @@ void Explainer::standard()
     std::cout << "4. Not following standard, N/A" << "\n";
 };
 
+void Explainer::source()
+{
+    std::cout << "Please set the 'source files' that allow your program to run." << "\n";
+    std::cout << "Source files are necessary for your program to run." << "\n";
+    std::cout << "They are NOT libraries." << "\n";
+    std::cout << "Example: main.cpp" << "\n";
+};
+
 int Explainer::entry_fail()
 {
     if(std::cin.fail())
