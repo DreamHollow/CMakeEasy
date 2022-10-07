@@ -2,8 +2,10 @@
 #define MANAGER_HPP
 
 #include <fstream>
-
 #include "Explainer.hpp"
+
+/// @brief File manager. Designed to input or output file data
+/// as needed, usually through simple read-write directives.
 
 class Manager
 {

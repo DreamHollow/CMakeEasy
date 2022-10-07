@@ -3,9 +3,8 @@
 #include <iostream>
 #include <string>
 
-// This class contains pre-written explanations
-// This way it clutters up the main program much less
-
+/// @brief Simply outputs pre-formatted text to reduce clutter for
+/// the overall program.
 class Explainer
 {
 public:

@@ -52,6 +52,9 @@ void Explainer::source()
     std::cout << "Example: main.cpp" << "\n";
 };
 
+/// @brief Checks input. It will force the program to stop
+/// if the input fails or doesn't match the type.
+/// @return Success (0) or Failure (1)
 int Explainer::entry_fail()
 {
     if(std::cin.fail())

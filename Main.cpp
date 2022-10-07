@@ -6,27 +6,28 @@
 
 int main()
 {
-    // Changed to heap in unlikely case of stack overflow
+    // Heap allocated file manager.
     std::unique_ptr<Manager> ext_file = std::make_unique<Manager>();
     Explainer tell;
 
     bool debugging = true;
     bool valid_stand = false;
 
-    // Strings
     // const std::string filename = "CMakeLists.txt";
-    char project_name[64]; // Use character arrays for stability
+    char project_name[64];
     char exe_name[64];
     std::string declaration;
 
     // Shorts used to avoid unnecessary memory allocation
-    // These are recycled exactly once
+
     short major = 0;
     short minor = 0;
     short release = 0;
 
     short standard = 0;
+    // Integer used to avoid problematic char-style input.
     short yes_no = 0;
+
     short subdir_choice = 0;
 
     short num_sources = 0;
