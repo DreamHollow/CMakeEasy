@@ -1,9 +1,6 @@
 #include "Manager.hpp"
 #include <memory>
 
-// Most of the actual program is just explanation
-// Sorry about the mess - DH
-
 int main()
 {
     // Heap allocated file manager.
