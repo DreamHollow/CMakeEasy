@@ -48,5 +48,5 @@ Then to run CMakeEasy, enter:
 
 `./CMakeEasy`
 
-*If you're on Windows:*
+**If you're on Windows:**
 (Still working on this section, sorry!)
