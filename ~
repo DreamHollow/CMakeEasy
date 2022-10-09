@@ -1,6 +1,0 @@
-#1/bin/bash
-echo "Evaluating g++ settings..."
-if [[ -f g++ ]]
-then
-	echo "g++ is installed on your system."
-fi
