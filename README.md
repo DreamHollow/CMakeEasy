@@ -33,25 +33,20 @@ If you need to compile CMakeEasy, it should be done as follows.
 
 **If you're on Linux (Ubuntu/Debian):**
 Open up Terminal.
-Make sure you have the GNU C++ compiler (g++) installed. To check, use `g++ --version`
-If it doesn't tell you the g++ version, you don't have it installed.
+Make sure you have the GNU C++ compiler (g++) installed.
 
-Just install g++ along with it's build-essentials to get things rolling.
-`sudo apt install g++`
+The bash script included with the source code will check for a g++ installation, but if you aren't using standard directories then it won't work.
 
-then
-`sudo apt install build-essential`
+The included script 'compile.sh' can run with bash and automatically compile the program.
 
-Once that's done, you should be able to compile CMakeEasy from Terminal using the GNU compiler.
-To do that, you should enter:
+NOTICE: Be careful with shell files in general.
+They can directly execute commands through your Linux terminal.
 
-`g++ -o CMakeEasy Main.cpp Manager.cpp`
+To compile, run `bash compile.sh`
 
-Then to run it, enter:
+Then to run CMakeEasy, enter:
 
 `./CMakeEasy`
-
-GNU's built in Bash shell should automatically run the program on the Terminal.
 
 *If you're on Windows:*
 (Still working on this section, sorry!)
