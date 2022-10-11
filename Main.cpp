@@ -1,5 +1,6 @@
 #include "Manager.hpp"
 #include <memory>
+#include <vector>
 
 int main()
 {
@@ -10,10 +11,10 @@ int main()
     bool debugging = true;
     bool valid_stand = false;
 
-    // const std::string filename = "CMakeLists.txt";
     char project_name[64];
     char exe_name[64];
     std::string declaration;
+    std::vector<std::string> class_names;
 
     // Shorts used to avoid unnecessary memory allocation
 
@@ -177,6 +178,8 @@ int main()
 
     ext_file->write("\n"); // Formats next line no matter what
 
+    yes_no = 0; // Reset the variable
+
     if(debugging)
     {
         std::cout << "\n";
@@ -302,109 +305,84 @@ int main()
 
     std::cout << "\n";
 
-    num_sources = 1; // Required
+    bool more_files = false;
+    short how_many = 0;
+    const std::string format = ".cpp";
+    std::string class_name;
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     std::cin.ignore();
     std::cin.getline(exe_name, 64);
 
-    std::cout << "\n";
-
     ext_file->write("add_executable(${PROJECT_NAME}");
     ext_file->write(" ");
     ext_file->write(exe_name);
-    // Extra files - TODO
-    ext_file->write(")");
-
-    ext_file->write("\n");
 
     if(tell.entry_fail() != 0)
     {
         return 1;
     }
 
-    // Enter more necessary files
-    // - TODO
-
-    if(debugging)
-    {
-        std::cout << "DEBUG:" << "\n";
-        std::cout << "Line in file should read as" << "\n";
-        std::cout << "add_executable(${PROJECT_NAME} ";
-        std::cout << exe_name;
-        std::cout << ")" << "\n";
-    }
-
-    // Set the subdirectories
-
-    /*
-    std::cout << "Will you use any subdirectories for your program?" << "\n";
-    std::cout << "1. I will use subdirectories." << "\n";
-    std::cout << "2. I will not be using subdirectories." << "\n";
-    std::cout << "Your choice: ";
-    std::cin >> subdir_choice;
-
-    if(tell.entry_fail() != 0)
-    {
-        return 1;
-    }
-
+    std::cout << "If your program is using classes, please add your class files." << "\n";
+    std::cout << "The program will loop entry until you specify that you are done." << "\n";
     std::cout << "\n";
 
-    switch(subdir)
-    {
-        case 1:
-        {
-            break;
-        }
-        case 2:
-        {
-            std::cout << "No subdirectories will be added." << "\n";
-            std::cout << "Skipping to next section." << "\n";
-            std::cout << "\n";
-            break;
-        }
-        default:
-        {
-            std::cout << "This is not a valid choice." << "\n";
-            std::cout << "No subdirectories will be added." << "\n";
-            std::cout << "\n";
-            break;
-        }
-    }
+    more_files = true; // Force first loop
 
+    while(more_files == true)
+    {
+        std::cout << "If you have no additional files to include, please enter '!none' instead." << "\n";
+        std::cout << "\n";
+        std::cout << "Please enter any additional class names. (example: Class.cpp)" << "\n";
+        std::cout << "Your next class file: ";
+
+        // Input class name
+        std::cin >> class_name;
+
+        if(tell.entry_fail() != 0)
+        {
+            return 1;
+        }
+
+        if(class_name == "!none")
+        {
+            std::cout << "\n";
+            std::cout << "No additional class names will be added." << "\n";
+            std::cout << "\n";
+
+            class_name.clear();
+
+            more_files = false;
+        }
+
+        // If the C Plus Plus identifier is not found
+        if(!class_name.find(format) != std::string::npos)
+        {
+            if(!class_name.empty())
+            {
+                std::cout << "\n";
+                std::cout << "Your class file is missing a suffix of .cpp" << "\n";
+                std::cout << "Appending suffix..." << "\n";
+
+                class_name.append(".cpp");
+                std::cout << "Proper file syntax created: " << class_name << "\n";
+                std::cout << "\n";
+            }
+        }
+        
+        class_names.push_back(class_name);
+
+        ext_file->write(" ");
+        ext_file->write(class_name);
+        how_many += 1;
+
+        class_name.erase();
+    }    
+
+    ext_file->write(")"); // Close executable entry
     ext_file->write("\n");
-    */
 
-    // Set the libraries
-
-    /*
-
-    bool more_libs = false;
-    
-    std::cout << "Would you like to link a library or libraries?" << "\n";
-    std::cout << "1. Yes, I would like to add a library or multiple libraries." << "\n";
-    std::cout << "2. No, I don't need to add any libraries." << "\n";
-    std::cout << "\n";
-    std::cout << "Your choice: ";
-    std::cin >> yes_no;
-
-    if(tell.entry_fail() != 0)
-    {
-        return 1;
-    }
-
-    switch(yes_no)
-    {
-        case 1:
-        break;
-        case 2:
-        break;
-        default:
-        break;
-    }
-
-    */
+    // Set the libraries and dependencies - TODO
 
     if(debugging)
     {
@@ -414,6 +392,9 @@ int main()
         std::cout << "DEBUG:" << "\n";
         std::cout << "Reached end of program." << "\n";
     }
+
+    class_names.clear();
+    class_names.shrink_to_fit();
 
     return 0;
 };

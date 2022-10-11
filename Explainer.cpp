@@ -23,7 +23,7 @@ void Explainer::start()
     std::cout << "Please keep in mind that incorrect inputs will force the program to" << "\n";
     std::cout << "terminate prematurely." << "\n";
     std::cout << "\n";
-    std::cout << "Please keep in mind that this version of CMakeEasy works exclusively for" << "\n";
+    std::cout << "This version of CMakeEasy works exclusively for" << "\n";
     std::cout << "configuring CMake to work with C++ files." << "\n";
     std::cout << "\n";
     std::cout << "You will be asked what version of CMake you are using." << "\n";
