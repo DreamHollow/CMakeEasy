@@ -21,8 +21,8 @@ The program's design is extremely simple.
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
 
 **CMakeEasy is confirmed to work on a very basic level as of now.
-If you have difficulties compiling your program, please raise an issue to the
-CMakeEasy team.**
+
+If you have difficulties compiling your program, please raise an issue to the CMakeEasy team.**
 
 This program currently has no dependencies and should work fine if all the relevant files are included.
 
