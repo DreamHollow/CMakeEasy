@@ -16,6 +16,10 @@ void Explainer::start()
     std::cout << "This generator will help further simplify CMakeLists.txt generation" << "\n";
     std::cout << "for inexperienced users." << "\n";
     std::cout << "\n";
+    std::cout << "This program will not tell you how to use CMake. Learning proper CMake" << "\n";
+    std::cout << "usage requires that you read the documentation at " << "\n";
+    std::cout << "https://cmake.org/documentation/" << "\n";
+    std::cout << "\n";
     std::cout << "Please keep in mind that incorrect inputs will force the program to" << "\n";
     std::cout << "terminate prematurely." << "\n";
     std::cout << "\n";
@@ -29,6 +33,28 @@ void Explainer::start()
     std::cout << "What is the major version of CMake that you are using?" << "\n";
     std::cout << "Example: [3].24.2" << "\n";
     std::cout << "\n";
+};
+
+void Explainer::minor_vers()
+{
+    std::cout << "\n";
+    std::cout << "What is the minor version of CMake that you are using?" << "\n";
+    std::cout << "Example: 3.[24].2" << "\n";
+    std::cout << "\n";
+};
+
+void Explainer::release_vers()
+{
+    std::cout << "\n";
+    std::cout << "What is the release version of CMake that you are using?" << "\n";
+    std::cout << "Example: 3.24.[2]" << "\n";
+};
+
+void Explainer::program_vers()
+{
+    std::cout << "Would you like to add a program version? Example: project(MyProgram VERSION 1.0)" << "\n";
+    std::cout << "1. Yes, add a version number." << "\n";
+    std::cout << "2. No, leave as-is." << "\n";
 };
 
 void Explainer::standard()

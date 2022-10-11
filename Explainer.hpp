@@ -13,6 +13,9 @@ public:
 
     // Public Functions
     void start();
+    void minor_vers();
+    void release_vers();
+    void program_vers();
     void standard();
     void source();
     int entry_fail();

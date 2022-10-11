@@ -42,9 +42,8 @@ int main()
 
     // Version numbering (CMake)
 
-    std::cout << "\n";
-    std::cout << "What is the minor version of CMake that you are using?" << "\n";
-    std::cout << "Example: 3.[24].2" << "\n";
+    tell.minor_vers();
+
     std::cout << "Your version: ";
     std::cin >> minor;
 
@@ -53,9 +52,8 @@ int main()
         return 1;
     }
 
-    std::cout << "\n";
-    std::cout << "What is the release version of CMake that you are using?" << "\n";
-    std::cout << "Example: 3.24.[2]" << "\n";
+    tell.release_vers();
+
     std::cout << "Your version: ";
     std::cin >> release;
 
@@ -120,9 +118,8 @@ int main()
     major = 0;
     minor = 0;
 
-    std::cout << "Would you like to add a program version? Example: project(MyProgram VERSION 1.0)" << "\n";
-    std::cout << "1. Yes, add a version number." << "\n";
-    std::cout << "2. No, leave as-is." << "\n";
+    tell.program_vers();
+    
     std::cout << "Your choice: ";
     std::cin >> yes_no;
 
