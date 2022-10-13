@@ -4,14 +4,14 @@ if [[ -f /usr/bin/g++ ]];
 then
 	echo "g++ is installed on your system."
 	echo "Starting compile..."
-	if [[ -f CMakeEasy ]]
+	if [[ -f CMakeEasyApp ]]
 	then
 		echo "CMakeEasy has already been compiled!"
 		echo "Starting recompile..."
-		g++ -o CMakeEasy Main.cpp Explainer.cpp Manager.cpp
+		g++ -o CMakeEasyApp Main.cpp Explainer.cpp Manager.cpp
 		echo "Compile operation complete."
 	else
-	g++ -o CMakeEasy Main.cpp Explainer.cpp Manager.cpp
+	g++ -o CMakeEasyApp Main.cpp Explainer.cpp Manager.cpp
 	echo "Compile operation complete."
 	fi
 else
