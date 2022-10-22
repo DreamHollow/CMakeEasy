@@ -4,4 +4,5 @@
 *.out
 *.o
 *.vscode
-CMakeEasyApp
+
+/bin/build

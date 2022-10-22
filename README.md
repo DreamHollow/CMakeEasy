@@ -5,7 +5,9 @@ IMPORTANT NOTICE
 ----------------
 
 This is an in-progress program so not all of the features are finished and it's impossible to know what the final release will look like.
+
 As per the Unlicense, you can do whatever you want with this code.
+It is completely in the public domain.
 
 **CMakeEasy has 'CMake' in the name but is NOT directly attributed to or endorsed by the CMake developers.**
 
