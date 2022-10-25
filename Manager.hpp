@@ -2,6 +2,7 @@
 #define MANAGER_HPP
 
 #include <fstream>
+#include <filesystem>
 #include "Explainer.hpp"
 
 /// @brief File manager. Designed to input or output file data

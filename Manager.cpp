@@ -16,8 +16,22 @@ void Manager::init_file()
 
   if(!this->file.is_open())
   {
-    this->file.open(file_name);
+    try
+    {
+      std::cout << "Initializing file settings..." << "\n";
+      this->file.open(file_name);
 
+      if(file.fail())
+      {
+        std::cout << "The CMakeLists.txt file could not be edited." << "\n";
+        throw "Bad CMakeLists directory argument.";
+      }
+    }
+    catch(const std::exception& e)
+    {
+      std::cerr << e.what() << '\n';
+    }
+    
     std::cout << "\n";
     std::cout << file_name << " is ready to be modified." << "\n";
     std::cout << "\n";

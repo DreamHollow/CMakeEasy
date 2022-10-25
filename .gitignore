@@ -5,4 +5,5 @@
 *.o
 *.vscode
 
-/bin/build
+bin/build/
+DEBIAN/

@@ -4,12 +4,12 @@
 
 int main()
 {
-    // Heap allocated file manager.
+    // Heap allocated file manager. Just in case.
     std::unique_ptr<Manager> ext_file = std::make_unique<Manager>();
     Explainer tell;
 
     bool debugging = true;
-    bool valid_stand = false;
+    bool valid_standard = false;
 
     char project_name[64];
     char exe_name[64];
@@ -220,7 +220,7 @@ int main()
     {
         case 0:
         {
-            valid_stand = false;
+            valid_standard = false;
 
             std::cout << "This is not a valid choice." << "\n";
             std::cout << "Your standard will be configured to the default." << "\n";
@@ -236,7 +236,7 @@ int main()
         }
         case 1:
         {
-            valid_stand = true;
+            valid_standard = true;
 
             std::cout << "Configuring file for C++20 standards..." << "\n";
             declaration = "CMAKE_CXX_STANDARD 20";
@@ -244,7 +244,7 @@ int main()
         }
         case 2:
         {
-            valid_stand = true;
+            valid_standard = true;
 
             std::cout << "Configuring file for C++17 standards..." << "\n";
             declaration = "CMAKE_CXX_STANDARD 17";
@@ -252,7 +252,7 @@ int main()
         }
         case 3:
         {
-            valid_stand = true;
+            valid_standard = true;
 
             std::cout << "Configuring file for C++14 standards..." << "\n";
             declaration = "CMAKE_CXX_STANDARD 14";
@@ -260,14 +260,14 @@ int main()
         }
         case 4:
         {
-            valid_stand = false;
+            valid_standard = false;
 
             std::cout << "Standards not set; default C++ standards will be implemented." << "\n";
             break;
         }
         default:
         {
-            valid_stand = false;
+            valid_standard = false;
 
             std::cout << "The provided input is not part of the existing list." << "\n";
             std::cout << "Standards not set; default C++ standards will be implemented." << "\n";
@@ -275,7 +275,7 @@ int main()
         }
     }
 
-    if(valid_stand)
+    if(valid_standard)
     {
         ext_file->write("set(");
         ext_file->write(declaration);
@@ -285,7 +285,7 @@ int main()
 
     if(debugging)
     {
-        if(valid_stand)
+        if(valid_standard)
         {
             std::cout << "DEBUG:" << "\n";
             std::cout << "Line in file should read as" << "\n";

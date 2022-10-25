@@ -37,22 +37,39 @@ COMPILATION
 
 If you need to compile CMakeEasy, it should be done as follows.
 
-**If you're on Linux (Ubuntu/Debian):**
-Open up Terminal.
-Make sure you have the GNU C++ compiler (g++) installed.
+*** If you're on Linux ***
+AS OF OCTOBER 2022 -
+CMakeEasy can now be compiled with CMake itself.
 
-The bash script included with the source code will check for a g++ installation, but if you aren't using standard directories then it won't work.
+This can be a bit confusing due to the nature of the program, so here's a detailed explanation to prevent confusion.
 
-The included script 'compile.sh' can run with bash and automatically compile the program.
+The CMakeLists.txt file that you use to compile CMakeEasy should remain in the primary folder; it is not the file you generate with the program.
 
-NOTICE: Be careful with shell files in general.
-They can directly execute commands through your Linux terminal.
+When you run the program and a CMakeLists.txt file appears in the 'bin/build' folder, that is a different CMakeLists.txt file you created with CMakeEasy.
 
-To compile, run `bash compile.sh`
+---
 
-Then to run CMakeEasy, enter:
+Make sure you have CMake installed and make sure you have the original CMakeLists.txt file that came with the git repo.
+
+If you get confused about which one that is, make sure it says the project name is "CMakeEasy VERSION 1.0"
+
+Once you're sure you have the right one, just open up a Terminal in your CMakeEasy folder.
+
+Enter:
+`cd bin`
+`mkdir build`
+
+Once your build folder is created, go back to your original CMakeEasy folder.
+
+Then enter:
+`cmake -S . -B bin/build`
+
+Go to your bin/build folder and run make:
+`make`
+
+If everything was done correctly, CMakeEasy should exist as an executable in your CMakeEasy/bin/build folder.
+
+Then to run CMakeEasy, open up the build folder and start a Terminal.
+Then use the following command:
 
 `./CMakeEasy`
-
-**If you're on Windows:**
-(Still working on this section, sorry!)
