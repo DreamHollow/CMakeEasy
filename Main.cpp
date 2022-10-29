@@ -6,7 +6,7 @@ int main()
 {
     // Heap allocated file manager. Just in case.
     std::unique_ptr<Manager> ext_file = std::make_unique<Manager>();
-    Explainer tell;
+    AltString text_mod;
 
     bool debugging = true;
     bool valid_standard = false;
@@ -31,34 +31,34 @@ int main()
     short num_sources = 0;
     short subdir = 0;
 
-    tell.start();
+    text_mod.start();
 
     std::cout << "Your version: ";
     std::cin >> major;
 
-    if(tell.entry_fail() != 0)
+    if(text_mod.entry_fail() != 0)
     {
         return 1;
     }
 
     // Version numbering (CMake)
 
-    tell.minor_vers();
+    text_mod.minor_vers();
 
     std::cout << "Your version: ";
     std::cin >> minor;
 
-    if(tell.entry_fail() != 0)
+    if(text_mod.entry_fail() != 0)
     {
         return 1;
     }
 
-    tell.release_vers();
+    text_mod.release_vers();
 
     std::cout << "Your version: ";
     std::cin >> release;
 
-    if(tell.entry_fail() != 0)
+    if(text_mod.entry_fail() != 0)
     {
         return 1;
     }
@@ -103,7 +103,7 @@ int main()
     std::cin.ignore();
     std::cin.getline(project_name,64);
 
-    if(tell.entry_fail() != 0)
+    if(text_mod.entry_fail() != 0)
     {
         return 1;
     }
@@ -119,26 +119,27 @@ int main()
     major = 0;
     minor = 0;
 
-    tell.program_vers();
+    text_mod.program_vers();
     
     std::cout << "Your choice: ";
     std::cin >> yes_no;
 
     std::cout << "\n";
 
-    if(tell.entry_fail() != 0)
+    if(text_mod.entry_fail() != 0)
     {
         return 1;
     }
 
-    if(yes_no == 1)
+    switch(yes_no)
     {
+        case 1:
         std::cout << "Please enter the major version number for your program." << "\n";
         std::cout << "Example: [1].0" << "\n";
         std::cout << "Your version: ";
         std::cin >> major;
 
-        if(tell.entry_fail() != 0)
+        if(text_mod.entry_fail() != 0)
         {
             return 1;
         }
@@ -148,7 +149,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> minor;
 
-        if(tell.entry_fail() != 0)
+        if(text_mod.entry_fail() != 0)
         {
             return 1;
         }
@@ -161,19 +162,20 @@ int main()
         ext_file->write(")");
 
         std::cout << "\n";
-    }
-    else if(yes_no == 2)
-    {
+        break;
+
+        case 2:
         std::cout << "Understood. No version number will be added to your program build at this time." << "\n";
         std::cout << "\n";
 
         ext_file->write(")");
-    }
-    else
-    {
+        break;
+        
+        default:
         std::cout << "Sorry, that is not a valid list choice." << "\n";
         std::cout << "Defaulting to choice 2, no program version will be added." << "\n";
         std::cout << "\n";
+        break;
     }
 
     ext_file->write("\n"); // Formats next line no matter what
@@ -201,7 +203,7 @@ int main()
 
     // Setting modern C++ standards
 
-    tell.standard();
+    text_mod.standard();
     
     std::cout << "Your standard: ";
     std::cin.clear();
@@ -209,7 +211,7 @@ int main()
 
     std::cout << "\n";
 
-    if(tell.entry_fail() != 0)
+    if(text_mod.entry_fail() != 0)
     {
         return 1;
     }
@@ -301,7 +303,7 @@ int main()
 
     std::cout << "\n";
 
-    tell.source();
+    text_mod.source();
 
     std::cout << "\n";
 
@@ -318,7 +320,7 @@ int main()
     ext_file->write(" ");
     ext_file->write(exe_name);
 
-    if(tell.entry_fail() != 0)
+    if(text_mod.entry_fail() != 0)
     {
         return 1;
     }
@@ -339,7 +341,7 @@ int main()
         // Input class name
         std::cin >> class_name;
 
-        if(tell.entry_fail() != 0)
+        if(text_mod.entry_fail() != 0)
         {
             return 1;
         }

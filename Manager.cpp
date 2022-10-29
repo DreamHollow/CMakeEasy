@@ -31,10 +31,13 @@ void Manager::init_file()
     {
       std::cerr << e.what() << '\n';
     }
-    
-    std::cout << "\n";
-    std::cout << file_name << " is ready to be modified." << "\n";
-    std::cout << "\n";
+
+    if(file.good())
+    {
+      std::cout << "\n";
+      std::cout << file_name << " is ready to be modified." << "\n";
+      std::cout << "\n";
+    }
   }
 };
 

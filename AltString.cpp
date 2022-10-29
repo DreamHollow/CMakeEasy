@@ -1,16 +1,23 @@
-#include "Explainer.hpp"
+#include "AltString.hpp"
 
-Explainer::Explainer()
+AltString::AltString()
 {
 
 };
 
-Explainer::~Explainer()
+AltString::~AltString()
 {
 
 };
 
-void Explainer::start()
+void AltString::init_vars()
+{
+    this->is_command = false;
+};
+
+/// @brief Displays at the very beginning of the program.
+/// It functions as a welcome screen and documentation reference.
+void AltString::start()
 {
     std::cout << "Welcome to the CMakeLists all-purpose generator!" << "\n";
     std::cout << "This generator will help further simplify CMakeLists.txt generation" << "\n";
@@ -35,7 +42,7 @@ void Explainer::start()
     std::cout << "\n";
 };
 
-void Explainer::minor_vers()
+void AltString::minor_vers()
 {
     std::cout << "\n";
     std::cout << "What is the minor version of CMake that you are using?" << "\n";
@@ -43,21 +50,22 @@ void Explainer::minor_vers()
     std::cout << "\n";
 };
 
-void Explainer::release_vers()
+void AltString::release_vers()
 {
     std::cout << "\n";
     std::cout << "What is the release version of CMake that you are using?" << "\n";
     std::cout << "Example: 3.24.[2]" << "\n";
 };
 
-void Explainer::program_vers()
+void AltString::program_vers()
 {
     std::cout << "Would you like to add a program version? Example: project(MyProgram VERSION 1.0)" << "\n";
     std::cout << "1. Yes, add a version number." << "\n";
     std::cout << "2. No, leave as-is." << "\n";
 };
 
-void Explainer::standard()
+/// @brief Displays most recent C++ Standards.
+void AltString::standard()
 {
     std::cout << "Please set the standard for your C++ application." << "\n";
     std::cout << "\n";
@@ -70,7 +78,8 @@ void Explainer::standard()
     std::cout << "4. Not following standard, N/A" << "\n";
 };
 
-void Explainer::source()
+/// @brief Displays information about source files, including class inputs.
+void AltString::source()
 {
     std::cout << "Please set the 'source files' that allow your program to run." << "\n";
     std::cout << "Source files are necessary for your program to run." << "\n";
@@ -78,10 +87,10 @@ void Explainer::source()
     std::cout << "Example: main.cpp" << "\n";
 };
 
-/// @brief Checks input. It will force the program to stop
+/// @brief Checks iostream input. It will force the program to stop
 /// if the input fails or doesn't match the type.
 /// @return Success (0) or Failure (1)
-int Explainer::entry_fail()
+int AltString::entry_fail()
 {
     if(std::cin.fail())
     {

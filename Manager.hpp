@@ -3,11 +3,10 @@
 
 #include <fstream>
 #include <filesystem>
-#include "Explainer.hpp"
+#include "AltString.hpp"
 
 /// @brief File manager. Designed to input or output file data
 /// as needed, usually through simple read-write directives.
-
 class Manager
 {
 public:
