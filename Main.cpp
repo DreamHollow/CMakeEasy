@@ -11,8 +11,9 @@ int main()
     bool debugging = true;
     bool valid_standard = false;
 
-    char project_name[64];
-    char exe_name[64];
+    char project_name[32];
+    char exe_name[32];
+    std::string temp;
     std::string declaration;
     std::vector<std::string> class_names;
 
@@ -97,11 +98,11 @@ int main()
     std::cout << "\n";
     std::cout << "Please enter the name of the project that you are trying to create." << "\n";
     std::cout << "\n";
-    std::cout << "The input will only handle up to 64 characters, please don't abuse it!" << "\n";
+    std::cout << "The input will only handle up to 32 characters, please don't abuse it!" << "\n";
     std::cout << "\n";
     std::cout << "Your project name: ";
     std::cin.ignore();
-    std::cin.getline(project_name,64);
+    std::cin.getline(project_name,32);
 
     if(text_mod.entry_fail() != 0)
     {
@@ -314,7 +315,17 @@ int main()
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     std::cin.ignore();
-    std::cin.getline(exe_name, 64);
+    std::cin.getline(exe_name, 32);
+
+    // Check array via string
+    temp = exe_name;
+
+    // if(text_mod.array_fail(temp.size(),32))
+    // {
+    //    return 1;
+    // }
+
+    temp.clear();
 
     ext_file->write("add_executable(${PROJECT_NAME}");
     ext_file->write(" ");
@@ -390,6 +401,8 @@ int main()
     {
         std::cout << "\n";
         std::cout << "DEBUG: File closed." << "\n";
+        std::cout << "\n";
+        std::cout << "DEBUG: Memory objects wiped." << "\n";
         std::cout << "\n";
         std::cout << "DEBUG:" << "\n";
         std::cout << "Reached end of program." << "\n";

@@ -37,7 +37,6 @@ COMPILATION
 
 If you need to compile CMakeEasy, it should be done as follows.
 
-*** If you're on Linux ***
 AS OF OCTOBER 2022 -
 CMakeEasy can now be compiled with CMake itself.
 
@@ -66,6 +65,8 @@ Then enter:
 
 Go to your bin/build folder and run make:
 `make`
+
+*** If you're on Linux: ***
 
 If everything was done correctly, CMakeEasy should exist as an executable in your CMakeEasy/bin/build folder.
 

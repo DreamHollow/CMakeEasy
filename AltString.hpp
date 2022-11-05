@@ -20,6 +20,7 @@ public:
 
     // Entry Detection
     int entry_fail();
+    // int array_fail(int length, int max);
     // void string_entry(std::string s_input);
 
 private:

@@ -95,13 +95,16 @@ int AltString::entry_fail()
     if(std::cin.fail())
     {
         std::cout << "\n";
+        std::cout << "-- ERROR: INVALID INPUT --" << "\n";
+        std::cout << "\n";
         std::cout << "Sorry, the program encountered an error." << "\n";
         std::cout << "This error message is encountered if input was considered unsafe" << "\n";
         std::cout << "for the program to process." << "\n";
         std::cout << "\n";
         std::cout << "If you don't understand why you have this error," << "\n";
-        std::cout << "please report the error to the developer at their" << "\n";
-        std::cout << "primary contact address." << "\n";
+        std::cout << "please raise an issue on the Github repository." << "\n";
+        std::cout << "\n";
+        std::cout << "Thank you." << "\n";
         std::cout << "\n";
 
         return 1; // Input error
@@ -109,3 +112,37 @@ int AltString::entry_fail()
 
     return 0; // Continue
 };
+
+// Not sure if this is even necessary, entry_fail seems to catch most errors.
+
+/*
+
+/// @brief Checks a string length to determine if the input is too large.
+/// @param length 
+/// @param max 
+/// @return 
+int AltString::array_fail(int length, int max)
+{
+    if(length > max)
+    {
+        std::cout << "-- ERROR: INVALID ARRAY --" << "\n";
+        std::cout << "\n";
+        std::cout << "Sorry, but the data you have entered is" << "\n";
+        std::cout << "too big for the input buffer." << "\n";
+        std::cout << "\n";
+        std::cout << "Specific sizes are mentioned before input" << "\n";
+        std::cout << "to prevent buffer/array overflow." << "\n";
+        std::cout << "\n";
+        std::cout << "If you continue to have this problem," << "\n";
+        std::cout << "please contact the development team." << "\n";
+        std::cout << "\n";
+        std::cout << "This program will now terminate." << "\n";
+
+        return 1;
+    }
+
+    // If the array length is less than the max size of the array
+    return 0;
+};
+
+*/
