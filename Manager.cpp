@@ -14,6 +14,8 @@ void Manager::init_file()
 {
   this->debug = true;
 
+  // This catch-all should really be left in for worst-case file writing scenarios.
+
   if(!this->file.is_open())
   {
     try
@@ -24,6 +26,7 @@ void Manager::init_file()
       if(file.fail())
       {
         std::cout << "The CMakeLists.txt file could not be edited." << "\n";
+        std::cout << "An error occurred: 'Bad CMakeLists argument'." << "\n";
         throw "Bad CMakeLists directory argument.";
       }
     }
@@ -41,12 +44,13 @@ void Manager::init_file()
   }
 };
 
+// Writes char arrays and strings.
 void Manager::write(std::string context)
 {
   file << context;
 };
 
-// For writing numbers to string
+// Writes int values as strings.
 void Manager::write(int num)
 {
   std::string s = std::to_string(num);

@@ -1,5 +1,7 @@
 #include "AltString.hpp"
 
+// Potential TODO: Convert all void functions into large void function with switch statement.
+
 AltString::AltString()
 {
 
@@ -42,6 +44,7 @@ void AltString::start()
     std::cout << "\n";
 };
 
+// Setting CMake minor version
 void AltString::minor_vers()
 {
     std::cout << "\n";
@@ -50,6 +53,7 @@ void AltString::minor_vers()
     std::cout << "\n";
 };
 
+// Setting CMake release version
 void AltString::release_vers()
 {
     std::cout << "\n";
@@ -57,11 +61,30 @@ void AltString::release_vers()
     std::cout << "Example: 3.24.[2]" << "\n";
 };
 
+// Setting Program Version
 void AltString::program_vers()
 {
     std::cout << "Would you like to add a program version? Example: project(MyProgram VERSION 1.0)" << "\n";
     std::cout << "1. Yes, add a version number." << "\n";
     std::cout << "2. No, leave as-is." << "\n";
+};
+
+void AltString::program_lang()
+{
+    std::cout << "Because this version of CMakeEasy is designed for C++ context," << "\n";
+    std::cout << "The 'LANGUAGES' setting will be automatically set to 'CXX'." << "\n";
+};
+
+// Package Finding
+void AltString::package()
+{
+    std::cout << "";
+};
+
+// Operating System Explanation
+void AltString::op_sys()
+{
+    std::cout << "";
 };
 
 /// @brief Displays most recent C++ Standards.
@@ -90,13 +113,23 @@ void AltString::source()
 /// @brief Checks iostream input. It will force the program to stop
 /// if the input fails or doesn't match the type.
 /// @return Success (0) or Failure (1)
-int AltString::entry_fail()
+int AltString::entry_fail(bool is_array)
 {
     if(std::cin.fail())
     {
         std::cout << "\n";
         std::cout << "-- ERROR: INVALID INPUT --" << "\n";
         std::cout << "\n";
+
+        if(is_array)
+        {
+            std::cout << "-- ERROR: ARRAY FAILURE -- " << "\n";
+
+            std::cout << "An error occurred while entering data into a char array." << "\n";
+            std::cout << "Either the wrong data or too much data was entered." << "\n";
+            std::cout << "\n";
+        }
+
         std::cout << "Sorry, the program encountered an error." << "\n";
         std::cout << "This error message is encountered if input was considered unsafe" << "\n";
         std::cout << "for the program to process." << "\n";
@@ -112,37 +145,3 @@ int AltString::entry_fail()
 
     return 0; // Continue
 };
-
-// Not sure if this is even necessary, entry_fail seems to catch most errors.
-
-/*
-
-/// @brief Checks a string length to determine if the input is too large.
-/// @param length 
-/// @param max 
-/// @return 
-int AltString::array_fail(int length, int max)
-{
-    if(length > max)
-    {
-        std::cout << "-- ERROR: INVALID ARRAY --" << "\n";
-        std::cout << "\n";
-        std::cout << "Sorry, but the data you have entered is" << "\n";
-        std::cout << "too big for the input buffer." << "\n";
-        std::cout << "\n";
-        std::cout << "Specific sizes are mentioned before input" << "\n";
-        std::cout << "to prevent buffer/array overflow." << "\n";
-        std::cout << "\n";
-        std::cout << "If you continue to have this problem," << "\n";
-        std::cout << "please contact the development team." << "\n";
-        std::cout << "\n";
-        std::cout << "This program will now terminate." << "\n";
-
-        return 1;
-    }
-
-    // If the array length is less than the max size of the array
-    return 0;
-};
-
-*/

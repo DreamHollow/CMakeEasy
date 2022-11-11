@@ -15,17 +15,19 @@ public:
     void minor_vers();
     void release_vers();
     void program_vers();
+    void program_lang();
+    void package();
+    void op_sys();
     void standard();
     void source();
 
     // Entry Detection
-    int entry_fail();
-    // int array_fail(int length, int max);
-    // void string_entry(std::string s_input);
+    int entry_fail(bool is_array);
 
 private:
     // Variables
     bool is_command;
+    // char store[32];
 
     // Init
     void init_vars();

@@ -13,7 +13,11 @@ int main()
 
     char project_name[32];
     char exe_name[32];
-    std::string temp;
+
+    // std::string temp_package;
+
+    char package_name[32];
+
     std::string declaration;
     std::vector<std::string> class_names;
 
@@ -37,7 +41,7 @@ int main()
     std::cout << "Your version: ";
     std::cin >> major;
 
-    if(text_mod.entry_fail() != 0)
+    if(text_mod.entry_fail(false) != 0)
     {
         return 1;
     }
@@ -49,7 +53,7 @@ int main()
     std::cout << "Your version: ";
     std::cin >> minor;
 
-    if(text_mod.entry_fail() != 0)
+    if(text_mod.entry_fail(false) != 0)
     {
         return 1;
     }
@@ -59,7 +63,7 @@ int main()
     std::cout << "Your version: ";
     std::cin >> release;
 
-    if(text_mod.entry_fail() != 0)
+    if(text_mod.entry_fail(false) != 0)
     {
         return 1;
     }
@@ -104,7 +108,7 @@ int main()
     std::cin.ignore();
     std::cin.getline(project_name,32);
 
-    if(text_mod.entry_fail() != 0)
+    if(text_mod.entry_fail(true) != 0)
     {
         return 1;
     }
@@ -127,7 +131,7 @@ int main()
 
     std::cout << "\n";
 
-    if(text_mod.entry_fail() != 0)
+    if(text_mod.entry_fail(false) != 0)
     {
         return 1;
     }
@@ -140,7 +144,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> major;
 
-        if(text_mod.entry_fail() != 0)
+        if(text_mod.entry_fail(false) != 0)
         {
             return 1;
         }
@@ -150,7 +154,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> minor;
 
-        if(text_mod.entry_fail() != 0)
+        if(text_mod.entry_fail(false) != 0)
         {
             return 1;
         }
@@ -160,7 +164,7 @@ int main()
         ext_file->write(major);
         ext_file->write(".");
         ext_file->write(minor);
-        ext_file->write(")");
+        // ext_file->write(")");
 
         std::cout << "\n";
         break;
@@ -169,7 +173,7 @@ int main()
         std::cout << "Understood. No version number will be added to your program build at this time." << "\n";
         std::cout << "\n";
 
-        ext_file->write(")");
+        // ext_file->write(")");
         break;
         
         default:
@@ -179,28 +183,39 @@ int main()
         break;
     }
 
-    ext_file->write("\n"); // Formats next line no matter what
-
     yes_no = 0; // Reset the variable
+
+    // Declaring Program Language Format
+
+    std::cout << "\n";
+    text_mod.program_lang();
+
+    ext_file->write(" LANGUAGES CXX");
+    ext_file->write(")");
+    ext_file->write("\n");
 
     if(debugging)
     {
-        std::cout << "\n";
-        std::cout << "DEBUG:" << "\n";
-        std::cout << "Line in file should read as" << "\n";
+        std::cout << "Line should read as: " << "\n";
         std::cout << "'project(" << project_name;
 
-        if(major != 0 || minor != 0)
+        if(major && minor != 0)
         {
-            std::cout << " ";
-            std::cout << "VERSION " << major << "." << minor << ")";
+            std::cout << "VERSION " << major << "." << minor;
         }
-        else
-        {
-            std::cout << ")'";
-        }
+
+        std::cout << "LANGUAGES CXX)";
+        std::cout << "\n";
         std::cout << "\n";
     }
+
+    // Finding Packages (may need several invokes)
+
+    text_mod.package();
+
+    // Setting operating system procedures
+
+    text_mod.op_sys();
 
     // Setting modern C++ standards
 
@@ -212,7 +227,7 @@ int main()
 
     std::cout << "\n";
 
-    if(text_mod.entry_fail() != 0)
+    if(text_mod.entry_fail(false) != 0)
     {
         return 1;
     }
@@ -310,26 +325,21 @@ int main()
 
     bool more_files = false;
     short how_many = 0;
-    const std::string format = ".cpp";
+    // const std::string format = ".cpp";
     std::string class_name;
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     std::cin.ignore();
     std::cin.getline(exe_name, 32);
 
-    // Check array via string
-    temp = exe_name;
-
-    temp.clear();
+    if(text_mod.entry_fail(true) != 0)
+    {
+        return 1;
+    }
 
     ext_file->write("add_executable(${PROJECT_NAME}");
     ext_file->write(" ");
     ext_file->write(exe_name);
-
-    if(text_mod.entry_fail() != 0)
-    {
-        return 1;
-    }
 
     std::cout << "If your program is using classes, please add your class files." << "\n";
     std::cout << "The program will loop entry until you specify that you are done." << "\n";
@@ -347,7 +357,7 @@ int main()
         // Input class name
         std::cin >> class_name;
 
-        if(text_mod.entry_fail() != 0)
+        if(text_mod.entry_fail(false) != 0)
         {
             return 1;
         }
@@ -363,6 +373,7 @@ int main()
             more_files = false;
         }
 
+        /*
         // If the C Plus Plus identifier is not found
         if(!class_name.find(format) != std::string::npos)
         {
@@ -377,10 +388,14 @@ int main()
                 std::cout << "\n";
             }
         }
+        */
         
         class_names.push_back(class_name);
 
-        ext_file->write(" ");
+        if(more_files)
+        {
+            ext_file->write(" ");
+        }
         ext_file->write(class_name);
         how_many += 1;
 
@@ -391,6 +406,46 @@ int main()
     ext_file->write("\n");
 
     // Set the libraries and dependencies - TODO
+
+    yes_no = 0; // Reset var again
+
+    std::cout << "Would you like to promote CMakeEasy by" << "\n";
+    std::cout << "Adding an auto-generated comment to the end" << "\n";
+    std::cout << "of CMakeLists.txt?" << "\n";
+    std::cout << "\n";
+    std::cout << "1. I would like to promote this project." << "\n";
+    std::cout << "2. No, I don't want to promote this project." << "\n";
+    std::cout << "\n";
+    std::cout << "Your choice: ";
+    std::cin >> yes_no;
+
+    if(text_mod.entry_fail(false))
+    {
+        return 1;
+    }
+
+    switch(yes_no)
+    {
+        case 1:
+        std::cout << "Automatically generating comment..." << "\n";
+
+        ext_file->write("\n");
+        ext_file->write("# Auto-generated comment:\n");
+        ext_file->write("# Made with CMakeEasy.");
+        ext_file->write("\n");
+
+        std::cout << "\n";
+        std::cout << "Comment generated." << "\n";
+
+        break;
+        case 2:
+        std::cout << "Okay. No comment will be generated." << "\n";
+        break;
+        default:
+        std::cout << "Sorry, that is not a valid list choice." << "\n";
+        std::cout << "Defaulting to 'no'." << "\n";
+        break;
+    }
 
     if(debugging)
     {
