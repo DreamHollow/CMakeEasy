@@ -320,11 +320,6 @@ int main()
     // Check array via string
     temp = exe_name;
 
-    // if(text_mod.array_fail(temp.size(),32))
-    // {
-    //    return 1;
-    // }
-
     temp.clear();
 
     ext_file->write("add_executable(${PROJECT_NAME}");
