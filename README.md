@@ -54,12 +54,6 @@ If you get confused about which one that is, make sure it says the project name 
 
 Once you're sure you have the right one, just open up a Terminal in your CMakeEasy folder.
 
-Enter:
-`cd bin`
-`mkdir build`
-
-Once your build folder is created, go back to your original CMakeEasy folder.
-
 Then enter:
 `cmake -S . -B bin/build`
 
