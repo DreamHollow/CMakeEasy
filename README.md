@@ -68,3 +68,25 @@ Then to run CMakeEasy, open up the build folder and start a Terminal.
 Then use the following command:
 
 `./CMakeEasy`
+
+*** If you're on Windows: ***
+Download the Windows-friendly version of CMake at https://cmake.org/download
+To make things easy, just download the `Windows x64 Installer` and run the installation.
+
+During the installation process, you should make sure to include all the users that will be using CMake on the computer.
+`Add CMake to system PATH for all users`
+Creating a desktop icon is optional.
+
+After the installation completes, start the CMake GUI.
+Locate your CMakeEasy folder.
+
+Set your 'source' to CMakeEasy-master (or whatever it's named after you extract it.)
+Create a folder inside your main CMakeEasy folder and name it 'bin'.
+Set your 'binaries' to that folder.
+
+Make sure you configure CMake-GUI to the IDE/Compiler that you are using. Otherwise you will have an error.
+
+Configure the project. If no errors occur, proceed to the next step.
+Generate the project.
+
+A valid executable should compile and appear in the 'bin' folder.
