@@ -60,7 +60,7 @@ Then enter:
 Go to your bin/build folder and run make:
 `make`
 
-*** If you're on Linux: ***
+** If you're on Linux: **
 
 If everything was done correctly, CMakeEasy should exist as an executable in your CMakeEasy/bin/build folder.
 
@@ -69,7 +69,7 @@ Then use the following command:
 
 `./CMakeEasy`
 
-*** If you're on Windows: ***
+** If you're on Windows: **
 Download the Windows-friendly version of CMake at https://cmake.org/download
 To make things easy, just download the `Windows x64 Installer` and run the installation.
 
