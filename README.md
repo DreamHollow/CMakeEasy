@@ -20,6 +20,8 @@ HOW IT WORKS
 
 The program's design is extremely simple.
 
+CMakeEasy contains NO dependencies. Everything it needs is built-in directly.
+
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
 
 **CMakeEasy is confirmed to work on a very basic level as of now.
