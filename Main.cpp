@@ -14,11 +14,10 @@ int main()
     char project_name[32];
     char exe_name[32];
 
-    // std::string temp_package;
-
-    char package_name[32];
+    std::string package_name;
 
     std::string declaration;
+    std::vector<std::string> packages;
     std::vector<std::string> class_names;
 
     // Shorts used to avoid unnecessary memory allocation
@@ -31,10 +30,11 @@ int main()
     // Integer used to avoid problematic char-style input.
     short yes_no = 0;
 
-    short subdir_choice = 0;
+    // Subdirectories - TODO
 
-    short num_sources = 0;
-    short subdir = 0;
+    // short subdir_choice = 0;
+    // short num_sources = 0;
+    // short subdir = 0;
 
     text_mod.start();
 
@@ -213,6 +213,48 @@ int main()
 
     text_mod.package();
 
+    bool more_files = true;
+    short how_many = 0;
+
+    while(more_files)
+    {
+        std::cout << "If you have no additional packages to include, please enter '!none' instead." << "\n";
+        std::cout << "\n";
+        std::cout << "Please enter any additional package names (such as OpenGL)" << "\n";
+        std::cout << "Next package to find: ";
+
+        std::cin >> package_name;
+
+        if(text_mod.entry_fail(false) != 0)
+        {
+            return 1;
+        }
+
+        if(package_name == "!none")
+        {
+            std::cout << "\n";
+            std::cout << "No more package names to include." << "\n";
+            std::cout << "Ending entry sequence..." << "\n";
+            std::cout << "\n";
+
+            package_name.clear();
+
+            more_files = false; // Stays false until used later
+        };
+
+        if(!package_name.empty())
+        {
+            ext_file->write("find_package(");
+            ext_file->write(package_name);
+            ext_file->write(")");
+        }
+        // Packages are found line by line, so different from classes
+        
+        ext_file->write("\n");
+    }
+
+    // Setting necessary files (if applicable)
+
     // Setting operating system procedures
 
     text_mod.op_sys();
@@ -323,8 +365,7 @@ int main()
 
     std::cout << "\n";
 
-    bool more_files = false;
-    short how_many = 0;
+    how_many = 0;
     // const std::string format = ".cpp";
     std::string class_name;
 
@@ -347,7 +388,7 @@ int main()
 
     more_files = true; // Force first loop
 
-    while(more_files == true)
+    while(more_files)
     {
         std::cout << "If you have no additional files to include, please enter '!none' instead." << "\n";
         std::cout << "\n";
@@ -371,24 +412,7 @@ int main()
             class_name.clear();
 
             more_files = false;
-        }
-
-        /*
-        // If the C Plus Plus identifier is not found
-        if(!class_name.find(format) != std::string::npos)
-        {
-            if(!class_name.empty())
-            {
-                std::cout << "\n";
-                std::cout << "Your class file is missing a suffix of .cpp" << "\n";
-                std::cout << "Appending suffix..." << "\n";
-
-                class_name.append(".cpp");
-                std::cout << "Proper file syntax created: " << class_name << "\n";
-                std::cout << "\n";
-            }
-        }
-        */
+        };
         
         class_names.push_back(class_name);
 
@@ -460,6 +484,9 @@ int main()
 
     class_names.clear();
     class_names.shrink_to_fit();
+
+    packages.clear();
+    packages.shrink_to_fit();
 
     return 0;
 };

@@ -78,7 +78,12 @@ void AltString::program_lang()
 // Package Finding
 void AltString::package()
 {
-    std::cout << "";
+    std::cout << "Please enter the package(s) that you need in order" << "\n";
+    std::cout << "to properly compile your program." << "\n";
+    std::cout << "\n";
+    std::cout << "Please note that not understanding how this feature works" << "\n";
+    std::cout << "may result on a compilation error by CMake and possibly" << "\n";
+    std::cout << "generate a non-functional CMake cache." << "\n";
 };
 
 // Operating System Explanation
