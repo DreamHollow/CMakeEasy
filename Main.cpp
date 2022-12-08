@@ -471,6 +471,10 @@ int main()
         break;
     }
 
+    // Move created files into safe folder
+
+    ext_file->move_file();
+
     if(debugging)
     {
         std::cout << "\n";

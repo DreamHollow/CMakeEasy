@@ -52,12 +52,16 @@ The CMakeLists.txt file that you use to compile CMakeEasy should remain in the o
 
 Make sure you have CMake installed and make sure you have the original CMakeLists.txt file that came with the git repo.
 
-If you get confused about which one that is, make sure it says the project name is "CMakeEasy VERSION 1.0"
+If you get confused about which one that is, make sure it says the project name is "CMakeEasy VERSION 1.1"
 
 Once you're sure you have the right one, just open up a Terminal in your CMakeEasy folder.
 
 Then enter:
 `cmake -S . -B bin/build`
+
+Please do NOT set your -B directory in the same place as the source "CMakeEasy" folder, it will cause issues and potentially overwrite the default CMakeLists.txt file.
+
+Make sure it is `bin/build`
 
 Go to your bin/build folder and run make:
 `make`
@@ -72,23 +76,4 @@ Then use the following command:
 `./CMakeEasy`
 
 ** If you're on Windows: **
-Download the Windows-friendly version of CMake at https://cmake.org/download
-To make things easy, just download the `Windows x64 Installer` and run the installation.
-
-During the installation process, you should make sure to include all the users that will be using CMake on the computer.
-`Add CMake to system PATH for all users`
-Creating a desktop icon is optional.
-
-After the installation completes, start the CMake GUI.
-Locate your CMakeEasy folder.
-
-Set your 'source' to CMakeEasy-master (or whatever it's named after you extract it.)
-Create a folder inside your main CMakeEasy folder and name it 'bin'.
-Set your 'binaries' to that folder.
-
-Make sure you configure CMake-GUI to the IDE/Compiler that you are using. Otherwise you will have an error.
-
-Configure the project. If no errors occur, proceed to the next step.
-Generate the project.
-
-A valid executable should compile and appear in the 'bin' folder.
+[Sorry, this section is being redone.]

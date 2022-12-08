@@ -1,8 +1,19 @@
 #ifndef MANAGER_HPP
 #define MANAGER_HPP
 
+#ifdef __unix__
+#define OS_WINDOWS 0
+#elif defined(_WIN32)
+#define OS_WINDOWS 1
+#include <windows.h>
+#elif defined(_WIN64)
+#define OS_WINDOWS 1
+#endif
+
+#include <stdio.h>
 #include <fstream>
 #include <filesystem>
+#include <cstring>
 #include "AltString.hpp"
 
 /// @brief File manager. Designed to input or output file data
@@ -20,15 +31,18 @@ public:
   // Public Functions
   void write(std::string context);
   void write(int num); // Overload
+  void move_file();
 
 private:
   // Variables
   bool debug;
 
   // Constants
+  const std::string db_string = "DEBUG - MANAGER: ";
   const std::string file_name = "CMakeLists.txt";
 
   // Functions
+  void init_vars();
   void init_file();
 
   // Objects

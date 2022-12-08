@@ -2,7 +2,8 @@
 
 Manager::Manager()
 {
-  this->init_file(); // This could probably be optimized
+  this->init_vars();
+  this->init_file();
 };
 
 Manager::~Manager()
@@ -10,9 +11,22 @@ Manager::~Manager()
   this->file.close();
 };
 
-void Manager::init_file()
+void Manager::init_vars()
 {
   this->debug = true;
+};
+
+/// @brief The file is initialized early into the program, along with the directory.
+void Manager::init_file()
+{
+  if(OS_WINDOWS) // Any Windows
+  {
+    system("mkdir Created_Lists");
+  }
+  else if(!OS_WINDOWS) // Linux
+  {
+    system("mkdir Created_Lists");
+  }
 
   // This catch-all should really be left in for worst-case file writing scenarios.
 
@@ -56,4 +70,18 @@ void Manager::write(int num)
   std::string s = std::to_string(num);
 
   file << s;
+};
+
+void Manager::move_file()
+{
+  // Function designed to avoid overwriting existing files.
+
+  if(OS_WINDOWS)
+  {
+    system("move -y 'CMakeLists.txt' 'Created_Lists'"); // Ask for permission
+  }
+  else if(!OS_WINDOWS)
+  {
+    system("mv -n CMakeLists.txt Created_Lists"); // No Clobber
+  }
 };
