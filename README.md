@@ -76,6 +76,7 @@ Then use the following command:
 `./CMakeEasy`
 
 ** If you're on Windows: **
+
 FOR VISUAL STUDIO
 -----------
 
