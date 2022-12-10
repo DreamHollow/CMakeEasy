@@ -5,5 +5,7 @@
 *.o
 *.vscode
 
-bin/
+/bin/build
 DEBIAN/
+/.vs
+/out/build/x64-Debug

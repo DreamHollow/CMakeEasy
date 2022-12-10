@@ -76,4 +76,38 @@ Then use the following command:
 `./CMakeEasy`
 
 ** If you're on Windows: **
-[Sorry, this section is being redone.]
+FOR VISUAL STUDIO
+-----------
+
+Download the CMakeEasy project however you please, but it is strongly
+advised that you use either Git For Windows or GitHub Desktop.
+
+Clone the CMakeEasy repo to your local system.
+
+Once the project has been cloned to a directory, open that directory
+up inside of Visual Studio. As of VS 2022, compilation can be slightly
+problematic. If you have trouble with VS trying to read the CMakeLists.txt
+file, you should do this:
+
+Go to Tools > Command Line > Command Prompt
+
+In the Command Prompt (make sure it's in the CMakeEasy folder!!),
+Follow similar instructions to Linux.
+
+`cmake -S . -B bin/build`
+
+This should generate the relevant build files to that folder.
+
+If Visual Studio will not allow you to access the bin/build folders,
+simply edit the .gitignore file and comment out the bin/build line.
+
+Please remember to uncomment this line if you plan to stage changes.
+The bin/build folders should NOT be committed to the repo.
+
+You should have several Visual Studio files available to you after
+generation. If not, something may have gone wrong during using the
+Command Prompt. Please go back and try it again, to see if it
+fixes the problem.
+
+Once everything is working properly, it should be possible to generate
+at least a Debug installation of the program.
