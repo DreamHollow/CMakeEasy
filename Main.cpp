@@ -17,6 +17,7 @@ int main()
     std::string package_name;
 
     std::string declaration;
+    std::string requirement;
     std::vector<std::string> packages;
     std::vector<std::string> class_names;
 
@@ -197,7 +198,7 @@ int main()
     if(debugging)
     {
         std::cout << "Line should read as: " << "\n";
-        std::cout << "'project(" << project_name;
+        std::cout << "'project(" << project_name << " ";
 
         if(major && minor != 0)
         {
@@ -337,8 +338,14 @@ int main()
 
     if(valid_standard)
     {
+        requirement = "CMAKE_CXX_STANARD_REQUIRED ON";
+
         ext_file->write("set(");
         ext_file->write(declaration);
+        ext_file->write(")");
+        ext_file->write("\n");
+        ext_file->write("set(");
+        ext_file->write(requirement);
         ext_file->write(")");
         ext_file->write("\n");
     }
@@ -350,6 +357,7 @@ int main()
             std::cout << "DEBUG:" << "\n";
             std::cout << "Line in file should read as" << "\n";
             std::cout << "'set(" << declaration << ")'" << "\n";
+            std::cout << "'" << requirement << "'" << "\n";
             std::cout << "\n";
         }
         else
@@ -472,8 +480,6 @@ int main()
     }
 
     // Move created files into safe folder
-
-    ext_file->move_file();
 
     if(debugging)
     {

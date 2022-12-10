@@ -9,6 +9,8 @@ Manager::Manager()
 Manager::~Manager()
 {
   this->file.close();
+  // Invoke file being moved to new folder
+  this->move_file();
 };
 
 void Manager::init_vars()
@@ -35,7 +37,8 @@ void Manager::init_file()
     try
     {
       std::cout << "Initializing file settings..." << "\n";
-      this->file.open(file_name);
+
+      file.open(file_name.c_str(), std::ios::out | std::ios::app);
 
       if(file.fail())
       {
@@ -82,6 +85,6 @@ void Manager::move_file()
   }
   else if(!OS_WINDOWS)
   {
-    system("mv -n CMakeLists.txt Created_Lists"); // No Clobber
+    system("mv -n 'CMakeLists.txt' 'Created_Lists'"); // No Clobber
   }
 };
