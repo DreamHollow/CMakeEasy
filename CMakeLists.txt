@@ -7,3 +7,5 @@ src/Manager.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# Special thanks to LearnQtGuide for his helpful CMake videos.
