@@ -217,7 +217,7 @@ int main()
     bool more_files = true;
     short how_many = 0;
 
-    while(more_files)
+    do
     {
         std::cout << "If you have no additional packages to include, please enter '!none' instead." << "\n";
         std::cout << "\n";
@@ -252,7 +252,7 @@ int main()
         // Packages are found line by line, so different from classes
         
         ext_file->write("\n");
-    }
+    }while(more_files);
 
     // Setting necessary files (if applicable)
 
@@ -277,6 +277,8 @@ int main()
 
     std::cout << "\n";
 
+    int actual = 0;
+
     switch(standard)
     {
         case 0:
@@ -298,25 +300,28 @@ int main()
         case 1:
         {
             valid_standard = true;
+            actual = 20;
 
             std::cout << "Configuring file for C++20 standards..." << "\n";
-            declaration = "CMAKE_CXX_STANDARD 20";
+            declaration = "CMAKE_CXX_STANDARD " + std::to_string(actual);
             break;
         }
         case 2:
         {
             valid_standard = true;
+            actual = 17;
 
             std::cout << "Configuring file for C++17 standards..." << "\n";
-            declaration = "CMAKE_CXX_STANDARD 17";
+            declaration = "CMAKE_CXX_STANDARD " + std::to_string(actual);
             break;
         }
         case 3:
         {
             valid_standard = true;
+            actual = 14;
 
             std::cout << "Configuring file for C++14 standards..." << "\n";
-            declaration = "CMAKE_CXX_STANDARD 14";
+            declaration = "CMAKE_CXX_STANDARD " + std::to_string(actual);
             break;
         }
         case 4:
@@ -349,6 +354,10 @@ int main()
         ext_file->write(")");
         ext_file->write("\n");
     }
+    else
+    {
+        ext_file->write("\n");
+    }
 
     if(debugging)
     {
@@ -374,8 +383,9 @@ int main()
     std::cout << "\n";
 
     how_many = 0;
-    // const std::string format = ".cpp";
     std::string class_name;
+
+    // Ask user where src and include files are, if in folders - TODO
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     std::cin.ignore();
@@ -439,16 +449,34 @@ int main()
 
     // Set the libraries and dependencies - TODO
 
-    yes_no = 0; // Reset var again
+    if(debugging)
+    {
+        std::cout << "\n";
+        std::cout << "DEBUG: " << "Writing additional standards info..." << "\n";
+        std::cout << "\n";
+    }
 
-    std::cout << "Would you like to promote CMakeEasy by" << "\n";
-    std::cout << "Adding an auto-generated comment to the end" << "\n";
-    std::cout << "of CMakeLists.txt?" << "\n";
-    std::cout << "\n";
-    std::cout << "1. I would like to promote this project." << "\n";
-    std::cout << "2. No, I don't want to promote this project." << "\n";
-    std::cout << "\n";
-    std::cout << "Your choice: ";
+    // Recycle multiple input var here
+
+    if(valid_standard)
+    {
+        ext_file->write("target_compile_features(");
+
+        // Ask user about PRIVATE / PUBLIC / INTERFACE preference - TODO
+
+        // Default this to PRIVATE for now
+        ext_file->write("${PROJECT_NAME} PRIVATE ");
+        ext_file->write("cxx_std_");
+        ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
+        ext_file->write(")");
+
+        ext_file->write("\n");
+    }
+
+    yes_no = 0; // Reset
+
+    text_mod.promote();
+
     std::cin >> yes_no;
 
     if(text_mod.entry_fail(false))
@@ -463,7 +491,7 @@ int main()
 
         ext_file->write("\n");
         ext_file->write("# Auto-generated comment:\n");
-        ext_file->write("# Made with CMakeEasy.");
+        ext_file->write("# This list made with CMakeEasy.");
         ext_file->write("\n");
 
         std::cout << "\n";
@@ -479,12 +507,14 @@ int main()
         break;
     }
 
-    // Move created files into safe folder
+    // Manager moves CMakeLists.txt to Created_Lists at program exit
 
     if(debugging)
     {
         std::cout << "\n";
         std::cout << "DEBUG: File closed." << "\n";
+        std::cout << "\n";
+        std::cout << "DEBUG: CMakeLists.txt will be moved to /Created_Lists" << "\n";
         std::cout << "\n";
         std::cout << "DEBUG: Memory objects wiped." << "\n";
         std::cout << "\n";
