@@ -119,3 +119,5 @@ fixes the problem.
 
 Once everything is working properly, it should be possible to generate
 at least a Debug installation of the program.
+
+!commit_test
