@@ -15,8 +15,8 @@ It is simply a program that is designed to procedurally generate an automatic CM
 
 CMakeEasy runs best with the latest version of CMake (2.24.2) and may sometimes be problematic with older versions.
 
-* Current version has disabled moving CMakeLists.txt to another folder,
-sorry for any inconvenience. *
+** Current version has disabled moving CMakeLists.txt to another folder,
+sorry for any inconvenience. **
 
 HOW IT WORKS
 ------------
