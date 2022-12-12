@@ -4,9 +4,10 @@
 
 int main()
 {
-    // Heap allocated file manager. Just in case.
+    // Heap allocated both classes to prevent overflow of stack.
+
     std::unique_ptr<Manager> ext_file = std::make_unique<Manager>();
-    AltString text_mod;
+    std::unique_ptr<AltString> text_mod = std::make_unique<AltString>();
 
     bool debugging = true;
     bool valid_standard = false;
@@ -18,8 +19,6 @@ int main()
 
     std::string declaration;
     std::string requirement;
-    std::vector<std::string> packages;
-    std::vector<std::string> class_names;
 
     // Shorts used to avoid unnecessary memory allocation
 
@@ -37,34 +36,34 @@ int main()
     // short num_sources = 0;
     // short subdir = 0;
 
-    text_mod.start();
+    text_mod->start();
 
     std::cout << "Your version: ";
     std::cin >> major;
 
-    if(text_mod.entry_fail(false) != 0)
+    if(text_mod->entry_fail(false) != 0)
     {
         return 1;
     }
 
     // Version numbering (CMake)
 
-    text_mod.minor_vers();
+    text_mod->minor_vers();
 
     std::cout << "Your version: ";
     std::cin >> minor;
 
-    if(text_mod.entry_fail(false) != 0)
+    if(text_mod->entry_fail(false) != 0)
     {
         return 1;
     }
 
-    text_mod.release_vers();
+    text_mod->release_vers();
 
     std::cout << "Your version: ";
     std::cin >> release;
 
-    if(text_mod.entry_fail(false) != 0)
+    if(text_mod->entry_fail(false) != 0)
     {
         return 1;
     }
@@ -109,7 +108,7 @@ int main()
     std::cin.ignore();
     std::cin.getline(project_name,32);
 
-    if(text_mod.entry_fail(true) != 0)
+    if(text_mod->entry_fail(true) != 0)
     {
         return 1;
     }
@@ -125,14 +124,14 @@ int main()
     major = 0;
     minor = 0;
 
-    text_mod.program_vers();
+    text_mod->program_vers();
     
     std::cout << "Your choice: ";
     std::cin >> yes_no;
 
     std::cout << "\n";
 
-    if(text_mod.entry_fail(false) != 0)
+    if(text_mod->entry_fail(false) != 0)
     {
         return 1;
     }
@@ -145,7 +144,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> major;
 
-        if(text_mod.entry_fail(false) != 0)
+        if(text_mod->entry_fail(false) != 0)
         {
             return 1;
         }
@@ -155,7 +154,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> minor;
 
-        if(text_mod.entry_fail(false) != 0)
+        if(text_mod->entry_fail(false) != 0)
         {
             return 1;
         }
@@ -189,7 +188,7 @@ int main()
     // Declaring Program Language Format
 
     std::cout << "\n";
-    text_mod.program_lang();
+    text_mod->program_lang();
 
     ext_file->write(" LANGUAGES CXX");
     ext_file->write(")");
@@ -212,7 +211,7 @@ int main()
 
     // Finding Packages (may need several invokes)
 
-    text_mod.package();
+    text_mod->package();
 
     bool more_files = true;
     short how_many = 0;
@@ -226,7 +225,7 @@ int main()
 
         std::cin >> package_name;
 
-        if(text_mod.entry_fail(false) != 0)
+        if(text_mod->entry_fail(false) != 0)
         {
             return 1;
         }
@@ -258,11 +257,11 @@ int main()
 
     // Setting operating system procedures
 
-    text_mod.op_sys();
+    text_mod->op_sys();
 
     // Setting modern C++ standards
 
-    text_mod.standard();
+    text_mod->standard();
     
     std::cout << "Your standard: ";
     std::cin.clear();
@@ -270,7 +269,7 @@ int main()
 
     std::cout << "\n";
 
-    if(text_mod.entry_fail(false) != 0)
+    if(text_mod->entry_fail(false) != 0)
     {
         return 1;
     }
@@ -378,27 +377,33 @@ int main()
 
     std::cout << "\n";
 
-    text_mod.source();
+    text_mod->source();
 
     std::cout << "\n";
 
     how_many = 0;
     std::string class_name;
+    std::string source{ "src/" };
 
-    // Ask user where src and include files are, if in folders - TODO
+    // Ask user for any additional directories or included files - TODO
 
+    text_mod->include_dirs();
+
+    std::cout << "\n";
+    std::cout << "\n";
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     std::cin.ignore();
     std::cin.getline(exe_name, 32);
 
-    if(text_mod.entry_fail(true) != 0)
+    if(text_mod->entry_fail(true) != 0)
     {
         return 1;
     }
 
     ext_file->write("add_executable(${PROJECT_NAME}");
     ext_file->write(" ");
-    ext_file->write(exe_name);
+    ext_file->write(source);
+    ext_file->write(exe_name); // should appear as src/(exe_name)
 
     std::cout << "If your program is using classes, please add your class files." << "\n";
     std::cout << "The program will loop entry until you specify that you are done." << "\n";
@@ -416,7 +421,7 @@ int main()
         // Input class name
         std::cin >> class_name;
 
-        if(text_mod.entry_fail(false) != 0)
+        if(text_mod->entry_fail(false) != 0)
         {
             return 1;
         }
@@ -428,26 +433,31 @@ int main()
             std::cout << "\n";
 
             class_name.clear();
+            source.clear();
 
             more_files = false;
         };
-        
-        class_names.push_back(class_name);
 
         if(more_files)
         {
             ext_file->write(" ");
         }
+        ext_file->write(source);
         ext_file->write(class_name);
+
+        if(more_files)
+        {
+            ext_file->write("\n");
+        }
         how_many += 1;
 
         class_name.erase();
-    }    
+    }
 
-    ext_file->write(")"); // Close executable entry
+    ext_file->write(")");
     ext_file->write("\n");
 
-    // Set the libraries and dependencies - TODO
+    // Set libraries / dependencies - TODO
 
     if(debugging)
     {
@@ -455,6 +465,12 @@ int main()
         std::cout << "DEBUG: " << "Writing additional standards info..." << "\n";
         std::cout << "\n";
     }
+
+    // Set standard include directory
+
+    ext_file->write("\n");
+    ext_file->write("include_directories(include)\n");
+    ext_file->write("\n");
 
     // Recycle multiple input var here
 
@@ -475,11 +491,11 @@ int main()
 
     yes_no = 0; // Reset
 
-    text_mod.promote();
+    text_mod->promote();
 
     std::cin >> yes_no;
 
-    if(text_mod.entry_fail(false))
+    if(text_mod->entry_fail(false))
     {
         return 1;
     }
@@ -521,12 +537,6 @@ int main()
         std::cout << "DEBUG:" << "\n";
         std::cout << "Reached end of program." << "\n";
     }
-
-    class_names.clear();
-    class_names.shrink_to_fit();
-
-    packages.clear();
-    packages.shrink_to_fit();
 
     return 0;
 };
