@@ -5,6 +5,7 @@
 *.o
 *.vscode
 
+/build
 /bin/build
 DEBIAN/
 /.vs
