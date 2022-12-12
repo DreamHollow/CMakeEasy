@@ -116,6 +116,3 @@ You should have several Visual Studio files available to you after
 generation. If not, something may have gone wrong during using the
 Command Prompt. Please go back and try it again, to see if it
 fixes the problem.
-
-Once everything is working properly, it should be possible to generate
-at least a Debug installation of the program.
