@@ -81,6 +81,8 @@ void AltString::package()
     std::cout << "Please enter the package(s) that you need in order" << "\n";
     std::cout << "to properly compile your program." << "\n";
     std::cout << "\n";
+    std::cout << "Packages are NOT regular directories or folders." << "\n";
+    std::cout << "\n";
     std::cout << "Please note that not understanding how this feature works" << "\n";
     std::cout << "may result on a compilation error by CMake and possibly" << "\n";
     std::cout << "generate a non-functional CMake cache." << "\n";
@@ -161,4 +163,15 @@ int AltString::entry_fail(bool is_array)
     }
 
     return 0; // Continue
+};
+
+/// @brief Displays information that helps with standardization.
+void AltString::include_dirs()
+{
+    std::cout << "ATTENTION:" << "\n";
+    std::cout << "CMakeEasy is configured to standardize C++ directories." << "\n";
+    std::cout << "\n";
+    std::cout << "CMakeEasy automatically assumes you are using standard directories." << "\n";
+    std::cout << "The program will automatically target /include and /src directories by default." << "\n";
+    std::cout << "These changes will be reflected on the CMakeLists.txt file." << "\n";
 };

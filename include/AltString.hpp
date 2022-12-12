@@ -20,6 +20,7 @@ public:
     void op_sys();
     void standard();
     void source();
+    void include_dirs();
     void promote();
 
     // Entry Detection
