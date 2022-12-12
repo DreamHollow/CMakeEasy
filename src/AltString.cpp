@@ -115,6 +115,18 @@ void AltString::source()
     std::cout << "Example: main.cpp" << "\n";
 };
 
+void AltString::promote()
+{
+    std::cout << "Would you like to promote CMakeEasy by" << "\n";
+    std::cout << "Adding an auto-generated comment to the end" << "\n";
+    std::cout << "of CMakeLists.txt?" << "\n";
+    std::cout << "\n";
+    std::cout << "1. I would like to promote this project." << "\n";
+    std::cout << "2. No, I don't want to promote this project." << "\n";
+    std::cout << "\n";
+    std::cout << "Your choice: ";
+};
+
 /// @brief Checks iostream input. It will force the program to stop
 /// if the input fails or doesn't match the type.
 /// @return Success (0) or Failure (1)

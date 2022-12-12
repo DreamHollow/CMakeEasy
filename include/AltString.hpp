@@ -20,6 +20,7 @@ public:
     void op_sys();
     void standard();
     void source();
+    void promote();
 
     // Entry Detection
     int entry_fail(bool is_array);
