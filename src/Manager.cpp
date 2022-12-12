@@ -10,7 +10,7 @@ Manager::~Manager()
 {
   this->file.close();
   // Invoke file being moved to new folder
-  this->move_file();
+  // this->move_file();
 };
 
 void Manager::init_vars()
@@ -21,6 +21,7 @@ void Manager::init_vars()
 /// @brief The file is initialized early into the program, along with the directory.
 void Manager::init_file()
 {
+  /*
   if(OS_WINDOWS) // Any Windows
   {
     system("mkdir Created_Lists");
@@ -29,6 +30,7 @@ void Manager::init_file()
   {
     system("mkdir Created_Lists");
   }
+  */
 
   // This catch-all should really be left in for worst-case file writing scenarios.
 
@@ -75,6 +77,7 @@ void Manager::write(int num)
   file << s;
 };
 
+/*
 void Manager::move_file()
 {
   // Function designed to avoid overwriting existing files.
@@ -88,3 +91,4 @@ void Manager::move_file()
     system("mv -n 'CMakeLists.txt' 'Created_Lists'"); // No Clobber
   }
 };
+*/

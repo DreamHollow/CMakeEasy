@@ -31,7 +31,7 @@ public:
   // Public Functions
   void write(std::string context);
   void write(int num); // Overload
-  void move_file();
+  // void move_file();
 
 private:
   // Variables
