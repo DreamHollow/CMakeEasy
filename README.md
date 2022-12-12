@@ -100,6 +100,10 @@ Follow similar instructions to Linux.
 
 `cmake -S . -B bin/build`
 
+OR
+
+`cmake -S . -B build`
+
 This should generate the relevant build files to that folder.
 
 If Visual Studio will not allow you to access the bin/build folders,
