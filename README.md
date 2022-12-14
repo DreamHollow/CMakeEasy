@@ -1,6 +1,16 @@
 # CMakeEasy
 A terminal-based CMakeLists.txt generator.
 
+BRANCHES
+----------------
+
+CMakeEasy's "master" branch is configured to generate CMakeLists.txt files for applications, but not libraries.
+
+A branch is being worked on that will allow CMakeEasy to generate relevant
+CMakeLists.txt files for libraries as well.
+
+Please use the "master" branch if you only need to generate a configuration file for applications only.
+
 IMPORTANT NOTICE
 ----------------
 
@@ -15,8 +25,7 @@ It is simply a program that is designed to procedurally generate an automatic CM
 
 CMakeEasy runs best with the latest version of CMake (2.24.2) and may sometimes be problematic with older versions.
 
-** Current version has disabled moving CMakeLists.txt to another folder,
-sorry for any inconvenience. **
+**Current version no longer moves created 'CMakeLists.txt' files to their own folder, sorry for the inconvenience.**
 
 HOW IT WORKS
 ------------
