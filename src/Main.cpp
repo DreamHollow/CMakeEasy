@@ -445,10 +445,6 @@ int main()
         ext_file->write(source);
         ext_file->write(class_name);
 
-        if(more_files)
-        {
-            ext_file->write("\n");
-        }
         how_many += 1;
 
         class_name.erase();
