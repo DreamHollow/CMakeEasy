@@ -36,6 +36,7 @@ public:
 private:
   // Variables
   bool debug;
+  int yes_no;
 
   // Constants
   const std::string db_string = "DEBUG - MANAGER: ";

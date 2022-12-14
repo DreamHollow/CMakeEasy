@@ -16,36 +16,34 @@ Manager::~Manager()
 void Manager::init_vars()
 {
   this->debug = true;
+  this->yes_no = 0;
 };
 
 /// @brief The file is initialized early into the program, along with the directory.
 void Manager::init_file()
 {
-  /*
-  if(OS_WINDOWS) // Any Windows
-  {
-    system("mkdir Created_Lists");
-  }
-  else if(!OS_WINDOWS) // Linux
-  {
-    system("mkdir Created_Lists");
-  }
-  */
-
   // This catch-all should really be left in for worst-case file writing scenarios.
 
   if(!this->file.is_open())
   {
     try
     {
+      std::cout << "\n";
+      std::cout << "Warning: If CMakeListst.txt exists in /src folder," << "\n";
+      std::cout << "it will be overwritten!" << "\n";
+      std::cout << "\n";
+      std::cout << "Please remove any CMakeList.txt files that you" << "\n";
+      std::cout << "Do not wish to lose." << "\n";
+      std::cout << "\n";
       std::cout << "Initializing file settings..." << "\n";
 
-      file.open(file_name.c_str(), std::ios::out | std::ios::app);
+      file.open(file_name.c_str(), std::ios::out | std::ios::trunc);
 
       if(file.fail())
       {
         std::cout << "The CMakeLists.txt file could not be edited." << "\n";
         std::cout << "An error occurred: 'Bad CMakeLists argument'." << "\n";
+        
         throw "Bad CMakeLists directory argument.";
       }
     }
