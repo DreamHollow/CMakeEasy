@@ -27,6 +27,7 @@ int main()
     short release = 0;
 
     short standard = 0;
+
     // Integer used to avoid problematic char-style input.
     short yes_no = 0;
 
@@ -211,47 +212,12 @@ int main()
 
     // Finding Packages (may need several invokes)
 
-    text_mod->package();
+    // text_mod->package();
 
-    bool more_files = true;
-    short how_many = 0;
+    // bool more_files = true;
+    // short how_many = 0;
 
-    do
-    {
-        std::cout << "If you have no additional packages to include, please enter '!none' instead." << "\n";
-        std::cout << "\n";
-        std::cout << "Please enter any additional package names (such as OpenGL)" << "\n";
-        std::cout << "Next package to find: ";
-
-        std::cin >> package_name;
-
-        if(text_mod->entry_fail(false) != 0)
-        {
-            return 1;
-        }
-
-        if(package_name == "!none")
-        {
-            std::cout << "\n";
-            std::cout << "No more package names to include." << "\n";
-            std::cout << "Ending entry sequence..." << "\n";
-            std::cout << "\n";
-
-            package_name.clear();
-
-            more_files = false; // Stays false until used later
-        };
-
-        if(!package_name.empty())
-        {
-            ext_file->write("find_package(");
-            ext_file->write(package_name);
-            ext_file->write(")");
-        }
-        // Packages are found line by line, so different from classes
-        
-        ext_file->write("\n");
-    }while(more_files);
+    // Packages in depth - TODO
 
     // Setting necessary files (if applicable)
 
@@ -276,7 +242,7 @@ int main()
 
     std::cout << "\n";
 
-    int actual = 0;
+    short actual = 0;
 
     switch(standard)
     {
@@ -381,7 +347,7 @@ int main()
 
     std::cout << "\n";
 
-    how_many = 0;
+    short how_many = 0;
     std::string class_name;
     std::string source{ "src/" };
 
@@ -409,7 +375,7 @@ int main()
     std::cout << "The program will loop entry until you specify that you are done." << "\n";
     std::cout << "\n";
 
-    more_files = true; // Force first loop
+    bool more_files = true; // Force first loop
 
     while(more_files)
     {
