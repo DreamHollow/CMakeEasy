@@ -1,11 +1,8 @@
 cmake_minimum_required(VERSION 3.25.0)
 project(CMakeEasy VERSION 1.1 LANGUAGES CXX)
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANARD_REQUIRED ON)
-add_executable(${PROJECT_NAME} src/Main.cpp src/AltString.cpp
- src/Manager.cpp
-)
+add_executable(${PROJECT_NAME} src/Main.cpp src/AltString.cpp src/Manager.cpp)
 
 include_directories(include)
 
