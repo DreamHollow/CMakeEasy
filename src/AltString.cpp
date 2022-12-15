@@ -83,6 +83,9 @@ void AltString::package()
     std::cout << "\n";
     std::cout << "Packages are NOT regular directories or folders." << "\n";
     std::cout << "\n";
+    std::cout << "Please note that if your package has 'components', they must" << "\n";
+    std::cout << "also be added in order for the package to work." << "\n";
+    std::cout << "\n";
     std::cout << "Please note that not understanding how this feature works" << "\n";
     std::cout << "may result on a compilation error by CMake and possibly" << "\n";
     std::cout << "generate a non-functional CMake cache." << "\n";
@@ -91,7 +94,6 @@ void AltString::package()
 // Operating System Explanation
 void AltString::op_sys()
 {
-    std::cout << "";
 };
 
 /// @brief Displays most recent C++ Standards.
