@@ -31,12 +31,6 @@ int main()
     // Integer used to avoid problematic char-style input.
     short yes_no = 0;
 
-    // Subdirectories - TODO
-
-    // short subdir_choice = 0;
-    // short num_sources = 0;
-    // short subdir = 0;
-
     text_mod->start();
 
     std::cout << "Your version: ";
