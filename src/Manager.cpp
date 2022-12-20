@@ -61,32 +61,18 @@ void Manager::init_file()
   }
 };
 
-// Writes char arrays and strings.
+/// @brief Writes char arrays and strings into files.
+/// @param context 
 void Manager::write(std::string context)
 {
   file << context;
 };
 
-// Writes int values as strings.
+/// @brief Converts numerical values into strings, then into files.
+/// @param num 
 void Manager::write(int num)
 {
   std::string s = std::to_string(num);
 
   file << s;
 };
-
-/*
-void Manager::move_file()
-{
-  // Function designed to avoid overwriting existing files.
-
-  if(OS_WINDOWS)
-  {
-    system("move -y 'CMakeLists.txt' 'Created_Lists'"); // Ask for permission
-  }
-  else if(!OS_WINDOWS)
-  {
-    system("mv -n 'CMakeLists.txt' 'Created_Lists'"); // No Clobber
-  }
-};
-*/
