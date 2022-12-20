@@ -40,7 +40,7 @@ void AltString::start()
     std::cout << "This will designate the 'minimum version' needed for things to work." << "\n";
     std::cout << "\n";
     std::cout << "What is the major version of CMake that you are using?" << "\n";
-    std::cout << "Example: [3].25.0" << "\n";
+    std::cout << "Example: [3].22.1" << "\n";
     std::cout << "\n";
 };
 
@@ -49,7 +49,7 @@ void AltString::minor_vers()
 {
     std::cout << "\n";
     std::cout << "What is the minor version of CMake that you are using?" << "\n";
-    std::cout << "Example: 3.[25].0" << "\n";
+    std::cout << "Example: 3.[22].1" << "\n";
     std::cout << "\n";
 };
 
@@ -58,7 +58,7 @@ void AltString::release_vers()
 {
     std::cout << "\n";
     std::cout << "What is the release version of CMake that you are using?" << "\n";
-    std::cout << "Example: 3.25.[0]" << "\n";
+    std::cout << "Example: 3.22.[1]" << "\n";
 };
 
 // Setting Program Version
