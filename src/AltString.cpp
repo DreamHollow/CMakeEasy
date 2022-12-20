@@ -44,7 +44,6 @@ void AltString::start()
     std::cout << "\n";
 };
 
-// Setting CMake minor version
 void AltString::minor_vers()
 {
     std::cout << "\n";
@@ -53,7 +52,6 @@ void AltString::minor_vers()
     std::cout << "\n";
 };
 
-// Setting CMake release version
 void AltString::release_vers()
 {
     std::cout << "\n";
@@ -61,7 +59,6 @@ void AltString::release_vers()
     std::cout << "Example: 3.22.[1]" << "\n";
 };
 
-// Setting Program Version
 void AltString::program_vers()
 {
     std::cout << "Would you like to add a program version? Example: project(MyProgram VERSION 1.0)" << "\n";
@@ -75,7 +72,6 @@ void AltString::program_lang()
     std::cout << "The 'LANGUAGES' setting will be automatically set to 'CXX'." << "\n";
 };
 
-// Package Finding
 void AltString::package()
 {
     std::cout << "Please enter the package(s) that you need in order" << "\n";
@@ -91,12 +87,12 @@ void AltString::package()
     std::cout << "generate a non-functional CMake cache." << "\n";
 };
 
-// Operating System Explanation
+/// @brief Displays information about CMake and how it handles operating systems.
 void AltString::op_sys()
 {
 };
 
-/// @brief Displays most recent C++ Standards.
+/// @brief Displays relevant C++ standards and choices.
 void AltString::standard()
 {
     std::cout << "Please set the standard for your C++ application." << "\n";
@@ -119,6 +115,7 @@ void AltString::source()
     std::cout << "Example: main.cpp" << "\n";
 };
 
+/// @brief Optional CMakeEasy promotion function.
 void AltString::promote()
 {
     std::cout << "Would you like to promote CMakeEasy by" << "\n";
