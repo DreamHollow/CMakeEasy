@@ -7,7 +7,7 @@ int main()
     // Heap allocated both classes to prevent overflow of stack.
 
     std::unique_ptr<Manager> ext_file = std::make_unique<Manager>();
-    std::unique_ptr<AltString> text_mod = std::make_unique<AltString>();
+    std::unique_ptr<AltString> text = std::make_unique<AltString>();
 
     bool debugging = true;
     bool valid_standard = false;
@@ -16,9 +16,17 @@ int main()
     char exe_name[32];
 
     std::string package_name;
+    std::string library_segment;
+    std::string library_vis; // Library visibility
 
     std::string declaration;
     std::string requirement;
+
+    // Const strings
+
+    const std::string min_required = { "cmake_minimum_required(" };
+    const std::string config_file = { "configure_file(" };
+    const std::string link_libraries = { "target_link_libraries(${PROJECT_NAME} "};
 
     // Shorts used to avoid unnecessary memory allocation
 
@@ -31,34 +39,34 @@ int main()
     // Integer used to avoid problematic char-style input.
     short yes_no = 0;
 
-    text_mod->start();
+    text->start();
 
     std::cout << "Your version: ";
     std::cin >> major;
 
-    if(text_mod->entry_fail(false) != 0)
+    if(text->entry_fail(false) != 0)
     {
         return 1;
     }
 
     // Version numbering (CMake)
 
-    text_mod->minor_vers();
+    text->minor_vers();
 
     std::cout << "Your version: ";
     std::cin >> minor;
 
-    if(text_mod->entry_fail(false) != 0)
+    if(text->entry_fail(false) != 0)
     {
         return 1;
     }
 
-    text_mod->release_vers();
+    text->release_vers();
 
     std::cout << "Your version: ";
     std::cin >> release;
 
-    if(text_mod->entry_fail(false) != 0)
+    if(text->entry_fail(false) != 0)
     {
         return 1;
     }
@@ -74,7 +82,8 @@ int main()
     std::cout << "\n";
     std::cout << "Saving " << ext_file->name() << " to your current directory..." << "\n";
 
-    ext_file->write("cmake_minimum_required(VERSION ");
+    ext_file->write(min_required);
+    ext_file->write("VERSION ");
     ext_file->write(major);
     ext_file->write(".");
     ext_file->write(minor);
@@ -103,7 +112,7 @@ int main()
     std::cin.ignore();
     std::cin.getline(project_name,32);
 
-    if(text_mod->entry_fail(true) != 0)
+    if(text->entry_fail(true) != 0)
     {
         return 1;
     }
@@ -119,14 +128,14 @@ int main()
     major = 0;
     minor = 0;
 
-    text_mod->program_vers();
+    text->program_vers();
     
     std::cout << "Your choice: ";
     std::cin >> yes_no;
 
     std::cout << "\n";
 
-    if(text_mod->entry_fail(false) != 0)
+    if(text->entry_fail(false) != 0)
     {
         return 1;
     }
@@ -139,7 +148,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> major;
 
-        if(text_mod->entry_fail(false) != 0)
+        if(text->entry_fail(false) != 0)
         {
             return 1;
         }
@@ -149,7 +158,7 @@ int main()
         std::cout << "Your version: ";
         std::cin >> minor;
 
-        if(text_mod->entry_fail(false) != 0)
+        if(text->entry_fail(false) != 0)
         {
             return 1;
         }
@@ -183,7 +192,7 @@ int main()
     // Declaring Program Language Format
 
     std::cout << "\n";
-    text_mod->program_lang();
+    text->program_lang();
 
     ext_file->write(" LANGUAGES CXX");
     ext_file->write(")");
@@ -206,7 +215,7 @@ int main()
 
     // Finding Packages (may need several invokes)
 
-    // text_mod->package();
+    // text->package();
 
     // bool more_files = true;
     // short how_many = 0;
@@ -217,11 +226,11 @@ int main()
 
     // Setting operating system procedures
 
-    text_mod->op_sys();
+    text->op_sys();
 
     // Setting modern C++ standards
 
-    text_mod->standard();
+    text->standard();
     
     std::cout << "Your standard: ";
     std::cin.clear();
@@ -229,7 +238,7 @@ int main()
 
     std::cout << "\n";
 
-    if(text_mod->entry_fail(false) != 0)
+    if(text->entry_fail(false) != 0)
     {
         return 1;
     }
@@ -337,7 +346,7 @@ int main()
 
     std::cout << "\n";
 
-    text_mod->source();
+    text->source();
 
     std::cout << "\n";
 
@@ -347,7 +356,7 @@ int main()
 
     // Ask user for any additional directories or included files - TODO
 
-    text_mod->include_dirs();
+    text->include_dirs();
 
     std::cout << "\n";
     std::cout << "\n";
@@ -355,7 +364,7 @@ int main()
     std::cin.ignore();
     std::cin.getline(exe_name, 32);
 
-    if(text_mod->entry_fail(true) != 0)
+    if(text->entry_fail(true) != 0)
     {
         return 1;
     }
@@ -381,7 +390,7 @@ int main()
         // Input class name
         std::cin >> class_name;
 
-        if(text_mod->entry_fail(false) != 0)
+        if(text->entry_fail(false) != 0)
         {
             return 1;
         }
@@ -400,7 +409,7 @@ int main()
 
         if(more_files)
         {
-            ext_file->write(" ");
+            ext_file->write(" "); // Seperator
         }
         ext_file->write(source);
         ext_file->write(class_name);
@@ -414,6 +423,93 @@ int main()
     ext_file->write("\n");
 
     // Set libraries / dependencies - TODO
+
+    /*
+    // Reset var
+    yes_no = 0;
+
+    std::cout << "\n";
+    std::cout << "Would you like to link any libraries?" << "\n";
+    std::cout << "Please keep in mind that if CMake cannot find your library," << "\n";
+    std::cout << "linking these files will not work." << "\n";
+    std::cout << "\n";
+    std::cout << "Please note that while adding libraries, you will need" << "\n";
+    std::cout << "to link any necessary components as well." << "\n";
+    std::cout << "\n";
+    std::cout << "Start adding libraries?" << "\n";
+    std::cout << "1. Yes." << "\n";
+    std::cout << "2. No." << "\n";
+    std::cout << "Your choice: ";
+    std::cin >> yes_no;
+
+    if(text->entry_fail(false))
+    {
+        return 1;
+    }
+
+    switch(yes_no)
+    {
+        case 1:
+        {
+            more_files = true;
+
+            while(more_files)
+            {
+                std::cout << "If you have no additional library files to link, please enter '!none' instead." << "\n";
+                std::cout << "\n";
+                std::cout << "Please enter any additional library components. (example: sfml-graphics)" << "\n";
+                std::cout << "Your next library target: ";
+
+                std::cin >> library_segment;
+
+                if(text->entry_fail(false) != 0)
+                {
+                    return 1;
+                }
+
+                if(library_segment == "!none")
+                {
+                    std::cout << "\n";
+                    std::cout << "No additional library files will be targeted." << "\n";
+                    std::cout << "\n";
+
+                    library_segment.clear();
+
+                    more_files = false;
+                };
+
+                if(more_files)
+                {
+                    ext_file->write(" ");
+                }
+                // ext_file->write(source);
+                ext_file->write();
+                ext_file->write(library_segment);
+
+                // how_many += 1;
+
+                library_segment.erase();
+            }
+            break;
+        }
+        case 2:
+        {
+            std::cout << "\n";
+            std::cout << "Understood, no libraries will be added." << "\n";
+            std::cout << "\n";
+            break;
+        }
+        default:
+        {
+            std::cout << "\n";
+            std::cout << "This selection is invalid." << "\n";
+            std::cout << "Defaulting to 2: No." << "\n";
+            std::cout << "\n";
+            break;
+        }
+    }
+
+    */
 
     if(debugging)
     {
@@ -447,11 +543,11 @@ int main()
 
     yes_no = 0; // Reset
 
-    text_mod->promote();
+    text->promote();
 
     std::cin >> yes_no;
 
-    if(text_mod->entry_fail(false))
+    if(text->entry_fail(false))
     {
         return 1;
     }
