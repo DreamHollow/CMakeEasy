@@ -4,17 +4,28 @@
 
 AltString::AltString()
 {
-
+    init_vars();
 };
 
 AltString::~AltString()
 {
-
+    declarations.clear();
+    declarations.shrink_to_fit();
 };
 
 void AltString::init_vars()
 {
-    this->is_command = false;
+    is_command = false;
+
+    declarations.push_back("cmake_minimum_required"); // 0
+    declarations.push_back("project"); // 1
+    declarations.push_back("VERSION"); // 2
+    declarations.push_back("LANGUAGES CXX"); // 3
+    declarations.push_back("configure_file"); // 4
+    declarations.push_back("target_link_libraries"); // 5
+    declarations.push_back("CMAKE_CXX_STANDARD"); // 6
+    declarations.push_back("set"); // 7
+    declarations.push_back("add_executable"); // 8
 };
 
 /// @brief Displays at the very beginning of the program.
@@ -174,3 +185,11 @@ void AltString::include_dirs()
     std::cout << "The program will automatically target /include and /src directories by default." << "\n";
     std::cout << "These changes will be reflected on the CMakeLists.txt file." << "\n";
 };
+
+/// @brief Because CMake parameters are generally reusable, this function is called.
+/// @param num 
+/// @return
+const std::string AltString::declare(int num)
+{
+    return declarations.at(num);
+}

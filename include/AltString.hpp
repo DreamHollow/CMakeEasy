@@ -2,6 +2,7 @@
 #define ALTSTRING_HPP
 #include <iostream>
 #include <string>
+#include <vector>
 
 /// @brief Reduces some output clutter and allows for unique input from user.
 class AltString
@@ -9,6 +10,9 @@ class AltString
 public:
     AltString();
     virtual ~AltString();
+
+    // Public Variables
+    const std::string declare(int num);
 
     // Public Functions - Explainers
     void start();
@@ -29,7 +33,7 @@ public:
 private:
     // Variables
     bool is_command;
-    // char store[32];
+    std::vector<std::string> declarations;
 
     // Init
     void init_vars();
