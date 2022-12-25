@@ -24,8 +24,6 @@ int main()
 
     // Const strings
 
-    const std::string min_required = { "cmake_minimum_required(" };
-    const std::string config_file = { "configure_file(" };
     const std::string link_libraries = { "target_link_libraries(${PROJECT_NAME} "};
 
     // Shorts used to avoid unnecessary memory allocation
@@ -82,8 +80,10 @@ int main()
     std::cout << "\n";
     std::cout << "Saving " << ext_file->name() << " to your current directory..." << "\n";
 
-    ext_file->write(min_required);
-    ext_file->write("VERSION ");
+    ext_file->write(text->declare(0)); // cmake_minimum
+    ext_file->write("(");
+    ext_file->write(text->declare(2)); // VERSION
+    ext_file->write(" ");
     ext_file->write(major);
     ext_file->write(".");
     ext_file->write(minor);
@@ -100,7 +100,7 @@ int main()
         std::cout << "\n";
     }
 
-    std::cout << "Wrote 'cmake_minimum_required' line automatically." << "\n";
+    std::cout << "Wrote " << "'" << text->declare(0) << "'" << " line automatically." << "\n";
     std::cout << "\n";
 
     std::cout << "\n";
@@ -122,7 +122,8 @@ int main()
     std::cout << "', and will be saved as such." << "\n";
     std::cout << "\n";
 
-    ext_file->write("project(");
+    ext_file->write(text->declare(1));
+    ext_file->write("(");
     ext_file->write(project_name);
 
     major = 0;
@@ -164,7 +165,8 @@ int main()
         }
 
         ext_file->write(" ");
-        ext_file->write("VERSION ");
+        ext_file->write(text->declare(2));
+        ext_file->write(" ");
         ext_file->write(major);
         ext_file->write(".");
         ext_file->write(minor);
@@ -194,20 +196,22 @@ int main()
     std::cout << "\n";
     text->program_lang();
 
-    ext_file->write(" LANGUAGES CXX");
+    ext_file->write(" ");
+    ext_file->write(text->declare(3));
     ext_file->write(")");
     ext_file->write("\n");
 
     if(debugging)
     {
         std::cout << "Line should read as: " << "\n";
-        std::cout << "'project(" << project_name << " ";
+        std::cout << text->declare(1) << "(" << project_name << " ";
 
         if(major && minor != 0)
         {
-            std::cout << "VERSION " << major << "." << minor;
+            std::cout << text->declare(2) << " " << major << "." << minor;
         }
 
+        std::cout << " ";
         std::cout << "LANGUAGES CXX)";
         std::cout << "\n";
         std::cout << "\n";
@@ -271,7 +275,8 @@ int main()
             actual = 20;
 
             std::cout << "Configuring file for C++20 standards..." << "\n";
-            declaration = "CMAKE_CXX_STANDARD " + std::to_string(actual);
+            declaration = text->declare(6);
+            declaration.append(" " + std::to_string(actual));
             break;
         }
         case 2:
@@ -280,7 +285,8 @@ int main()
             actual = 17;
 
             std::cout << "Configuring file for C++17 standards..." << "\n";
-            declaration = "CMAKE_CXX_STANDARD " + std::to_string(actual);
+            declaration = text->declare(6);
+            declaration.append(" " + std::to_string(actual));
             break;
         }
         case 3:
@@ -289,7 +295,8 @@ int main()
             actual = 14;
 
             std::cout << "Configuring file for C++14 standards..." << "\n";
-            declaration = "CMAKE_CXX_STANDARD " + std::to_string(actual);
+            declaration = text->declare(6);
+            declaration.append(" " + std::to_string(actual));
             break;
         }
         case 4:
@@ -311,13 +318,16 @@ int main()
 
     if(valid_standard)
     {
-        requirement = "CMAKE_CXX_STANARD_REQUIRED ON";
+        requirement = text->declare(6);
+        requirement.append(" ON");
 
-        ext_file->write("set(");
+        ext_file->write(text->declare(7)); // set
+        ext_file->write("(");
         ext_file->write(declaration);
         ext_file->write(")");
         ext_file->write("\n");
-        ext_file->write("set(");
+        ext_file->write(text->declare(7));
+        ext_file->write("(");
         ext_file->write(requirement);
         ext_file->write(")");
         ext_file->write("\n");
@@ -333,7 +343,7 @@ int main()
         {
             std::cout << "DEBUG:" << "\n";
             std::cout << "Line in file should read as" << "\n";
-            std::cout << "'set(" << declaration << ")'" << "\n";
+            std::cout << text->declare(7) << "(" << declaration << ")'" << "\n";
             std::cout << "'" << requirement << "'" << "\n";
             std::cout << "\n";
         }
@@ -369,7 +379,8 @@ int main()
         return 1;
     }
 
-    ext_file->write("add_executable(${PROJECT_NAME}");
+    ext_file->write(text->declare(8)); // add exe
+    ext_file->write("(${PROJECT_NAME}");
     ext_file->write(" ");
     ext_file->write(source);
     ext_file->write(exe_name); // should appear as src/(exe_name)
@@ -522,7 +533,6 @@ int main()
 
     ext_file->write("\n");
     ext_file->write("include_directories(include)\n");
-    ext_file->write("\n");
 
     // Recycle multiple input var here
 
