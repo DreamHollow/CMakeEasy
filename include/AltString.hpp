@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-/// @brief Reduces some output clutter and allows for unique input from user.
+/// @brief Reduces some output clutter and loosely handles inputs.
 class AltString
 {
 public:

@@ -26,6 +26,13 @@ void AltString::init_vars()
     declarations.push_back("CMAKE_CXX_STANDARD"); // 6
     declarations.push_back("set"); // 7
     declarations.push_back("add_executable"); // 8
+    declarations.push_back("target_link_libraries"); // 9
+    declarations.push_back("include_directories"); // 10
+    declarations.push_back("target_compile_features"); // 11
+    declarations.push_back("${PROJECT_NAME}"); // 12
+    declarations.push_back("PUBLIC"); // 13
+    declarations.push_back("PRIVATE"); // 14
+    declarations.push_back("INTERFACE"); // 15
 };
 
 /// @brief Displays at the very beginning of the program.
@@ -83,15 +90,17 @@ void AltString::program_lang()
     std::cout << "The 'LANGUAGES' setting will be automatically set to 'CXX'." << "\n";
 };
 
+/// @brief Displays information about packages, link information, etc.
 void AltString::package()
 {
-    std::cout << "Please enter the package(s) that you need in order" << "\n";
-    std::cout << "to properly compile your program." << "\n";
+    std::cout << "If you have any packages to find, please enter them here." << "\n";
     std::cout << "\n";
     std::cout << "Packages are NOT regular directories or folders." << "\n";
     std::cout << "\n";
     std::cout << "Please note that if your package has 'components', they must" << "\n";
     std::cout << "also be added in order for the package to work." << "\n";
+    std::cout << "This step will come later as the program asks for libraries," << "\n";
+    std::cout << "as the program will also link the libraries and add components." << "\n";
     std::cout << "\n";
     std::cout << "Please note that not understanding how this feature works" << "\n";
     std::cout << "may result on a compilation error by CMake and possibly" << "\n";
