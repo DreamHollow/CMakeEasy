@@ -11,6 +11,7 @@ int main()
 
     bool debugging = true;
     bool valid_standard = false;
+    bool has_package = false;
 
     char project_name[32];
     char exe_name[32];
@@ -21,10 +22,6 @@ int main()
 
     std::string declaration;
     std::string requirement;
-
-    // Const strings
-
-    const std::string link_libraries = { "target_link_libraries(${PROJECT_NAME} "};
 
     // Shorts used to avoid unnecessary memory allocation
 
@@ -170,7 +167,6 @@ int main()
         ext_file->write(major);
         ext_file->write(".");
         ext_file->write(minor);
-        // ext_file->write(")");
 
         std::cout << "\n";
         break;
@@ -179,7 +175,6 @@ int main()
         std::cout << "Understood. No version number will be added to your program build at this time." << "\n";
         std::cout << "\n";
 
-        // ext_file->write(")");
         break;
         
         default:
@@ -212,8 +207,8 @@ int main()
         }
 
         std::cout << " ";
-        std::cout << "LANGUAGES CXX)";
-        std::cout << "\n";
+        std::cout << text->declare(3);
+        std::cout << ")";
         std::cout << "\n";
     }
 
@@ -221,18 +216,13 @@ int main()
 
     // text->package();
 
-    // bool more_files = true;
-    // short how_many = 0;
+    bool more_files = true;
 
     // Packages in depth - TODO
 
-    // Setting necessary files (if applicable)
-
     // Setting operating system procedures
 
-    text->op_sys();
-
-    // Setting modern C++ standards
+    // text->op_sys();
 
     text->standard();
     
@@ -329,8 +319,8 @@ int main()
         ext_file->write(text->declare(7));
         ext_file->write("(");
         ext_file->write(requirement);
-        ext_file->write(")");
-        ext_file->write("\n");
+        ext_file->write(")\n");
+        ext_file->write("\n"); // Make some extra space
     }
     else
     {
@@ -360,7 +350,6 @@ int main()
 
     std::cout << "\n";
 
-    short how_many = 0;
     std::string class_name;
     std::string source{ "src/" };
 
@@ -380,7 +369,8 @@ int main()
     }
 
     ext_file->write(text->declare(8)); // add exe
-    ext_file->write("(${PROJECT_NAME}");
+    ext_file->write("(");
+    ext_file->write(text->declare(12));
     ext_file->write(" ");
     ext_file->write(source);
     ext_file->write(exe_name); // should appear as src/(exe_name)
@@ -389,7 +379,7 @@ int main()
     std::cout << "The program will loop entry until you specify that you are done." << "\n";
     std::cout << "\n";
 
-    bool more_files = true; // Force first loop
+    more_files = true; // Force first loop
 
     while(more_files)
     {
@@ -425,17 +415,11 @@ int main()
         ext_file->write(source);
         ext_file->write(class_name);
 
-        how_many += 1;
-
         class_name.erase();
     }
 
-    ext_file->write(")");
-    ext_file->write("\n");
+    ext_file->write(")\n");
 
-    // Set libraries / dependencies - TODO
-
-    /*
     // Reset var
     yes_no = 0;
 
@@ -458,15 +442,40 @@ int main()
         return 1;
     }
 
+    std::string library_shorthand;
+
     switch(yes_no)
     {
         case 1:
         {
+            ext_file->write("\n"); // Force newline
+
+            std::cout << "Please enter the library shorthand." << "\n";
+            std::cout << "\n";
+            std::cout << "For example, SFML becomes sfml and links to a component." << "\n";
+            std::cout << "e.g. sfml-graphics links the graphics module." << "\n";
+            std::cout << "\n";
+            std::cout << "Once the library shorthand is entered, it will be reused until the" << "\n";
+            std::cout << "user tells the program to stop entering components." << "\n";
+            std::cout << "\n";
+            std::cout << "Your library: ";
+            std::cin >> library_shorthand;
+
+            library_shorthand.append("-"); // Append a dash
+
+            // Shorthand NOT written yet
+
             more_files = true;
+
+            // Ask about PUBLIC, PRIVATE, INTERFACE - TODO
 
             while(more_files)
             {
-                std::cout << "If you have no additional library files to link, please enter '!none' instead." << "\n";
+                std::cout << "Please link library components." << "\n";
+                std::cout << "Library components can be linked with a dash, but one will be provided for you." << "\n";
+                std::cout << "\n";
+                std::cout << "If you have no library components to link, please enter '!none' and your" << "\n";
+                std::cout << "unused entry will be excluded from the CMakeLists.txt file.";
                 std::cout << "\n";
                 std::cout << "Please enter any additional library components. (example: sfml-graphics)" << "\n";
                 std::cout << "Your next library target: ";
@@ -478,35 +487,45 @@ int main()
                     return 1;
                 }
 
-                if(library_segment == "!none")
+                if(library_segment == "!none") // Stop the process
                 {
                     std::cout << "\n";
                     std::cout << "No additional library files will be targeted." << "\n";
                     std::cout << "\n";
 
+                    library_shorthand.clear();
                     library_segment.clear();
 
                     more_files = false;
-                };
-
-                if(more_files)
-                {
-                    ext_file->write(" ");
                 }
-                // ext_file->write(source);
-                ext_file->write();
-                ext_file->write(library_segment);
 
-                // how_many += 1;
+                if(library_shorthand.empty()) // No library to link
+                {
+                    // ext_file->write("\n");
+                }
+                else
+                {
+                    ext_file->write(text->declare(9)); // target_link_libraries
+                    ext_file->write("(");
+                    ext_file->write(text->declare(12));
+                    ext_file->write(" ");
+                    ext_file->write(text->declare(14)); // Make this modifiable - TODO
+                    ext_file->write(" ");
+                    ext_file->write(library_shorthand);
+                    ext_file->write(library_segment); // library-component
+                    ext_file->write(")");
+                }
 
                 library_segment.erase();
+
+                ext_file->write("\n"); // New line for new target
             }
             break;
         }
         case 2:
         {
             std::cout << "\n";
-            std::cout << "Understood, no libraries will be added." << "\n";
+            std::cout << "Understood, no more library components will be added." << "\n";
             std::cout << "\n";
             break;
         }
@@ -520,8 +539,6 @@ int main()
         }
     }
 
-    */
-
     if(debugging)
     {
         std::cout << "\n";
@@ -532,23 +549,26 @@ int main()
     // Set standard include directory
 
     ext_file->write("\n");
-    ext_file->write("include_directories(include)\n");
+    ext_file->write(text->declare(10));
+    ext_file->write("(include)\n");
 
     // Recycle multiple input var here
 
     if(valid_standard)
     {
-        ext_file->write("target_compile_features(");
+        ext_file->write(text->declare(11));
+        ext_file->write("(");
 
         // Ask user about PRIVATE / PUBLIC / INTERFACE preference - TODO
 
         // Default this to PRIVATE for now
-        ext_file->write("${PROJECT_NAME} PRIVATE ");
+        ext_file->write(text->declare(12));
+        ext_file->write(" ");
+        ext_file->write(text->declare(14));
+        ext_file->write(" ");
         ext_file->write("cxx_std_");
         ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
-        ext_file->write(")");
-
-        ext_file->write("\n");
+        ext_file->write(")\n");
     }
 
     yes_no = 0; // Reset
@@ -569,8 +589,7 @@ int main()
 
         ext_file->write("\n");
         ext_file->write("# Auto-generated comment:\n");
-        ext_file->write("# This list made with CMakeEasy.");
-        ext_file->write("\n");
+        ext_file->write("# This list made with CMakeEasy.\n");
 
         std::cout << "\n";
         std::cout << "Comment generated." << "\n";
