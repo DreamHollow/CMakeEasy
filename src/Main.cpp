@@ -214,7 +214,7 @@ int main()
 
     // Finding Packages (may need several invokes)
 
-    // text->package();
+    text->package();
 
     bool more_files = true;
 
@@ -308,7 +308,7 @@ int main()
 
     if(valid_standard)
     {
-        requirement = text->declare(6);
+        requirement = text->declare(16);
         requirement.append(" ON");
 
         ext_file->write(text->declare(7)); // set
@@ -423,120 +423,130 @@ int main()
     // Reset var
     yes_no = 0;
 
-    std::cout << "\n";
-    std::cout << "Would you like to link any libraries?" << "\n";
-    std::cout << "Please keep in mind that if CMake cannot find your library," << "\n";
-    std::cout << "linking these files will not work." << "\n";
-    std::cout << "\n";
-    std::cout << "Please note that while adding libraries, you will need" << "\n";
-    std::cout << "to link any necessary components as well." << "\n";
-    std::cout << "\n";
-    std::cout << "Start adding libraries?" << "\n";
-    std::cout << "1. Yes." << "\n";
-    std::cout << "2. No." << "\n";
-    std::cout << "Your choice: ";
-    std::cin >> yes_no;
-
-    if(text->entry_fail(false))
+    // Packages / Libraries only
+    if(has_package)
     {
-        return 1;
-    }
+            std::cout << "\n";
+        std::cout << "Would you like to link any libraries?" << "\n";
+        std::cout << "Please keep in mind that if CMake cannot find your library," << "\n";
+        std::cout << "linking these files will not work." << "\n";
+        std::cout << "\n";
+        std::cout << "Please note that while adding libraries, you will need" << "\n";
+        std::cout << "to link any necessary components as well." << "\n";
+        std::cout << "\n";
+        std::cout << "Start adding libraries?" << "\n";
+        std::cout << "1. Yes." << "\n";
+        std::cout << "2. No." << "\n";
+        std::cout << "Your choice: ";
+        std::cin >> yes_no;
 
-    std::string library_shorthand;
-
-    switch(yes_no)
-    {
-        case 1:
+        if(text->entry_fail(false))
         {
-            ext_file->write("\n"); // Force newline
+            return 1;
+        }
 
-            std::cout << "Please enter the library shorthand." << "\n";
-            std::cout << "\n";
-            std::cout << "For example, SFML becomes sfml and links to a component." << "\n";
-            std::cout << "e.g. sfml-graphics links the graphics module." << "\n";
-            std::cout << "\n";
-            std::cout << "Once the library shorthand is entered, it will be reused until the" << "\n";
-            std::cout << "user tells the program to stop entering components." << "\n";
-            std::cout << "\n";
-            std::cout << "Your library: ";
-            std::cin >> library_shorthand;
+        std::string library_shorthand;
 
-            library_shorthand.append("-"); // Append a dash
-
-            // Shorthand NOT written yet
-
-            more_files = true;
-
-            // Ask about PUBLIC, PRIVATE, INTERFACE - TODO
-
-            while(more_files)
+        switch(yes_no)
+        {
+            case 1:
             {
-                std::cout << "Please link library components." << "\n";
-                std::cout << "Library components can be linked with a dash, but one will be provided for you." << "\n";
+                ext_file->write("\n"); // Force newline
+
+                std::cout << "Please enter the library shorthand." << "\n";
                 std::cout << "\n";
-                std::cout << "If you have no library components to link, please enter '!none' and your" << "\n";
-                std::cout << "unused entry will be excluded from the CMakeLists.txt file.";
+                std::cout << "For example, SFML becomes sfml and links to a component." << "\n";
+                std::cout << "e.g. sfml-graphics links the graphics module." << "\n";
                 std::cout << "\n";
-                std::cout << "Please enter any additional library components. (example: sfml-graphics)" << "\n";
-                std::cout << "Your next library target: ";
+                std::cout << "Once the library shorthand is entered, it will be reused until the" << "\n";
+                std::cout << "user tells the program to stop entering components." << "\n";
+                std::cout << "\n";
+                std::cout << "Your library: ";
+                std::cin >> library_shorthand;
 
-                std::cin >> library_segment;
+                library_shorthand.append("-"); // Append a dash
 
-                if(text->entry_fail(false) != 0)
+                // Shorthand NOT written yet
+
+                more_files = true;
+
+                // Ask about PUBLIC, PRIVATE, INTERFACE - TODO
+
+                while(more_files)
                 {
-                    return 1;
-                }
-
-                if(library_segment == "!none") // Stop the process
-                {
+                    std::cout << "Please link library components." << "\n";
+                    std::cout << "Library components can be linked with a dash, but one will be provided for you." << "\n";
                     std::cout << "\n";
-                    std::cout << "No additional library files will be targeted." << "\n";
+                    std::cout << "If you have no library components to link, please enter '!none' and your" << "\n";
+                    std::cout << "unused entry will be excluded from the CMakeLists.txt file.";
                     std::cout << "\n";
+                    std::cout << "Please enter any additional library components. (example: sfml-graphics)" << "\n";
+                    std::cout << "Your next library target: ";
 
-                    library_shorthand.clear();
-                    library_segment.clear();
+                    std::cin >> library_segment;
 
-                    more_files = false;
+                    if(text->entry_fail(false) != 0)
+                    {
+                        return 1;
+                    }
+
+                    if(library_segment == "!none") // Stop the process
+                    {
+                        std::cout << "\n";
+                        std::cout << "No additional library files will be targeted." << "\n";
+                        std::cout << "\n";
+
+                        library_shorthand.clear();
+                        library_segment.clear();
+
+                        more_files = false;
+                    }
+
+                    if(library_shorthand.empty()) // No library to link
+                    {
+                        // ext_file->write("\n");
+                    }
+                    else
+                    {
+                        ext_file->write(text->declare(9)); // target_link_libraries
+                        ext_file->write("(");
+                        ext_file->write(text->declare(12));
+                        ext_file->write(" ");
+                        ext_file->write(text->declare(14)); // Make this modifiable - TODO
+                        ext_file->write(" ");
+                        ext_file->write(library_shorthand);
+                        ext_file->write(library_segment); // library-component
+                        ext_file->write(")");
+                    }
+
+                    library_segment.erase();
+
+                    ext_file->write("\n"); // New line for new target
                 }
-
-                if(library_shorthand.empty()) // No library to link
-                {
-                    // ext_file->write("\n");
-                }
-                else
-                {
-                    ext_file->write(text->declare(9)); // target_link_libraries
-                    ext_file->write("(");
-                    ext_file->write(text->declare(12));
-                    ext_file->write(" ");
-                    ext_file->write(text->declare(14)); // Make this modifiable - TODO
-                    ext_file->write(" ");
-                    ext_file->write(library_shorthand);
-                    ext_file->write(library_segment); // library-component
-                    ext_file->write(")");
-                }
-
-                library_segment.erase();
-
-                ext_file->write("\n"); // New line for new target
+                break;
             }
-            break;
+            case 2:
+            {
+                std::cout << "\n";
+                std::cout << "Understood, no more library components will be added." << "\n";
+                std::cout << "\n";
+                break;
+            }
+            default:
+            {
+                std::cout << "\n";
+                std::cout << "This selection is invalid." << "\n";
+                std::cout << "Defaulting to 2: No." << "\n";
+                std::cout << "\n";
+                break;
+            }
         }
-        case 2:
-        {
-            std::cout << "\n";
-            std::cout << "Understood, no more library components will be added." << "\n";
-            std::cout << "\n";
-            break;
-        }
-        default:
-        {
-            std::cout << "\n";
-            std::cout << "This selection is invalid." << "\n";
-            std::cout << "Defaulting to 2: No." << "\n";
-            std::cout << "\n";
-            break;
-        }
+    }
+    else
+    {
+        std::cout << "\n";
+        std::cout << "No package or library data entered. Skipping..." << "\n";
+        std::cout << "\n";
     }
 
     if(debugging)
