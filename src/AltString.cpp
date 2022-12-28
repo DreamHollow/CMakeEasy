@@ -33,6 +33,7 @@ void AltString::init_vars()
     declarations.push_back("PUBLIC"); // 13
     declarations.push_back("PRIVATE"); // 14
     declarations.push_back("INTERFACE"); // 15
+    declarations.push_back("CMAKE_CXX_STANDARD_REQUIRED"); // 16
 };
 
 /// @brief Displays at the very beginning of the program.
