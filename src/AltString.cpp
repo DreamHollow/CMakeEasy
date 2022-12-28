@@ -196,7 +196,7 @@ void AltString::include_dirs()
     std::cout << "These changes will be reflected on the CMakeLists.txt file." << "\n";
 };
 
-void AltString::package_entry()
+void AltString::component_entry()
 {
         std::cout << "\n";
         std::cout << "Would you like to link any libraries?" << "\n";

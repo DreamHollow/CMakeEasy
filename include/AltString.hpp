@@ -21,7 +21,7 @@ public:
     void program_vers();
     void program_lang();
     void package();
-    void package_entry();
+    void component_entry();
     void op_sys();
     void standard();
     void source();
