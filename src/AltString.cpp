@@ -196,6 +196,22 @@ void AltString::include_dirs()
     std::cout << "These changes will be reflected on the CMakeLists.txt file." << "\n";
 };
 
+void AltString::package_entry()
+{
+        std::cout << "\n";
+        std::cout << "Would you like to link any libraries?" << "\n";
+        std::cout << "Please keep in mind that if CMake cannot find your library," << "\n";
+        std::cout << "linking these files will not work." << "\n";
+        std::cout << "\n";
+        std::cout << "Please note that while adding libraries, you will need" << "\n";
+        std::cout << "to link any necessary components as well." << "\n";
+        std::cout << "\n";
+        std::cout << "Start adding libraries?" << "\n";
+        std::cout << "1. Yes." << "\n";
+        std::cout << "2. No." << "\n";
+        std::cout << "Your choice: ";
+};
+
 /// @brief Because CMake parameters are generally reusable, this function is called.
 /// @param num 
 /// @return
