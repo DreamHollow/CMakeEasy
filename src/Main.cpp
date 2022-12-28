@@ -426,8 +426,8 @@ int main()
     // Packages / Libraries only
     if(has_package)
     {
-        text->package_entry();
-        
+        text->component_entry();
+
         std::cin >> yes_no;
 
         if(text->entry_fail(false))
