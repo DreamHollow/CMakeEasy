@@ -426,18 +426,8 @@ int main()
     // Packages / Libraries only
     if(has_package)
     {
-            std::cout << "\n";
-        std::cout << "Would you like to link any libraries?" << "\n";
-        std::cout << "Please keep in mind that if CMake cannot find your library," << "\n";
-        std::cout << "linking these files will not work." << "\n";
-        std::cout << "\n";
-        std::cout << "Please note that while adding libraries, you will need" << "\n";
-        std::cout << "to link any necessary components as well." << "\n";
-        std::cout << "\n";
-        std::cout << "Start adding libraries?" << "\n";
-        std::cout << "1. Yes." << "\n";
-        std::cout << "2. No." << "\n";
-        std::cout << "Your choice: ";
+        text->package_entry();
+        
         std::cin >> yes_no;
 
         if(text->entry_fail(false))
