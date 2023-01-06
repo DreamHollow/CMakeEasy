@@ -34,6 +34,9 @@ void AltString::init_vars()
     declarations.push_back("PRIVATE"); // 14
     declarations.push_back("INTERFACE"); // 15
     declarations.push_back("CMAKE_CXX_STANDARD_REQUIRED"); // 16
+    declarations.push_back("REQUIRED"); // 17
+    declarations.push_back("COMPONENTS"); // 18
+    declarations.push_back("find_package"); // 19
 };
 
 /// @brief Displays at the very beginning of the program.
@@ -206,10 +209,23 @@ void AltString::component_entry()
         std::cout << "Please note that while adding libraries, you will need" << "\n";
         std::cout << "to link any necessary components as well." << "\n";
         std::cout << "\n";
-        std::cout << "Start adding libraries?" << "\n";
+        std::cout << "Start linking libraries (and) components?" << "\n";
         std::cout << "1. Yes." << "\n";
         std::cout << "2. No." << "\n";
+        std::cout << "\n";
         std::cout << "Your choice: ";
+};
+
+void AltString::more_libs()
+{
+    std::cout << "\n";
+    std::cout << "Assuming you may have more than one library," << "\n";
+    std::cout << "would you like to link additional libraries?" << "\n";
+    std::cout << "\n";
+    std::cout << "1. Yes, I have more packages/libraries to link." << "\n";
+    std::cout << "2. No thank you, I'm done." << "\n";
+    std::cout << "\n";
+    std::cout << "Your choice: ";
 };
 
 /// @brief Because CMake parameters are generally reusable, this function is called.

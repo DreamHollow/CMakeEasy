@@ -22,6 +22,7 @@ public:
     void program_lang();
     void package();
     void component_entry();
+    void more_libs();
     void op_sys();
     void standard();
     void source();
