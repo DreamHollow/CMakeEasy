@@ -23,6 +23,8 @@ int main()
     std::string declaration;
     std::string requirement;
 
+    std::vector<std::string> packages;
+
     // Shorts used to avoid unnecessary memory allocation
 
     short major = 0;
@@ -30,6 +32,8 @@ int main()
     short release = 0;
 
     short standard = 0;
+
+    short package_vers = 0;
 
     // Integer used to avoid problematic char-style input.
     short yes_no = 0;
@@ -91,6 +95,7 @@ int main()
 
     if(debugging)
     {
+        std::cout << "\n";
         std::cout << "DEBUG:" << "\n";
         std::cout << "Line in file should read as" << "\n";
         std::cout << "'cmake_minimum_required(VERSION x.x.x')" << "\n";
@@ -198,6 +203,7 @@ int main()
 
     if(debugging)
     {
+        std::cout << "\n";
         std::cout << "Line should read as: " << "\n";
         std::cout << text->declare(1) << "(" << project_name << " ";
 
@@ -216,9 +222,117 @@ int main()
 
     text->package();
 
-    bool more_files = true;
+    do
+    {
+        std::cout << "Please enter any extra packages you would like to add." << "\n";
+        std::cout << "\n";
+        std::cout << "Please note that you can enter packages one after another, then you will\n";
+        std::cout << "be asked to add the relevant components afterward." << "\n";
+        std::cout << "\n";
+        std::cout << "If you don't want to add any more packages, just type '!none' instead." << "\n";
+        std::cout << "Your package: ";
+        std::cin >> package_name;
 
-    // Packages in depth - TODO
+        if(text->entry_fail(false) != 0)
+        {
+            return 1;
+        }
+
+        if(package_name == "!none")
+        {
+            std::cout << "\n";
+            std::cout << "Understood, no more packages will be added." << "\n";
+            std::cout << "\n";
+        }
+        else
+        {
+            packages.push_back(package_name); // Keep a list
+
+            std::cout << "\n";
+            std::cout << "Are there any details to add to this package?" << "\n";
+            std::cout << "For example, version number, etc." << "\n";
+            std::cout << "If there is a version number, enter it here by adding a number." << "\n";
+            std::cout << "If not, just type 0 instead." << "\n";
+            std::cout << "\n";
+            std::cout << "Your package version number: ";
+            std::cin >> package_vers;
+
+            yes_no = 0; // reset
+
+            std::cout << "\n";
+            std::cout << "Should this package be required to be found by CMake?" << "\n";
+            std::cout << "This is important, to help CMake determine which packages are optional\n";
+            std::cout << "installs, and which packages are mandatory for the program to work." << "\n";
+            std::cout << "\n";
+            std::cout << "Set package as required?" << "\n";
+            std::cout << "1 for yes, 2 for no." << "\n";
+            std::cout << "\n";
+            std::cout << "Your choice: ";
+            std::cin >> yes_no;
+
+            if(text->entry_fail(false))
+            {
+                return 1;
+            }
+
+            bool req_package = false;
+
+            switch(yes_no)
+            {
+                case 1:
+                {
+                    req_package = true;
+
+                    std::cout << "Understood, the package will be flagged as required." << "\n";
+                    break;
+                }
+                case 2:
+                {
+                    std::cout << "Understood, the package will be flagged as optional." << "\n";
+                    break;
+                }
+                default:
+                {
+                    std::cout << "Unrecognized choice. Setting 'required' setting to off." << "\n";
+                    break;
+                }
+            }
+
+            if(debugging)
+            {
+                std::cout << "\n";
+                std::cout << "DEBUG:\n";
+                std::cout << package_name << " was added to 'packages' vector." << "\n";
+                std::cout << "\n";
+            }
+
+            ext_file->write(text->declare(19)); // find_package
+            ext_file->write("(");
+            ext_file->write(package_name);
+
+            // If package version is relevant
+            if(package_vers != 0)
+            {
+                ext_file->write(" ");
+                ext_file->write(package_vers);
+                ext_file->write(" ");
+            }
+
+            if(req_package)
+            {
+                ext_file->write(text->declare(17));
+            }
+
+            ext_file->write(")");
+
+            has_package = true;
+        }
+
+        ext_file->write("\n");
+
+    }while(package_name != "!none");
+
+    package_name.clear();
 
     // Setting operating system procedures
 
@@ -331,6 +445,7 @@ int main()
     {
         if(valid_standard)
         {
+            std::cout << "\n";
             std::cout << "DEBUG:" << "\n";
             std::cout << "Line in file should read as" << "\n";
             std::cout << text->declare(7) << "(" << declaration << ")'" << "\n";
@@ -339,6 +454,7 @@ int main()
         }
         else
         {
+            std::cout << "\n";
             std::cout << "DEBUG:" << "\n";
             std::cout << "Declaration was either invalid or not assigned." << "\n";
         }
@@ -379,9 +495,9 @@ int main()
     std::cout << "The program will loop entry until you specify that you are done." << "\n";
     std::cout << "\n";
 
-    more_files = true; // Force first loop
+    bool more_files = false;
 
-    while(more_files)
+    do
     {
         std::cout << "If you have no additional files to include, please enter '!none' instead." << "\n";
         std::cout << "\n";
@@ -406,7 +522,11 @@ int main()
             source.clear();
 
             more_files = false;
-        };
+        }
+        else
+        {
+            more_files = true;
+        }
 
         if(more_files)
         {
@@ -416,16 +536,32 @@ int main()
         ext_file->write(class_name);
 
         class_name.erase();
-    }
+    }while(more_files);
 
     ext_file->write(")\n");
 
     // Reset var
     yes_no = 0;
 
+    PACK_LOOP:
+
     // Packages / Libraries only
     if(has_package)
     {
+        std::cout << "Packages were entered previously:" << "\n";
+        std::cout << "\n";
+
+        // Show previously entered packages.
+
+        for(auto it : packages)
+        {
+            std::cout << it << "\n";
+        }
+        std::cout << "\n";
+        std::cout << "Please only enter components for packages" << "\n";
+        std::cout << "that were not previously entered." << "\n";
+        std::cout << "\n";
+
         text->component_entry();
 
         std::cin >> yes_no;
@@ -458,11 +594,9 @@ int main()
 
                 // Shorthand NOT written yet
 
-                more_files = true;
-
                 // Ask about PUBLIC, PRIVATE, INTERFACE - TODO
 
-                while(more_files)
+                do
                 {
                     std::cout << "Please link library components." << "\n";
                     std::cout << "Library components can be linked with a dash, but one will be provided for you." << "\n";
@@ -471,6 +605,7 @@ int main()
                     std::cout << "unused entry will be excluded from the CMakeLists.txt file.";
                     std::cout << "\n";
                     std::cout << "Please enter any additional library components. (example: sfml-graphics)" << "\n";
+                    std::cout << "\n";
                     std::cout << "Your next library target: ";
 
                     std::cin >> library_segment;
@@ -490,6 +625,10 @@ int main()
                         library_segment.clear();
 
                         more_files = false;
+                    }
+                    else
+                    {
+                        more_files = true;
                     }
 
                     if(library_shorthand.empty()) // No library to link
@@ -512,13 +651,20 @@ int main()
                     library_segment.erase();
 
                     ext_file->write("\n"); // New line for new target
-                }
-                break;
+                }while(more_files);
+
+                break; // Still part of case 1
             }
             case 2:
             {
+                if(has_package)
+                {
+                    std::cout << "Please understand that some packages will not work" << "\n";
+                    std::cout << "without relevant components. If your package does not" << "\n";
+                    std::cout << "function, it maybe missing critical files from CMakeLists.txt!" << "\n";
+                }
                 std::cout << "\n";
-                std::cout << "Understood, no more library components will be added." << "\n";
+                std::cout << "No more library components will be added." << "\n";
                 std::cout << "\n";
                 break;
             }
@@ -526,7 +672,7 @@ int main()
             {
                 std::cout << "\n";
                 std::cout << "This selection is invalid." << "\n";
-                std::cout << "Defaulting to 2: No." << "\n";
+                std::cout << "Defaulting to selection 2: No." << "\n";
                 std::cout << "\n";
                 break;
             }
@@ -537,6 +683,47 @@ int main()
         std::cout << "\n";
         std::cout << "No package or library data entered. Skipping..." << "\n";
         std::cout << "\n";
+    }
+
+    yes_no = 0;
+
+    text->more_libs();
+
+    std::cin >> yes_no;
+
+    if(text->entry_fail(false) != 0)
+    {
+        return 1;
+    }
+
+    switch(yes_no)
+    {
+        case 1:
+        {
+            std::cout << "Understood." << "\n";
+            std::cout << "Looping back to library linking." << "\n";
+            std::cout << "\n";
+            goto PACK_LOOP;
+
+            break;
+        }
+        case 2:
+        {
+            std::cout << "Understood." << "\n";
+            std::cout << "No more library links will be added." << "\n";
+            std::cout << "\n";
+
+            break;
+        }
+        default:
+        {
+            std::cout << "\n";
+            std::cout << "Sorry, this is not a valid choice." << "\n";
+            std::cout << "Defaulting to 2: No." << "\n";
+            std::cout << "\n";
+
+            break;
+        }
     }
 
     if(debugging)
@@ -571,7 +758,7 @@ int main()
         ext_file->write(")\n");
     }
 
-    yes_no = 0; // Reset
+    yes_no = 0;
 
     text->promote();
 
@@ -606,12 +793,15 @@ int main()
 
     // Manager moves CMakeLists.txt to Created_Lists at program exit
 
+    packages.clear();
+    packages.shrink_to_fit();
+
     if(debugging)
     {
         std::cout << "\n";
         std::cout << "DEBUG: File closed." << "\n";
-        std::cout << "\n";
-        std::cout << "DEBUG: CMakeLists.txt will be moved to /Created_Lists" << "\n";
+        // std::cout << "\n";
+        // std::cout << "DEBUG: CMakeLists.txt will be moved to /Created_Lists" << "\n";
         std::cout << "\n";
         std::cout << "DEBUG: Memory objects wiped." << "\n";
         std::cout << "\n";
