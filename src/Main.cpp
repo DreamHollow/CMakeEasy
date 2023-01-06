@@ -530,7 +530,7 @@ int main()
 
         if(more_files)
         {
-            ext_file->write(" "); // Seperator
+            ext_file->write("\n"); // Seperator
         }
         ext_file->write(source);
         ext_file->write(class_name);
