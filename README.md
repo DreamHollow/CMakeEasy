@@ -21,6 +21,10 @@ It is completely in the public domain.
 
 **CMakeEasy has 'CMake' in the name but is NOT directly attributed to or endorsed by the CMake developers.**
 
+--
+
+**CMake itself is licensed under the OSI-approved BSD 3-clause License and is NOT public domain!!**
+
 It is simply a program that is designed to procedurally generate an automatic CMakeLists.txt file for inexperienced users who aren't familiar the format of CMake. As such, it should be known that the developers on this project are not necessarily associated with CMake.
 
 CMakeEasy runs best with the latest version of CMake (2.24.2) and may sometimes be problematic with older versions.
@@ -71,11 +75,11 @@ If you get confused about which one that is, make sure it says the project name 
 Once you're sure you have the right one, just open up a Terminal in your CMakeEasy folder.
 
 Then enter:
-`cmake -S . -B bin/build`
+`cmake -S . -B build`
 
 Please do NOT set your -B directory in the same place as the source "CMakeEasy" folder, it will cause issues and potentially overwrite the default CMakeLists.txt file.
 
-Make sure it is `bin/build`
+Make sure it is `build` or `bin/build`
 
 Go to your bin/build folder and run make:
 `make`
@@ -109,11 +113,11 @@ Go to Tools > Command Line > Command Prompt
 In the Command Prompt (make sure it's in the CMakeEasy folder!!),
 Follow similar instructions to Linux.
 
-`cmake -S . -B bin/build`
+`cmake -S . -B build`
 
 OR
 
-`cmake -S . -B build`
+`cmake -S . -B bin/build`
 
 This should generate the relevant build files to that folder.
 
