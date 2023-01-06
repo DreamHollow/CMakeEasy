@@ -19,13 +19,15 @@ This is an in-progress program so not all of the features are finished and it's 
 As per the Unlicense, you can do whatever you want with this code.
 It is completely in the public domain.
 
+It can be confusing because this project's name is so similar to the actual CMake. Be advised:
+
 **CMakeEasy has 'CMake' in the name but is NOT directly attributed to or endorsed by the CMake developers.**
 
---
+**This is a passion project developed independently to make CMake more accessible to struggling programmers.**
 
 **CMake itself is licensed under the OSI-approved BSD 3-clause License and is NOT public domain!!**
 
-It is simply a program that is designed to procedurally generate an automatic CMakeLists.txt file for inexperienced users who aren't familiar the format of CMake. As such, it should be known that the developers on this project are not necessarily associated with CMake.
+*CMakeEasy* is a program that is designed to procedurally generate an automatic CMakeLists.txt file for inexperienced users who aren't familiar the format of CMake. As such, it should be known that the developers on this project are not necessarily associated with CMake.
 
 CMakeEasy runs best with the latest version of CMake (2.24.2) and may sometimes be problematic with older versions.
 
