@@ -15,7 +15,7 @@ Manager::~Manager()
 
 void Manager::init_vars()
 {
-  this->debug = true;
+  this->debug = false;
   this->yes_no = 0;
 };
 
