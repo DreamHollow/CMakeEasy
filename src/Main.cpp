@@ -45,6 +45,15 @@ int main()
 
     if(text->entry_fail(false) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -57,6 +66,15 @@ int main()
 
     if(text->entry_fail(false) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -67,6 +85,15 @@ int main()
 
     if(text->entry_fail(false) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -116,6 +143,15 @@ int main()
 
     if(text->entry_fail(true) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -140,6 +176,15 @@ int main()
 
     if(text->entry_fail(false) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -153,6 +198,15 @@ int main()
 
         if(text->entry_fail(false) != 0)
         {
+            packages.clear();
+            packages.shrink_to_fit();
+
+            ext_file.reset();
+            ext_file.release();
+
+            text.reset();
+            text.release();
+
             return 1;
         }
 
@@ -163,6 +217,15 @@ int main()
 
         if(text->entry_fail(false) != 0)
         {
+            packages.clear();
+            packages.shrink_to_fit();
+
+            ext_file.reset();
+            ext_file.release();
+
+            text.reset();
+            text.release();
+
             return 1;
         }
 
@@ -235,6 +298,15 @@ int main()
 
         if(text->entry_fail(false) != 0)
         {
+            packages.clear();
+            packages.shrink_to_fit();
+
+            ext_file.reset();
+            ext_file.release();
+
+            text.reset();
+            text.release();
+
             return 1;
         }
 
@@ -270,8 +342,17 @@ int main()
             std::cout << "Your choice: ";
             std::cin >> yes_no;
 
-            if(text->entry_fail(false))
+            if(text->entry_fail(false) != 0)
             {
+                packages.clear();
+                packages.shrink_to_fit();
+
+                ext_file.reset();
+                ext_file.release();
+
+                text.reset();
+                text.release();
+
                 return 1;
             }
 
@@ -348,6 +429,15 @@ int main()
 
     if(text->entry_fail(false) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -481,6 +571,15 @@ int main()
 
     if(text->entry_fail(true) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -509,6 +608,15 @@ int main()
 
         if(text->entry_fail(false) != 0)
         {
+            packages.clear();
+            packages.shrink_to_fit();
+
+            ext_file.reset();
+            ext_file.release();
+
+            text.reset();
+            text.release();
+
             return 1;
         }
 
@@ -566,8 +674,17 @@ int main()
 
         std::cin >> yes_no;
 
-        if(text->entry_fail(false))
+        if(text->entry_fail(false) != 0)
         {
+            packages.clear();
+            packages.shrink_to_fit();
+
+            ext_file.reset();
+            ext_file.release();
+
+            text.reset();
+            text.release();
+            
             return 1;
         }
 
@@ -612,6 +729,15 @@ int main()
 
                     if(text->entry_fail(false) != 0)
                     {
+                        packages.clear();
+                        packages.shrink_to_fit();
+
+                        ext_file.reset();
+                        ext_file.release();
+
+                        text.reset();
+                        text.release();
+
                         return 1;
                     }
 
@@ -693,6 +819,15 @@ int main()
 
     if(text->entry_fail(false) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
@@ -764,8 +899,17 @@ int main()
 
     std::cin >> yes_no;
 
-    if(text->entry_fail(false))
+    if(text->entry_fail(false) != 0)
     {
+        packages.clear();
+        packages.shrink_to_fit();
+
+        ext_file.reset();
+        ext_file.release();
+
+        text.reset();
+        text.release();
+
         return 1;
     }
 
