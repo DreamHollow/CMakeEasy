@@ -1,8 +1,9 @@
 #include "Manager.hpp"
+#include "CMakeEasyConfig.h"
 #include <memory>
 #include <vector>
 
-int main()
+int main(int argc, char* argv[])
 {
     // Heap allocated both classes to prevent overflow of stack.
 
@@ -958,6 +959,9 @@ int main()
         std::cout << "DEBUG:" << "\n";
         std::cout << "Reached end of program." << "\n";
     }
+
+    std::cout << argv[0] << " Version " << CMAKEEASY_VERSION_MAJOR << "." << CMAKEEASY_VERSION_MINOR;
+    std::cout << "\n";
 
     return 0;
 };
