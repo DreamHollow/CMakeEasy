@@ -10,3 +10,4 @@
 DEBIAN/
 /.vs
 /out/build/x64-Debug
+CHANGELOG.md
