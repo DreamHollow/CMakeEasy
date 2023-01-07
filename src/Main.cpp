@@ -9,7 +9,7 @@ int main()
     std::unique_ptr<Manager> ext_file = std::make_unique<Manager>();
     std::unique_ptr<AltString> text = std::make_unique<AltString>();
 
-    bool debugging = true;
+    bool debugging = false;
     bool valid_standard = false;
     bool has_package = false;
 
