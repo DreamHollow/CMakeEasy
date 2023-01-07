@@ -175,7 +175,7 @@ Changes that are relatively minor will rarely be noted.
 
 #### Added
 ## [0.2.7]
-- [CMakeEasy] MAJOR - CHANGELOG.md - Added new file
+- [CMakeEasy] MAJOR - CHANGELOG.md - Added log
 
 #### Changed
 ## [0.2.7]
