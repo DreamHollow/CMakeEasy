@@ -791,17 +791,23 @@ int main()
         break;
     }
 
-    // Manager moves CMakeLists.txt to Created_Lists at program exit
+    // Force memory to be free for safety reasons
 
     packages.clear();
     packages.shrink_to_fit();
+
+    ext_file.reset();
+    ext_file.release();
+
+    text.reset();
+    text.release();
 
     if(debugging)
     {
         std::cout << "\n";
         std::cout << "DEBUG: File closed." << "\n";
-        // std::cout << "\n";
-        // std::cout << "DEBUG: CMakeLists.txt will be moved to /Created_Lists" << "\n";
+        std::cout << "\n";
+        std::cout << "DEBUG: Manager and AltString pointers released." << "\n";
         std::cout << "\n";
         std::cout << "DEBUG: Memory objects wiped." << "\n";
         std::cout << "\n";
