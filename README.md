@@ -70,6 +70,14 @@ If you want to suggest that CMakeEasy follow a different build system, please fl
 
 ---
 
+*THE EASY WAY*
+
+If you're on Linux, you can just change the build.sh script to "executable" through the properties menu, then run the script by double clicking it.
+
+This is a much faster way than manually typing out the build/make commands.
+
+*THE COMPLEX WAY*
+
 Make sure you have CMake installed and make sure you have the original CMakeLists.txt file that came with the git repo.
 
 If you get confused about which one that is, make sure it says the project name is "CMakeEasy VERSION 1.1"
