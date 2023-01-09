@@ -74,6 +74,8 @@ If you want to suggest that CMakeEasy follow a different build system, please fl
 
 If you're on Linux, you can just change the build.sh script to "executable" through the properties menu, then run the script by double clicking it.
 
+The build.sh script automatically runs the CMakeEasy installation process.
+
 This is a much faster way than manually typing out the build/make commands.
 
 *THE COMPLEX WAY*
