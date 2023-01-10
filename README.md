@@ -14,7 +14,7 @@ Please use the "master" branch if you only need to generate a configuration file
 IMPORTANT NOTICE
 ----------------
 
-This is an in-progress program so not all of the features are finished and it's impossible to know what the final release will look like.
+This program is designed to be considerably different between "release states" with the 1.0 release being stable and functional, but lacking more advanced features.
 
 As per the Unlicense, you can do whatever you want with this code.
 It is completely in the public domain.
