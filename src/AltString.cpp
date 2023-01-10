@@ -152,42 +152,6 @@ void AltString::promote()
     std::cout << "Your choice: ";
 };
 
-/// @brief Checks iostream input. It will force the program to stop
-/// if the input fails or doesn't match the type.
-/// @return Success (0) or Failure (1)
-int AltString::entry_fail(bool is_array)
-{
-    if(std::cin.fail())
-    {
-        std::cout << "\n";
-        std::cout << "-- ERROR: INVALID INPUT --" << "\n";
-        std::cout << "\n";
-
-        if(is_array)
-        {
-            std::cout << "-- ERROR: ARRAY FAILURE -- " << "\n";
-
-            std::cout << "An error occurred while entering data into a char array." << "\n";
-            std::cout << "Either the wrong data or too much data was entered." << "\n";
-            std::cout << "\n";
-        }
-
-        std::cout << "Sorry, the program encountered an error." << "\n";
-        std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-        std::cout << "for the program to process." << "\n";
-        std::cout << "\n";
-        std::cout << "If you don't understand why you have this error," << "\n";
-        std::cout << "please raise an issue on the Github repository." << "\n";
-        std::cout << "\n";
-        std::cout << "Thank you." << "\n";
-        std::cout << "\n";
-
-        return 1; // Input error
-    }
-
-    return 0; // Continue
-};
-
 /// @brief Displays information that helps with standardization.
 void AltString::include_dirs()
 {

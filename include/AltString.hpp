@@ -30,7 +30,7 @@ public:
     void promote();
 
     // Entry Detection
-    int entry_fail(bool is_array);
+    // int entry_fail(bool is_array);
 
 private:
     // Variables
