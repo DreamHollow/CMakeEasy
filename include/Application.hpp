@@ -8,8 +8,6 @@ public:
     Application();
     virtual ~Application();
 
-    enum STATUS { SUCCESS = 0, FAILURE, CRITICAL_FAILURE };
-
     const bool running() const { return this->is_active; };
 
     void run();
