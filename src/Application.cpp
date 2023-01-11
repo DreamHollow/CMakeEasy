@@ -688,8 +688,6 @@ void Application::run()
 
     early_setup();
 
-    // Finding Packages (may need several invokes)
-
     text->package();
 
     package_setup();
@@ -707,9 +705,6 @@ void Application::run()
     text->source();
 
     std::cout << "\n";
-
-    // std::string class_name;
-    // std::string source{ "src/" };
 
     // Ask user for any additional directories or included files - TODO
 
