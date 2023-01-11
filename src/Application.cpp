@@ -70,17 +70,6 @@ void Application::entry_check()
             std::cout << "-- ERROR: INVALID INPUT --" << "\n";
             std::cout << "\n";
 
-            /*
-            if(is_array)
-            {
-                std::cout << "-- ERROR: ARRAY FAILURE -- " << "\n";
-
-                std::cout << "An error occurred while entering data into a char array." << "\n";
-                std::cout << "Either the wrong data or too much data was entered." << "\n";
-                std::cout << "\n";
-            }
-            */
-
             std::cout << "Sorry, the program encountered an error." << "\n";
             std::cout << "This error message is encountered if input was considered unsafe" << "\n";
             std::cout << "for the program to process." << "\n";
@@ -104,10 +93,8 @@ void Application::entry_check()
 
 }
 
-void Application::run()
+void Application::early_setup()
 {
-    text->start();
-
     std::cout << "Your version: ";
     std::cin >> major;
 
@@ -264,11 +251,10 @@ void Application::run()
         std::cout << ")";
         std::cout << "\n";
     }
+}
 
-    // Finding Packages (may need several invokes)
-
-    text->package();
-
+void Application::package_setup()
+{
     do
     {
         std::cout << "Please enter any extra packages you would like to add." << "\n";
@@ -374,13 +360,10 @@ void Application::run()
     }while(package_name != "!none");
 
     package_name.clear();
+}
 
-    // Setting operating system procedures
-
-    // text->op_sys();
-
-    text->standard();
-    
+void Application::standard_setup()
+{
     std::cout << "Your standard: ";
     std::cin.clear();
     std::cin >> standard;
@@ -391,7 +374,7 @@ void Application::run()
 
     std::cout << "\n";
 
-    short actual = 0;
+    actual = 0;
 
     switch(standard)
     {
@@ -497,87 +480,10 @@ void Application::run()
             std::cout << "Declaration was either invalid or not assigned." << "\n";
         }
     }
+}
 
-    std::cout << "\n";
-
-    text->source();
-
-    std::cout << "\n";
-
-    std::string class_name;
-    std::string source{ "src/" };
-
-    // Ask user for any additional directories or included files - TODO
-
-    text->include_dirs();
-
-    std::cout << "\n";
-    std::cout << "\n";
-    std::cout << "Please enter the name of your main executable, along with .cpp: ";
-    std::cin.ignore();
-    std::cin.getline(exe_name, 32);
-
-    entry_check();
-
-    ext_file->write(text->declare(8)); // add exe
-    ext_file->write("(");
-    ext_file->write(text->declare(12));
-    ext_file->write(" ");
-    ext_file->write(source);
-    ext_file->write(exe_name); // should appear as src/(exe_name)
-
-    std::cout << "If your program is using classes, please add your class files." << "\n";
-    std::cout << "The program will loop entry until you specify that you are done." << "\n";
-    std::cout << "\n";
-
-    bool more_files = false;
-
-    do
-    {
-        std::cout << "If you have no additional files to include, please enter '!none' instead." << "\n";
-        std::cout << "\n";
-        std::cout << "Please enter any additional class names. (example: Class.cpp)" << "\n";
-        std::cout << "Your next class file: ";
-
-        // Input class name
-        std::cin >> class_name;
-
-        entry_check();
-
-        if(class_name == "!none")
-        {
-            std::cout << "\n";
-            std::cout << "No additional class names will be added." << "\n";
-            std::cout << "\n";
-
-            class_name.clear();
-            source.clear();
-
-            more_files = false;
-        }
-        else
-        {
-            more_files = true;
-        }
-
-        if(more_files)
-        {
-            ext_file->write("\n"); // Seperator
-        }
-        ext_file->write(source);
-        ext_file->write(class_name);
-
-        class_name.erase();
-    }while(more_files);
-
-    ext_file->write(")\n");
-
-    // Reset var
-    yes_no = 0;
-
-    PACK_LOOP:
-
-    // Packages / Libraries only
+void Application::package_loop()
+{
     if(has_package)
     {
         std::cout << "Packages were entered previously:" << "\n";
@@ -712,6 +618,114 @@ void Application::run()
     }
 
     yes_no = 0;
+}
+
+void Application::source_and_includes()
+{
+    std::cout << "Please enter the name of your main executable, along with .cpp: ";
+    std::cin.ignore();
+    std::cin.getline(exe_name, 32);
+
+    entry_check();
+
+    ext_file->write(text->declare(8)); // add exe
+    ext_file->write("(");
+    ext_file->write(text->declare(12));
+    ext_file->write(" ");
+    ext_file->write(source);
+    ext_file->write(exe_name); // should appear as src/(exe_name)
+
+    std::cout << "If your program is using classes, please add your class files." << "\n";
+    std::cout << "The program will loop entry until you specify that you are done." << "\n";
+    std::cout << "\n";
+
+    more_files = false;
+
+    do
+    {
+        std::cout << "If you have no additional files to include, please enter '!none' instead." << "\n";
+        std::cout << "\n";
+        std::cout << "Please enter any additional class names. (example: Class.cpp)" << "\n";
+        std::cout << "Your next class file: ";
+
+        // Input class name
+        std::cin >> class_name;
+
+        entry_check();
+
+        if(class_name == "!none")
+        {
+            std::cout << "\n";
+            std::cout << "No additional class names will be added." << "\n";
+            std::cout << "\n";
+
+            class_name.clear();
+            source.clear();
+
+            more_files = false;
+        }
+        else
+        {
+            more_files = true;
+        }
+
+        if(more_files)
+        {
+            ext_file->write("\n"); // Seperator
+        }
+        ext_file->write(source);
+        ext_file->write(class_name);
+
+        class_name.erase();
+    }while(more_files);
+
+    ext_file->write(")\n");
+}
+
+void Application::run()
+{
+    text->start();
+
+    early_setup();
+
+    // Finding Packages (may need several invokes)
+
+    text->package();
+
+    package_setup();
+
+    // Setting operating system procedures
+
+    // text->op_sys();
+
+    text->standard();
+    
+    standard_setup();
+
+    std::cout << "\n";
+
+    text->source();
+
+    std::cout << "\n";
+
+    // std::string class_name;
+    // std::string source{ "src/" };
+
+    // Ask user for any additional directories or included files - TODO
+
+    text->include_dirs();
+
+    std::cout << "\n";
+    std::cout << "\n";
+
+    source_and_includes();
+
+    yes_no = 0;
+
+    PACK_LOOP: // Used goto so function doesn't need more declarations
+
+    // Packages / Libraries only
+    package_loop();
 
     text->more_libs();
 
@@ -826,6 +840,7 @@ void Application::run()
         std::cout << "\n";
         std::cout << "DEBUG:" << "\n";
         std::cout << "Reached end of program." << "\n";
+        std::cout << "\n";
     }
 
     is_active = false;

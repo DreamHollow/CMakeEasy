@@ -20,12 +20,14 @@ private:
     bool debugging;
     bool valid_standard;
     bool has_package;
+    bool more_files;
 
     short major = 0;
     short minor = 0;
     short release = 0;
 
     short standard = 0;
+    short actual = 0;
 
     short package_vers = 0;
 
@@ -39,12 +41,20 @@ private:
     std::string library_segment;
     std::string library_vis; // Library visibility
 
+    std::string class_name;
+    std::string source{ "src/" };
+
     std::string declaration;
     std::string requirement;
 
     std::vector<std::string> packages;
 
     // Functions
+    void early_setup();
+    void package_setup();
+    void standard_setup();
+    void source_and_includes();
+    void package_loop();
     void entry_check();
 
     // Init
