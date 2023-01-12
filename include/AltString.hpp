@@ -29,9 +29,6 @@ public:
     void include_dirs();
     void promote();
 
-    // Entry Detection
-    // int entry_fail(bool is_array);
-
 private:
     // Variables
     bool is_command;
