@@ -157,8 +157,7 @@ void Application::early_setup()
     std::cout << "The input will only handle up to 32 characters, please don't abuse it!" << "\n";
     std::cout << "\n";
     std::cout << "Your project name: ";
-    std::cin.ignore();
-    std::cin.getline(project_name,32);
+    std::cin >> project_name;
 
     entry_check();
 
@@ -623,8 +622,7 @@ void Application::package_loop()
 void Application::source_and_includes()
 {
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
-    std::cin.ignore();
-    std::cin.getline(exe_name, 32);
+    std::cin >> exe_name;
 
     entry_check();
 

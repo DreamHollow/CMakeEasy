@@ -34,8 +34,8 @@ private:
     // Integer used to avoid problematic char-style input.
     short yes_no = 0;
 
-    char project_name[32];
-    char exe_name[32];
+    std::string project_name;
+    std::string exe_name;
 
     std::string package_name;
     std::string library_segment;
