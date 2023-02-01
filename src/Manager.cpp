@@ -9,8 +9,6 @@ Manager::Manager()
 Manager::~Manager()
 {
   this->file.close();
-  // Invoke file being moved to new folder
-  // this->move_file();
 };
 
 void Manager::init_vars()
