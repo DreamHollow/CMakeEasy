@@ -1,4 +1,4 @@
-# CMakeEasy Version 1.0
+# CMakeEasy
 A terminal-based CMakeLists.txt generator.
 
 BRANCHES
