@@ -56,6 +56,7 @@ private:
     void source_and_includes();
     void package_loop();
     void entry_check();
+    void move_file();
 
     // Init
     void init_vars();
