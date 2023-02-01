@@ -90,7 +90,6 @@ void Application::entry_check()
     {
         std::cerr << e.what();
     }
-
 }
 
 void Application::early_setup()
@@ -818,9 +817,9 @@ void Application::run()
         break;
     }
 
-    // Force memory to be free for safety reasons
+    move_file();
 
-    free();
+    // Memory will free automatically from here on.
 
     if(debugging)
     {
@@ -837,4 +836,97 @@ void Application::run()
     }
 
     is_active = false;
+}
+
+void Application::move_file()
+{
+    yes_no = 0;
+
+    if(debugging)
+    {
+        std::cout << "DEBUG: Starting file moving operation..." << "\n";
+        std::cout << "\n";
+    }
+
+    std::cout << "Would you like to move your CMakeLists.txt file into it's own directory?" << "\n";
+    std::cout << "A folder will be created and named 'CMake Auto Lists'. It can only contain\n";
+    std::cout << "one CMakeLists.txt file at a time." << "\n";
+    std::cout << "\n";
+
+    std::cout << "1. Yes, I would like to move the list to folder 'CMake Auto Lists'." << "\n";
+    std::cout << "2. No, I want to keep the file I created where it is." << "\n";
+    std::cout << "\n";
+    std::cout << "Your choice: ";
+    std::cin >> yes_no;
+
+    entry_check();
+
+    switch(yes_no)
+    {
+        case 1:
+        {
+            std::cout << "Understood. Now moving 'CMakeLists.txt' to 'CMake Auto Lists'." << "\n";
+            if(OS_WINDOWS)
+            {
+                if(debugging)
+                {
+                    std::cout << "DEBUG: Windows file protocols started." << "\n";
+                }
+
+                system("mkdir 'CMake Auto Lists'");
+                system("move -y 'CMakeLists.txt' 'CMake Auto Lists'");
+
+                if(debugging)
+                {
+                    std::cout << "DEBUG: Windows protocols finished." << "\n";
+                }
+            }
+
+            if(!OS_WINDOWS) // Linux
+            {
+                if(debugging)
+                {
+                    std::cout << "DEBUG: Linux file protocols started." << "\n";
+                }
+
+                system("mkdir 'CMake Auto Lists'");
+                system("mv 'CMakeLists.txt' 'CMake Auto Lists'");
+
+                if(debugging)
+                {
+                    std::cout << "DEBUG: Linux protocols finished." << "\n";
+                }
+            }
+
+            if(debugging)
+            {
+                std::cout << "DEBUG: File moving operation concluded." << "\n";
+            }
+
+            break;
+        }
+        case 2:
+        {
+            // Continue normal operation
+            std::cout << "Understood. The CMakeLists.txt file should be in the same directory as CMakeEasy." << "\n";
+
+            if(debugging)
+            {
+                std::cout << "DEBUG: File moving operation not performed." << "\n";
+            }
+
+            break;
+        }
+        default:
+        {
+            std::cout << "Sorry, that is not a valid choice. Defaulting to choice 2: No." << "\n";
+
+            if(debugging)
+            {
+                std::cout << "DEBUG: File moving operation cancelled." << "\n";
+            }
+
+            break;
+        }
+    }
 }
