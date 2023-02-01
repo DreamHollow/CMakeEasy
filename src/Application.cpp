@@ -45,11 +45,11 @@ void Application::free()
 
     if(ext_file == nullptr)
     {
-        text.release();
+        ext_file.release();
     }
     else
     {
-        text.reset();
+        ext_file.reset();
     }
 
     if(debugging)
