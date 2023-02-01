@@ -25,7 +25,7 @@ It can be confusing because this project's name is so similar to the actual CMak
 
 **This is a passion project developed independently to make CMake more accessible to struggling programmers.**
 
-**CMake itself is licensed under the OSI-approved BSD 3-clause License and is NOT public domain!!**
+**>CMake itself< is licensed under the OSI-approved BSD 3-clause License and is NOT public domain!!**
 
 *CMakeEasy* is a program that is designed to procedurally generate an automatic CMakeLists.txt file for inexperienced users who aren't familiar the format of CMake. As such, it should be known that the developers on this project are not necessarily associated with CMake.
 
