@@ -10,3 +10,5 @@
 DEBIAN/
 /.vs
 /out/build/x64-Debug
+
+safety_checks.txt
