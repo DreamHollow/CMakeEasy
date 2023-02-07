@@ -874,7 +874,7 @@ void Application::move_file()
                 }
 
                 system("mkdir CMake_Auto_Lists");
-                system("move -y 'CMakeLists.txt' 'CMake Auto Lists'");
+                system("move -y 'CMakeLists.txt' 'CMake_Auto_Lists'");
 
                 if(debugging)
                 {
