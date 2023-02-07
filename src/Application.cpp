@@ -873,7 +873,7 @@ void Application::move_file()
                     std::cout << "DEBUG: Windows file protocols started." << "\n";
                 }
 
-                system("mkdir 'CMake Auto Lists'");
+                system("mkdir CMake\ Auto\ Lists");
                 system("move -y 'CMakeLists.txt' 'CMake Auto Lists'");
 
                 if(debugging)
