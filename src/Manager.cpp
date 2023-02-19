@@ -35,6 +35,10 @@ void Manager::init_file()
       std::cout << "\n";
       std::cout << "Initializing file settings..." << "\n";
 
+      if(debugging)
+      {
+      }
+
       file.open(file_name.c_str(), std::ios::out | std::ios::trunc);
 
       if(file.fail())
