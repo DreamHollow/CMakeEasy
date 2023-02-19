@@ -13,7 +13,6 @@ Manager::~Manager()
 
 void Manager::init_vars()
 {
-  debugging = false;
   this->yes_no = 0;
 };
 
