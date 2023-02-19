@@ -13,11 +13,13 @@ Application::~Application()
 
 void Application::init_vars()
 {
+    // Do not alter debugging state here
+    // Alter boolean using AltString or Manager
+
     is_active = true;
     text = nullptr;
     ext_file = nullptr;
 
-    debugging = true;
     valid_standard = false;
     has_package = false;
 }
