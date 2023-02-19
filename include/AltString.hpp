@@ -1,7 +1,6 @@
 #ifndef ALTSTRING_HPP
 #define ALTSTRING_HPP
 #include <iostream>
-#include <string>
 #include <vector>
 #include "Globals.h"
 
