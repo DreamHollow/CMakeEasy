@@ -13,8 +13,7 @@ Application::~Application()
 
 void Application::init_vars()
 {
-    // Do not alter debugging state here
-    // Alter boolean using AltString or Manager
+    // Do not alter debugging state except in Globals.h
 
     is_active = true;
     text = nullptr;
