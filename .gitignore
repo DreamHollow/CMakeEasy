@@ -5,6 +5,8 @@
 *.o
 *.vscode
 
+/Debug
+/Release
 /build
 /bin/build
 DEBIAN/
