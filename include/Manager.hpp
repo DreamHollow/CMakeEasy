@@ -38,7 +38,6 @@ private:
   int yes_no;
 
   // Constants
-  const std::string db_string = "DEBUG - MANAGER: ";
   const std::string file_name = "CMakeLists.txt";
 
   // Functions
