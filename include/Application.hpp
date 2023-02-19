@@ -17,7 +17,7 @@ private:
     int exit = 0;
 
     bool is_active;
-    bool debugging;
+    // bool debugging;
     bool valid_standard;
     bool has_package;
     bool more_files;
