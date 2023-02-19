@@ -31,8 +31,6 @@ It can be confusing because this project's name is so similar to the actual CMak
 
 CMakeEasy runs best with the latest version of CMake (2.24.2) and may sometimes be problematic with older versions.
 
-**Current version no longer moves created 'CMakeLists.txt' files to their own folder, sorry for the inconvenience.**
-
 HOW IT WORKS
 ------------
 
