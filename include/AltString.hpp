@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Globals.h"
 
 /// @brief Reduces some output clutter and loosely handles inputs.
 class AltString
