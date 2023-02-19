@@ -37,6 +37,7 @@ void Manager::init_file()
 
       if(debugging)
       {
+        std::cout << db_string << "Program attempting to open file 'CMakeLists'...\n";
       }
 
       file.open(file_name.c_str(), std::ios::out | std::ios::trunc);
@@ -56,6 +57,11 @@ void Manager::init_file()
 
     if(file.good())
     {
+      if(debugging)
+      {
+        std::cout << db_string << "CMakeLists.txt is good, allowing edits." << "\n";
+      }
+
       std::cout << "\n";
       std::cout << file_name << " is ready to be modified." << "\n";
       std::cout << "\n";
