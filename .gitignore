@@ -11,4 +11,5 @@ DEBIAN/
 /.vs
 /out/build/x64-Debug
 
+build_release.sh
 safety_checks.txt
