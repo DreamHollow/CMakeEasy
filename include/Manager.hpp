@@ -26,7 +26,7 @@ public:
 
   // Public Const Declarations
   const std::string name() const { return this->file_name; };
-  const bool is_debugging() const { return this->debug; };
+  // const bool debug() const { return debugging; };
 
   // Public Functions
   void write(std::string context);
@@ -35,7 +35,6 @@ public:
 
 private:
   // Variables
-  bool debug;
   int yes_no;
 
   // Constants
