@@ -70,7 +70,7 @@ If you want to suggest that CMakeEasy follow a different build system, please fl
 
 *THE EASY WAY*
 
-If you're on Linux:
+*** If you're on Linux: ***
 
 [If the build.sh script is not executable]:
 
@@ -112,7 +112,7 @@ Then use the following command:
 
 `./CMakeEasy`
 
-** If you're on Windows: **
+*** If you're on Windows: ***
 
 FOR VISUAL STUDIO
 -----------
