@@ -2,7 +2,7 @@
 #define GLOBALS_H
 #include <string>
 
-static bool debugging;
+static bool debugging = true;
 const std::string db_string{"DEBUG: "};
 
 #endif
