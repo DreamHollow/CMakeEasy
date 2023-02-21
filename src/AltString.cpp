@@ -39,6 +39,17 @@ void AltString::init_vars()
     declarations.push_back("find_package"); // 19
 };
 
+/// @brief Prompts the user for a directory to save CMakeLists.txt files.
+void AltString::select_dir()
+{
+    std::cout << "Before you begin using the program, please select a directory\n";
+    std::cout << "to save your finalized 'CMakeLists.txt file." << "\n";
+    std::cout << "\n";
+    std::cout << "To make things easier, CMakeEasy will reference your\n";
+    std::cout << "'Documents' folder in your home directory." << "\n";
+    std::cout << "\n";
+}
+
 /// @brief Displays at the very beginning of the program.
 /// It functions as a welcome screen and documentation reference.
 void AltString::start()
