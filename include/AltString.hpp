@@ -15,6 +15,7 @@ public:
     const std::string declare(int num);
 
     // Public Functions - Explainers
+    void select_dir();
     void start();
     void minor_vers();
     void release_vers();
