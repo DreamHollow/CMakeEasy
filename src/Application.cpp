@@ -93,6 +93,100 @@ void Application::entry_check()
     }
 }
 
+void Application::pre_setup()
+{
+    const char disp_warn[] = "Do you permit CMakeEasy to display and use your Documents folder?";
+
+    yes_no = 0;
+
+    if(debugging)
+    {
+        std::cout << db_string << "yes_no forced to 0." << "\n";
+        std::cout << db_string << "Searching for 'Documents' dir..." << "\n";
+        std::cout << "\n";
+    }
+
+    if(OS_WINDOWS)
+    {
+        std::cout << disp_warn;
+        std::cout << "1. Yes, I permit the program to use 'My Documents' folder." << "\n";
+        std::cout << "2. No, I don't permit this." << "\n";
+        std::cout << "Your choice: ";
+        std::cin >> yes_no;
+
+        switch(yes_no)
+        {
+            case 1:
+            {
+                std::cout << "Understood. CMakeEasy will be permitted to use \n";
+                // Get user documents dir
+                
+                std::cout << "as the directory to save the CMakeLists.txt file.\n";
+                break;
+            }
+            case 2:
+            {
+                std::cout << "Understood. CMakeEasy will not use 'My Documents' as\n";
+                std::cout << "the save location for CMakeLists.txt" << "\n";
+                std::cout << "Defaulting to\n";
+                system("echo %cd%");
+                std::cout << "\n";
+                break;
+            }
+            default:
+            {
+                std::cout << "This input was unrecognized. Defaulting to 2, 'no'.\n";
+                break;
+            }
+        }
+
+        //system("echo %cd%");
+    }
+
+    if(!OS_WINDOWS) // Linux
+    {
+        std::cout << disp_warn;
+        std::cout << "1. Yes, I permit the program to use 'My Documents' folder." << "\n";
+        std::cout << "2. No, I don't permit this." << "\n";
+        std::cout << "Your choice: ";
+        std::cin >> yes_no;
+
+            switch(yes_no)
+            {
+            case 1:
+            {
+                std::cout << "Understood. CMakeEasy will be permitted to use \n";
+                // Get user documents dir
+                
+                std::cout << "as the directory to save the CMakeLists.txt file.\n";
+            }
+            case 2:
+            {
+                std::cout << "Understood. CMakeEasy will not use your 'Documents' folder as\n";
+                std::cout << "the save location for CMakeLists.txt" << "\n";
+                std::cout << "\n";
+                std::cout << "Defaulting to your root or home directory." << "\n";
+                std::cout << "\n";
+                break;
+            }
+            default:
+            {
+                std::cout << "This input was unrecognized. Defaulting to 2, 'no'.\n";
+                break;
+            }
+        }
+
+        //system("pwd");
+    }
+
+    yes_no = 0; // Reset to null
+
+    if(debugging)
+    {
+        std::cout << db_string << "yes_no is reset to 0." << "\n";
+    }
+}
+
 void Application::early_setup()
 {
     std::cout << "Your version: ";
@@ -682,6 +776,13 @@ void Application::source_and_includes()
 
 void Application::run()
 {
+    // Don't use this right now,
+    // need a better way to get My Documents from user's home machine
+
+    // text->select_dir();
+
+    // Select directory
+
     text->start();
 
     early_setup();
