@@ -29,7 +29,7 @@ void Application::init_components()
     ext_file = std::make_unique<Manager>();
 }
 
-/// @brief Absolute call to free memory, just in case.
+/// @brief Absolute call to free memory. Used during exceptions.
 void Application::free()
 {
     packages.clear();
