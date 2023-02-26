@@ -15,6 +15,11 @@
 #include <filesystem>
 #include <cstring>
 #include "AltString.hpp"
+#if OS_WINDOWS == 0
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+#endif
 
 /// @brief File manager. Designed to input or output file data
 /// as needed, usually through simple read-write directives.
@@ -24,9 +29,11 @@ public:
   Manager();
   virtual ~Manager();
 
+  struct passwd *pw = getpwuid(getuid());
+  const char *homedir = pw->pw_dir;
+
   // Public Const Declarations
   const std::string name() const { return this->file_name; };
-  // const bool debug() const { return debugging; };
 
   // Public Functions
   void write(std::string context);
@@ -36,9 +43,10 @@ public:
 private:
   // Variables
   int yes_no;
+  std::string file_dir;
 
   // Constants
-  const std::string file_name = "CMakeLists.txt";
+  std::string file_name = "/CMakeLists.txt";
 
   // Functions
   void init_vars();
