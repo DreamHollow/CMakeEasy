@@ -19,15 +19,32 @@ void Manager::init_vars()
 /// @brief The file is initialized early into the program, along with the directory.
 void Manager::init_file()
 {
+  if(!OS_WINDOWS)
+  {
+    // const char forslash = '/';
+
+    if((homedir = getenv("HOME")) == NULL)
+    {
+      homedir = getpwuid(getuid())->pw_dir;
+    }
+
+    file_dir = homedir;
+
+    file_name = homedir + file_name;
+  }
+
   // This catch-all should really be left in for worst-case file writing scenarios.
 
   if(!this->file.is_open())
   {
     try
     {
-      std::cout << "\n";
-      std::cout << "Warning: If CMakeListst.txt exists in /src folder," << "\n";
-      std::cout << "it will be overwritten!" << "\n";
+      if(debugging)
+      {
+        std::cout << "\n";
+        std::cout << "Warning: If CMakeListst.txt exists in /src folder," << "\n";
+        std::cout << "it will be overwritten!" << "\n";
+      }
       std::cout << "\n";
       std::cout << "Please remove any CMakeList.txt files that you" << "\n";
       std::cout << "Do not wish to lose." << "\n";
@@ -36,6 +53,8 @@ void Manager::init_file()
 
       if(debugging)
       {
+        std::cout << db_string << "Current file path:\n";
+        std::cout << file_name << "\n";
         std::cout << db_string << "Program attempting to open file 'CMakeLists'...\n";
       }
 
@@ -44,7 +63,7 @@ void Manager::init_file()
       if(file.fail())
       {
         std::cout << "The CMakeLists.txt file could not be edited." << "\n";
-        std::cout << "An error occurred: 'Bad CMakeLists argument'." << "\n";
+        std::cout << "An error occurred: 'Unusuable file path'." << "\n";
         
         throw "Bad CMakeLists directory argument.";
       }
