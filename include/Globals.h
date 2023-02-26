@@ -3,6 +3,6 @@
 #include <string>
 
 static bool debugging = false;
-const std::string db_string{"DEBUG: "};
+const char db_string[]{"DEBUG: "};
 
 #endif
