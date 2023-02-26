@@ -50,7 +50,7 @@ Any code that is commented out is still being evaluated and tested.
 
 You may uncomment the code if you wish, but please keep in mind that this code is not guaranteed to work.
 
-* CMakeEasy saves CMakeLists.txt files to your $HOME folder. If the files are unable to generate, the program will terminate on it's own. *
+** CMakeEasy saves CMakeLists.txt files to your $HOME folder. If the files are unable to generate, the program will terminate on it's own. **
 
 COMPILATION
 -----------
