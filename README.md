@@ -50,6 +50,8 @@ Any code that is commented out is still being evaluated and tested.
 
 You may uncomment the code if you wish, but please keep in mind that this code is not guaranteed to work.
 
+** CMakeEasy saves CMakeLists.txt files to your $HOME folder. If the files are unable to generate, the program will terminate on it's own. **
+
 COMPILATION
 -----------
 
@@ -100,8 +102,10 @@ Please do NOT set your -B directory in the same place as the source "CMakeEasy" 
 
 Make sure it is `build` or `bin/build`
 
-Go to your bin/build folder and run make:
-`make`
+Go to your bin/build folder. Please run your 'make' command as a superuser, or the program may not compile.
+`sudo make`
+
+Then enter your credentials.
 
 ** If you're on Linux: **
 
