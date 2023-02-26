@@ -955,6 +955,10 @@ void Application::move_file()
     std::cout << "one CMakeLists.txt file at a time." << "\n";
     std::cout << "\n";
 
+    // Disabled for now. Will be implemented through Manager
+
+    /*
+
     std::cout << "1. Yes, I would like to move the list to folder 'CMake Auto Lists'." << "\n";
     std::cout << "2. No, I want to keep the file I created where it is." << "\n";
     std::cout << "\n";
@@ -1031,4 +1035,6 @@ void Application::move_file()
             break;
         }
     }
+
+    */
 }
