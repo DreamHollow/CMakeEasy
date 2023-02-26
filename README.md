@@ -89,7 +89,7 @@ This is a much faster way than manually typing out the build/make commands.
 
 Make sure you have CMake installed and make sure you have the original CMakeLists.txt file that came with the git repo.
 
-If you get confused about which one that is, make sure it says the project name is "CMakeEasy VERSION 1.1"
+If you get confused about which one that is, make sure it says the project name is "CMakeEasy VERSION 1.0"
 
 Once you're sure you have the right one, just open up a Terminal in your CMakeEasy folder.
 
