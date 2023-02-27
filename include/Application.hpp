@@ -1,6 +1,6 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
-#include "Manager.hpp"
+#include "AltString.hpp"
 
 class Application
 {
