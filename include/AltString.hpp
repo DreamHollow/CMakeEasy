@@ -1,8 +1,6 @@
 #ifndef ALTSTRING_HPP
 #define ALTSTRING_HPP
-#include <iostream>
-#include <vector>
-#include "Globals.h"
+#include "Manager.hpp"
 
 /// @brief Reduces some output clutter and loosely handles inputs.
 class AltString
