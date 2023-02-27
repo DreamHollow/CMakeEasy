@@ -102,3 +102,32 @@ void Manager::write(int num)
 
   file << s;
 };
+
+// Unexpected behavior
+/*
+void Manager::is_complete(bool completed)
+{
+  if(debugging)
+  {
+    std::cout << db_string << "Checking if program termination was nominal..." << "\n";
+  }
+
+  const char *str = file_name.c_str();
+
+  std::cout << "CMakeEasy is now checking for incomplete CMakeLists.txt files." << "\n";
+
+  if(completed)
+  {
+    std::cout << "CMakeLists.txt\n";
+    std::cout << "was determined as finished, no action was taken." << "\n";
+  }
+  else
+  {
+    std::cout << "Running delete function with sudo permissions..." << "\n";
+
+    system("sudo rm " + *str);
+
+    std::cout << "Process complete." << "\n";
+  }
+}
+*/
