@@ -14,7 +14,9 @@
 #include <fstream>
 #include <filesystem>
 #include <cstring>
-#include "AltString.hpp"
+#include <iostream>
+#include <vector>
+#include "Globals.h"
 #if OS_WINDOWS == 0
 #include <unistd.h>
 #include <sys/types.h>
@@ -39,16 +41,18 @@ public:
   void write(std::string context);
   void write(int num);
   // void move_file();
+  // void is_complete(bool completed);
 
 private:
   // Variables
+  // bool complete_file;
   int yes_no;
   std::string file_dir;
 
   // Constants
   std::string file_name = "/CMakeLists.txt";
 
-  // Functions
+  // Init
   void init_vars();
   void init_file();
 
