@@ -8,7 +8,7 @@ Application::Application()
 
 Application::~Application()
 {
-
+    // this->ext_file->is_complete(true);
 }
 
 void Application::init_vars()
@@ -57,6 +57,9 @@ void Application::free()
     {
         std::cout << "DEBUG: " << "'text' and 'ext_file' pointers released safely." << "\n";
     }
+
+    // This only becomes relevant during errors or premature termination
+    // this->ext_file->is_complete(false);
 }
 
 /// @brief Checks iostream input. It will force the program to stop
@@ -93,6 +96,7 @@ void Application::entry_check()
     }
 }
 
+/// @brief Used to configure use of Documents folders. Currently unused.
 void Application::pre_setup()
 {
     const char disp_warn[] = "Do you permit CMakeEasy to display and use your Documents folder?";
