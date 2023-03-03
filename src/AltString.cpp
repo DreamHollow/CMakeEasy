@@ -9,8 +9,19 @@ AltString::AltString()
 
 AltString::~AltString()
 {
+    free();
+};
+
+/// @brief Called to guarantee vector clearing.
+void AltString::free()
+{
     declarations.clear();
     declarations.shrink_to_fit();
+
+    if(debugging)
+    {
+        std::cout << db_string << "AltString freed vectors." << "\n";
+    }
 };
 
 void AltString::init_vars()
