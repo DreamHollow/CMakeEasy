@@ -923,7 +923,7 @@ void Application::run()
         break;
     }
 
-    move_file();
+    // move_file();
 
     // Memory will free automatically from here on.
 
@@ -944,6 +944,9 @@ void Application::run()
     is_active = false;
 }
 
+// Disabled due to inconsistent behavior
+
+/*
 void Application::move_file()
 {
     yes_no = 0;
@@ -1039,6 +1042,5 @@ void Application::move_file()
             break;
         }
     }
-
-    */
 }
+*/
