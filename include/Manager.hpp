@@ -45,7 +45,6 @@ public:
 
 private:
   // Variables
-  // bool complete_file;
   int yes_no;
   std::string file_dir;
 
@@ -55,6 +54,9 @@ private:
   // Init
   void init_vars();
   void init_file();
+
+  // Memory
+  void free();
 
   // Objects
   std::ofstream file; // Write-Only
