@@ -8,8 +8,20 @@ Manager::Manager()
 
 Manager::~Manager()
 {
-  this->file.close();
+  free();
 };
+
+/// @brief Forces file to close to prevent leaks.
+/// Outputs for debugger.
+void Manager::free()
+{
+  this->file.close();
+
+  if(debugging)
+  {
+    std::cout << db_string << "Manager closed the open file." << "\n";
+  }
+}
 
 void Manager::init_vars()
 {
@@ -34,6 +46,7 @@ void Manager::init_file()
   }
 
   // This catch-all should really be left in for worst-case file writing scenarios.
+  // If the CMakeLists.txt file cannot be accessed, it should not be written to!
 
   if(!this->file.is_open())
   {
@@ -64,6 +77,8 @@ void Manager::init_file()
       {
         std::cout << "The CMakeLists.txt file could not be edited." << "\n";
         std::cout << "An error occurred: 'Unusuable file path'." << "\n";
+
+        free();
         
         throw "Bad CMakeLists directory argument.";
       }
