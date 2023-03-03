@@ -983,7 +983,7 @@ void Application::verbose_output()
         {
             std::cout << "Committing changes to CMakeLists.txt file..." << "\n";
             std::cout << "\n";
-            ext_file->write(text->declare(7));
+            ext_file->write(text->declare(7)); // set
             ext_file->write("(");
             ext_file->write(text->declare(20));
             ext_file->write(" ");
@@ -991,6 +991,19 @@ void Application::verbose_output()
             ext_file->write(")");
             ext_file->write("\n");
             ext_file->write("\n");
+
+            // Debug
+            if(debugging)
+            {
+                std::cout << db_string << "Wrote the following to CMakeLists.txt:\n";
+                std::cout << text->declare(7);
+                std::cout << "(";
+                std::cout << text->declare(20);
+                std::cout << " true";
+                std::cout << ")";
+                std::cout << "\n";
+            }
+
             break;
         }
         case 2:
