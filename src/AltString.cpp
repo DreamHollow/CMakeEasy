@@ -48,6 +48,7 @@ void AltString::init_vars()
     declarations.push_back("REQUIRED"); // 17
     declarations.push_back("COMPONENTS"); // 18
     declarations.push_back("find_package"); // 19
+    declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 20
 };
 
 /// @brief Prompts the user for a directory to save CMakeLists.txt files.
