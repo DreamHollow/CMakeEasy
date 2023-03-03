@@ -40,9 +40,9 @@ void Manager::init_file()
       homedir = getpwuid(getuid())->pw_dir;
     }
 
-    file_dir = homedir;
-
     file_name = homedir + file_name;
+
+    file_dir = file_name;
   }
 
   // This catch-all should really be left in for worst-case file writing scenarios.
