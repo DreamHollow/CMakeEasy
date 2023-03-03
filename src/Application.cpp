@@ -15,6 +15,7 @@ void Application::init_vars()
 {
     // Do not alter debugging state except in Globals.h
 
+    is_active = true; // Starts runtime
     text = nullptr;
     ext_file = nullptr;
 
@@ -779,9 +780,6 @@ void Application::source_and_includes()
 
 void Application::run()
 {
-    // Don't use this right now,
-    // need a better way to get My Documents from user's home machine
-
     // text->select_dir();
 
     // Select directory
@@ -801,6 +799,10 @@ void Application::run()
     text->standard();
     
     standard_setup();
+
+    std::cout << "\n";
+
+    verbose_output();
 
     std::cout << "\n";
 
@@ -926,6 +928,10 @@ void Application::run()
 
     // Memory will free automatically from here on.
 
+    std::cout << "The process is finished, you can find your\n";
+    std::cout << "CMakeLists.txt file at " << "\n";
+    std::cout << ext_file->file_dir << "\n";
+
     if(debugging)
     {
         std::cout << "\n";
@@ -938,6 +944,65 @@ void Application::run()
         std::cout << "DEBUG:" << "\n";
         std::cout << "Reached end of program." << "\n";
         std::cout << "\n";
+    }
+
+    is_active = false; // Terminate program
+}
+
+void Application::verbose_output()
+{
+    if(debugging)
+    {
+        std::cout << "\n";
+        std::cout << db_string << "Asking user about verbose CMake setting..." << "\n";
+        std::cout << "\n";
+    }
+
+    std::cout << "Would you to generate verbose CMake output during\n";
+    std::cout << "the CMake process?\n";
+    std::cout << "\n";
+    std::cout << "Please note that this is optional, but can help\n";
+    std::cout << "display CMake debugging information and compilation\n";
+    std::cout << "warnings." << "\n";
+    std::cout << "\n";
+    std::cout << "1. Yes, set my CMakeLists.txt file to generate verbose output.\n";
+    std::cout << "2. No, I don't want verbose output from CMake.\n";
+
+    yes_no = 0;
+
+    std::cout << "\n";
+    std::cout << "Your choice: ";
+    std::cin >> yes_no;
+
+    entry_check();
+
+    switch(yes_no)
+    {
+        case 1:
+        {
+            std::cout << "Committing changes to CMakeLists.txt file..." << "\n";
+            std::cout << "\n";
+            ext_file->write(text->declare(7));
+            ext_file->write("(");
+            ext_file->write(text->declare(20));
+            ext_file->write(" ");
+            ext_file->write("true");
+            ext_file->write(")");
+            ext_file->write("\n");
+            ext_file->write("\n");
+            break;
+        }
+        case 2:
+        {
+            std::cout << "Understood.\n";
+            std::cout << "CMakeLists.txt will not have a 'verbose' configuration." << "\n";
+            break;
+        }
+        default:
+        {
+            std::cout << "This was not a valid input. Assuming 'no'." << "\n";
+            break;
+        }
     }
 }
 
