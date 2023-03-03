@@ -34,8 +34,8 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
 
 # Comment this out if you are just testing!
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-install(FILES "${PROJECT_BINARY_DIR}/CMakeEasyConfig.h" DESTINATION include)
+#install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+#install(FILES "${PROJECT_BINARY_DIR}/CMakeEasyConfig.h" DESTINATION include)
 
 # Auto-generated comment:
 # This list made with CMakeEasy.
