@@ -34,6 +34,9 @@ public:
   struct passwd *pw = getpwuid(getuid());
   const char *homedir = pw->pw_dir;
 
+  // Public Variables
+  std::string file_dir;
+
   // Public Const Declarations
   const std::string name() const { return this->file_name; };
 
@@ -46,7 +49,6 @@ public:
 private:
   // Variables
   int yes_no;
-  std::string file_dir;
 
   // Constants
   std::string file_name = "/CMakeLists.txt";
