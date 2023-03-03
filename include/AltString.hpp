@@ -36,6 +36,8 @@ private:
     // Init
     void init_vars();
 
+    // Memory
+    void free();
 };
 
 #endif
