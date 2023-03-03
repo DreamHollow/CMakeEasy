@@ -49,7 +49,7 @@ private:
     std::vector<std::string> packages;
 
     // Functions
-    void pre_setup();
+    // void pre_setup();
     void early_setup();
     void package_setup();
     void standard_setup();
