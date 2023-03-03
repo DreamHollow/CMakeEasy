@@ -96,7 +96,9 @@ void Application::entry_check()
     }
 }
 
-/// @brief Used to configure use of Documents folders. Currently unused.
+/*
+/// @brief Used to configure use of Documents folders.
+/// Disabled for terminal version of program.
 void Application::pre_setup()
 {
     const char disp_warn[] = "Do you permit CMakeEasy to display and use your Documents folder?";
@@ -143,8 +145,6 @@ void Application::pre_setup()
                 break;
             }
         }
-
-        //system("echo %cd%");
     }
 
     if(!OS_WINDOWS) // Linux
@@ -190,6 +190,7 @@ void Application::pre_setup()
         std::cout << db_string << "yes_no is reset to 0." << "\n";
     }
 }
+*/
 
 void Application::early_setup()
 {
