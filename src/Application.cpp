@@ -15,7 +15,6 @@ void Application::init_vars()
 {
     // Do not alter debugging state except in Globals.h
 
-    is_active = true;
     text = nullptr;
     ext_file = nullptr;
 
@@ -940,8 +939,6 @@ void Application::run()
         std::cout << "Reached end of program." << "\n";
         std::cout << "\n";
     }
-
-    is_active = false;
 }
 
 // Disabled due to inconsistent behavior
