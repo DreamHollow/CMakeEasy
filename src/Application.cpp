@@ -8,7 +8,7 @@ Application::Application()
 
 Application::~Application()
 {
-    // this->ext_file->is_complete(true);
+
 }
 
 void Application::init_vars()
@@ -620,17 +620,24 @@ void Application::package_loop()
                 std::cout << "Once the library shorthand is entered, it will be reused until the" << "\n";
                 std::cout << "user tells the program to stop entering components." << "\n";
                 std::cout << "\n";
+                std::cout << "PLEASE NOTE:\n";
+                std::cout << "You do not have to re-enter your library name." << "\n";
+                std::cout << "The library name you are providing components for\n";
+                std::cout << "Will be displayed before each iteration." << "\n";
+                std::cout << "\n";
                 std::cout << "Your library: ";
                 std::cin >> library_shorthand;
 
                 library_shorthand.append("-"); // Append a dash
 
-                // Shorthand NOT written yet
-
                 // Ask about PUBLIC, PRIVATE, INTERFACE - TODO
+                // Automatically infers PRIVATE for now
 
                 do
                 {
+                    std::cout << "\n";
+                    std::cout << "Your current library prefix: " << library_shorthand << "\n";
+                    std::cout << "\n";
                     std::cout << "Please link library components." << "\n";
                     std::cout << "Library components can be linked with a dash, but one will be provided for you." << "\n";
                     std::cout << "\n";
