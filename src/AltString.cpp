@@ -217,7 +217,7 @@ void AltString::more_libs()
 
 void AltString::verbose()
 {
-        std::cout << "Would you to generate verbose CMake output during\n";
+    std::cout << "Would you to generate verbose CMake output during\n";
     std::cout << "the CMake process?\n";
     std::cout << "\n";
     std::cout << "Please note that this is optional, but can help\n";
