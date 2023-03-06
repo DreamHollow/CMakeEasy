@@ -215,6 +215,19 @@ void AltString::more_libs()
     std::cout << "Your choice: ";
 };
 
+void AltString::verbose()
+{
+        std::cout << "Would you to generate verbose CMake output during\n";
+    std::cout << "the CMake process?\n";
+    std::cout << "\n";
+    std::cout << "Please note that this is optional, but can help\n";
+    std::cout << "display CMake debugging information and compilation\n";
+    std::cout << "warnings." << "\n";
+    std::cout << "\n";
+    std::cout << "1. Yes, set my CMakeLists.txt file to generate verbose output.\n";
+    std::cout << "2. No, I don't want verbose output from CMake.\n";
+};
+
 /// @brief Because CMake parameters are generally reusable, this function is called.
 /// @param num 
 /// @return
