@@ -27,6 +27,7 @@ public:
     void source();
     void include_dirs();
     void promote();
+    void verbose();
 
 private:
     // Variables
