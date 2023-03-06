@@ -966,15 +966,7 @@ void Application::verbose_output()
         std::cout << "\n";
     }
 
-    std::cout << "Would you to generate verbose CMake output during\n";
-    std::cout << "the CMake process?\n";
-    std::cout << "\n";
-    std::cout << "Please note that this is optional, but can help\n";
-    std::cout << "display CMake debugging information and compilation\n";
-    std::cout << "warnings." << "\n";
-    std::cout << "\n";
-    std::cout << "1. Yes, set my CMakeLists.txt file to generate verbose output.\n";
-    std::cout << "2. No, I don't want verbose output from CMake.\n";
+    text->verbose();
 
     yes_no = 0;
 
