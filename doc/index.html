@@ -24,8 +24,14 @@
 
     <h3>Functionality</h3>
     <p>To start, AltString 'initializes' several common CMake strings used for the purpose of creating CMake lists.
-        These preformatted strings are later called through a function known as <b>declare()</b> 
-        that prints the string stored within the <b>declarations</b> vector.</p>
+        AltString is comprised of several functions that hold sets of instructions for users who might not understand how to use the software.</p>
+        <p>Many functions follow this pattern with such examples as <b>start()</b>, <b>package()</b>, <b>standard()</b>, and so forth.</p>
+        <p>The <b>declare(int num)</b> function is exclusively used to provide pre-written statements for CMakeLists.txt writing, taken from the <b>declarations</b> vector. The number provided
+        to the <b>declare(int num)</b> function determines which statement is added.</p>
+        <p>The <b>free()</b> function clears out vectors when they are no longer in use.</p>
+
+    <h3>Notice</h3>
+    <p>How AltString outputs instructions may change in the near future. This documentation will be updated if necessary.</p>
 
     <h2>Application</h2>
     <h3>Overview</h3>
@@ -36,15 +42,27 @@
         <li>Providing step-by-step lines of code for execution and error checking.</li>
         <li>Performing memory-safe entry checking for <b>std::cin</b> prompts.</li>
     </ul>
+    <h3>Functionality</h3>
+    <p>The Application class is mostly a chronological template of code execution.</p>
+    <p>Important variables and configurations are made via <b>init_vars()</b> and <b>init_components()</b> functions.</p>
+    <p>The <b>free()</b> function is designed to only execute if the program encounters a serious error.
+        Because smart pointers do not de-allocate during a throw, it deletes them instead.</p>
 
     <h2>Globals (Header)</h2>
     <h3>Overview</h3>
     <p>The Globals header holds static variables that can be used through the whole program.</p>
-    <p>This header is mostly used for debugging purposes and for universal boolean states.</p>
+    <p>This header is mostly used for debugging statements and for universal boolean states.</p>
 
     <h2>Manager</h2>
     <h3>Overview</h3>
-    <p>The Manager class of CMakeEasy handles file creation and manipulation, containing the process to reduce clutter and functionality on the main Application.</p>
+    <p>The Manager class of CMakeEasy handles file creation and manipulation,
+        containing the process to reduce clutter and functionality on the main Application.</p>
+    <p>It's purposes include:</p>
+    <ul class="a">
+        <li>Creating the default configurations for the outputted CMakeLists.txt file.</li>
+        <li>Managing program-relevant data relative to the home directory. [Cross Platform]</li>
+        <li>Writing data directly to CMakeLists.txt</li>
+    </ul>
 </body>
 </html>
 <!--This page is kept relatively clean as to be as human-readable as possible.-->
