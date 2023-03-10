@@ -31,7 +31,7 @@ void Manager::init_vars()
 /// @brief The file is initialized early into the program, along with the directory.
 void Manager::init_file()
 {
-  if(!OS_WINDOWS)
+  if(!OS_WINDOWS) // Linux
   {
     // const char forslash = '/';
 
@@ -43,6 +43,12 @@ void Manager::init_file()
     file_name = homedir + file_name;
 
     file_dir = file_name;
+  }
+  else
+  {
+    std::cout << "Because CMakeEasy is running in Windows, the CMakeLists.txt\n";
+    std::cout << "file should output in the build directory OR relevant\n";
+    std::cout << "binary directory." << "\n";
   }
 
   // This catch-all should really be left in for worst-case file writing scenarios.
