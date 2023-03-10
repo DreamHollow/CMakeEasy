@@ -1,0 +1,51 @@
+body{
+    background-color:antiquewhite;
+    text-align:left;
+    color:darkred;
+}
+
+p{
+    color:black;
+}
+
+h1{
+    color:midnightblue;
+    text-align:center;
+    font-weight: bold;
+}
+
+h2{
+    color:brown;
+}
+
+h3{
+    color:brown;
+    text-decoration:underline;
+}
+
+h5{
+    color:black;
+    text-align:center;
+}
+
+.intro{
+    color:black;
+    text-align:center;
+    font-size:large;
+}
+
+ul.a
+{
+    list-style-type:square;
+    color:black;
+    margin:auto;
+}
+
+@viewport{
+    width: device-width;
+    zoom:1.0;
+}
+
+@-ms-viewport{
+    width: device-width;
+}
