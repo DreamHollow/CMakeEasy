@@ -327,6 +327,38 @@ void Application::package_setup()
                 }
             }
 
+            // Ask for components that WILL be used.
+
+            bool entries = false;
+            std::string co_entry;
+            std::vector<std::string> co_entries;
+
+            while(co_entry != "!none")
+            {
+                std::cout << "\n";
+                std::cout << "Please enter library components, if applicable." << "\n";
+                std::cout << "Because of how CMake works, these components must be provided" << "\n";
+                std::cout << "in two different places." << "\n";
+                std::cout << "Example: 'SFML 2 REQUIRED COMPONENTS graphics'" << "\n";
+                std::cout << "This can vary between libraries when it comes to CMake." << "\n";
+                std::cout << "If you don't need to add any components, enter '!none' instead." << "\n";
+                std::cout << "\n";
+                std::cout << "Your next component: ";
+                std::cin >> co_entry;
+
+                entry_check();
+
+                if(co_entry == "!none")
+                {
+                    break;
+                }
+                else
+                {
+                    entries = true;
+                    co_entries.push_back(co_entry);
+                }
+            }
+
             if(debugging)
             {
                 std::cout << "\n";
@@ -352,9 +384,25 @@ void Application::package_setup()
                 ext_file->write(text->declare(17));
             }
 
+            if(entries)
+            {
+                ext_file->write(" ");
+                ext_file->write("COMPONENTS");
+                ext_file->write(" ");
+            }
+
+            for(auto it : co_entries)
+            {
+                ext_file->write(it); // Write the current value
+                ext_file->write(" ");
+            }
+
             ext_file->write(")");
 
             has_package = true;
+
+            co_entries.clear();
+            co_entries.shrink_to_fit();
         }
 
         ext_file->write("\n");
