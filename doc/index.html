@@ -29,6 +29,9 @@
         <p>The <b>declare(int num)</b> function is exclusively used to provide pre-written statements for CMakeLists.txt writing, taken from the <b>declarations</b> vector. The number provided
         to the <b>declare(int num)</b> function determines which statement is added.</p>
         <p>The <b>free()</b> function clears out vectors when they are no longer in use.</p>
+        <p>The various other functions used in the AltString class are self-named as to where they belong.
+            This may change in the future.
+        </p>
 
     <h3>Notice</h3>
     <p>How AltString outputs instructions may change in the near future. This documentation will be updated if necessary.</p>
@@ -51,8 +54,7 @@
     <h2>Globals (Header)</h2>
     <h3>Overview</h3>
     <p>The Globals header holds static variables that can be used through the whole program.</p>
-    <p>This header is mostly used for debugging statements and for universal boolean states.</p>
-
+    <p>This header is mostly used for debugging statements and for static booleans.</p>
     <h2>Manager</h2>
     <h3>Overview</h3>
     <p>The Manager class of CMakeEasy handles file creation and manipulation,
@@ -63,6 +65,12 @@
         <li>Managing program-relevant data relative to the home directory. [Cross Platform]</li>
         <li>Writing data directly to CMakeLists.txt</li>
     </ul>
+    <h3>Functionality</h3>
+    <p>The Manager class greatly improves the ease in how file writing takes place.</p>
+    <p>Upon construction, the class immediately initializes relevant data using <b>init_vars()</b> and initializes CMakeLists.txt with <b>init_file()</b>.</p>
+
+    <p>The <b>write()</b> function directly writes strings to file, accepting arguments as either integers or character arrays.</p>
+    <p>As with other classes, Manager has a <b>free()</b> function that makes sure heap allocated data is freed during an exception.</p>
 </body>
 </html>
 <!--This page is kept relatively clean as to be as human-readable as possible.-->
