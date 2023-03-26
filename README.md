@@ -42,8 +42,6 @@ while still providing optimal performance and safety.
 
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
 
-**CMakeEasy is confirmed to work on a very basic level as of now.
-
 If you have difficulties compiling your program, please raise an issue to the CMakeEasy team.**
 
 This program currently has no dependencies and should work fine if all the relevant files are included.
@@ -76,16 +74,23 @@ If you want to suggest that CMakeEasy follow a different build system, please fl
 
 *** If you're on Linux: ***
 
-[If the build.sh script is not executable]:
+Currently, CMakeEasy can be used in two different ways.
+If you want to install a local version of CMakeEasy without installing it to your system, just remove the "install" commands on your CMakeLists.txt file.
 
-You can just change the build.sh script to "executable" through the properties menu, then run the script by double clicking it.
+Then you should run 'build_db.sh' and it will generate a working debug setup.
+You will have to run CMakeEasy through terminal directly in the folder.
 
-If you are on a Linux distribution that does not allow you to do this in your desktop environment, just navigate to your local CMakeEasy folder and use this command:
-`sudo chmod +x build.sh`
+If you cannot execute the pre-configured bash scripts like 'build_db.sh' and 'install.sh', then you should go to your CMakeEasy folder and use this command:
 
-[If it is]:
+`sudo chmod +x build_db.sh`
 
-The build.sh script automatically runs the CMakeEasy installation process.
+The build_db script automatically creates the CMakeEasy binary.
+
+If you are a super user, using
+`sudo ./install.sh`
+should install CMakeEasy fully to your system.
+
+Then you can run CMakeEasy straight from your terminal like any other program.
 
 This is a much faster way than manually typing out the build/make commands.
 
@@ -100,23 +105,10 @@ Once you're sure you have the right one, just open up a Terminal in your CMakeEa
 Then enter:
 `cmake -S . -B build`
 
-Please do NOT set your -B directory in the same place as the source "CMakeEasy" folder, it will cause issues and potentially overwrite the default CMakeLists.txt file.
-
-Make sure it is `build` or `bin/build`
-
 Go to your bin/build folder. Please run your 'make' command as a superuser, or the program may not compile.
 `sudo make`
 
 Then enter your credentials.
-
-** If you're on Linux: **
-
-If everything was done correctly, CMakeEasy should exist as an executable in your CMakeEasy/bin/build folder.
-
-Then to run CMakeEasy, open up the build folder and start a Terminal.
-Then use the following command:
-
-`./CMakeEasy`
 
 *** If you're on Windows: ***
 
@@ -150,7 +142,7 @@ If Visual Studio will not allow you to access the bin/build folders,
 simply edit the .gitignore file and comment out the bin/build line.
 
 Please remember to uncomment this line if you plan to stage changes.
-The bin/build folders should NOT be committed to the repo.
+**The bin/build folders should NOT be committed to the repo.**
 
 You should have several Visual Studio files available to you after
 generation. If not, something may have gone wrong during using the
