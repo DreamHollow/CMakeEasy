@@ -11,6 +11,8 @@ CMakeLists.txt files for libraries as well.
 
 Please use the "master" branch if you only need to generate a configuration file for applications only.
 
+The "visual" branch has been created and will feature a fully GUI supported version of CMakeEasy using the SFML library.
+
 IMPORTANT NOTICE
 ----------------
 
