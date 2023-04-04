@@ -49,12 +49,14 @@ public:
 private:
   // Variables
   int yes_no;
-
-  // Constants
-  std::string file_name = "/CMakeLists.txt";
+  std::string f_slash = "/";
+  // std::string b_slash = "\";
+  
+  std::string file_name = "CMakeLists.txt"; // Slash direction depends on OS
 
   // Init
   void init_vars();
+  void init_directives(int direct);
   void init_file();
 
   // Memory
