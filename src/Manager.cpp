@@ -28,19 +28,33 @@ void Manager::init_vars()
   this->yes_no = 0;
 };
 
+/// @brief Initialize how files should be handled based on operating system
+/// @param direct 
+void Manager::init_directives(int direct)
+{
+  if(debugging)
+  {
+    std::cout << db_string << "Initializing directives..." << "\n";
+  }
+
+  if(debugging)
+  {
+    std::cout << db_string << "Directives initialized." << "\n";
+  }
+};
+
 /// @brief The file is initialized early into the program, along with the directory.
 void Manager::init_file()
 {
   if(!OS_WINDOWS) // Linux
   {
-    // const char forslash = '/';
-
     if((homedir = getenv("HOME")) == NULL)
     {
       homedir = getpwuid(getuid())->pw_dir;
     }
-
-    file_name = homedir + file_name;
+    
+    // This should be the working $HOME directory
+    file_name = homedir + f_slash + file_name;
 
     file_dir = file_name;
   }
