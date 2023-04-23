@@ -43,7 +43,8 @@ void Manager::init_file()
   else
   {
     // There are few easier ways to do this on Windows
-    homedir = "CMakeLists.txt";
+    system("mkdir Lists");
+    homedir = "Lists/CMakeLists.txt";
     file_name = homedir;
 
     file_dir = file_name;
