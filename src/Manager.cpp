@@ -28,26 +28,10 @@ void Manager::init_vars()
   this->yes_no = 0;
 };
 
-/// @brief Initialize how files should be handled based on operating system
-/// @param direct 
-void Manager::init_directives(int direct)
-{
-  if(debugging)
-  {
-    std::cout << db_string << "Initializing directives..." << "\n";
-  }
-
-  if(debugging)
-  {
-    std::cout << db_string << "Directives initialized." << "\n";
-  }
-};
-
 /// @brief The file is initialized early into the program, along with the directory.
 void Manager::init_file()
 {
   std::string f_slash = "/";
-  std::string b_slash = "\t";
 
   if(!OS_WINDOWS) // Linux
   {
@@ -58,9 +42,11 @@ void Manager::init_file()
   }
   else
   {
-    std::cout << "Because CMakeEasy is running in Windows, the CMakeLists.txt\n";
-    std::cout << "file should output in the build directory OR relevant\n";
-    std::cout << "binary directory." << "\n";
+    // There are few easier ways to do this on Windows
+    homedir = "CMakeLists.txt";
+    file_name = homedir;
+
+    file_dir = file_name;
   }
 
   // This catch-all should really be left in for worst-case file writing scenarios.
@@ -73,7 +59,7 @@ void Manager::init_file()
       if(debugging)
       {
         std::cout << "\n";
-        std::cout << "Warning: If CMakeListst.txt exists in /src folder," << "\n";
+        std::cout << "Warning: If CMakeLists.txt exists in /src folder," << "\n";
         std::cout << "it will be overwritten!" << "\n";
       }
       std::cout << "\n";

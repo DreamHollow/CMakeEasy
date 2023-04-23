@@ -1,5 +1,5 @@
 #include "Application.hpp"
-#include "CMakeEasyConfig.h"
+// #include "CMakeEasyConfig.h"
 
 // Needs C style arguments for Versioning to work.
 int main(int argc, char* argv[])
@@ -13,8 +13,8 @@ int main(int argc, char* argv[])
         app.run();
     }
 
-    std::cout << argv[0] << " Version " << CMAKEEASY_VERSION_MAJOR << "." << CMAKEEASY_VERSION_MINOR;
-    std::cout << "\n";
+    // std::cout << argv[0] << " Version " << CMAKEEASY_VERSION_MAJOR << "." << CMAKEEASY_VERSION_MINOR;
+    // std::cout << "\n";
 
     return 0;
 };
