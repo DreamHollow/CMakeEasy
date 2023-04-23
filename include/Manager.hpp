@@ -1,15 +1,6 @@
 #ifndef MANAGER_HPP
 #define MANAGER_HPP
 
-#ifdef __unix__
-#define OS_WINDOWS 0
-#elif defined(_WIN32)
-#define OS_WINDOWS 1
-#include <windows.h>
-#elif defined(_WIN64)
-#define OS_WINDOWS 1
-#endif
-
 #include <stdio.h>
 #include <fstream>
 #include <filesystem>
@@ -17,10 +8,26 @@
 #include <iostream>
 #include <vector>
 #include "Globals.h"
-#if OS_WINDOWS == 0
+
+#ifdef __unix__ // Linux
+#define OS_WINDOWS 0
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+static struct passwd *pw = getpwuid(getuid());
+static const char *homedir = pw->pw_dir;
+#endif
+
+#ifdef _WIN32
+#define OS_WINDOWS 1
+#include <windows.h>
+std::string homedir = "";
+#endif
+
+#ifdef _WIN64
+#define OS_WINDOWS 1
+#include <windows.h>
+std::string homedir = "";
 #endif
 
 /// @brief File manager. Designed to input or output file data
@@ -31,9 +38,6 @@ public:
   Manager();
   virtual ~Manager();
 
-  struct passwd *pw = getpwuid(getuid());
-  const char *homedir = pw->pw_dir;
-
   // Public Variables
   std::string file_dir;
 
@@ -43,14 +47,10 @@ public:
   // Public Functions
   void write(std::string context);
   void write(int num);
-  // void move_file();
-  // void is_complete(bool completed);
 
 private:
   // Variables
   int yes_no;
-  std::string f_slash = "/";
-  // std::string b_slash = "\";
   
   std::string file_name = "CMakeLists.txt"; // Slash direction depends on OS
 
