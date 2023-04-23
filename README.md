@@ -118,9 +118,6 @@ Then enter your credentials.
 
 *** If you're on Windows: ***
 
-
-*** NOTE: THIS IS CURRENTLY NOT FUNCTIONAL, CHANGES WILL BE MADE SOON ***
-
 FOR VISUAL STUDIO
 -----------
 
