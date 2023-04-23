@@ -119,6 +119,8 @@ void Application::early_setup()
 
     entry_check();
 
+    // This is for CMake versioning, not program versioning.
+
     std::cout << "Configuring line inputs..." << "\n";
     std::cout << "You have designated your version of CMake as ";
     std::cout << major << "." << minor << "." << release << "\n";
@@ -175,6 +177,7 @@ void Application::early_setup()
 
     major = 0;
     minor = 0;
+    release = 0;
 
     text->program_vers();
     
@@ -189,16 +192,23 @@ void Application::early_setup()
     {
         case 1:
         std::cout << "Please enter the major version number for your program." << "\n";
-        std::cout << "Example: [1].0" << "\n";
+        std::cout << "Example: [1].0.0" << "\n";
         std::cout << "Your version: ";
         std::cin >> major;
 
         entry_check();
 
         std::cout << "Please enter the minor version number for your program." << "\n";
-        std::cout << "Example: 1.[0]" << "\n";
+        std::cout << "Example: 1.[0].0" << "\n";
         std::cout << "Your version: ";
         std::cin >> minor;
+
+        entry_check();
+
+        std::cout << "Please enter the release version number for your program." << "\n";
+        std::cout << "Example: 1.0.[0]" << "\n";
+        std::cout << "Your version: ";
+        std::cin >> release;
 
         entry_check();
 
@@ -208,6 +218,8 @@ void Application::early_setup()
         ext_file->write(major);
         ext_file->write(".");
         ext_file->write(minor);
+        ext_file->write(".");
+        ext_file->write(release);
 
         std::cout << "\n";
         break;
@@ -245,7 +257,7 @@ void Application::early_setup()
 
         if(major && minor != 0)
         {
-            std::cout << text->declare(2) << " " << major << "." << minor;
+            std::cout << text->declare(2) << " " << major << "." << minor << "." << release;
         }
 
         std::cout << " ";
