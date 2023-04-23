@@ -22,12 +22,25 @@ static const char *homedir = pw->pw_dir;
 #define OS_WINDOWS 1
 #include <windows.h>
 std::string homedir = "";
+// Get buffered file directory
 #endif
 
 #ifdef _WIN64
 #define OS_WINDOWS 1
 #include <windows.h>
 std::string homedir = "";
+#endif
+
+// If a Windows system is being used
+#if OS_WINDOWS
+std::wstring ExePath()
+{
+  TCHAR buffer[MAX_PATH] = {0}; // Get buffered max possible path
+  GetModuleFileName(NULL, buffer, MAX_PATH);
+  std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/"); // Read through the buffer
+  return std::wstring(buffer).substr(0, pos);
+}
+homedir = ExePath();
 #endif
 
 /// @brief File manager. Designed to input or output file data
