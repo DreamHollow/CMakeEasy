@@ -14,7 +14,7 @@ else()
 endif()
 
 # Manually added
-configure_file(CMakeEasyConfig.h.in CMakeEasyConfig.h)
+# configure_file(CMakeEasyConfig.h.in CMakeEasyConfig.h)
 
 # Manually added
 message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
