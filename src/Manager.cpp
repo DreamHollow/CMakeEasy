@@ -46,13 +46,11 @@ void Manager::init_directives(int direct)
 /// @brief The file is initialized early into the program, along with the directory.
 void Manager::init_file()
 {
+  std::string f_slash = "/";
+  std::string b_slash = "\t";
+
   if(!OS_WINDOWS) // Linux
   {
-    if((homedir = getenv("HOME")) == NULL)
-    {
-      homedir = getpwuid(getuid())->pw_dir;
-    }
-    
     // This should be the working $HOME directory
     file_name = homedir + f_slash + file_name;
 
