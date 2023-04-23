@@ -8,7 +8,8 @@ set(CMAKE_VERBOSE_MAKEFILE true)
 
 add_executable(${PROJECT_NAME} src/Main.cpp
 src/AltString.cpp
-src/Manager.cpp)
+src/Manager.cpp
+src/Application.cpp)
 
 include_directories(include)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
