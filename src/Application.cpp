@@ -271,6 +271,7 @@ void Application::package_setup()
 {
     do
     {
+        std::cout << "\n";
         std::cout << "Please enter any extra packages you would like to add." << "\n";
         std::cout << "\n";
         std::cout << "Please note that you can enter packages one after another, then you will\n";
@@ -351,8 +352,10 @@ void Application::package_setup()
                 std::cout << "Please enter library components, if applicable." << "\n";
                 std::cout << "Because of how CMake works, these components must be provided" << "\n";
                 std::cout << "in two different places." << "\n";
+                std::cout << "\n";
                 std::cout << "Example: 'SFML 2 REQUIRED COMPONENTS graphics'" << "\n";
                 std::cout << "This can vary between libraries when it comes to CMake." << "\n";
+                std::cout << "\n";
                 std::cout << "If you don't need to add any components, enter '!none' instead." << "\n";
                 std::cout << "\n";
                 std::cout << "Your next component: ";
