@@ -12,6 +12,9 @@ public:
     // Public Variables
     const std::string declare(int num);
 
+    // Public Functions - Readers
+    // void read_segment(std::string text_name);
+
     // Public Functions - Explainers
     void select_dir();
     void start();
