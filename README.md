@@ -58,6 +58,17 @@ This means that the current user should see CMakeLists.txt appear along with
 
 If this does not happen, please raise an issue on GitHub and explain what happened as you ran the program.
 
+DOCUMENTATION
+-----------
+
+The documentation on how to use CMakeEasy is formatted to be read by a web browser.
+
+If the included documentation isn't helpful to you, please raise an issue on the Git repo
+and explain what could be done to better explain the program's functionality.
+
+CMakeEasy is intended to make the generation of CMakeLists.txt files as painless as possible.
+Let us know if something is wrong!
+
 COMPILATION
 -----------
 
@@ -146,9 +157,6 @@ This should generate the relevant build files to that folder.
 
 If Visual Studio will not allow you to access the bin/build folders,
 simply edit the .gitignore file and comment out the bin/build line.
-
-Please remember to uncomment this line if you plan to stage changes.
-**The bin/build folders should NOT be committed to the repo.**
 
 You should have several Visual Studio files available to you after
 generation. If not, something may have gone wrong during using the
