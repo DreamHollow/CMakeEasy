@@ -20,10 +20,12 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 if(NOT ("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "Win64"))
     if(NOT UNIX)
-        SET_TARGET_PROPERTIES(MSP PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\" /SUBSYSTEM:WINDOWS")
+        SET_TARGET_PROPERTIES(MSVC PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\" /SUBSYSTEM:WINDOWS")
         # 32 bit Windows
 elseif("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "Win64"))
-    # 64 bit Windows
+        # Allow UI access for 64 bit system
+        SET_TARGET_PROPERTIES(MSVC PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='true'\" /SUBSYSTEM:WINDOWS")
+        # 64 bit Windows
 endif()
 
 if(UNIX)
