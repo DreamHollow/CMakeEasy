@@ -14,5 +14,11 @@ src/Application.cpp)
 include_directories(include)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
+# Custom Statements
+if(UNIX)
+    message(STATUS "Installing for Linux system...")
+    install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
+endif()
+
 # Auto-generated comment:
 # This list made with CMakeEasy.
