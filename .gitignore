@@ -12,6 +12,7 @@
 DEBIAN/
 /.vs
 /out
+/plaintext
 
 br.sh
 br_install.sh
