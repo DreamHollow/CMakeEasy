@@ -18,12 +18,12 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 # Windows builds require the permission of the system administrator to run properly.
 # Please comment out everything after this if you're just compiling a debug version!
 
-if(WIN32)
-SET_TARGET_PROPERTIES(MSP PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\" /SUBSYSTEM:WINDOWS")
-endif()
-
-if(WIN64)
-SET_TARGET_PROPERTIES(MSP PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\" /SUBSYSTEM:WINDOWS")
+if(NOT ("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "Win64"))
+    if(NOT UNIX)
+        SET_TARGET_PROPERTIES(MSP PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\" /SUBSYSTEM:WINDOWS")
+        # 32 bit Windows
+elseif("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "Win64"))
+    # 64 bit Windows
 endif()
 
 if(UNIX)
@@ -36,7 +36,7 @@ if(WIN32)
     install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files (x86)/CMakeEasy" PERMISSIONS OWNER_EXECUTE)
 endif()
 
-if(WIN64)
+if("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "Win64")
     message(STATUS "Installing for Windows...")
     install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/CMakeEasy" PERMISSIONS OWNER_EXECUTE)
 endif()
