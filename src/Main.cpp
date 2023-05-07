@@ -13,8 +13,5 @@ int main(int argc, char* argv[])
         app.run();
     }
 
-    // std::cout << argv[0] << " Version " << CMAKEEASY_VERSION_MAJOR << "." << CMAKEEASY_VERSION_MINOR;
-    // std::cout << "\n";
-
     return 0;
 };
