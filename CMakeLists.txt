@@ -23,12 +23,12 @@ endif()
 
 if(WIN32)
     message(STATUS "Installing for 32 bit Windows...")
-    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files (x86)/CMakeEasy")
+    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files (x86)/CMakeEasy" PERMISSIONS OWNER_EXECUTE)
 endif()
 
 if(WIN64)
     message(STATUS "Installing for Windows...")
-    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/CMakeEasy")
+    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/CMakeEasy" PERMISSIONS OWNER_EXECUTE)
 endif()
 
 # Auto-generated comment:
