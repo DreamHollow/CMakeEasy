@@ -849,6 +849,10 @@ void Application::run()
     ext_file->write("\n");
     ext_file->write(text->declare(10));
     ext_file->write("(include)\n");
+    ext_file->write("\n");
+    ext_file->write("# Auto Generated Comment:\n");
+    ext_file->write("# Post-compile data\n");
+    ext_file->write("\n");
 
     // Recycle multiple input var here
 
