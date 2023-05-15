@@ -14,21 +14,21 @@ src/Application.cpp)
 include_directories(include)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
-# Comment these out if you just want a debug version!
-# Custom Statements
+# Custom CMake statements
+# Windows builds require the permission of the system administrator to run properly.
+# Please comment out everything after this if you're just compiling a debug version!
+
+set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
+
 if(UNIX)
     message(STATUS "Installing for Linux system...")
     install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
 endif()
 
+# Make sure you are running cmake as an administrator for this to work!!
 if(WIN32)
-    message(STATUS "Installing for 32 bit Windows...")
-    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files (x86)/CMakeEasy")
-endif()
-
-if(WIN64)
     message(STATUS "Installing for Windows...")
-    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/CMakeEasy")
+    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files (x86)/CMakeEasy" PERMISSIONS OWNER_EXECUTE)
 endif()
 
 # Auto-generated comment:

@@ -1,4 +1,5 @@
 #!/bin/sh
+# Only works on Linux version!
 
 echo "Building Release version..."
 

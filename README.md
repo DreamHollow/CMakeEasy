@@ -33,6 +33,9 @@ It can be confusing because this project's name is so similar to the actual CMak
 
 CMakeEasy runs best with the latest version of CMake (2.24.2) and may sometimes be problematic with older versions.
 
+Addendum: Because CMakeEasy requires access to your file system to work as intended, this program may ask for administrative rights.
+At this point in time, this is the only way to create the CMakeEasy binary for most systems.
+
 HOW IT WORKS
 ------------
 
@@ -135,30 +138,21 @@ FOR VISUAL STUDIO
 Download the CMakeEasy project however you please, but it is strongly
 advised that you use either Git For Windows or GitHub Desktop.
 
-Clone the CMakeEasy repo to your local system.
+Clone the CMakeEasy repo to your local system or download the ZIP file.
 
-Once the project has been cloned to a directory, open that directory
-up inside of Visual Studio. As of VS 2022, compilation can be slightly
-problematic. If you have trouble with VS trying to read the CMakeLists.txt
-file, you should do this:
+Open Powershell in Administrator mode and navigate to your CMakeEasy directory.
+Another way to do this is to run Visual Studio with Administrative rights and open the Command Line Tool.
 
-Go to Tools > Command Line > Command Prompt
-
-In the Command Prompt (make sure it's in the CMakeEasy folder!!),
-Follow similar instructions to Linux.
+Use this command to build CMakeEasy, you will need administration rights for this process to fully work:
 
 `cmake -S . -B build`
 
-OR
-
-`cmake -S . -B bin/build`
-
 This should generate the relevant build files to that folder.
+For Visual Studio you should see a few different build types. For installation, you will want to open the CMakeEasy.sln file with Administrative rights again.
 
-If Visual Studio will not allow you to access the bin/build folders,
-simply edit the .gitignore file and comment out the bin/build line.
+Select the INSTALL build setup from your solution view in Visual Studio and right click, then build it.
 
-You should have several Visual Studio files available to you after
-generation. If not, something may have gone wrong during using the
-Command Prompt. Please go back and try it again, to see if it
-fixes the problem.
+If you have administrative rights, this process should fully build the program and install CMakeEasy to your 'Program Files (x86)' folder on your hard drive.
+
+Because CMakeEasy requires administrator permission to create and edit CMakeLists.txt files, you will have to enable "run as Administrator" for the CMakeEasy binary to fully work.
+If you do not do this, you may encounter a system warning that says "Access Denied" or something similar. CMakeEasy will also warn you that a file path could not be accessed.
