@@ -807,6 +807,7 @@ void Application::run()
 
     entry_check();
 
+    // Must be outside a function
     switch(yes_no)
     {
         case 1:
@@ -837,43 +838,7 @@ void Application::run()
         }
     }
 
-    if(debugging)
-    {
-        std::cout << "\n";
-        std::cout << "DEBUG: " << "Writing additional standards info..." << "\n";
-        std::cout << "\n";
-    }
-
-    // Set standard include directory
-
-    ext_file->write("\n");
-    ext_file->write(text->declare(10));
-    ext_file->write("(include)\n");
-    ext_file->write("\n");
-    ext_file->write("# Auto Generated Comment:\n");
-    ext_file->write("# Post-compile data\n");
-    ext_file->write("\n");
-
-    // Recycle multiple input var here
-
-    if(valid_standard)
-    {
-        ext_file->write(text->declare(11));
-        ext_file->write("(");
-
-        // Ask user about PRIVATE / PUBLIC / INTERFACE preference - TODO
-
-        // Default this to PRIVATE for now
-        ext_file->write(text->declare(12));
-        ext_file->write(" ");
-        ext_file->write(text->declare(14));
-        ext_file->write(" ");
-        ext_file->write("cxx_std_");
-        ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
-        ext_file->write(")\n");
-    }
-
-    yes_no = 0;
+    finish_touches();
 
     text->promote();
 
@@ -926,6 +891,47 @@ void Application::run()
     }
 
     is_active = false; // Terminate program
+}
+
+void Application::finish_touches()
+{
+    if(debugging)
+    {
+        std::cout << "\n";
+        std::cout << "DEBUG: " << "Writing additional standards info..." << "\n";
+        std::cout << "\n";
+    }
+
+    // Set standard include directory
+
+    ext_file->write("\n");
+    ext_file->write(text->declare(10));
+    ext_file->write("(include)\n");
+    ext_file->write("\n");
+    ext_file->write("# Auto Generated Comment:\n");
+    ext_file->write("# Post-compile data\n");
+    ext_file->write("\n");
+
+    // Recycle multiple input var here
+
+    if(valid_standard)
+    {
+        ext_file->write(text->declare(11));
+        ext_file->write("(");
+
+        // Ask user about PRIVATE / PUBLIC / INTERFACE preference - TODO
+
+        // Default this to PRIVATE for now
+        ext_file->write(text->declare(12));
+        ext_file->write(" ");
+        ext_file->write(text->declare(14));
+        ext_file->write(" ");
+        ext_file->write("cxx_std_");
+        ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
+        ext_file->write(")\n");
+    }
+
+    yes_no = 0;
 }
 
 void Application::verbose_output()
