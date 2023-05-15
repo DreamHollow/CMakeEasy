@@ -57,6 +57,7 @@ private:
     void package_loop();
     void entry_check();
     void verbose_output();
+    void finish_touches();
     // void move_file();
 
     // Init
