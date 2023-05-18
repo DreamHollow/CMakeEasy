@@ -58,6 +58,7 @@ private:
     void entry_check();
     void verbose_output();
     void finish_touches();
+    void generate_final();
     // void move_file();
 
     // Init
