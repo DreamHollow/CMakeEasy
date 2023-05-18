@@ -842,31 +842,9 @@ void Application::run()
 
     text->promote();
 
-    std::cin >> yes_no;
+    // Convert into function.
 
-    entry_check();
-
-    switch(yes_no)
-    {
-        case 1:
-        std::cout << "Automatically generating comment..." << "\n";
-
-        ext_file->write("\n");
-        ext_file->write("# Auto-generated comment:\n");
-        ext_file->write("# This list made with CMakeEasy.\n");
-
-        std::cout << "\n";
-        std::cout << "Comment generated." << "\n";
-
-        break;
-        case 2:
-        std::cout << "Okay. No comment will be generated." << "\n";
-        break;
-        default:
-        std::cout << "Sorry, that is not a valid list choice." << "\n";
-        std::cout << "Defaulting to 'no'." << "\n";
-        break;
-    }
+    generate_final();
 
     // move_file();
 
@@ -993,5 +971,38 @@ void Application::verbose_output()
             std::cout << "This was not a valid input. Assuming 'no'." << "\n";
             break;
         }
+    }
+}
+
+void Application::generate_final()
+{
+    yes_no = 0;
+
+    std::cin >> yes_no;
+
+    entry_check();
+
+    switch(yes_no)
+    {
+        case 1:
+        std::cout << "Automatically generating comment..." << "\n";
+
+        ext_file->write("\n");
+        ext_file->write("# Auto-generated comment:\n");
+        ext_file->write("# This list made with CMakeEasy.\n");
+
+        std::cout << "\n";
+        std::cout << "Comment generated." << "\n";
+
+        break;
+        
+        case 2:
+        std::cout << "Okay. No comment will be generated." << "\n";
+        break;
+
+        default:
+        std::cout << "Sorry, that is not a valid list choice." << "\n";
+        std::cout << "Defaulting to 'no'." << "\n";
+        break;
     }
 }
