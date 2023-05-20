@@ -47,7 +47,6 @@ private:
     std::vector<std::string> packages;
 
     // Functions
-    // void pre_setup();
     void early_setup();
     void package_setup();
     void standard_setup();
@@ -58,6 +57,12 @@ private:
     void finish_touches();
     void generate_final();
     // void move_file();
+
+    // Input
+    short input_val(short& num);
+    int input_val(int& num);
+    float input_val(float& num);
+    std::string input_string(std::string& str);
 
     // Init
     void init_vars();
