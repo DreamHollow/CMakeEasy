@@ -14,8 +14,6 @@ public:
 
 private:
     // Variables
-    int exit = 0;
-
     bool is_active;
     bool valid_standard;
     bool has_package;
