@@ -57,9 +57,6 @@ void Application::free()
     {
         std::cout << "DEBUG: " << "'text' and 'ext_file' pointers released safely." << "\n";
     }
-
-    // This only becomes relevant during errors or premature termination
-    // this->ext_file->is_complete(false);
 }
 
 /// @brief Checks iostream input. It will force the program to stop
@@ -99,25 +96,19 @@ void Application::entry_check()
 void Application::early_setup()
 {
     std::cout << "Your version: ";
-    std::cin >> major;
-
-    entry_check();
+    input_val(major);
 
     // Version numbering (CMake)
 
     text->minor_vers();
 
     std::cout << "Your version: ";
-    std::cin >> minor;
-
-    entry_check();
+    input_val(minor);
 
     text->release_vers();
 
     std::cout << "Your version: ";
-    std::cin >> release;
-
-    entry_check();
+    input_val(release);
 
     // This is for CMake versioning, not program versioning.
 
@@ -128,7 +119,8 @@ void Application::early_setup()
     std::cout << "Please keep in mind that if this is wrong," << "\n";
     std::cout << "you will have to start this process over." << "\n";
 
-    // Start writing actual CMakeFile
+    // Start writing data to CMakeLists.txt
+
     std::cout << "\n";
     std::cout << "Saving " << ext_file->name() << " to your current directory..." << "\n";
 
@@ -149,7 +141,8 @@ void Application::early_setup()
         std::cout << "\n";
         std::cout << "DEBUG:" << "\n";
         std::cout << "Line in file should read as" << "\n";
-        std::cout << "'cmake_minimum_required(VERSION x.x.x')" << "\n";
+        std::cout << "'cmake_minimum_required(VERSION";
+        std::cout << " " << major << "." << minor << "." << release << ")" << "'" << "\n";
         std::cout << "\n";
     }
 
@@ -162,9 +155,7 @@ void Application::early_setup()
     std::cout << "The input will only handle up to 32 characters, please don't abuse it!" << "\n";
     std::cout << "\n";
     std::cout << "Your project name: ";
-    std::cin >> project_name;
-
-    entry_check();
+    input_string(project_name);
 
     std::cout << "\n";
     std::cout << "Your project's name has been evaluated as '" << project_name;
@@ -182,11 +173,9 @@ void Application::early_setup()
     text->program_vers();
     
     std::cout << "Your choice: ";
-    std::cin >> yes_no;
+    input_val(yes_no);
 
     std::cout << "\n";
-
-    entry_check();
 
     switch(yes_no)
     {
@@ -194,23 +183,17 @@ void Application::early_setup()
         std::cout << "Please enter the major version number for your program." << "\n";
         std::cout << "Example: [1].0.0" << "\n";
         std::cout << "Your version: ";
-        std::cin >> major;
-
-        entry_check();
+        input_val(major);
 
         std::cout << "Please enter the minor version number for your program." << "\n";
         std::cout << "Example: 1.[0].0" << "\n";
         std::cout << "Your version: ";
-        std::cin >> minor;
-
-        entry_check();
+        input_val(minor);
 
         std::cout << "Please enter the release version number for your program." << "\n";
         std::cout << "Example: 1.0.[0]" << "\n";
         std::cout << "Your version: ";
-        std::cin >> release;
-
-        entry_check();
+        input_val(release);
 
         ext_file->write(" ");
         ext_file->write(text->declare(2));
@@ -279,7 +262,7 @@ void Application::package_setup()
         std::cout << "\n";
         std::cout << "If you don't want to add any more packages, just type '!none' instead." << "\n";
         std::cout << "Your package: ";
-        std::cin >> package_name;
+        input_string(package_name);
 
         entry_check();
 
@@ -300,7 +283,7 @@ void Application::package_setup()
             std::cout << "If not, just type 0 instead." << "\n";
             std::cout << "\n";
             std::cout << "Your package version number: ";
-            std::cin >> package_vers;
+            input_val(package_vers);
 
             yes_no = 0; // reset
 
@@ -313,9 +296,7 @@ void Application::package_setup()
             std::cout << "1 for yes, 2 for no." << "\n";
             std::cout << "\n";
             std::cout << "Your choice: ";
-            std::cin >> yes_no;
-
-            entry_check();
+            input_val(yes_no);
 
             bool req_package = false;
 
@@ -359,7 +340,7 @@ void Application::package_setup()
                 std::cout << "If you don't need to add any components, enter '!none' instead." << "\n";
                 std::cout << "\n";
                 std::cout << "Your next component: ";
-                std::cin >> co_entry;
+                input_string(co_entry);
 
                 entry_check();
 
@@ -431,12 +412,9 @@ void Application::standard_setup()
 {
     std::cout << "Your standard: ";
     std::cin.clear();
-    std::cin >> standard;
+    input_val(standard);
 
     std::cout << "\n";
-
-    entry_check();
-
     std::cout << "\n";
 
     actual = 0;
@@ -567,9 +545,7 @@ void Application::package_loop()
 
         text->component_entry();
 
-        std::cin >> yes_no;
-
-        entry_check();
+        input_val(yes_no);
 
         std::string library_shorthand;
 
@@ -593,7 +569,7 @@ void Application::package_loop()
                 std::cout << "Will be displayed before each iteration." << "\n";
                 std::cout << "\n";
                 std::cout << "Your library: ";
-                std::cin >> library_shorthand;
+                input_string(library_shorthand);
 
                 library_shorthand.append("-"); // Append a dash
 
@@ -615,9 +591,7 @@ void Application::package_loop()
                     std::cout << "\n";
                     std::cout << "Your next library target: ";
 
-                    std::cin >> library_segment;
-
-                    entry_check();
+                    input_string(library_segment);
 
                     if(library_segment == "!none") // Stop the process
                     {
@@ -695,9 +669,7 @@ void Application::package_loop()
 void Application::source_and_includes()
 {
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
-    std::cin >> exe_name;
-
-    entry_check();
+    input_string(exe_name);
 
     ext_file->write(text->declare(8)); // add exe
     ext_file->write("(");
@@ -720,9 +692,7 @@ void Application::source_and_includes()
         std::cout << "Your next class file: ";
 
         // Input class name
-        std::cin >> class_name;
-
-        entry_check();
+        input_string(class_name);
 
         if(class_name == "!none")
         {
@@ -803,7 +773,7 @@ void Application::run()
 
     text->more_libs();
 
-    std::cin >> yes_no;
+    input_val(yes_no);
 
     entry_check();
 
@@ -886,7 +856,7 @@ void Application::finish_touches()
     ext_file->write(text->declare(10));
     ext_file->write("(include)\n");
     ext_file->write("\n");
-    ext_file->write("# Auto Generated Comment:\n");
+    ext_file->write("# Auto-generated comment:\n");
     ext_file->write("# Post-compile data\n");
     ext_file->write("\n");
 
@@ -927,7 +897,7 @@ void Application::verbose_output()
 
     std::cout << "\n";
     std::cout << "Your choice: ";
-    std::cin >> yes_no;
+    input_val(yes_no);
 
     entry_check();
 
@@ -978,9 +948,7 @@ void Application::generate_final()
 {
     yes_no = 0;
 
-    std::cin >> yes_no;
-
-    entry_check();
+    input_val(yes_no);
 
     switch(yes_no)
     {
@@ -1005,4 +973,50 @@ void Application::generate_final()
         std::cout << "Defaulting to 'no'." << "\n";
         break;
     }
+}
+
+// These functions will always be checked for input errors.
+
+/// @brief Short function that checks values before it assigns them.
+/// @return num
+short Application::input_val(short& num)
+{
+    std::cin >> num;
+
+    entry_check();
+
+    return num;
+}
+
+/// @brief Integer function that checks values before it assigns them.
+/// @return num
+int Application::input_val(int& num)
+{
+    std::cin >> num;
+
+    entry_check();
+
+    return num;
+}
+
+/// @brief Float function that checks values before it assigns them.
+/// @return num
+float Application::input_val(float& num)
+{
+    std::cin >> num;
+
+    entry_check();
+
+    return num;
+}
+
+/// @brief Function checks if string input is valid. Seperate from numerical input.
+/// @return str
+std::string Application::input_string(std::string& str)
+{
+    std::cin >> str;
+
+    entry_check();
+
+    return str;
 }
