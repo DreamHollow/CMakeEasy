@@ -1,11 +1,7 @@
 #include "Application.hpp"
-// #include "CMakeEasyConfig.h"
 
-// Needs C style arguments for Versioning to work.
-int main(int argc, char* argv[])
+int main()
 {
-    // Heap allocated both classes to prevent overflow of stack.
-
     Application app;
 
     while(app.running())
