@@ -25,13 +25,12 @@
     <h3>Functionality</h3>
     <p>To start, AltString 'initializes' several common CMake strings used for the purpose of creating CMake lists.
         AltString is comprised of several functions that hold sets of instructions for users who might not understand how to use the software.</p>
-        <p>Many functions follow this pattern with such examples as <b>start()</b>, <b>package()</b>, <b>standard()</b>, and so forth.</p>
-        <p>The <b>declare(int num)</b> function is exclusively used to provide pre-written statements for CMakeLists.txt writing, taken from the <b>declarations</b> vector. The number provided
-        to the <b>declare(int num)</b> function determines which statement is added.</p>
+        <p>Many functions follow this pattern with such examples as <b>void start()</b>, <b>void package()</b>, <b>void standard()</b>, and so forth.</p>
+        <p>The <b>const std::string declare(int num)</b> function is exclusively used to provide pre-written statements for CMakeLists.txt writing, taken from the <b>declarations</b> vector. The number provided
+        to the <b>const std::string declare(int num)</b> function determines which statement is added.</p>
         <p>The <b>free()</b> function clears out vectors when they are no longer in use.</p>
-        <p>The various other functions used in the AltString class are self-named as to where they belong.
-            This may change in the future.
-        </p>
+        <p>The various other functions in AltString are labeled after their position in program
+            execution, usually relevant to the Application class.</p>
 
     <h3>Notice</h3>
     <p>How AltString outputs instructions may change in the near future. This documentation will be updated if necessary.</p>
@@ -47,7 +46,16 @@
     </ul>
     <h3>Functionality</h3>
     <p>The Application class is mostly a chronological template of code execution.</p>
-    <p>Important variables and configurations are made via <b>init_vars()</b> and <b>init_components()</b> functions.</p>
+    <p>Important variables and configurations are made via <b>void init_vars()</b> and <b>void init_components()</b> functions.</p>
+    <p>The function <b>input_val()</b> comes in three forms. <b>short input_val(short& num)</b>,
+    <b>int input_val(int& num)</b>, and <b>float input_val(float& float)</b>.</p>
+    <p>The overloaded function of <b>input_val()</b> is meant to do is to directly assign a variable
+    through the function, run <b>entry_check()</b>, then allow the variable to be used if the check passes.</p>
+    <p><b>std::string input_string(std::string& str)</b> serves a very similar function to <b>input_val()</b>,
+    though allowing for entry checks for strings rather than numeric values.</p>
+    <p><b>void entry_check()</b> is a function that performs standard <i>std::cin.fail()</i> checks, to prevent
+    data corruption between input and output of parameters.
+    
     <p>The <b>free()</b> function is designed to only execute if the program encounters a serious error.
         Because smart pointers do not de-allocate during a throw, it deletes them instead.</p>
 
@@ -68,6 +76,9 @@
     <h3>Functionality</h3>
     <p>The Manager class greatly improves the ease in how file writing takes place.</p>
     <p>Upon construction, the class immediately initializes relevant data using <b>init_vars()</b> and initializes CMakeLists.txt with <b>init_file()</b>.</p>
+    <p>This class also assumes responsibility for determining what kind of file system it is working with,
+    initializing the placement of CMakeLists.txt either in the <i>home</i> directory of a Linux user or creating
+    a subdirectory inside the CMakeEasy directory called <i>Lists</i> on a Windows system. It then places the file inside of that directory.
 
     <p>The <b>write()</b> function directly writes strings to file, accepting arguments as either integers or character arrays.</p>
     <p>As with other classes, Manager has a <b>free()</b> function that makes sure heap allocated data is freed during an exception.</p>
