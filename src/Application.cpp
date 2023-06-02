@@ -8,7 +8,8 @@ Application::Application()
 
 Application::~Application()
 {
-
+    // Only needed if smart pointers fail to release
+    //free();
 }
 
 void Application::init_vars()
