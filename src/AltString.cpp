@@ -51,6 +51,7 @@ void AltString::init_vars()
     declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 20
 };
 
+/*
 /// @brief Prompts the user for a directory to save CMakeLists.txt files.
 void AltString::select_dir()
 {
@@ -61,6 +62,7 @@ void AltString::select_dir()
     std::cout << "'Documents' folder in your home directory." << "\n";
     std::cout << "\n";
 }
+*/
 
 /// @brief Displays at the very beginning of the program.
 /// It functions as a welcome screen and documentation reference.
