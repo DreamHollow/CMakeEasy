@@ -16,7 +16,7 @@ public:
     // void read_segment(std::string text_name);
 
     // Public Functions - Explainers
-    void select_dir();
+    // void select_dir();
     void start();
     void minor_vers();
     void release_vers();
