@@ -58,6 +58,22 @@
     
     <p>The <b>free()</b> function is designed to only execute if the program encounters a serious error.
         Because smart pointers do not de-allocate during a throw, it deletes them instead.</p>
+    <h3>Flow</h3>
+    <p>The Application class has a 'flow' to it's functionality that is important, because it is the true entry point of what makes up CMakeEasy.</p>
+    <ol>
+    <li>Application initializes the variables and objects that it will need to accomplish it's tasks, these functions beginning with <b>init</b> in their names.</li>
+    <li>Depending on what version of CMakeEasy you are running, you may be asked to select a directory to write your CMakeLists.txt file to. This will be explained by <b>select_dir()</b> and may be executed by a similar function.</li>
+    <li>The initial setup for the first lines of CMakeLists.txt will be explained and executed by the <b>start()</b> and <b>early_setup()</b> functions respectively.</li>
+    <li>Package entry, including package attributes, are explained and handled by <b>package()</b> and <b>package_setup()</b>, including necessary components of libraries.</li>
+    <li>The C++ standards for your program, if relevant, are entered here. The <b>standard()</b> function explains how these will be entered into the file, while <b>standard_setup()</b> allows you to select your C++ options.</li>
+    <li>The program will ask you if you want 'verbose output', an advanced feature of CMake that explains the steps taken by your 'make' file during the compilation process. This is handled by one function, <b>verbose_output()</b></li>
+    <li>The functions <b>source()</b> and <b>include_dirs()</b> serve a similar purpose, informing the user about how CMakeEasy handles /src and /include directories. Then any user-configured options are determined by <b>source_and_includes()</b></li>
+    <li>Because CMake requires package information to be verified twice, the <b>package_loop()</b> function evaluates previously entered package information and links components. This is similar to how the information was first entered in <b>package_setup()</b></li>
+    <li>At this point in the porgram, the user is asked if they would like to add any library or component information that they may have missed earlier. <b>input_val()</b> is called to evaluate if the program should continue normally, or loop back to a <i>GOTO</i> loop called <b>PACK_LOOP</b> - this loop breaks when the user has verified that no more packages need to be added.</li>
+    <li>The <b>finish_touches()</b> function writes information to CMakeLists.txt based on previous input, mostly regarding C++ standards.</li>
+    <li>The <b>promote()</b> and <b>generate_final()</b> simply ask the user if they would like to share information on CMakeEasy with comments tacked on to the final CMakeLists.txt file. This is entirely optional.</li>
+    <li>After these functions, CMakeEasy winds down and (if applicable) displays final debug information before terminating execution.</li>
+    </ol>
 
     <h2>Globals (Header)</h2>
     <h3>Overview</h3>
