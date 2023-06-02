@@ -24,6 +24,7 @@ void Application::init_vars()
     has_package = false;
 }
 
+/// @brief Initializes smart pointers for AltString and Manager classes.
 void Application::init_components()
 {
     text = std::make_unique<AltString>();
@@ -253,6 +254,9 @@ void Application::early_setup()
 
 void Application::package_setup()
 {
+    // Package insertion loop continues in case of multiple packages
+    // This can be a little confusing and will need to be reworked - TODO
+
     do
     {
         std::cout << "\n";
@@ -409,6 +413,7 @@ void Application::package_setup()
     package_name.clear();
 }
 
+/// @brief Writes C++ standards to document based on input.
 void Application::standard_setup()
 {
     std::cout << "Your standard: ";
@@ -526,6 +531,7 @@ void Application::standard_setup()
     }
 }
 
+/// @brief The look where package components are linked to libraries.
 void Application::package_loop()
 {
     if(has_package)
@@ -667,6 +673,7 @@ void Application::package_loop()
     yes_no = 0;
 }
 
+/// @brief Defines program compilation, sourcing, and include folders.
 void Application::source_and_includes()
 {
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
@@ -724,6 +731,7 @@ void Application::source_and_includes()
     ext_file->write(")\n");
 }
 
+/// @brief Main run loop for CMakeEasy, defines all function entry points.
 void Application::run()
 {
     // text->select_dir();
