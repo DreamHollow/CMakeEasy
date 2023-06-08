@@ -123,31 +123,57 @@ void Manager::write(int num)
   file << s;
 };
 
-// Unexpected behavior
 /*
-void Manager::is_complete(bool completed)
+void Manager::read(std::string file_location)
 {
-  if(debugging)
+  std::string file_path;
+  std::ifstream in_file;
+
+  if(OS_WINDOWS) // Alter for Windows
   {
-    std::cout << db_string << "Checking if program termination was nominal..." << "\n";
+    // TO-DO
+    // file_path = "C:/Program Files (x86)/CMakeEasy/plaintext";
+    // file_path = file_path + "/" + file_location;
+  }
+  else // Alter for Linux
+  {
+    file_path = "/opt/cmakeeasy";
+    file_path = file_path + "/" + file_location;
   }
 
-  const char *str = file_name.c_str();
-
-  std::cout << "CMakeEasy is now checking for incomplete CMakeLists.txt files." << "\n";
-
-  if(completed)
+  try
   {
-    std::cout << "CMakeLists.txt\n";
-    std::cout << "was determined as finished, no action was taken." << "\n";
+    in_file.open(file_path);
+
+    if(in_file.fail())
+    {
+      std::cout << "ERROR:\n";
+      std::cout << "Explanation text failed to load. Unable to continue operation." << "\n";
+
+      free();
+
+      throw "Unable to load text file.";
+    }
+    else // If file success, read the file
+    {
+      std::string stream;
+
+      if(in_file.is_open())
+      {
+        while(in_file.good())
+        {
+          in_file >> stream;
+
+          std::cout << stream;
+        }
+      }
+    }
   }
-  else
+  catch(const std::exception& e)
   {
-    std::cout << "Running delete function with sudo permissions..." << "\n";
-
-    system("sudo rm " + *str);
-
-    std::cout << "Process complete." << "\n";
+    std::cerr << e.what();
   }
+
+  in_file.close();
 }
 */
