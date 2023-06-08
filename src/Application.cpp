@@ -740,6 +740,8 @@ void Application::run()
 
     text->start();
 
+    // ext_file->read("start.txt");
+
     early_setup();
 
     text->package();
