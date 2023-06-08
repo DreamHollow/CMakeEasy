@@ -58,6 +58,7 @@ public:
   // Public Functions
   void write(std::string context);
   void write(int num);
+  // void read(std::string file_location);
 
 private:
   // Variables
