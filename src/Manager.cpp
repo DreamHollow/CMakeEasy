@@ -36,9 +36,10 @@ void Manager::init_file()
   if(!OS_WINDOWS) // Linux
   {
     // This should be the working $HOME directory
-    file_name = homedir + f_slash + file_name;
 
-    file_dir = file_name;
+    file_name = homedir + f_slash + file_name; // Linux Home
+
+    file_dir = file_name; // ~/home
   }
   else
   {
@@ -47,7 +48,7 @@ void Manager::init_file()
     homedir = "Lists/CMakeLists.txt";
     file_name = homedir;
 
-    file_dir = file_name;
+    file_dir = file_name; // Program Files
   }
 
   // This catch-all should really be left in for worst-case file writing scenarios.
@@ -122,60 +123,3 @@ void Manager::write(int num)
 
   file << s;
 };
-
-/*
-void Manager::read(std::string file_location)
-{
-  std::string file_path;
-  std::ifstream in_file;
-
-  if(OS_WINDOWS) // Alter for Windows
-  {
-    // TO-DO
-    // file_path = "C:/Program Files (x86)/CMakeEasy/plaintext";
-    // file_path = file_path + "/" + file_location;
-  }
-  else // Alter for Linux
-  {
-    file_path = "/opt/cmakeeasy";
-    file_path = file_path + "/" + file_location;
-  }
-
-  try
-  {
-    in_file.open(file_path);
-
-    if(in_file.fail())
-    {
-      std::cout << "ERROR:\n";
-      std::cout << "Explanation text failed to load. Unable to continue operation." << "\n";
-
-      // Removed call to 'free()'
-      // May cause system lockup
-      // Just let it unroll
-
-      throw "Unable to load text file.";
-    }
-    else // If file success, read the file
-    {
-      std::string stream;
-
-      if(in_file.is_open())
-      {
-        while(in_file.good())
-        {
-          in_file >> stream;
-
-          std::cout << stream;
-        }
-      }
-    }
-  }
-  catch(const std::exception& e)
-  {
-    std::cerr << e.what();
-  }
-
-  in_file.close();
-}
-*/
