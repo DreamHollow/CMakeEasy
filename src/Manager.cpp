@@ -150,7 +150,9 @@ void Manager::read(std::string file_location)
       std::cout << "ERROR:\n";
       std::cout << "Explanation text failed to load. Unable to continue operation." << "\n";
 
-      free();
+      // Removed call to 'free()'
+      // May cause system lockup
+      // Just let it unroll
 
       throw "Unable to load text file.";
     }
