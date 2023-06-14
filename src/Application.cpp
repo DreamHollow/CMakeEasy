@@ -744,9 +744,15 @@ void Application::run()
 
     early_setup();
 
+    std::cout << linebreak << "\n";
+    std::cout << "\n";
+
     text->package();
 
     package_setup();
+
+    std::cout << linebreak << "\n";
+    std::cout << "\n";
 
     // Setting operating system procedures
 
@@ -757,6 +763,8 @@ void Application::run()
     standard_setup();
 
     std::cout << "\n";
+    std::cout << linebreak << "\n";
+    std::cout << "\n";
 
     verbose_output();
 
@@ -764,6 +772,8 @@ void Application::run()
 
     text->source();
 
+    std::cout << "\n";
+    std::cout << linebreak << "\n";
     std::cout << "\n";
 
     // Ask user for any additional directories or included files - TODO
@@ -774,6 +784,9 @@ void Application::run()
     std::cout << "\n";
 
     source_and_includes();
+
+    std::cout << linebreak << "\n";
+    std::cout << "\n";
 
     yes_no = 0;
 
@@ -819,6 +832,9 @@ void Application::run()
         }
     }
 
+    std::cout << linebreak << "\n";
+    std::cout << "\n";
+
     finish_touches();
 
     text->promote();
@@ -826,6 +842,10 @@ void Application::run()
     // Convert into function.
 
     generate_final();
+
+    std::cout << "\n";
+    std::cout << linebreak << "\n";
+    std::cout << "\n";
 
     // move_file();
 
