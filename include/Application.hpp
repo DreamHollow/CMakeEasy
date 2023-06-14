@@ -31,6 +31,8 @@ private:
     // Integer used to avoid problematic char-style input.
     short yes_no = 0;
 
+    const std::string linebreak = "------------";
+
     std::string project_name;
     std::string exe_name;
 
