@@ -99,6 +99,7 @@ void Application::early_setup()
 {
     std::cout << "Your version: ";
     input_val(major);
+    std::cout << "\n";
 
     // Version numbering (CMake)
 
@@ -106,14 +107,17 @@ void Application::early_setup()
 
     std::cout << "Your version: ";
     input_val(minor);
+    std::cout << "\n";
 
     text->release_vers();
 
     std::cout << "Your version: ";
     input_val(release);
+    std::cout << "\n";
 
     // This is for CMake versioning, not program versioning.
 
+    std::cout << "\n";
     std::cout << "Configuring line inputs..." << "\n";
     std::cout << "You have designated your version of CMake as ";
     std::cout << major << "." << minor << "." << release << "\n";
@@ -158,15 +162,17 @@ void Application::early_setup()
     std::cout << "\n";
     std::cout << "Your project name: ";
     input_string(project_name);
+    std::cout << "\n";
 
     std::cout << "\n";
-    std::cout << "Your project's name has been evaluated as '" << project_name;
-    std::cout << "', and will be saved as such." << "\n";
+    std::cout << "Your project's name has been evaluated as '" << project_name << "'" << '\n';
+    std::cout << "and will be saved as such." << "\n";
     std::cout << "\n";
 
     ext_file->write(text->declare(1));
     ext_file->write("(");
     ext_file->write(project_name);
+    std::cout << "\n";
 
     major = 0;
     minor = 0;
@@ -176,6 +182,7 @@ void Application::early_setup()
     
     std::cout << "Your choice: ";
     input_val(yes_no);
+    std::cout << "\n";
 
     std::cout << "\n";
 
@@ -268,8 +275,7 @@ void Application::package_setup()
         std::cout << "If you don't want to add any more packages, just type '!none' instead." << "\n";
         std::cout << "Your package: ";
         input_string(package_name);
-
-        entry_check();
+        std::cout << "\n";
 
         if(package_name == "!none")
         {
@@ -289,6 +295,7 @@ void Application::package_setup()
             std::cout << "\n";
             std::cout << "Your package version number: ";
             input_val(package_vers);
+            std::cout << "\n";
 
             yes_no = 0; // reset
 
@@ -302,6 +309,7 @@ void Application::package_setup()
             std::cout << "\n";
             std::cout << "Your choice: ";
             input_val(yes_no);
+            std::cout << "\n";
 
             bool req_package = false;
 
@@ -346,8 +354,7 @@ void Application::package_setup()
                 std::cout << "\n";
                 std::cout << "Your next component: ";
                 input_string(co_entry);
-
-                entry_check();
+                std::cout << "\n";
 
                 if(co_entry == "!none")
                 {
@@ -419,8 +426,8 @@ void Application::standard_setup()
     std::cout << "Your standard: ";
     std::cin.clear();
     input_val(standard);
-
     std::cout << "\n";
+
     std::cout << "\n";
 
     actual = 0;
@@ -446,9 +453,9 @@ void Application::standard_setup()
         case 1:
         {
             valid_standard = true;
-            actual = 20;
+            actual = 23;
 
-            std::cout << "Configuring file for C++20 standards..." << "\n";
+            std::cout << "Configuring file for C++23 standards..." << "\n";
             declaration = text->declare(6);
             declaration.append(" " + std::to_string(actual));
             break;
@@ -456,9 +463,9 @@ void Application::standard_setup()
         case 2:
         {
             valid_standard = true;
-            actual = 17;
+            actual = 20;
 
-            std::cout << "Configuring file for C++17 standards..." << "\n";
+            std::cout << "Configuring file for C++20 standards..." << "\n";
             declaration = text->declare(6);
             declaration.append(" " + std::to_string(actual));
             break;
@@ -466,9 +473,9 @@ void Application::standard_setup()
         case 3:
         {
             valid_standard = true;
-            actual = 14;
+            actual = 17;
 
-            std::cout << "Configuring file for C++14 standards..." << "\n";
+            std::cout << "Configuring file for C++17 standards..." << "\n";
             declaration = text->declare(6);
             declaration.append(" " + std::to_string(actual));
             break;
@@ -553,6 +560,7 @@ void Application::package_loop()
         text->component_entry();
 
         input_val(yes_no);
+        std::cout << "\n";
 
         std::string library_shorthand;
 
@@ -577,6 +585,7 @@ void Application::package_loop()
                 std::cout << "\n";
                 std::cout << "Your library: ";
                 input_string(library_shorthand);
+                std::cout << "\n";
 
                 library_shorthand.append("-"); // Append a dash
 
@@ -678,6 +687,7 @@ void Application::source_and_includes()
 {
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     input_string(exe_name);
+    std::cout << "\n";
 
     ext_file->write(text->declare(8)); // add exe
     ext_file->write("(");
