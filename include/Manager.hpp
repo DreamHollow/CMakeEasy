@@ -8,37 +8,9 @@
 #include <vector>
 #include "Globals.h"
 
-#ifdef __unix__ // Linux
-#define OS_WINDOWS 0
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <pwd.h>
-static struct passwd *pw = getpwuid(getuid());
-static const char *homedir = pw->pw_dir;
-#endif
-
-#ifdef _WIN32
-#define OS_WINDOWS 1
-#include <windows.h>
-#endif
-
-#ifdef _WIN64
-#define OS_WINDOWS 1
-#include <windows.h>
-#endif
-
 // If a Windows system is being used
 #if OS_WINDOWS
 static std::string homedir = "";
-//std::wstring ExePath()
-//{
-//  TCHAR buffer[MAX_PATH] = {0}; // Get buffered max possible path
-//  GetModuleFileName(NULL, buffer, MAX_PATH);
-//  std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/"); // Read through the buffer
-//
-//  homedir = std::wstring(buffer).substr(0, pos);
-//}
 #endif
 
 /// @brief File manager. Designed to input or output file data
