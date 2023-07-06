@@ -149,9 +149,9 @@ void AltString::standard()
     std::cout << "If you're not using any newer C++ standards, you can select option 4." << "\n";
     std::cout << "\n";
     std::cout << "This list may be updated in the future as more standards are added." << "\n";
-    std::cout << "1. C++20" << "\n";
-    std::cout << "2. C++17" << "\n";
-    std::cout << "3. C++14" << "\n";
+    std::cout << "1. C++23" << "\n";
+    std::cout << "2. C++20" << "\n";
+    std::cout << "3. C++17" << "\n";
     std::cout << "4. Not following standard, N/A" << "\n";
 };
 
