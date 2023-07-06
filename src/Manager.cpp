@@ -64,9 +64,29 @@ void Manager::init_file()
         std::cout << "Warning: If CMakeLists.txt exists in /src folder," << "\n";
         std::cout << "it will be overwritten!" << "\n";
       }
+
+      if(OS_WINDOWS)
+      {
+        std::cout << "\n";
+        std::cout << "Windows system detected." << "\n";
+        std::cout << "\n";
+        std::cout << "CMakeEasy will automatically write your CMakeLists.txt\n";
+        std::cout << " to a sub-folder called 'Lists'." << "\n";
+      }
+      else
+      {
+        std::cout << "\n";
+        std::cout << "Non-Windows system detected. Linux system assumed." << "\n";
+        std::cout << "\n";
+        std::cout << "CMakeEasy will automatically write your CMakeLists.txt\n";
+        std::cout << "to your home directory folder." << "\n";
+      }
+
       std::cout << "\n";
       std::cout << "Please remove any CMakeList.txt files that you" << "\n";
       std::cout << "Do not wish to lose." << "\n";
+      std::cout << "\n";
+      std::cout << "------" << "\n";
       std::cout << "\n";
       std::cout << "Initializing file settings..." << "\n";
 
