@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22.1)
-project(CMakeEasy VERSION 1.2.1 LANGUAGES CXX)
+project(CMakeEasy VERSION 1.0.325 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,6 +21,8 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
 if(UNIX)
+    # Copy config files before install
+    # file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/plaintext DESTINATION /etc/cmakeeasy)
     message(STATUS "Installing for Linux system...")
     install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
 endif()
