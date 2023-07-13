@@ -23,6 +23,7 @@ set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 if(UNIX)
     # Copy config files before install
     # file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/plaintext DESTINATION /etc/cmakeeasy)
+    # file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/text DESTINATION /etc/cmakeeasy)
     message(STATUS "Installing for Linux system...")
     install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
 endif()
