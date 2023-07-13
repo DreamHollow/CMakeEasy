@@ -73,6 +73,8 @@ void AltString::init_vars()
     declarations.push_back("COMPONENTS"); // 18
     declarations.push_back("find_package"); // 19
     declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 20
+    declarations.push_back("message"); // 21
+    declarations.push_back("install"); // 22
 };
 
 /*
@@ -160,9 +162,18 @@ void AltString::package()
     std::cout << "generate a non-functional CMake cache." << "\n";
 };
 
-/// @brief Displays information about CMake and how it handles operating systems.
+/// @brief Displays information about setting CMake parameters per operating system.
 void AltString::op_sys()
 {
+    std::cout << "Please designate operating system instructions for\n";
+    std::cout << "each operating system you want users to compile with." << "\n";
+    std::cout << "\n";
+    std::cout << "Linux based systems will use the UNIX designation,\n";
+    std::cout << "Windows based systems traditionally use WIN32 designation." << "\n";
+    std::cout << "\n";
+    std::cout << "CMakeEasy will provide some common OS-specific flags that\n";
+    std::cout << "maybe used per system." << "\n";
+    std::cout << "\n";
 };
 
 /// @brief Displays relevant C++ standards and choices.
