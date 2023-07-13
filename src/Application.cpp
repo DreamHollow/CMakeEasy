@@ -956,8 +956,10 @@ void Application::lin_flags()
                         std::cout << "What are the parameters for this flag?" << "\n";
                         std::cout << "Make sure to write the full parameters as they\n";
                         std::cout << "are intended to be used." << "\n";
+                        std::cout << "\n";
                         std::cout << "Please enter the <mode>,\n";
                         std::cout << "and text message parameters.\n";
+                        std::cout << "The quotation marks will be added automatically." << "\n";
                         std::cout << "\n";
                         std::cout << flag << "(";
                         input_string(parameter);
@@ -968,7 +970,7 @@ void Application::lin_flags()
                         ext_file->write("'");
 
                         std::cout << flag << "(" << parameter << " " << "'";
-                        input_string(parameter);
+                        input_longstring(parameter);
                         std::cout << "'" << ")";
                         std::cout << "\n";
 
@@ -1206,6 +1208,17 @@ float Application::input_val(float& num)
 std::string Application::input_string(std::string& str)
 {
     std::cin >> str;
+
+    entry_check();
+
+    return str;
+}
+
+std::string Application::input_longstring(std::string& str)
+{
+    std::cin.clear();
+    std::cin.ignore();
+    std::getline(std::cin, str);
 
     entry_check();
 
