@@ -28,6 +28,30 @@ void AltString::init_vars()
 {
     is_command = false;
 
+    /*
+    try
+    {
+        std::fstream file_in("text/");
+        if(file_in.fail())
+        {
+            std::cout << "ERROR: Failed to load AltString data." << "\n";
+
+            free();
+            throw;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+
+    // Begin reading file if safe
+    for(auto it : declarations)
+    {
+
+    }
+    */
+
     declarations.push_back("cmake_minimum_required"); // 0
     declarations.push_back("project"); // 1
     declarations.push_back("VERSION"); // 2
