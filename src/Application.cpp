@@ -879,12 +879,11 @@ void Application::run()
     is_active = false; // Terminate program
 }
 
-/*
+
 void Application::lin_flags()
 {
     yes_no = 0;
     bool more_flags = false;
-    int param_num = 0;
 
     std::cout << "Are you setting any flags for Linux?" << "\n";
     std::cout << "\n";
@@ -940,34 +939,43 @@ void Application::lin_flags()
                         std::cout << flag << "(" << "\n";
                         std::cout << "\n";
                     }
+                    
+                    ext_file->write("    "); // Tab
                     ext_file->write(flag);
                     ext_file->write("(");
 
                     // Check to see what kind of flag is written to provide context - TODO
 
+                    // 'message'
                     if(flag == text->declare(21))
                     {
                         std::cout << "This is a message type flag.\n";
                         std::cout << "Context: \n";
                         std::cout << "message([<mode>] 'message text' ...)" << "\n";
-                    }
+                        std::cout << "\n";
+                        std::cout << "What are the parameters for this flag?" << "\n";
+                        std::cout << "Make sure to write the full parameters as they\n";
+                        std::cout << "are intended to be used." << "\n";
+                        std::cout << "Please enter the <mode>,\n";
+                        std::cout << "and text message parameters.\n";
+                        std::cout << "\n";
+                        std::cout << flag << "(";
+                        input_string(parameter);
 
-                    std::cout << "\n";
-                    std::cout << "What are the parameters for this flag?" << "\n";
-                    std::cout << "Make sure to write the full parameters as they\n";
-                    std::cout << "are intended to be used." << "\n";
-                    std::cout << flag << "(";
-                    input_string(parameter);
-                    std::cout << "\n";
+                        std::cout << "\n";
+                        ext_file->write(parameter);
+                        ext_file->write(" ");
+                        ext_file->write("'");
 
-                    ext_file->write(parameter);
-                    ext_file->write(")");
-                    ext_file->write("\n");
+                        std::cout << flag << "(" << parameter << " " << "'";
+                        input_string(parameter);
+                        std::cout << "'" << ")";
+                        std::cout << "\n";
 
-                    if(debugging)
-                    {
-                        std::cout << db_string << "Flag written as: " << "\n";
-                        std::cout << flag << "(" << parameter << ")" << "\n";
+                        ext_file->write(parameter);
+                        ext_file->write("'");
+                        ext_file->write(")");
+                        ext_file->write("\n");
                     }
                 }
             }
@@ -989,7 +997,6 @@ void Application::lin_flags()
         }
     }
 }
-*/
 
 /*
 void Application::win_flags()
@@ -1046,9 +1053,9 @@ void Application::finish_touches()
 
     std::cout << linebreak << "\n" << "\n";
 
-    // lin_flags();
+    lin_flags();
 
-    // std::cout << linebreak << "\n" << "\n";
+    std::cout << linebreak << "\n" << "\n";
 
     // win_flags();
 
