@@ -23,7 +23,7 @@ static const char *homedir = pw->pw_dir;
 
 #include <string>
 
-static bool debugging = false;
+static bool debugging = true;
 const char db_string[]{"DEBUG: "};
 
 #endif
