@@ -22,6 +22,7 @@ void Application::init_vars()
 
     valid_standard = false;
     has_package = false;
+    comment = false;
 }
 
 /// @brief Initializes smart pointers for AltString and Manager classes.
@@ -764,10 +765,6 @@ void Application::run()
     std::cout << linebreak << "\n";
     std::cout << "\n";
 
-    // Setting operating system procedures
-
-    // text->op_sys();
-
     text->standard();
     
     standard_setup();
@@ -882,6 +879,127 @@ void Application::run()
     is_active = false; // Terminate program
 }
 
+/*
+void Application::lin_flags()
+{
+    yes_no = 0;
+    bool more_flags = false;
+    int param_num = 0;
+
+    std::cout << "Are you setting any flags for Linux?" << "\n";
+    std::cout << "\n";
+    std::cout << "1. Yes, I would like to set some CMake flags for Linux." << "\n";
+    std::cout << "2. No, I don't need to set any CMake flags for Linux." << "\n";
+    std::cout << "\n";
+    std::cout << "Your choice: ";
+
+    input_val(yes_no);
+    std::cout << "\n";
+
+    switch(yes_no)
+    {
+        case 1:
+        {
+            more_flags = true;
+
+            // Begin writing UNIX post-compilation data
+
+            ext_file->write("\n");
+            ext_file->write("if(UNIX)");
+            ext_file->write("{");
+            ext_file->write("\n");
+
+            while(more_flags)
+            {
+                std::cout << "This section will repeat until you enter the command '!none'" << "\n";
+                std::cout << "\n";
+                std::cout << "Here are some common flags for CMakeEasy, please use them\n";
+                std::cout << "with discretion:" << "\n";
+                std::cout << "\n";
+                std::cout << text->declare(21) << "\n";
+                std::cout << text->declare(22) << "\n";
+                std::cout << "\n";
+                std::cout << "Would you like to add one of the provided flags, or add one of your own?" << "\n";
+                std::cout << "Your next flag: ";
+                input_string(flag);
+
+                if(flag == "!none")
+                {
+                    std::cout << "\n";
+                    std::cout << "Understood, no more flags for Linux will be added." << "\n";
+                    std::cout << "\n";
+
+                    more_flags = false;
+                }
+                else
+                {
+                    if(debugging)
+                    {
+                        std::cout << "\n";
+                        std::cout << db_string << "Flag written so far as: " << "\n";
+                        std::cout << flag << "(" << "\n";
+                        std::cout << "\n";
+                    }
+                    ext_file->write(flag);
+                    ext_file->write("(");
+
+                    // Check to see what kind of flag is written to provide context - TODO
+
+                    if(flag == text->declare(21))
+                    {
+                        std::cout << "This is a message type flag.\n";
+                        std::cout << "Context: \n";
+                        std::cout << "message([<mode>] 'message text' ...)" << "\n";
+                    }
+
+                    std::cout << "\n";
+                    std::cout << "What are the parameters for this flag?" << "\n";
+                    std::cout << "Make sure to write the full parameters as they\n";
+                    std::cout << "are intended to be used." << "\n";
+                    std::cout << flag << "(";
+                    input_string(parameter);
+                    std::cout << "\n";
+
+                    ext_file->write(parameter);
+                    ext_file->write(")");
+                    ext_file->write("\n");
+
+                    if(debugging)
+                    {
+                        std::cout << db_string << "Flag written as: " << "\n";
+                        std::cout << flag << "(" << parameter << ")" << "\n";
+                    }
+                }
+            }
+
+            ext_file->write("}"); // close UNIX brackets
+            ext_file->write("\n");
+
+            break;
+        }
+        case 2:
+        {
+            break;
+        }
+        default:
+        {
+            std::cout << "Sorry, that wasn't a recognized choice." << "\n";
+            std::cout << "Defaulting to 'no'." << "\n";
+            break;
+        }
+    }
+}
+*/
+
+/*
+void Application::win_flags()
+{
+    yes_no = 0;
+
+
+}
+*/
+
 void Application::finish_touches()
 {
     if(debugging)
@@ -919,6 +1037,20 @@ void Application::finish_touches()
         ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
         ext_file->write(")\n");
     }
+
+    yes_no = 0;
+
+    // std::cout << linebreak << "\n";
+
+    text->op_sys();
+
+    std::cout << linebreak << "\n" << "\n";
+
+    // lin_flags();
+
+    // std::cout << linebreak << "\n" << "\n";
+
+    // win_flags();
 
     yes_no = 0;
 }
@@ -991,9 +1123,26 @@ void Application::generate_final()
 
     input_val(yes_no);
 
+    // Hopefully this fixes weird bug where comment is always added
     switch(yes_no)
     {
         case 1:
+        comment = true;
+        break;
+        
+        case 2:
+        comment = false;
+        break;
+
+        default:
+        std::cout << "Sorry, that is not a valid list choice." << "\n";
+        std::cout << "Defaulting to 'no'." << "\n";
+        comment = false;
+        break;
+    }
+
+    if(comment)
+    {
         std::cout << "Automatically generating comment..." << "\n";
 
         ext_file->write("\n");
@@ -1001,18 +1150,12 @@ void Application::generate_final()
         ext_file->write("# This list made with CMakeEasy.\n");
 
         std::cout << "\n";
-        std::cout << "Comment generated." << "\n";
-
-        break;
-        
-        case 2:
-        std::cout << "Okay. No comment will be generated." << "\n";
-        break;
-
-        default:
-        std::cout << "Sorry, that is not a valid list choice." << "\n";
-        std::cout << "Defaulting to 'no'." << "\n";
-        break;
+        std::cout << "Comment was generated." << "\n";
+    }
+    else
+    {
+        std::cout << "\n";
+        std::cout << "Comment will not be generated." << "\n";
     }
 }
 
