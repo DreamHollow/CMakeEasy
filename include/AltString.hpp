@@ -24,6 +24,8 @@ public:
     void component_entry();
     void more_libs();
     void op_sys();
+    // void lin_sys();
+    // void win_sys();
     void standard();
     void source();
     void include_dirs();
