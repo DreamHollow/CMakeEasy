@@ -18,6 +18,7 @@ private:
     bool valid_standard;
     bool has_package;
     bool more_files;
+    bool comment;
 
     short major = 0;
     short minor = 0;
@@ -45,6 +46,8 @@ private:
 
     std::string declaration;
     std::string requirement;
+    std::string flag;
+    std::string parameter;
 
     std::vector<std::string> packages;
 
@@ -57,6 +60,8 @@ private:
     void entry_check();
     void verbose_output();
     void finish_touches();
+    void lin_flags();
+    // void win_flags();
     void generate_final();
     // void move_file();
 
