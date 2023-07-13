@@ -70,6 +70,7 @@ private:
     int input_val(int& num);
     float input_val(float& num);
     std::string input_string(std::string& str);
+    std::string input_longstring(std::string& str);
 
     // Init
     void init_vars();
