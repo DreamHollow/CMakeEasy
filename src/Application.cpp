@@ -22,7 +22,6 @@ void Application::init_vars()
 
     valid_standard = false;
     has_package = false;
-    comment = false;
 }
 
 /// @brief Initializes smart pointers for AltString and Manager classes.
@@ -98,6 +97,12 @@ void Application::entry_check()
 
 void Application::early_setup()
 {
+    short major = 0;
+    short minor = 0;
+    short release = 0;
+
+    std::string project_name;
+
     std::cout << "Your version: ";
     input_val(major);
     std::cout << "\n";
@@ -267,6 +272,8 @@ void Application::package_setup()
 
     do
     {
+        short package_vers = 0;
+
         std::cout << "\n";
         std::cout << "Please enter any extra packages you would like to add." << "\n";
         std::cout << "\n";
@@ -424,6 +431,9 @@ void Application::package_setup()
 /// @brief Writes C++ standards to document based on input.
 void Application::standard_setup()
 {
+    // bool valid_standard = false;
+    short standard = 0;
+
     std::cout << "Your standard: ";
     std::cin.clear();
     input_val(standard);
@@ -563,6 +573,7 @@ void Application::package_loop()
         input_val(yes_no);
         std::cout << "\n";
 
+        std::string library_segment;
         std::string library_shorthand;
 
         switch(yes_no)
@@ -686,6 +697,8 @@ void Application::package_loop()
 /// @brief Defines program compilation, sourcing, and include folders.
 void Application::source_and_includes()
 {
+    std::string exe_name;
+
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     input_string(exe_name);
     std::cout << "\n";
@@ -719,8 +732,8 @@ void Application::source_and_includes()
             std::cout << "No additional class names will be added." << "\n";
             std::cout << "\n";
 
+            source.clear(); // Make this empty to prevent write errors
             class_name.clear();
-            source.clear();
 
             more_files = false;
         }
@@ -736,7 +749,9 @@ void Application::source_and_includes()
         ext_file->write(source);
         ext_file->write(class_name);
 
+        // source.erase();
         class_name.erase();
+
     }while(more_files);
 
     ext_file->write(")\n");
@@ -884,6 +899,8 @@ void Application::lin_flags()
 {
     yes_no = 0;
     bool more_flags = false;
+    std::string flag;
+    std::string parameter;
 
     std::cout << "Are you setting any flags for Linux?" << "\n";
     std::cout << "\n";
@@ -1128,6 +1145,7 @@ void Application::verbose_output()
 
 void Application::generate_final()
 {
+    bool comment = false;
     yes_no = 0;
 
     input_val(yes_no);
