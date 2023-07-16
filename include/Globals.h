@@ -25,5 +25,6 @@ static const char *homedir = pw->pw_dir;
 
 static bool debugging = false;
 const char db_string[]{"DEBUG: "};
+static short yes_no = 0;
 
 #endif
