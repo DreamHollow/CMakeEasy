@@ -410,7 +410,6 @@ void Application::package_setup()
             {
                 ext_file->write(" ");
                 ext_file->write(it); // Write the current value
-                ext_file->write(" ");
             }
 
             ext_file->write(")");
