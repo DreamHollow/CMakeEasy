@@ -392,11 +392,11 @@ void Application::package_setup()
             {
                 ext_file->write(" ");
                 ext_file->write(package_vers);
-                ext_file->write(" ");
             }
 
             if(req_package)
             {
+                ext_file->write(" ");
                 ext_file->write(text->declare(17));
             }
 
@@ -404,11 +404,11 @@ void Application::package_setup()
             {
                 ext_file->write(" ");
                 ext_file->write("COMPONENTS");
-                ext_file->write(" ");
             }
 
             for(auto it : co_entries)
             {
+                ext_file->write(" ");
                 ext_file->write(it); // Write the current value
                 ext_file->write(" ");
             }
