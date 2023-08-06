@@ -20,6 +20,14 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
+# Uncomment this section if you want CMakeEasy installed to the whole system
+#if(UNIX)
+    # Copy config files before install
+    # file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/text DESTINATION /etc/cmakeeasy)
+    # message(STATUS "Installing for all users on Linux system...)
+    # install(TARGETS ${PROJECT_NAME} DESTINATION /usr/bin)
+
+# For user running install only
 if(UNIX)
     # Copy config files before install
     # file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/text DESTINATION /etc/cmakeeasy)
