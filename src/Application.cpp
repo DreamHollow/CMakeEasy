@@ -41,6 +41,11 @@ void Application::free()
 
     if(text == nullptr)
     {
+        if(debugging)
+        {
+            std::cout << db_string << "AltString was NULL, releasing...\n";
+        }
+
         text.release();
     }
     else
@@ -50,6 +55,11 @@ void Application::free()
 
     if(ext_file == nullptr)
     {
+        if(debugging)
+        {
+            std::cout << db_string << "Manager was NULL, releasing...\n";
+        }
+
         ext_file.release();
     }
     else
