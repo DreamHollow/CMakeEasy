@@ -16,6 +16,8 @@ void Application::init_vars()
 {
     // Do not alter debugging state except in Globals.h
 
+    // Start the pointers at null for safety reasons
+
     is_active = true; // Starts runtime
     text = nullptr;
     ext_file = nullptr;
