@@ -17,10 +17,7 @@ void Manager::free()
 {
   this->file.close();
 
-  if(debugging)
-  {
-    std::cout << db_string << "Manager closed the open file." << "\n";
-  }
+  std::cout << db_msg("Manager closed the open file.\n");
 }
 
 void Manager::init_vars()
@@ -58,12 +55,9 @@ void Manager::init_file()
   {
     try
     {
-      if(debugging)
-      {
-        std::cout << "\n";
-        std::cout << "Warning: If CMakeLists.txt exists in /src folder," << "\n";
-        std::cout << "it will be overwritten!" << "\n";
-      }
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Warning: If CMakeLists.txt exists in /src folder,\n");
+      std::cout << db_msg("it will be overwritten!\n");
 
       if(OS_WINDOWS)
       {
@@ -90,12 +84,10 @@ void Manager::init_file()
       std::cout << "\n";
       std::cout << "Initializing file settings..." << "\n";
 
-      if(debugging)
-      {
-        std::cout << db_string << "Current file path:\n";
-        std::cout << file_name << "\n";
-        std::cout << db_string << "Program attempting to open file 'CMakeLists'...\n";
-      }
+      std::cout << db_msg("Current file path:\n");
+      std::cout << db_msg(file_name);
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Program attempting to open file 'CMakeLists'...\n");
 
       file.open(file_name.c_str(), std::ios::out | std::ios::trunc);
 
@@ -116,10 +108,7 @@ void Manager::init_file()
 
     if(file.good())
     {
-      if(debugging)
-      {
-        std::cout << db_string << "CMakeLists.txt is good, allowing edits." << "\n";
-      }
+      std::cout << db_msg("CMakeLists.txt is good, allowing edits.\n");
 
       std::cout << "\n";
       std::cout << file_name << " is ready to be modified." << "\n";
