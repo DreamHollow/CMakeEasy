@@ -41,10 +41,8 @@ void Application::free()
 
     if(text == nullptr)
     {
-        if(debugging)
-        {
-            std::cout << db_string << "AltString was NULL, releasing...\n";
-        }
+
+        std::cout << db_msg("AltString was NULL, releasing...\n");
 
         text.release();
     }
@@ -55,10 +53,8 @@ void Application::free()
 
     if(ext_file == nullptr)
     {
-        if(debugging)
-        {
-            std::cout << db_string << "Manager was NULL, releasing...\n";
-        }
+
+        std::cout << db_msg("Manager was NULL, releasing...\n");
 
         ext_file.release();
     }
@@ -67,10 +63,7 @@ void Application::free()
         ext_file.reset();
     }
 
-    if(debugging)
-    {
-        std::cout << "DEBUG: " << "'text' and 'ext_file' pointers released safely." << "\n";
-    }
+    std::cout << db_msg("'text' and 'ext_file' pointers released safely.\n");
 }
 
 /// @brief Checks iostream input. It will force the program to stop
@@ -160,13 +153,16 @@ void Application::early_setup()
     ext_file->write(")");
     ext_file->write("\n");
 
-    if(debugging)
+    if(debug)
     {
+        std::cout << "DEBUG STATEMENT:\n";
         std::cout << "\n";
-        std::cout << "DEBUG:" << "\n";
-        std::cout << "Line in file should read as" << "\n";
+        std::cout << "Line in CMakeLists should read as\n";
         std::cout << "'cmake_minimum_required(VERSION";
-        std::cout << " " << major << "." << minor << "." << release << ")" << "'" << "\n";
+        std::cout << " " << major << "." << minor << "." << release << ")" << "'";
+        std::cout << "\n";
+        std::cout << "\n";
+        std::cout << "END DEBUG STATEMENT.\n";
         std::cout << "\n";
     }
 
@@ -259,8 +255,9 @@ void Application::early_setup()
     ext_file->write(")");
     ext_file->write("\n");
 
-    if(debugging)
+    if(debug)
     {
+        std::cout << "DEBUG STATEMENT:\n";
         std::cout << "\n";
         std::cout << "Line should read as: " << "\n";
         std::cout << text->declare(1) << "(" << project_name << " ";
@@ -273,6 +270,9 @@ void Application::early_setup()
         std::cout << " ";
         std::cout << text->declare(3);
         std::cout << ")";
+        std::cout << "\n";
+        std::cout << "\n";
+        std::cout << "END DEBUG STATEMENT\n";
         std::cout << "\n";
     }
 }
@@ -387,13 +387,10 @@ void Application::package_setup()
                 }
             }
 
-            if(debugging)
-            {
-                std::cout << "\n";
-                std::cout << "DEBUG:\n";
-                std::cout << package_name << " was added to 'packages' vector." << "\n";
-                std::cout << "\n";
-            }
+            std::cout << db_msg("\n");
+            std::cout << db_msg(package_name);
+            std::cout << db_msg("was added to 'packages' vector.\n");
+            std::cout << db_msg("\n");
 
             ext_file->write(text->declare(19)); // find_package
             ext_file->write("(");
@@ -463,13 +460,12 @@ void Application::standard_setup()
             std::cout << "This is not a valid choice." << "\n";
             std::cout << "Your standard will be configured to the default." << "\n";
             standard = 4;
-            if(debugging)
-            {
-                std::cout << "\n";
-                std::cout << "DEBUG:";
-                std::cout << "'standard' was assigned to the number 4." << "\n";
-                std::cout << "\n";
-            }
+
+            std::cout << db_msg("\n");
+            std::cout << db_msg("DEBUG:");
+            std::cout << db_msg("'standard' was assigned to the number 4.\n");
+            std::cout << db_msg("\n");
+
             break;
         }
         case 1:
@@ -540,12 +536,12 @@ void Application::standard_setup()
         ext_file->write("\n");
     }
 
-    if(debugging)
+    if(debug)
     {
         if(valid_standard)
         {
             std::cout << "\n";
-            std::cout << "DEBUG:" << "\n";
+            std::cout << "DEBUG DATA:" << "\n";
             std::cout << "Line in file should read as" << "\n";
             std::cout << text->declare(7) << "(" << declaration << ")'" << "\n";
             std::cout << "'" << requirement << "'" << "\n";
@@ -554,7 +550,7 @@ void Application::standard_setup()
         else
         {
             std::cout << "\n";
-            std::cout << "DEBUG:" << "\n";
+            std::cout << "DEBUG DATA:" << "\n";
             std::cout << "Declaration was either invalid or not assigned." << "\n";
         }
     }
@@ -888,19 +884,15 @@ void Application::run()
     std::cout << "CMakeLists.txt file at " << "\n";
     std::cout << ext_file->file_dir << "\n";
 
-    if(debugging)
-    {
-        std::cout << "\n";
-        std::cout << "DEBUG: File closed." << "\n";
-        std::cout << "\n";
-        std::cout << "DEBUG: Manager and AltString pointers released." << "\n";
-        std::cout << "\n";
-        std::cout << "DEBUG: Memory objects wiped." << "\n";
-        std::cout << "\n";
-        std::cout << "DEBUG:" << "\n";
-        std::cout << "Reached end of program." << "\n";
-        std::cout << "\n";
-    }
+    std::cout << db_msg("\n");
+    std::cout << db_msg("File closed.\n");
+    std::cout << db_msg("\n");
+    std::cout << db_msg("Manager and AltString pointers released.");
+    std::cout << db_msg("\n");
+    std::cout << db_msg("Memory objects wiped.\n");
+    std::cout << db_msg("\n");
+    std::cout << db_msg("Reached end of program.\n");
+    std::cout << db_msg("\n");
 
     is_active = false; // Terminate program
 }
@@ -960,13 +952,11 @@ void Application::lin_flags()
                 }
                 else
                 {
-                    if(debugging)
-                    {
-                        std::cout << "\n";
-                        std::cout << db_string << "Flag written so far as: " << "\n";
-                        std::cout << flag << "(" << "\n";
-                        std::cout << "\n";
-                    }
+                    std::cout << db_msg("\n");
+                    std::cout << db_msg("Flag written so far as: \n");
+                    std::cout << db_msg(flag);
+                    std::cout << db_msg("(");
+                    std::cout << db_msg("\n");
                     
                     ext_file->write("    "); // Tab
                     ext_file->write(flag);
@@ -1039,12 +1029,9 @@ void Application::win_flags()
 
 void Application::finish_touches()
 {
-    if(debugging)
-    {
-        std::cout << "\n";
-        std::cout << "DEBUG: " << "Writing additional standards info..." << "\n";
-        std::cout << "\n";
-    }
+    std::cout << db_msg("\n");
+    std::cout << db_msg("Writing additional standards info...\n");
+    std::cout << db_msg("\n");
 
     // Set standard include directory
 
@@ -1094,12 +1081,9 @@ void Application::finish_touches()
 
 void Application::verbose_output()
 {
-    if(debugging)
-    {
-        std::cout << "\n";
-        std::cout << db_string << "Asking user about verbose CMake setting..." << "\n";
-        std::cout << "\n";
-    }
+    std::cout << db_msg("\n");
+    std::cout << db_msg("Asking user about verbose CMake setting...\n");
+    std::cout << db_msg("\n");
 
     text->verbose();
 
@@ -1126,10 +1110,10 @@ void Application::verbose_output()
             ext_file->write("\n");
             ext_file->write("\n");
 
-            // Debug
-            if(debugging)
+            if(debug)
             {
-                std::cout << db_string << "Wrote the following to CMakeLists.txt:\n";
+                std::cout << "DEBUG DATA:\n";
+                std::cout << "Wrote the following to CMakeLists.txt:\n";
                 std::cout << text->declare(7);
                 std::cout << "(";
                 std::cout << text->declare(20);
