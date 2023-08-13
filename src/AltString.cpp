@@ -18,10 +18,8 @@ void AltString::free()
     declarations.clear();
     declarations.shrink_to_fit();
 
-    if(debugging)
-    {
-        std::cout << db_string << "AltString freed vectors." << "\n";
-    }
+    std::cout << db_msg("AltString freed vectors.\n");
+
 };
 
 void AltString::init_vars()
@@ -52,6 +50,8 @@ void AltString::init_vars()
     }
     */
 
+   std::cout << db_msg("Initializing declarations...\n");
+
     declarations.push_back("cmake_minimum_required"); // 0
     declarations.push_back("project"); // 1
     declarations.push_back("VERSION"); // 2
@@ -75,6 +75,8 @@ void AltString::init_vars()
     declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 20
     declarations.push_back("message"); // 21
     declarations.push_back("install"); // 22
+
+    std::cout << db_msg("Declarations initialized.\n");
 };
 
 /*
