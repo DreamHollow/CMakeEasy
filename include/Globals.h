@@ -23,8 +23,29 @@ static const char *homedir = pw->pw_dir;
 
 #include <string>
 
-static bool debugging = false;
-const char db_string[]{"DEBUG: "};
+static bool debug = true;
+static char db_string[]{"DEBUG: "};
 static short yes_no = 0;
+
+static std::string db_msg(std::string msg);
+
+/// @brief Static function that checks if debugging is on,
+/// then adds debug data where appropriate.
+static std::string db_msg(std::string msg)
+{
+    std::string nextline = "\n";
+
+    if(msg == nextline)
+    {
+        return nextline;
+    }
+
+    if(debug)
+    {
+        return (db_string + msg);
+    }
+
+    return "";
+}
 
 #endif
