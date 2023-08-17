@@ -162,7 +162,7 @@ void Application::early_setup()
         std::cout << " " << major << "." << minor << "." << release << ")" << "'";
         std::cout << "\n";
         std::cout << "\n";
-        std::cout << "END DEBUG STATEMENT.\n";
+        std::cout << "END DEBUG STATEMENT\n";
         std::cout << "\n";
     }
 
@@ -764,6 +764,278 @@ void Application::source_and_includes()
     ext_file->write(")\n");
 }
 
+void Application::flag_setting(int decision, bool is_windows)
+{
+    std::cout << "\n";
+    bool more_flags = false;
+    std::string current;
+    std::string str_context;
+    std::string permissions;
+    yes_no = 0;
+
+    if(is_windows)
+    {
+        std::cout << db_msg("\n");
+        std::cout << db_msg("Beginning flag/instruction routine...\n");
+        std::cout << db_msg("\n");
+
+        switch(decision)
+        {
+            case 1:
+            {
+                more_flags = true;
+                std::cout << "------\n";
+                std::cout << "WINDOWS SETTINGS\n";
+                std::cout << "------\n";
+                std::cout << "\n";
+                std::cout << "Adding Windows-specific instructions will require\n";
+                std::cout << "more data. A list of common operating system specific\n";
+                std::cout << "commands will be provided.\n";
+                std::cout << "\n";
+
+                ext_file->write("\n");
+                ext_file->write("if(WIN32)");
+                ext_file->write("\n");
+                std::cout << "\n";
+
+                while(more_flags)
+                {
+                    std::cout << "Recognized instructions:\n";
+                    text->show_commands();
+                    std::cout << "\n";
+
+                    std::cout << "\n";
+                    std::cout << "Which instruction would you like to add?\n";
+                    std::cout << "Type !none if you want to stop adding instructions.\n";
+                    std::cout << "\n";
+                    std::cout << "Your instruction: ";
+                    input_string(current);
+                    std::cout << "\n";
+
+                    if(current == "!none")
+                    {
+                        std::cout << "\n";
+                        std::cout << "Understood, halting process.\n";
+                        std::cout << "\n";
+
+                        more_flags = false;
+                    }
+                    else // Add an indent for nesting
+                    {
+                        ext_file->write("   ");
+                    }
+
+                    // To prevent user error it checks the given command
+                    if(std::find(text->commands.begin(),text->commands.end(), current) != text->commands.end())
+                    {
+                        db_msg("\n");
+                        db_msg("Command found in vector, proceeding...\n");
+                        db_msg("\n");
+
+                        if(current == "install")
+                        {
+                            std::cout << "\n";
+                            std::cout << "You will be asked to clarify install permissions for the system.\n";
+                            std::cout << "\n";
+                        }
+
+                        std::cout << "What is the context of this instruction " << "'" << current << "'" << "?\n";
+                        std::cout << "Parenthesis will be added automatically.\n";
+                        std::cout << "Example: message(STATUS This is a status message.)\n";
+                        std::cout << current << "(";
+                        input_longstring(str_context);
+
+                        if(current == "install")
+                        {
+                            std::cout << "What are the install permissions for this instruction?\n";
+                            std::cout << "Examples: OWNER_EXECUTE, GROUP_EXECUTE (etc.)";
+                            std::cout << "PERMISSIONS ";
+                            input_string(permissions);
+                            std::cout << "\n";
+                        }
+
+                        db_msg("\n");
+                        db_msg("Writing...\n");
+                        db_msg("\n");
+
+                        ext_file->write(current);
+                        ext_file->write("(");
+                        ext_file->write(str_context);
+
+                        if(current == "install")
+                        {
+                            ext_file->write(" PERMISSIONS ");
+                            ext_file->write(permissions);
+                        }
+
+                        ext_file->write(")");
+                        ext_file->write("\n");
+
+                        if(debug)
+                        {
+                            std::cout << "DEBUG STATEMENT:\n";
+                            std::cout << "Latest lines written are\n";
+                            std::cout << current << "(" << str_context;
+                            if(current == "install")
+                            {
+                                std::cout << " PERMISSIONS ";
+                                std::cout << permissions;
+                            }
+                            std::cout << ")";
+                            std::cout << "\n";
+                            std::cout << "END DEBUG STATEMENT\n";
+                        }
+                    }
+                    else // Do nothing for now
+                    {
+                        db_msg("\n");
+                        db_msg("Command not found in vector.\n");
+                        db_msg("\n");
+                    }
+                }
+
+                // Outside of instruction loop, so finish writing
+
+                ext_file->write("endif()");
+                ext_file->write("\n");
+
+                break;
+            }
+            case 2:
+            {
+                std::cout << "Understood, no specific CMake instructions will be used\n";
+                std::cout << "to compile for Windows systems.\n";
+                break;
+            }
+            default:
+            {
+                std::cout << "This choice is not recognized.\n";
+                std::cout << "Defaulting to option 2: no.\n";
+
+                break;
+            }
+        }
+    }
+
+    if(!is_windows)
+    {
+        std::cout << db_msg("\n");
+        std::cout << db_msg("Beginning flag/instruction routine...\n");
+        std::cout << db_msg("\n");
+
+        switch(decision)
+        {
+            case 1:
+            {
+                more_flags = true;
+
+                std::cout << "------\n";
+                std::cout << "LINUX SETTINGS\n";
+                std::cout << "------\n";
+                std::cout << "\n";
+                std::cout << "Adding Linux-specific instructions will require\n";
+                std::cout << "more data. A list of common operating system specific\n";
+                std::cout << "commands will be provided.\n";
+                std::cout << "\n";
+
+                ext_file->write("\n");
+                ext_file->write("if(UNIX)");
+                ext_file->write("\n");
+                std::cout << "\n";
+
+                while(more_flags)
+                {
+                    std::cout << "Recognized instructions:\n";
+                    text->show_commands();
+                    std::cout << "\n";
+
+                    std::cout << "\n";
+                    std::cout << "Which instruction would you like to add?\n";
+                    std::cout << "Type !none if you want to stop adding instructions.\n";
+                    std::cout << "\n";
+                    std::cout << "Your instruction: ";
+                    input_string(current);
+                    std::cout << "\n";
+
+                    if(current == "!none")
+                    {
+                        std::cout << "\n";
+                        std::cout << "Understood, halting process.\n";
+                        std::cout << "\n";
+
+                        more_flags = false;
+                    }
+                    else
+                    {
+                        ext_file->write("   ");
+                    }
+
+                    // To prevent user error it checks the given command
+                    if(std::find(text->commands.begin(),text->commands.end(), current) != text->commands.end())
+                    {
+                        db_msg("\n");
+                        db_msg("Command found in vector, proceeding...\n");
+                        db_msg("\n");
+
+                        std::cout << "What is the context of this instruction " << "'" << current << "'" << "?\n";
+                        std::cout << "Example: message(STATUS This is a status message.)\n";
+                        std::cout << current << "(";
+                        input_longstring(str_context);
+                        std::cout << ")\n";
+
+                        db_msg("\n");
+                        db_msg("Writing...\n");
+                        db_msg("\n");
+
+                        ext_file->write(current);
+                        ext_file->write("(");
+                        ext_file->write(str_context);
+                        ext_file->write(")");
+                        ext_file->write("\n");
+
+                        if(debug)
+                        {
+                            std::cout << "DEBUG STATEMENT:\n";
+                            std::cout << "Latest lines written are\n";
+                            std::cout << current << "(" << str_context << ")\n";
+                            std::cout << "END DEBUG STATEMENT\n";
+                        }
+                    }
+                    else // Do nothing for now
+                    {
+                        db_msg("\n");
+                        db_msg("Command not found in vector.\n");
+                        db_msg("\n");
+                    }
+                }
+
+                // Finish and write
+
+                ext_file->write("endif()");
+                ext_file->write("\n");
+
+                break;
+            }
+            case 2:
+            {
+                std::cout << "Understood, no specific CMake instructions will be used\n";
+                std::cout << "to compile for Linux systems.\n";
+                break;
+            }
+            default:
+            {
+                std::cout << "This choice is not recognized.\n";
+                std::cout << "Defaulting to option 2: no.\n";
+
+                break;
+            }
+        }
+    }
+
+    db_msg("\n");
+    db_msg("Ending flag setting routine...\n");
+}
+
 /// @brief Main run loop for CMakeEasy, defines all function entry points.
 void Application::run()
 {
@@ -898,134 +1170,49 @@ void Application::run()
 }
 
 
-void Application::lin_flags()
+void Application::sys_flags()
 {
     yes_no = 0;
     bool more_flags = false;
     std::string flag;
     std::string parameter;
 
-    std::cout << "Are you setting any flags for Linux?" << "\n";
+    std::cout << "Would you like to set CMake instructions for Windows?\n";
     std::cout << "\n";
-    std::cout << "1. Yes, I would like to set some CMake flags for Linux." << "\n";
-    std::cout << "2. No, I don't need to set any CMake flags for Linux." << "\n";
+    std::cout << "If you choose yes, CMakeEasy will write out an instructional\n";
+    std::cout << "set for Windows users to compile CMake programs with.\n";
     std::cout << "\n";
-    std::cout << "Your choice: ";
+    std::cout << "This will make it possible to add crucial Windows-specific\n";
+    std::cout << "instructions.\n";
+    std::cout << "\n";
+    std::cout << "1. Yes, I want to provide CMake with extra instruction.\n";
+    std::cout << "2. No, I don't want to add any additional instructions.\n";
+    std::cout << "\n";
 
+    std::cout << "Your choice: ";
     input_val(yes_no);
     std::cout << "\n";
 
-    switch(yes_no)
-    {
-        case 1:
-        {
-            more_flags = true;
+    flag_setting(yes_no, true);
 
-            // Begin writing UNIX post-compilation data
+    std::cout << "Would you like to set CMake instructions for Linux?\n";
+    std::cout << "\n";
+    std::cout << "If you choose yes, CMakeEasy will write out an instructional\n";
+    std::cout << "set for Linux users to compile with.\n";
+    std::cout << "\n";
+    std::cout << "This makes it possible to add crucial Linux-specific instructions.\n";
+    std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "1. Yes, I want to provide CMake with extra instruction.\n";
+    std::cout << "2. No, I don't want to add any additional instructions.\n";
+    std::cout << "\n";
 
-            ext_file->write("\n");
-            ext_file->write("if(UNIX)");
-            ext_file->write("{");
-            ext_file->write("\n");
+    std::cout << "Your choice: ";
+    input_val(yes_no);
+    std::cout << "\n";
 
-            while(more_flags)
-            {
-                std::cout << "This section will repeat until you enter the command '!none'" << "\n";
-                std::cout << "\n";
-                std::cout << "Here are some common flags for CMakeEasy, please use them\n";
-                std::cout << "with discretion:" << "\n";
-                std::cout << "\n";
-                std::cout << text->declare(21) << "\n";
-                std::cout << text->declare(22) << "\n";
-                std::cout << "\n";
-                std::cout << "Would you like to add one of the provided flags, or add one of your own?" << "\n";
-                std::cout << "Your next flag: ";
-                input_string(flag);
-
-                if(flag == "!none")
-                {
-                    std::cout << "\n";
-                    std::cout << "Understood, no more flags for Linux will be added." << "\n";
-                    std::cout << "\n";
-
-                    more_flags = false;
-                }
-                else
-                {
-                    std::cout << db_msg("\n");
-                    std::cout << db_msg("Flag written so far as: \n");
-                    std::cout << db_msg(flag);
-                    std::cout << db_msg("(");
-                    std::cout << db_msg("\n");
-                    
-                    ext_file->write("    "); // Tab
-                    ext_file->write(flag);
-                    ext_file->write("(");
-
-                    // Check to see what kind of flag is written to provide context - TODO
-
-                    // 'message'
-                    if(flag == text->declare(21))
-                    {
-                        std::cout << "This is a message type flag.\n";
-                        std::cout << "Context: \n";
-                        std::cout << "message([<mode>] 'message text' ...)" << "\n";
-                        std::cout << "\n";
-                        std::cout << "What are the parameters for this flag?" << "\n";
-                        std::cout << "Make sure to write the full parameters as they\n";
-                        std::cout << "are intended to be used." << "\n";
-                        std::cout << "\n";
-                        std::cout << "Please enter the <mode>,\n";
-                        std::cout << "and text message parameters.\n";
-                        std::cout << "The quotation marks will be added automatically." << "\n";
-                        std::cout << "\n";
-                        std::cout << flag << "(";
-                        input_string(parameter);
-
-                        std::cout << "\n";
-                        ext_file->write(parameter);
-                        ext_file->write(" ");
-                        ext_file->write("'");
-
-                        std::cout << flag << "(" << parameter << " " << "'";
-                        input_longstring(parameter);
-                        std::cout << "'" << ")";
-                        std::cout << "\n";
-
-                        ext_file->write(parameter);
-                        ext_file->write("'");
-                        ext_file->write(")");
-                        ext_file->write("\n");
-                    }
-                }
-            }
-
-            ext_file->write("}"); // close UNIX brackets
-            ext_file->write("\n");
-
-            break;
-        }
-        case 2:
-        {
-            break;
-        }
-        default:
-        {
-            std::cout << "Sorry, that wasn't a recognized choice." << "\n";
-            std::cout << "Defaulting to 'no'." << "\n";
-            break;
-        }
-    }
+    flag_setting(yes_no, false);
 }
-
-/*
-void Application::win_flags()
-{
-    yes_no = 0;
-
-
-}
-*/
 
 void Application::finish_touches()
 {
@@ -1070,7 +1257,7 @@ void Application::finish_touches()
 
     std::cout << linebreak << "\n" << "\n";
 
-    lin_flags();
+    sys_flags();
 
     std::cout << linebreak << "\n" << "\n";
 
