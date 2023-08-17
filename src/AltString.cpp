@@ -17,8 +17,10 @@ void AltString::free()
 {
     declarations.clear();
     declarations.shrink_to_fit();
+    commands.clear();
+    commands.shrink_to_fit();
 
-    std::cout << db_msg("AltString freed vectors.\n");
+    std::cout << db_msg("AltString freed string vector data.\n");
 
 };
 
@@ -26,32 +28,9 @@ void AltString::init_vars()
 {
     is_command = false;
 
-    /*
-    try
-    {
-        std::fstream file_in("text/");
-        if(file_in.fail())
-        {
-            std::cout << "ERROR: Failed to load AltString data." << "\n";
-
-            free();
-            throw;
-        }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what();
-    }
-
-    // Begin reading file if safe
-    for(auto it : declarations)
-    {
-
-    }
-    */
-
    std::cout << db_msg("Initializing declarations...\n");
 
+    // Declarations
     declarations.push_back("cmake_minimum_required"); // 0
     declarations.push_back("project"); // 1
     declarations.push_back("VERSION"); // 2
@@ -73,8 +52,11 @@ void AltString::init_vars()
     declarations.push_back("COMPONENTS"); // 18
     declarations.push_back("find_package"); // 19
     declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 20
-    declarations.push_back("message"); // 21
-    declarations.push_back("install"); // 22
+
+    // Commands
+    commands.push_back("message"); // 21
+    commands.push_back("install"); // 22
+    commands.push_back("file"); // 23
 
     std::cout << db_msg("Declarations initialized.\n");
 };
@@ -266,6 +248,20 @@ void AltString::verbose()
     std::cout << "1. Yes, set my CMakeLists.txt file to generate verbose output.\n";
     std::cout << "2. No, I don't want verbose output from CMake.\n";
 };
+
+void AltString::show_commands()
+{
+    std::cout << "\n";
+    std::cout << "Common CMake commands:\n";
+    std::cout << "\n";
+    for(auto it : commands)
+    {
+        std::cout << it;
+        std::cout << "\n";
+    }
+
+    std::cout << "\n";
+}
 
 /*
 /// @brief Designed to read text explanations.
