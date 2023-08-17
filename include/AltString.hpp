@@ -24,6 +24,7 @@ public:
     void component_entry();
     void more_libs();
     void op_sys();
+    void show_commands();
     // void lin_sys();
     // void win_sys();
     void standard();
@@ -31,6 +32,9 @@ public:
     void include_dirs();
     void promote();
     void verbose();
+
+    // Public Vars
+    std::vector<std::string> commands;
 
 private:
     // Variables
