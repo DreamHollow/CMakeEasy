@@ -19,24 +19,10 @@ private:
     bool valid_standard;
     bool has_package;
     bool more_files;
-    // bool comment;
 
-    //short major = 0;
-    //short minor = 0;
-    //short release = 0;
-
-    //short standard = 0;
     short actual = 0;
 
-    // short package_vers = 0;
-
-    // Integer used to avoid problematic char-style input.
-    // short yes_no = 0;
-
     const std::string linebreak = "------------";
-
-    // std::string project_name;
-    // std::string exe_name;
 
     std::string package_name;
     // std::string library_segment;
@@ -47,8 +33,6 @@ private:
 
     std::string declaration;
     std::string requirement;
-    // std::string flag;
-    // std::string parameter;
 
     std::vector<std::string> packages;
 
@@ -84,6 +68,7 @@ private:
 
     // Objects
     std::unique_ptr<AltString> text;
+    std::unique_ptr<Manager> text_reader;
     std::unique_ptr<Manager> ext_file;
 };
 
