@@ -1,6 +1,7 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 #include "AltString.hpp"
+#include <algorithm>
 
 class Application
 {
@@ -60,8 +61,8 @@ private:
     void entry_check();
     void verbose_output();
     void finish_touches();
-    void lin_flags();
-    // void win_flags();
+    void sys_flags();
+    void flag_setting(int decision, bool is_windows);
     void generate_final();
     // void move_file();
 
@@ -73,7 +74,6 @@ private:
     std::string input_longstring(std::string& str);
 
     // Output
-    // void set_string(std::string& str);
 
     // Init
     void init_vars();
