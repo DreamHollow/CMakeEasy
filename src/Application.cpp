@@ -8,8 +8,7 @@ Application::Application()
 
 Application::~Application()
 {
-    // Only needed if smart pointers fail to release
-    //free();
+
 }
 
 void Application::init_vars()
@@ -20,6 +19,7 @@ void Application::init_vars()
 
     is_active = true; // Starts runtime
     text = nullptr;
+    text_reader = nullptr;
     ext_file = nullptr;
 
     valid_standard = false;
@@ -30,7 +30,8 @@ void Application::init_vars()
 void Application::init_components()
 {
     text = std::make_unique<AltString>();
-    ext_file = std::make_unique<Manager>();
+    text_reader = std::make_unique<Manager>("File.txt", true);
+    ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
 }
 
 /// @brief Absolute call to free memory. Used during exceptions.
@@ -49,6 +50,17 @@ void Application::free()
     else
     {
         text.reset();
+    }
+
+    if(text_reader == nullptr)
+    {
+        std::cout << db_msg("Read-only text file was NULL, releasing...\n");
+        
+        text_reader.release();
+    }
+    else
+    {
+        text_reader.reset();
     }
 
     if(ext_file == nullptr)
@@ -88,7 +100,6 @@ void Application::entry_check()
             std::cout << "Thank you." << "\n";
             std::cout << "\n";
 
-            // Free held memory
             this->free();
 
             throw "Invalid data input!";
@@ -1157,7 +1168,7 @@ void Application::run()
     std::cout << ext_file->file_dir << "\n";
 
     std::cout << db_msg("\n");
-    std::cout << db_msg("File closed.\n");
+    std::cout << db_msg("Files closed.\n");
     std::cout << db_msg("\n");
     std::cout << db_msg("Manager and AltString pointers released.");
     std::cout << db_msg("\n");
