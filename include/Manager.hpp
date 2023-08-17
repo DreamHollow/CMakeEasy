@@ -19,6 +19,7 @@ class Manager
 {
 public:
   Manager();
+  Manager(std::string target_file, bool read_only);
   virtual ~Manager();
 
   // Public Variables
@@ -33,9 +34,10 @@ public:
 
 private:
   // Variables
-  int yes_no;
+  bool read_only;
   
-  std::string file_name = "CMakeLists.txt"; // Slash direction depends on OS
+  std::string list_dir;
+  std::string file_name; // = "CMakeLists.txt";
 
   // Init
   void init_vars();
@@ -45,7 +47,8 @@ private:
   void free();
 
   // Objects
-  std::ofstream file; // Write-Only
+  std::ifstream infile; // Read-Only
+  std::ofstream outfile; // Write-Only
 };
 
 #endif
