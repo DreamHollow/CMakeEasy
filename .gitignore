@@ -13,7 +13,6 @@
 DEBIAN/
 /.vs
 /out
-/plaintext
 /text
 
 br.sh
