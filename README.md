@@ -1,16 +1,25 @@
 # CMakeEasy
 A terminal-based CMakeLists.txt generator.
 
+NOTICE
+----------------
+
+The master/main branch of this project is UNDER CONSTRUCTION!
+Future updates of this project will look radically different than previous versions of CMakeEasy.
+For all intents and purposes, this is CMakeEasy 2.0
+
+The terminal version of this project will remain available for use, but will no longer the be the master/main branch of this project.
+
+If you wish to use the original version of CMakeEasy, please follow the GitHub instructions for cloning repository branches. The same should apply here.
+
+Please be advised that any README information and old documentation may only apply to the terminal version of this project, not the master branch.
+
 BRANCHES
 ----------------
 
-CMakeEasy's "master" branch is configured to generate CMakeLists.txt files for applications, but not libraries.
+CMakeEasy's "terminal" branch is configured to generate CMakeLists.txt files for applications, but not libraries.
 
 Please use the "master" branch if you only need to generate a configuration file for applications only.
-
-The "visual" branch has been created and will feature a fully GUI supported version of CMakeEasy using the SFML library.
-
-Please note you can only use the "visual" branch with a working installation of SFML.
 
 IMPORTANT NOTICE
 ----------------
@@ -28,25 +37,26 @@ It can be confusing because this project's name is so similar to the actual CMak
 
 **>CMake itself< is licensed under the OSI-approved BSD 3-clause License and is NOT public domain!!**
 
+** SFML is licensed under the zlib license and is NOT public domain! **
+
 *CMakeEasy* is a program that is designed to procedurally generate an automatic CMakeLists.txt file for inexperienced users who aren't familiar the format of CMake. As such, it should be known that the developers on this project are not necessarily associated with CMake.
 
 CMakeEasy runs best with CMake version 2.24.2 and may not work with older versions.
 
 Addendum: Because CMakeEasy requires access to your file system to work as intended, this program may ask for administrative rights.
-At this point in time, this is the only way to create the CMakeEasy binary for most systems.
 
 HOW IT WORKS
 ------------
 
-The program's design is extremely simple.
+CMakeEasy now requires at least SFML 2.5.1 to work.
+This dependency is not provided by the project, but installation instructions and important information can be found at 
 
-CMakeEasy contains NO dependencies. Everything it needs is built-in directly.
-The program overall was designed for lightweight performance in mind. Most variable and data types used are meant to cosume as little memory as possible,
+The program overall was designed for lightweight performance in mind. Most variable and data types used are meant to consume as little memory as possible,
 while still providing optimal performance and safety.
 
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
 
-If you have difficulties compiling your program, please raise an issue to the CMakeEasy team.**
+**If you have difficulties compiling your program, please raise an issue to the CMakeEasy team.**
 
 This program currently has no dependencies and should work fine if all the relevant files are included.
 
