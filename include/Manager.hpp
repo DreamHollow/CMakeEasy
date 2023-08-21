@@ -7,6 +7,9 @@
 #include <iostream>
 #include <vector>
 #include "Globals.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 
 // If a Windows system is being used
 #if OS_WINDOWS
