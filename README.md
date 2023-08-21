@@ -1,4 +1,4 @@
-# CMakeEasy
+# CMakeEasy 2.0
 A terminal-based CMakeLists.txt generator.
 
 NOTICE
