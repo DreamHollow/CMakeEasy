@@ -7,9 +7,10 @@ class Application
 {
 public:
     Application();
+    Application(unsigned int width, unsigned height);
     virtual ~Application();
 
-    const bool running() const { return this->is_active; };
+    const bool window_active() const { return this->window->isOpen(); };
 
     void run();
 
@@ -22,11 +23,10 @@ private:
 
     short actual = 0;
 
+    const std::string window_name = "CMakeEasy 2";
     const std::string linebreak = "------------";
 
     std::string package_name;
-    // std::string library_segment;
-    // std::string library_vis; // Library visibility
 
     std::string class_name;
     std::string source{ "src/" };
@@ -35,6 +35,13 @@ private:
     std::string requirement;
 
     std::vector<std::string> packages;
+
+    // Update
+    void update();
+    void update_events(sf::Event& ev);
+
+    // Render
+    void render();
 
     // Functions
     void early_setup();
@@ -67,8 +74,12 @@ private:
     void free();
 
     // Objects
+    sf::RenderWindow* window;
+    sf::VideoMode vid_mode;
+    sf::Event window_event;
+
     std::unique_ptr<AltString> text;
-    std::unique_ptr<Manager> text_reader;
+    //std::unique_ptr<Manager> text_reader;
     std::unique_ptr<Manager> ext_file;
 };
 
