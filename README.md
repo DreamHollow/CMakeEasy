@@ -4,13 +4,9 @@ A terminal-based CMakeLists.txt generator.
 BRANCHES
 ----------------
 
-CMakeEasy's "master" branch is configured to generate CMakeLists.txt files for applications, but not libraries.
+CMakeEasy is configured to generate CMakeLists.txt files for applications, but not libraries.
 
-Please use the "master" branch if you only need to generate a configuration file for applications only.
-
-The "visual" branch has been created and will feature a fully GUI supported version of CMakeEasy using the SFML library.
-
-Please note you can only use the "visual" branch with a working installation of SFML.
+Please note you can only use the master branch with a working installation of SFML.
 
 IMPORTANT NOTICE
 ----------------
