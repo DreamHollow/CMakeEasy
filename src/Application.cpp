@@ -30,7 +30,7 @@ void Application::init_vars()
 void Application::init_components()
 {
     text = std::make_unique<AltString>();
-    text_reader = std::make_unique<Manager>("File.txt", true);
+    // text_reader = std::make_unique<Manager>("File.txt", true);
     ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
 }
 
@@ -1054,6 +1054,41 @@ void Application::run()
 
     // Select directory
 
+    // Check for "files open" flags at very beginning
+    // If nothing works, throw an exception
+    // Don't show anything if there are no problems
+    
+    try
+    {
+        if(!ext_file->writefile_open())
+        {
+            std::cout << "\n";
+            std::cout << "There was a serious error with CMakeLists.txt.\n";
+            std::cout << "File could not be opened.\n";
+            std::cout << "\n";
+
+            free();
+
+            throw "Unable to open CMakeLists";
+        }
+
+        //if(!ext_file->readonly_open())
+        //{
+        //    std::cout << "\n";
+        //    std::cout << "There was an error with loading in read-only files.\n";
+        //    std::cout << "Program execution will halt.\n";
+        //    std::Cout << "\n";
+        //
+        //    free();
+        //
+        //    throw "Unable to open critical read-only file";
+        //}
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
     text->start();
 
     // ext_file->read("start.txt");
@@ -1236,9 +1271,9 @@ void Application::finish_touches()
     ext_file->write("\n");
     ext_file->write(text->declare(10));
     ext_file->write("(include)\n");
-    ext_file->write("\n");
-    ext_file->write("# Auto-generated comment:\n");
-    ext_file->write("# Post-compile data\n");
+    //ext_file->write("\n");
+    //ext_file->write("# Auto-generated comment:\n");
+    //ext_file->write("# Post-compile data\n");
     ext_file->write("\n");
 
     // Recycle multiple input var here
