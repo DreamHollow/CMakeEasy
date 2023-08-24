@@ -27,6 +27,8 @@ public:
 
   // Public Const Declarations
   const std::string name() const { return this->file_name; };
+  const bool readonly_open() const { return this->infile.is_open(); };
+  const bool writefile_open() const { return this->outfile.is_open(); };
 
   // Public Functions
   void write(std::string context);
@@ -41,7 +43,7 @@ private:
 
   // Init
   void init_vars();
-  void init_file();
+  bool file_initialized(bool &ro);
 
   // Memory
   void free();
