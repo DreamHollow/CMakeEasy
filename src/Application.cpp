@@ -2,13 +2,59 @@
 
 Application::Application()
 {
-    this->init_vars();
-    this->init_components();
+
+}
+
+/// @brief Initialize the application window based on given parameters.
+Application::Application(unsigned int width, unsigned int height)
+{
+    init_vars();
+    init_components();
+
+    this->vid_mode.width = width;
+    this->vid_mode.height = height;
+    this->vid_mode.bitsPerPixel = 32;
+
+    // Cast to int for stability
+    sf::Vector2i window_pos = {
+        static_cast<int>(sf::VideoMode::getDesktopMode().width / 3.5),
+        static_cast<int>(sf::VideoMode::getDesktopMode().height / 4.5)
+    };
+
+    try
+    {
+        if(vid_mode.isValid())
+        {
+            window = new sf::RenderWindow(vid_mode, window_name, sf::Style::Close);
+            std::cout << db_msg("Created window with given parameters.\n");
+            window->setFramerateLimit(120);
+            std::cout << db_msg("Set framerate to 120.\n");
+            window->setPosition(window_pos);
+            std::cout << db_msg("Set window position to relative center.\n");
+        }
+        else
+        {
+            std::cout << db_msg("\n");
+            std::cout << db_msg("Window could not be declared, misconfigured parameters.\n");
+            std::cout << db_msg("\n");
+
+            std::cout << "There was a serious error and the window could not be created.\n";
+
+            free();
+
+            throw "Invalid window parameters!";
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 }
 
 Application::~Application()
 {
-
+    free();
 }
 
 void Application::init_vars()
@@ -17,9 +63,10 @@ void Application::init_vars()
 
     // Start the pointers at null for safety reasons
 
+    window = nullptr;
     is_active = true; // Starts runtime
     text = nullptr;
-    text_reader = nullptr;
+    //text_reader = nullptr;
     ext_file = nullptr;
 
     valid_standard = false;
@@ -30,11 +77,40 @@ void Application::init_vars()
 void Application::init_components()
 {
     text = std::make_unique<AltString>();
-    text_reader = std::make_unique<Manager>("File.txt", true);
-    ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
+    //text_reader = std::make_unique<Manager>("File.txt", true);
+    ext_file = std::make_unique<Manager>("CMakeLists.txt", false);    
 }
 
-/// @brief Absolute call to free memory. Used during exceptions.
+void Application::update_events(sf::Event& ev)
+{
+    while(window->pollEvent(ev))
+    {
+        switch(ev.type)
+        {
+            case sf::Event::Closed:
+            {
+                window->close();
+                break;
+            }
+        }
+    }
+}
+
+void Application::update()
+{
+
+}
+
+void Application::render()
+{
+    window->clear();
+
+    // Display rendered items
+
+    window->display();
+}
+
+/// @brief Absolute call to free memory.
 void Application::free()
 {
     packages.clear();
@@ -52,17 +128,6 @@ void Application::free()
         text.reset();
     }
 
-    if(text_reader == nullptr)
-    {
-        std::cout << db_msg("Read-only text file was NULL, releasing...\n");
-        
-        text_reader.release();
-    }
-    else
-    {
-        text_reader.reset();
-    }
-
     if(ext_file == nullptr)
     {
 
@@ -73,6 +138,17 @@ void Application::free()
     else
     {
         ext_file.reset();
+    }
+
+    if(window)
+    {
+        delete window;
+
+        // Flush buffers
+        std::cout.clear();
+        std::cin.clear();
+
+        std::cout << db_msg("Window object deleted.\n");
     }
 
     std::cout << db_msg("'text' and 'ext_file' pointers released safely.\n");
@@ -1050,70 +1126,78 @@ void Application::flag_setting(int decision, bool is_windows)
 /// @brief Main run loop for CMakeEasy, defines all function entry points.
 void Application::run()
 {
+    while(window->isOpen())
+    {
+        update_events(window_event);
+        update();
+        render();
+    }
+
     // text->select_dir();
 
     // Select directory
 
-    text->start();
+    //text->start();
 
     // ext_file->read("start.txt");
 
-    early_setup();
+    //early_setup();
 
-    std::cout << linebreak << "\n";
-    std::cout << "\n";
+    //std::cout << linebreak << "\n";
+    //std::cout << "\n";
 
-    text->package();
+    //text->package();
 
-    package_setup();
+    //package_setup();
 
-    std::cout << linebreak << "\n";
-    std::cout << "\n";
+    //std::cout << linebreak << "\n";
+    //std::cout << "\n";
 
-    text->standard();
+    //text->standard();
     
-    standard_setup();
+    //standard_setup();
 
-    std::cout << "\n";
-    std::cout << linebreak << "\n";
-    std::cout << "\n";
+    //std::cout << "\n";
+    //std::cout << linebreak << "\n";
+    //std::cout << "\n";
 
-    verbose_output();
+    //verbose_output();
 
-    std::cout << "\n";
+    //std::cout << "\n";
 
-    text->source();
+    //text->source();
 
-    std::cout << "\n";
-    std::cout << linebreak << "\n";
-    std::cout << "\n";
+    //std::cout << "\n";
+    //std::cout << linebreak << "\n";
+    //std::cout << "\n";
 
     // Ask user for any additional directories or included files - TODO
 
-    text->include_dirs();
+    //text->include_dirs();
 
-    std::cout << "\n";
-    std::cout << "\n";
+    //std::cout << "\n";
+    //std::cout << "\n";
 
-    source_and_includes();
+    //source_and_includes();
 
-    std::cout << linebreak << "\n";
-    std::cout << "\n";
+    //std::cout << linebreak << "\n";
+    //std::cout << "\n";
 
-    yes_no = 0;
+    //yes_no = 0;
 
-    PACK_LOOP: // Used goto so function doesn't need more declarations
+    //PACK_LOOP: // Used goto so function doesn't need more declarations
 
     // Packages / Libraries only
-    package_loop();
+    //package_loop();
 
-    text->more_libs();
+    //text->more_libs();
 
-    input_val(yes_no);
+    //input_val(yes_no);
 
-    entry_check();
+    //entry_check();
 
     // Must be outside a function
+    /*
     switch(yes_no)
     {
         case 1:
@@ -1143,41 +1227,40 @@ void Application::run()
             break;
         }
     }
+    */
 
-    std::cout << linebreak << "\n";
-    std::cout << "\n";
+    //std::cout << linebreak << "\n";
+    //std::cout << "\n";
 
-    finish_touches();
+    //finish_touches();
 
-    text->promote();
+    //text->promote();
 
     // Convert into function.
 
-    generate_final();
+    //generate_final();
 
-    std::cout << "\n";
-    std::cout << linebreak << "\n";
-    std::cout << "\n";
+    //std::cout << "\n";
+    //std::cout << linebreak << "\n";
+    //std::cout << "\n";
 
     // move_file();
 
     // Memory will free automatically from here on.
 
-    std::cout << "The process is finished, you can find your\n";
-    std::cout << "CMakeLists.txt file at " << "\n";
-    std::cout << ext_file->file_dir << "\n";
+    //std::cout << "The process is finished, you can find your\n";
+    //std::cout << "CMakeLists.txt file at " << "\n";
+    //std::cout << ext_file->file_dir << "\n";
 
-    std::cout << db_msg("\n");
-    std::cout << db_msg("Files closed.\n");
-    std::cout << db_msg("\n");
-    std::cout << db_msg("Manager and AltString pointers released.");
-    std::cout << db_msg("\n");
-    std::cout << db_msg("Memory objects wiped.\n");
-    std::cout << db_msg("\n");
-    std::cout << db_msg("Reached end of program.\n");
-    std::cout << db_msg("\n");
-
-    is_active = false; // Terminate program
+    //std::cout << db_msg("\n");
+    //std::cout << db_msg("Files closed.\n");
+    //std::cout << db_msg("\n");
+    //std::cout << db_msg("Manager and AltString pointers released.");
+    //std::cout << db_msg("\n");
+    //std::cout << db_msg("Memory objects wiped.\n");
+    //std::cout << db_msg("\n");
+    //std::cout << db_msg("Reached end of program.\n");
+    //std::cout << db_msg("\n");
 }
 
 
