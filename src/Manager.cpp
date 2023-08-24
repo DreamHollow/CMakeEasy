@@ -35,7 +35,14 @@ Manager::Manager(std::string target_file, bool read_only)
   std::cout << db_msg("\n");
 
   // Initialize file with same settings
-  init_file();
+  if(file_initialized(read_only))
+  {
+    std::cout << file_name + " initialized with no problems.\n";
+  }
+  else
+  {
+    std::cout << file_name + " failed to initialize.\n";
+  }
 };
 
 Manager::~Manager()
@@ -55,6 +62,10 @@ void Manager::free()
 
     std::cout << db_msg("Manager closed a read-only file.\n");
   }
+  else
+  {
+    std::cout << db_msg("Manager wanted to close a read-only file, there was nothing.\n");
+  }
 
   if(outfile.is_open())
   {
@@ -62,63 +73,58 @@ void Manager::free()
 
     std::cout << db_msg("Manager closed an output file.\n");
   }
+  else
+  {
+    std::cout << db_msg("Manager wanted to close an output file, there was nothing.\n");
+  }
 }
 
 /// @brief The file is initialized early into the program, along with the directory.
-void Manager::init_file()
+bool Manager::file_initialized(bool &ro)
 {
   // Initialize an AltString file
-  if(this->read_only == true)
+  if(ro == true)
   {
-    std::cout << db_msg("\n");
     std::cout << db_msg("Read-only function currently undefined.\n");
-    std::cout << db_msg("\n");
   }
   else
   {
-    std::cout << db_msg("\n");
     std::cout << db_msg("Read-only flag set to false, initializing CMakeLists.txt...\n");
-    std::cout << db_msg("\n");
 
-    try
+    if(!outfile.is_open())
     {
-      if(!outfile.is_open())
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Current file path: ");
+      std::cout << db_msg(file_name);
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Attempting to create/edit CMakeLists.txt...\n");
+
+      outfile.open(file_name.c_str(), std::ios::out | std::ios::trunc);
+
+      // Flags a boolean fail -- moves program to application, then main
+      if(outfile.fail())
       {
+        std::cout << "ERROR: CMakeLists.txt file is unable to be opened.\n";
+        std::cout << "CMakeEasy cannot continue.\n";
+        std::cout << "\n";
+
+        free();
+
+        return false;
+      }
+      else // File is good
+      {
+        std::cout << "CMakeLists.txt file is valid, allowing edits.\n";
+
         std::cout << db_msg("\n");
-        std::cout << db_msg("Current file path: ");
         std::cout << db_msg(file_name);
         std::cout << db_msg("\n");
-        std::cout << db_msg("Attempting to create/edit CMakeLists.txt...\n");
-
-        outfile.open(file_name.c_str(), std::ios::out | std::ios::trunc);
-
-        if(outfile.fail())
-        {
-          std::cout << "ERROR: CMakeLists.txt file is unable to be opened.\n";
-          std::cout << "CMakeEasy cannot continue.\n";
-
-          free();
-
-          throw "Unusuable file path.";
-        }
-        else // File is good
-        {
-          std::cout << "CMakeLists.txt file is valid, allowing edits.\n";
-
-          std::cout << db_msg("\n");
-          std::cout << db_msg(file_name);
-          std::cout << db_msg("\n");
-          std::cout << db_msg("is ready to be modified.\n");
-        }
+        std::cout << db_msg("is ready to be modified.\n");
       }
     }
-    catch(const std::exception& e)
-    {
-      std::cerr << e.what() << '\n';
-    }
   }
-  // This catch-all should really be left in for worst-case file writing scenarios.
-  // If the CMakeLists.txt file cannot be accessed, it should not be written to!
+
+  return true;
 };
 
 /// @brief Writes char arrays and strings into files.
