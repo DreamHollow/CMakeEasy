@@ -82,12 +82,11 @@ void Manager::free()
 /// @brief The file is initialized early into the program, along with the directory.
 bool Manager::file_initialized(bool &ro)
 {
-  // Initialize an AltString file
-  if(ro == true)
+  if(ro == true) // AltString
   {
     std::cout << db_msg("Read-only function currently undefined.\n");
   }
-  else
+  else // CMakeLists
   {
     std::cout << db_msg("Read-only flag set to false, initializing CMakeLists.txt...\n");
 
