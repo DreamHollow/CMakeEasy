@@ -2,12 +2,9 @@
 
 int main()
 {
-    Application app;
+    Application app(800,600);
 
-    while(app.running())
-    {
-        app.run();
-    }
+    app.run();
 
     return 0;
 };
