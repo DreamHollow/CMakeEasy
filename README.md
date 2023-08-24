@@ -37,7 +37,7 @@ HOW IT WORKS
 The program's design is extremely simple.
 
 CMakeEasy contains NO dependencies. Everything it needs is built-in directly.
-The program overall was designed for lightweight performance in mind. Most variable and data types used are meant to cosume as little memory as possible,
+The program overall was designed for lightweight performance in mind. Most variable and data types used are meant to consume as little memory as possible,
 while still providing optimal performance and safety.
 
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
