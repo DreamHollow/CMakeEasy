@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(cmakeeasy VERSION 2.0.0 LANGUAGES CXX)
+find_package(SFML 2 REQUIRED COMPONENTS graphics window system)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_VERBOSE_MAKEFILE true)
@@ -9,14 +10,20 @@ set(CMAKE_VERBOSE_MAKEFILE true)
 add_executable(${PROJECT_NAME} src/Main.cpp
 src/Manager.cpp
 src/AltString.cpp
-src/Application.cpp)
+src/Application.cpp
+src/Manager.cpp)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-system)
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-window)
+
 
 include_directories(include)
 
 # Auto-generated comment:
 # Post-compile data
 
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 
 if(WIN32)
    message(STATUS "Installing for Windows...")
