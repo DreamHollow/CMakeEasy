@@ -42,7 +42,7 @@ while still providing optimal performance and safety.
 
 It will take in raw text output provided by the user, configure it into a format for a CMakeLists.txt file, then produce the file in a directory.
 
-If you have difficulties compiling your program, please raise an issue to the CMakeEasy team.**
+If you have difficulties compiling your program, please raise an issue to the CMakeEasy team.
 
 This program currently has no dependencies and should work fine if all the relevant files are included.
 
