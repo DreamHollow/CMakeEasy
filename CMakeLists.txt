@@ -20,7 +20,7 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 if(WIN32)
    message(STATUS "Installing for Windows...")
-   install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/CMakeEasy" PERMISSIONS OWNER_EXECUTE)
+   install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/CMakeEasy" PERMISSIONS GROUP_EXECUTE)
 endif()
 
 if(UNIX)
