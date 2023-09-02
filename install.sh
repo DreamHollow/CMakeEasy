@@ -1,5 +1,6 @@
 #!/bin/sh
 # Only works on Linux version!
+# You must run as SU for this to actually install!
 
 echo "Building Release version..."
 
