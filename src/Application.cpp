@@ -400,6 +400,7 @@ void Application::package_setup()
 
             std::cout << db_msg("\n");
             std::cout << db_msg(package_name);
+            std::cout << db_msg("\n");
             std::cout << db_msg("was added to 'packages' vector.\n");
             std::cout << db_msg("\n");
 
