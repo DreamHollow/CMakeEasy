@@ -34,18 +34,24 @@ static std::string db_msg(std::string msg);
 static std::string db_msg(std::string msg)
 {
     std::string nextline = "\n";
+    const std::string nullstring = "";
 
-    if(msg == nextline)
+    if(debug)
+    {
+        if(msg == nextline)
+        {
+            return nextline;
+        }
+
+        return (db_string + msg);
+    }
+
+    if(msg == nextline) // Not debug
     {
         return nextline;
     }
 
-    if(debug)
-    {
-        return (db_string + msg);
-    }
-
-    return "";
+    return nullstring;
 }
 
 #endif
