@@ -39,14 +39,10 @@ private:
   bool read_only;
   
   std::string list_dir;
-  std::string file_name; // = "CMakeLists.txt";
-
-  // Init
-  void init_vars();
-  bool file_initialized(bool &ro);
+  std::string file_name;
 
   // Memory
-  void free();
+  void free_data();
 
   // Objects
   std::ifstream infile; // Read-Only
