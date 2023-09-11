@@ -20,8 +20,7 @@ void AltString::free_data()
     commands.clear();
     commands.shrink_to_fit();
 
-    std::cout << db_msg("AltString freed string vector data.\n");
-
+    std::cout << db_msg("AltString: Freed vectors.\n");
 };
 
 void AltString::init_vars()
@@ -60,19 +59,6 @@ void AltString::init_vars()
 
     std::cout << db_msg("Declarations initialized.\n");
 };
-
-/*
-/// @brief Prompts the user for a directory to save CMakeLists.txt files.
-void AltString::select_dir()
-{
-    std::cout << "Before you begin using the program, please select a directory\n";
-    std::cout << "to save your finalized 'CMakeLists.txt file." << "\n";
-    std::cout << "\n";
-    std::cout << "To make things easier, CMakeEasy will reference your\n";
-    std::cout << "'Documents' folder in your home directory." << "\n";
-    std::cout << "\n";
-}
-*/
 
 /// @brief Displays at the very beginning of the program.
 /// It functions as a welcome screen and documentation reference.
