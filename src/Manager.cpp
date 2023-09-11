@@ -59,6 +59,13 @@ Manager::Manager(std::string target_file, bool read_only)
 
           throw "Unable to open read-only file!";
         }
+        else
+        {
+          std::cout << db_msg("\n");
+          std::cout << db_msg("Read-only file was opened successfully: ");
+          std::cout << db_msg(file_name);
+          std::cout << db_msg("\n");
+        }
       }
     }
   }
@@ -171,3 +178,16 @@ void Manager::write(int num)
 
   outfile << s;
 };
+
+const std::string Manager::read()
+{
+  std::string str;
+  if(infile)
+  {
+    std::ostringstream ss;
+    ss << infile.rdbuf();
+    str = ss.str();
+  }
+
+  return str;
+}
