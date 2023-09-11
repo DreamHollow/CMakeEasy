@@ -23,7 +23,7 @@ void Application::init_vars()
     // Start the pointers at null for safety reasons
 
     is_active = true; // Starts runtime
-    text = nullptr;
+    alt = nullptr;
     ext_file = nullptr;
 
     valid_standard = false;
@@ -32,11 +32,25 @@ void Application::init_vars()
 
 void Application::init_components()
 {
-    text = std::make_unique<AltString>();
+    alt = std::make_unique<AltString>();
     ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
 
     // Initialize text files
-    init_filetype("text/start.txt", true);
+    init_filetype("text/start.txt", true); // 0
+    init_filetype("text/minor_vers.txt", true); // 1
+    init_filetype("text/release_vers.txt", true); // 2
+    init_filetype("text/program_vers.txt", true); // 3
+    init_filetype("text/program_lang.txt", true); // 4
+    init_filetype("text/component_entry.txt", true); // 5
+    init_filetype("text/op_sys.txt", true); // 6
+    init_filetype("text/verbose.txt", true); // 7
+    init_filetype("text/package_setup_text.txt", true); // 8
+    init_filetype("text/include_dirs.txt", true); // 9
+    init_filetype("text/package.txt", true); // 10
+    init_filetype("text/standard.txt", true); // 11
+    init_filetype("text/source.txt", true); // 12
+    init_filetype("text/more_libs.txt", true); // 13
+    init_filetype("text/promote.txt", true); // 14
 }
 
 void Application::init_filetype(std::string file_name, bool read_only)
@@ -55,16 +69,16 @@ void Application::free_data()
     packages.clear();
     packages.shrink_to_fit();
 
-    if(text == nullptr)
+    if(alt == nullptr)
     {
 
         std::cout << db_msg("AltString was NULL, releasing...\n");
 
-        text.release();
+        alt.release();
     }
     else
     {
-        text.reset();
+        alt.reset();
     }
 
     if(ext_file == nullptr)
@@ -82,7 +96,7 @@ void Application::free_data()
     text_files.clear();
     text_files.shrink_to_fit();
 
-    std::cout << db_msg("'text' and 'ext_file' pointers released safely.\n");
+    std::cout << db_msg("'alt' and 'ext_file' pointers released safely.\n");
 }
 
 /// @brief Checks iostream input. It will force the program to stop
@@ -132,13 +146,16 @@ void Application::early_setup()
 
     // Version numbering (CMake)
 
-    text->minor_vers();
+    std::cout << text_files.at(1)->read();
+    std::cout << "\n";
 
     std::cout << "Your version: ";
     input_val(minor);
     std::cout << "\n";
 
-    text->release_vers();
+    std::cout << text_files.at(2)->read();
+    std::cout << "\n";
+    std::cout << "\n";
 
     std::cout << "Your version: ";
     input_val(release);
@@ -159,9 +176,9 @@ void Application::early_setup()
     std::cout << "\n";
     std::cout << "Saving " << ext_file->name() << " to your current directory..." << "\n";
 
-    ext_file->write(text->declare(0)); // cmake_minimum
+    ext_file->write(alt->declare(0)); // cmake_minimum
     ext_file->write("(");
-    ext_file->write(text->declare(2)); // VERSION
+    ext_file->write(alt->declare(2)); // VERSION
     ext_file->write(" ");
     ext_file->write(major);
     ext_file->write(".");
@@ -184,7 +201,7 @@ void Application::early_setup()
         std::cout << "\n";
     }
 
-    std::cout << "Wrote " << "'" << text->declare(0) << "'" << " line automatically." << "\n";
+    std::cout << "Wrote " << "'" << alt->declare(0) << "'" << " line automatically." << "\n";
     std::cout << "\n";
 
     std::cout << "\n";
@@ -201,7 +218,7 @@ void Application::early_setup()
     std::cout << "and will be saved as such." << "\n";
     std::cout << "\n";
 
-    ext_file->write(text->declare(1));
+    ext_file->write(alt->declare(1));
     ext_file->write("(");
     ext_file->write(project_name);
     std::cout << "\n";
@@ -210,7 +227,9 @@ void Application::early_setup()
     minor = 0;
     release = 0;
 
-    text->program_vers();
+    std::cout << text_files.at(3)->read();
+    std::cout << "\n";
+    std::cout << "\n";
     
     std::cout << "Your choice: ";
     input_val(yes_no);
@@ -237,7 +256,7 @@ void Application::early_setup()
         input_val(release);
 
         ext_file->write(" ");
-        ext_file->write(text->declare(2));
+        ext_file->write(alt->declare(2));
         ext_file->write(" ");
         ext_file->write(major);
         ext_file->write(".");
@@ -266,10 +285,12 @@ void Application::early_setup()
     // Declaring Program Language Format
 
     std::cout << "\n";
-    text->program_lang();
+    std::cout << text_files.at(4)->read();
+    std::cout << "\n";
+    std::cout << "\n";
 
     ext_file->write(" ");
-    ext_file->write(text->declare(3));
+    ext_file->write(alt->declare(3));
     ext_file->write(")");
     ext_file->write("\n");
 
@@ -278,15 +299,15 @@ void Application::early_setup()
         std::cout << "DEBUG STATEMENT:\n";
         std::cout << "\n";
         std::cout << "Line should read as: " << "\n";
-        std::cout << text->declare(1) << "(" << project_name << " ";
+        std::cout << alt->declare(1) << "(" << project_name << " ";
 
         if(major && minor != 0)
         {
-            std::cout << text->declare(2) << " " << major << "." << minor << "." << release;
+            std::cout << alt->declare(2) << " " << major << "." << minor << "." << release;
         }
 
         std::cout << " ";
-        std::cout << text->declare(3);
+        std::cout << alt->declare(3);
         std::cout << ")";
         std::cout << "\n";
         std::cout << "\n";
@@ -304,13 +325,10 @@ void Application::package_setup()
     {
         short package_vers = 0;
 
+        text_files.at(8)->read();
         std::cout << "\n";
-        std::cout << "Please enter any extra packages you would like to add." << "\n";
         std::cout << "\n";
-        std::cout << "Please note that you can enter packages one after another, then you will\n";
-        std::cout << "be asked to add the relevant components afterward." << "\n";
-        std::cout << "\n";
-        std::cout << "If you don't want to add any more packages, just type '!none' instead." << "\n";
+
         std::cout << "Your package: ";
         input_string(package_name);
         std::cout << "\n";
@@ -411,7 +429,7 @@ void Application::package_setup()
             std::cout << db_msg("was added to 'packages' vector.\n");
             std::cout << db_msg("\n");
 
-            ext_file->write(text->declare(19)); // find_package
+            ext_file->write(alt->declare(19)); // find_package
             ext_file->write("(");
             ext_file->write(package_name);
 
@@ -425,7 +443,7 @@ void Application::package_setup()
             if(req_package)
             {
                 ext_file->write(" ");
-                ext_file->write(text->declare(17));
+                ext_file->write(alt->declare(17));
             }
 
             if(entries)
@@ -493,7 +511,7 @@ void Application::standard_setup()
             actual = 23;
 
             std::cout << "Configuring file for C++23 standards..." << "\n";
-            declaration = text->declare(6);
+            declaration = alt->declare(6);
             declaration.append(" " + std::to_string(actual));
             break;
         }
@@ -503,7 +521,7 @@ void Application::standard_setup()
             actual = 20;
 
             std::cout << "Configuring file for C++20 standards..." << "\n";
-            declaration = text->declare(6);
+            declaration = alt->declare(6);
             declaration.append(" " + std::to_string(actual));
             break;
         }
@@ -513,7 +531,7 @@ void Application::standard_setup()
             actual = 17;
 
             std::cout << "Configuring file for C++17 standards..." << "\n";
-            declaration = text->declare(6);
+            declaration = alt->declare(6);
             declaration.append(" " + std::to_string(actual));
             break;
         }
@@ -536,15 +554,15 @@ void Application::standard_setup()
 
     if(valid_standard)
     {
-        requirement = text->declare(16);
+        requirement = alt->declare(16);
         requirement.append(" ON");
 
-        ext_file->write(text->declare(7)); // set
+        ext_file->write(alt->declare(7)); // set
         ext_file->write("(");
         ext_file->write(declaration);
         ext_file->write(")");
         ext_file->write("\n");
-        ext_file->write(text->declare(7));
+        ext_file->write(alt->declare(7));
         ext_file->write("(");
         ext_file->write(requirement);
         ext_file->write(")\n");
@@ -562,7 +580,7 @@ void Application::standard_setup()
             std::cout << "\n";
             std::cout << "DEBUG DATA:" << "\n";
             std::cout << "Line in file should read as" << "\n";
-            std::cout << text->declare(7) << "(" << declaration << ")'" << "\n";
+            std::cout << alt->declare(7) << "(" << declaration << ")'" << "\n";
             std::cout << "'" << requirement << "'" << "\n";
             std::cout << "\n";
         }
@@ -578,6 +596,8 @@ void Application::standard_setup()
 /// @brief The look where package components are linked to libraries.
 void Application::package_loop()
 {
+    bool more_libraries;
+
     if(has_package)
     {
         std::cout << "Packages were entered previously:" << "\n";
@@ -594,7 +614,9 @@ void Application::package_loop()
         std::cout << "that were not previously entered." << "\n";
         std::cout << "\n";
 
-        text->component_entry();
+        std::cout << text_files.at(5)->read();
+        std::cout << "\n";
+        std::cout << "\n";
 
         input_val(yes_no);
         std::cout << "\n";
@@ -656,11 +678,11 @@ void Application::package_loop()
                         library_shorthand.clear();
                         library_segment.clear();
 
-                        more_files = false;
+                        more_libraries = false;
                     }
                     else
                     {
-                        more_files = true;
+                        more_libraries = true;
                     }
 
                     if(library_shorthand.empty()) // No library to link
@@ -669,11 +691,11 @@ void Application::package_loop()
                     }
                     else
                     {
-                        ext_file->write(text->declare(9)); // target_link_libraries
+                        ext_file->write(alt->declare(9)); // target_link_libraries
                         ext_file->write("(");
-                        ext_file->write(text->declare(12));
+                        ext_file->write(alt->declare(12));
                         ext_file->write(" ");
-                        ext_file->write(text->declare(14)); // Make this modifiable - TODO
+                        ext_file->write(alt->declare(14)); // Make this modifiable - TODO
                         ext_file->write(" ");
                         ext_file->write(library_shorthand);
                         ext_file->write(library_segment); // library-component
@@ -683,7 +705,7 @@ void Application::package_loop()
                     library_segment.erase();
 
                     ext_file->write("\n"); // New line for new target
-                }while(more_files);
+                }while(more_libraries);
 
                 break; // Still part of case 1
             }
@@ -717,6 +739,11 @@ void Application::package_loop()
         std::cout << "\n";
     }
 
+    if(debug)
+    {
+        std::cout << db_msg("Package loop exited here.\n");
+    }
+
     yes_no = 0;
 }
 
@@ -724,14 +751,15 @@ void Application::package_loop()
 void Application::source_and_includes()
 {
     std::string exe_name;
+    bool more_files = false;
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     input_string(exe_name);
     std::cout << "\n";
 
-    ext_file->write(text->declare(8)); // add exe
+    ext_file->write(alt->declare(8)); // add exe
     ext_file->write("(");
-    ext_file->write(text->declare(12));
+    ext_file->write(alt->declare(12));
     ext_file->write(" ");
     ext_file->write(source);
     ext_file->write(exe_name); // should appear as src/(exe_name)
@@ -740,7 +768,7 @@ void Application::source_and_includes()
     std::cout << "The program will loop entry until you specify that you are done." << "\n";
     std::cout << "\n";
 
-    more_files = false;
+    //more_files = false;
 
     do
     {
@@ -766,6 +794,18 @@ void Application::source_and_includes()
         else
         {
             more_files = true;
+
+            if(debug)
+            {
+                std::cout << "DEBUG STATEMENT:\n";
+                std::cout << "Last written class information was\n";
+                std::cout << alt->declare(8);
+                std::cout << "(";
+                std::cout << alt->declare(12) << " ";
+                std::cout << source;
+                std::cout << exe_name;
+                std::cout << "\n";
+            }
         }
 
         if(more_files)
@@ -775,8 +815,15 @@ void Application::source_and_includes()
         ext_file->write(source);
         ext_file->write(class_name);
 
-        // source.erase();
-        class_name.erase();
+
+
+        if(debug)
+        {
+            std::cout << source;
+            std::cout << class_name;
+            std::cout << "\n";
+            std::cout << "END DEBUG STATEMENT.\n";
+        }
 
     }while(more_files);
 
@@ -820,7 +867,7 @@ void Application::flag_setting(int decision, bool is_windows)
                 while(more_flags)
                 {
                     std::cout << "Recognized instructions:\n";
-                    text->show_commands();
+                    alt->show_commands();
                     std::cout << "\n";
 
                     std::cout << "\n";
@@ -845,7 +892,7 @@ void Application::flag_setting(int decision, bool is_windows)
                     }
 
                     // To prevent user error it checks the given command
-                    if(std::find(text->commands.begin(),text->commands.end(), current) != text->commands.end())
+                    if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
                     {
                         db_msg("\n");
                         db_msg("Command found in vector, proceeding...\n");
@@ -965,7 +1012,7 @@ void Application::flag_setting(int decision, bool is_windows)
                 while(more_flags)
                 {
                     std::cout << "Recognized instructions:\n";
-                    text->show_commands();
+                    alt->show_commands();
                     std::cout << "\n";
 
                     std::cout << "\n";
@@ -990,7 +1037,7 @@ void Application::flag_setting(int decision, bool is_windows)
                     }
 
                     // To prevent user error it checks the given command
-                    if(std::find(text->commands.begin(),text->commands.end(), current) != text->commands.end())
+                    if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
                     {
                         db_msg("\n");
                         db_msg("Command found in vector, proceeding...\n");
@@ -1064,24 +1111,27 @@ void Application::run()
 
     std::cout << text_files.at(0)->read();
     std::cout << "\n";
+    std::cout << "\n";
 
-    //text->start();
-
-    // ext_file->read("start.txt");
+    // functions that don't start with 'text' should be left alone.
 
     early_setup();
 
     std::cout << linebreak << "\n";
     std::cout << "\n";
 
-    text->package();
+    std::cout << text_files.at(10)->read();
+    std::cout << "\n";
+    std::cout << "\n";
 
     package_setup();
 
     std::cout << linebreak << "\n";
     std::cout << "\n";
 
-    text->standard();
+    std::cout << text_files.at(11)->read();
+    std::cout << "\n";
+    std::cout << "\n";
     
     standard_setup();
 
@@ -1093,7 +1143,11 @@ void Application::run()
 
     std::cout << "\n";
 
-    text->source();
+    std::cout << text_files.at(12)->read();
+    std::cout << "\n";
+    std::cout << "\n";
+
+    // Source Setup
 
     std::cout << "\n";
     std::cout << linebreak << "\n";
@@ -1101,7 +1155,9 @@ void Application::run()
 
     // Ask user for any additional directories or included files - TODO
 
-    text->include_dirs();
+    std::cout << text_files.at(9)->read();
+    std::cout << "\n";
+    std::cout << "\n";
 
     std::cout << "\n";
     std::cout << "\n";
@@ -1118,7 +1174,11 @@ void Application::run()
     // Packages / Libraries only
     package_loop();
 
-    text->more_libs();
+    std::cout << "\n";
+    std::cout << text_files.at(13)->read();
+    std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "Your choice: ";
 
     input_val(yes_no);
 
@@ -1160,7 +1220,10 @@ void Application::run()
 
     finish_touches();
 
-    text->promote();
+    std::cout << text_files.at(14)->read();
+    std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "Your choice: ";
 
     // Convert into function.
 
@@ -1245,7 +1308,7 @@ void Application::finish_touches()
     // Set standard include directory
 
     ext_file->write("\n");
-    ext_file->write(text->declare(10));
+    ext_file->write(alt->declare(10));
     ext_file->write("(include)\n");
     //ext_file->write("\n");
     //ext_file->write("# Auto-generated comment:\n");
@@ -1256,15 +1319,15 @@ void Application::finish_touches()
 
     if(valid_standard)
     {
-        ext_file->write(text->declare(11));
+        ext_file->write(alt->declare(11));
         ext_file->write("(");
 
         // Ask user about PRIVATE / PUBLIC / INTERFACE preference - TODO
 
         // Default this to PRIVATE for now
-        ext_file->write(text->declare(12));
+        ext_file->write(alt->declare(12));
         ext_file->write(" ");
-        ext_file->write(text->declare(14));
+        ext_file->write(alt->declare(14));
         ext_file->write(" ");
         ext_file->write("cxx_std_");
         ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
@@ -1275,7 +1338,9 @@ void Application::finish_touches()
 
     // std::cout << linebreak << "\n";
 
-    text->op_sys();
+    std::cout << text_files.at(6)->read();
+    std::cout << "\n";
+    std::cout << "\n";
 
     std::cout << linebreak << "\n" << "\n";
 
@@ -1294,7 +1359,9 @@ void Application::verbose_output()
     std::cout << db_msg("Asking user about verbose CMake setting...\n");
     std::cout << db_msg("\n");
 
-    text->verbose();
+    std::cout << text_files.at(7)->read();
+    std::cout << "\n";
+    std::cout << "\n";
 
     yes_no = 0;
 
@@ -1310,9 +1377,9 @@ void Application::verbose_output()
         {
             std::cout << "Committing changes to CMakeLists.txt file..." << "\n";
             std::cout << "\n";
-            ext_file->write(text->declare(7)); // set
+            ext_file->write(alt->declare(7)); // set
             ext_file->write("(");
-            ext_file->write(text->declare(20));
+            ext_file->write(alt->declare(20));
             ext_file->write(" ");
             ext_file->write("true");
             ext_file->write(")");
@@ -1323,9 +1390,9 @@ void Application::verbose_output()
             {
                 std::cout << "DEBUG DATA:\n";
                 std::cout << "Wrote the following to CMakeLists.txt:\n";
-                std::cout << text->declare(7);
+                std::cout << alt->declare(7);
                 std::cout << "(";
-                std::cout << text->declare(20);
+                std::cout << alt->declare(20);
                 std::cout << " true";
                 std::cout << ")";
                 std::cout << "\n";
