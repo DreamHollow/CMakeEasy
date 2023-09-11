@@ -50,6 +50,11 @@ Manager::Manager(std::string target_file, bool read_only)
           std::cout << db_msg(file_name);
           std::cout << db_msg("\n");
 
+          std::cout << "\n";
+          std::cout << "ERROR: CMakeEasy failed to read a vital text file.\n";
+          std::cout << "Program execution cannot continue.\n";
+          std::cout << "Stopping CMakeEasy...\n";
+
           free_data();
 
           throw "Unable to open read-only file!";
@@ -88,6 +93,7 @@ Manager::Manager(std::string target_file, bool read_only)
         // Flags a boolean fail -- moves program to application, then main
         if(outfile.fail())
         {
+          std::cout << "\n";
           std::cout << "ERROR: CMakeLists.txt file is unable to be opened.\n";
           std::cout << "CMakeEasy cannot continue.\n";
           std::cout << "\n";
