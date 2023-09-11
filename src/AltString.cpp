@@ -9,11 +9,11 @@ AltString::AltString()
 
 AltString::~AltString()
 {
-    free();
+    free_data();
 };
 
 /// @brief Called to guarantee vector clearing.
-void AltString::free()
+void AltString::free_data()
 {
     declarations.clear();
     declarations.shrink_to_fit();
