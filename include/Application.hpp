@@ -25,8 +25,6 @@ private:
     const std::string linebreak = "------------";
 
     std::string package_name;
-    // std::string library_segment;
-    // std::string library_vis; // Library visibility
 
     std::string class_name;
     std::string source{ "src/" };
@@ -48,7 +46,6 @@ private:
     void sys_flags();
     void flag_setting(int decision, bool is_windows);
     void generate_final();
-    // void move_file();
 
     // Input
     short input_val(short& num);
@@ -62,14 +59,15 @@ private:
     // Init
     void init_vars();
     void init_components();
+    void init_filetype(std::string file_name, bool read_only);
 
     // Memory
-    void free();
+    void free_data();
 
     // Objects
     std::unique_ptr<AltString> text;
-    std::unique_ptr<Manager> text_reader;
     std::unique_ptr<Manager> ext_file;
+    std::vector<std::shared_ptr<Manager>> text_files;
 };
 
 #endif
