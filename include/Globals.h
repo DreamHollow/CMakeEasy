@@ -23,7 +23,7 @@ static const char *homedir = pw->pw_dir;
 
 #include <string>
 
-static bool debug = true;
+static bool debug = false;
 static char db_string[]{"DEBUG: "};
 static short yes_no = 0;
 static char exit_cmd[]{ "!exit" };
@@ -49,7 +49,7 @@ static std::string db_msg(std::string msg)
 
     if(msg == nextline) // Not debug
     {
-        return nextline;
+        return nullstring;
     }
 
     return nullstring;
