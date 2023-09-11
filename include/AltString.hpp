@@ -15,23 +15,15 @@ public:
     // Public Functions - Readers
 
     // Public Functions - Explainers
-    void start();
-    void minor_vers();
-    void release_vers();
-    void program_vers();
-    void program_lang();
-    void package();
-    void component_entry();
-    void more_libs();
-    void op_sys();
+    //void package();
+    //void more_libs();
+    //void op_sys();
     void show_commands();
-    // void lin_sys();
-    // void win_sys();
-    void standard();
-    void source();
-    void include_dirs();
-    void promote();
-    void verbose();
+    //void standard();
+    //void source();
+    //void include_dirs();
+    //void promote();
+    //void verbose();
 
     // Public Vars
     std::vector<std::string> commands;
