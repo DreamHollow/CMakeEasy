@@ -43,6 +43,10 @@ void Application::init_filetype(std::string file_name, bool read_only)
 {
     std::shared_ptr<Manager> file_ptr = std::make_shared<Manager>(file_name, read_only);
     text_files.push_back(file_ptr);
+
+    std::cout << db_msg("File added to vector: ");
+    std::cout << db_msg(file_name);
+    std::cout << db_msg("\n");
 }
 
 /// @brief Absolute call to free memory. Used during exceptions.
@@ -1054,7 +1058,14 @@ void Application::flag_setting(int decision, bool is_windows)
 /// @brief Main run loop for CMakeEasy, defines all function entry points.
 void Application::run()
 {
-    text->start();
+    std::cout << db_msg("\n");
+    std::cout << db_msg("Trying to read file at position 0...\n");
+    std::cout << db_msg("\n");
+
+    std::cout << text_files.at(0)->read();
+    std::cout << "\n";
+
+    //text->start();
 
     // ext_file->read("start.txt");
 
