@@ -6,6 +6,7 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
+#include <streambuf>
 #include "Globals.h"
 
 // If a Windows system is being used
@@ -31,6 +32,7 @@ public:
   // Public Functions
   void write(std::string context);
   void write(int num);
+  const std::string read();
 
 private:
   // Variables
