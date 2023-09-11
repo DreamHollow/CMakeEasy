@@ -26,6 +26,7 @@ static const char *homedir = pw->pw_dir;
 static bool debug = true;
 static char db_string[]{"DEBUG: "};
 static short yes_no = 0;
+static char exit[]{ "!exit" };
 
 static std::string db_msg(std::string msg);
 
