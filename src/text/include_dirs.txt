@@ -1,0 +1,6 @@
+ATTENTION:
+CMakeEasy is configured to standardize C++ directories.
+
+CMakeEasy automatically assumes you are using standard directories.
+The program will automatically target /include and /src directories by default.
+These changes will be reflected on the CMakeLists.txt file.

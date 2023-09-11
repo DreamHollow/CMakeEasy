@@ -1,0 +1,6 @@
+Would you like to promote CMakeEasy by
+Adding an auto-generated comment to the end
+of CMakeLists.txt?
+
+1. I would like to promote this project.
+2. No, I don't want to promote this project.

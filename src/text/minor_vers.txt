@@ -1,0 +1,2 @@
+What is the minor version of CMake that you are using?
+Example: 3.[22].1

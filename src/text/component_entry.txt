@@ -1,0 +1,13 @@
+        
+Would you like to link any libraries?
+Please keep in mind that if CMake cannot find your library,
+linking these files will not work.
+        
+Please note that while adding libraries, you will need
+to link any necessary components as well.
+        
+Start linking libraries (and) components?
+1. Yes.
+2. No.
+        
+Your choice:

@@ -1,0 +1,9 @@
+Please set the standard for your C++ application.
+
+If you're not using any newer C++ standards, you can select option 4.
+ 
+This list may be updated in the future as more standards are added.
+1. C++23
+2. C++20
+3. C++17
+4. Not following standard, N/A

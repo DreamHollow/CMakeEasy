@@ -1,0 +1,12 @@
+If you have any packages to find, please enter them here.
+
+Packages are NOT regular directories or folders.
+
+Please note that if your package has 'components', they must
+also be added in order for the package to work.
+This step will come later as the program asks for libraries,
+as the program will also link the libraries and add components.
+
+Please note that not understanding how this feature works
+may result on a compilation error by CMake and possibly
+generate a non-functional CMake cache.

@@ -1,0 +1,9 @@
+Would you to generate verbose CMake output during
+the CMake process?
+
+Please note that this is optional, but can help
+display CMake debugging information and compilation
+warnings.
+
+1. Yes, set my CMakeLists.txt file to generate verbose output.
+2. No, I don't want verbose output from CMake.

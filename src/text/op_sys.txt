@@ -1,0 +1,9 @@
+Please designate operating system instructions for
+each operating system you want users to compile with.
+
+Linux based systems will use the UNIX designation,
+Windows based systems traditionally use WIN32 designation.
+
+CMakeEasy will provide some common OS-specific flags that
+maybe used per system.
+   

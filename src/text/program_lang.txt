@@ -1,0 +1,2 @@
+Because this version of CMakeEasy is designed for C++ context,
+The 'LANGUAGES' setting will be automatically set to 'CXX'.
