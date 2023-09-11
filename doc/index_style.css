@@ -18,6 +18,11 @@ h2{
     color:navy;
 }
 
+h2.final{
+    color:navy;
+    text-align:center;
+}
+
 h3{
     color:brown;
     text-decoration:underline;
