@@ -30,11 +30,13 @@ void Application::init_vars()
     has_package = false;
 }
 
-/// @brief Initializes smart pointers for AltString and Manager classes.
 void Application::init_components()
 {
     text = std::make_unique<AltString>();
     ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
+
+    // Initialize text files
+    init_filetype("text/start.txt", true);
 }
 
 void Application::init_filetype(std::string file_name, bool read_only)
@@ -1052,45 +1054,6 @@ void Application::flag_setting(int decision, bool is_windows)
 /// @brief Main run loop for CMakeEasy, defines all function entry points.
 void Application::run()
 {
-    // text->select_dir();
-
-    // Select directory
-
-    // Check for "files open" flags at very beginning
-    // If nothing works, throw an exception
-    // Don't show anything if there are no problems
-    
-    try
-    {
-        if(!ext_file->writefile_open())
-        {
-            std::cout << "\n";
-            std::cout << "There was a serious error with CMakeLists.txt.\n";
-            std::cout << "File could not be opened.\n";
-            std::cout << "\n";
-
-            free_data();
-
-            throw "Unable to open CMakeLists";
-        }
-
-        //if(!ext_file->readonly_open())
-        //{
-        //    std::cout << "\n";
-        //    std::cout << "There was an error with loading in read-only files.\n";
-        //    std::cout << "Program execution will halt.\n";
-        //    std::Cout << "\n";
-        //
-        //    free();
-        //
-        //    throw "Unable to open critical read-only file";
-        //}
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
     text->start();
 
     // ext_file->read("start.txt");
