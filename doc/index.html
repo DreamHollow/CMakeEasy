@@ -17,7 +17,6 @@
     <p>The AltString class of CMakeEasy reduces clutter within program operation.</p>
     <p>It's purposes include:</p>
     <ul class="a">
-        <li>To provide explanations of program functions that are built-in without additional files.</li>
         <li>To reduce clutter of the main Application so that developers can see what functions execute.</li>
         <li>To streamline the use of frequent CMake commands or strings used in list creation.</li>
     </ul>
@@ -25,15 +24,14 @@
     <h3>Functionality</h3>
     <p>To start, AltString 'initializes' several common CMake strings used for the purpose of creating CMake lists.
         AltString is comprised of several functions that hold sets of instructions for users who might not understand how to use the software.</p>
-        <p>Many functions follow this pattern with such examples as <b>void start()</b>, <b>void package()</b>, <b>void standard()</b>, and so forth.</p>
         <p>The <b>const std::string declare(int num)</b> function is exclusively used to provide pre-written statements for CMakeLists.txt writing, taken from the <b>declarations</b> vector. The number provided
         to the <b>const std::string declare(int num)</b> function determines which statement is added.</p>
-        <p>The <b>free()</b> function clears out vectors when they are no longer in use.</p>
+        <p>The <b>free_data()</b> function clears out vectors when they are no longer in use.</p>
         <p>The various other functions in AltString are labeled after their position in program
             execution, usually relevant to the Application class.</p>
 
     <h3>Notice</h3>
-    <p>How AltString outputs instructions may change in the near future. This documentation will be updated if necessary.</p>
+    <p>AltString originally handled instructional output, it is now mostly a handler class.</p>
 
     <h2>Application</h2>
     <h3>Overview</h3>
@@ -56,7 +54,7 @@
     <p><b>void entry_check()</b> is a function that performs standard <i>std::cin.fail()</i> checks, to prevent
     data corruption between input and output of parameters.
     
-    <p>The <b>free()</b> function is designed to only execute if the program encounters a serious error.
+    <p>The <b>free_data()</b> function is designed to only execute if the program encounters a serious error.
         Because smart pointers do not de-allocate during a throw, it deletes them instead.</p>
     <h3>Flow</h3>
     <p>The Application class has a 'flow' to it's functionality that is important, because it is the true entry point of what makes up CMakeEasy.</p>
@@ -88,16 +86,22 @@
         <li>Creating the default configurations for the outputted CMakeLists.txt file.</li>
         <li>Managing program-relevant data relative to the home directory. [Cross Platform]</li>
         <li>Writing data directly to CMakeLists.txt</li>
+        <li>Reading instructional data to console for the user.</li>
     </ul>
     <h3>Functionality</h3>
     <p>The Manager class greatly improves the ease in how file writing takes place.</p>
-    <p>Upon construction, the class immediately initializes relevant data using <b>init_vars()</b> and initializes CMakeLists.txt with <b>init_file()</b>.</p>
+    <p>Upon construction, the class immediately initializes relevant data.
+        This data is checked if it has been safely loaded in, whether it is read-only, and if it can be opened.</p>
     <p>This class also assumes responsibility for determining what kind of file system it is working with,
     initializing the placement of CMakeLists.txt either in the <i>home</i> directory of a Linux user or creating
     a subdirectory inside the CMakeEasy directory called <i>Lists</i> on a Windows system. It then places the file inside of that directory.
 
     <p>The <b>write()</b> function directly writes strings to file, accepting arguments as either integers or character arrays.</p>
-    <p>As with other classes, Manager has a <b>free()</b> function that makes sure heap allocated data is freed during an exception.</p>
+    <p>As with other classes, Manager has a <b>free_data()</b> function that makes sure heap allocated data is freed during an exception.</p>
+
+    <p>The <b>read()</b> function only works on read-only files, passing the full context of the file as an output string.</p>
+
+    <h2 class="final">Thanks for reading!</h2>
 </body>
 </html>
 <!--This page is kept relatively clean as to be as human-readable as possible.-->
