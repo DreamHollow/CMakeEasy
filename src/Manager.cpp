@@ -36,6 +36,28 @@ Manager::Manager(std::string target_file, bool read_only)
     if(read_only == true)
     {
       std::cout << db_msg("Read-only function currently undefined.\n");
+
+      if(infile.is_open())
+      {
+        std::cout << db_msg("\n");
+        std::cout << db_msg("Current file path: ");
+        std::cout << db_msg(file_name);
+        std::cout << db_msg("\n");
+        std::cout << db_msg("Attempting to open read-only file...");
+
+        infile.open(file_name.c_str());
+
+        if(infile.fail())
+        {
+          std::cout << db_msg("\n");
+          std::cout << db_msg("File opening failed.\n");
+          std::cout << db_msg("Could not open: ");
+          std::cout << db_msg(file_name);
+          std::cout << db_msg("\n");
+
+          throw "Unable to open read-only file!";
+        }
+      }
     }
     else // CMakeLists
     {
