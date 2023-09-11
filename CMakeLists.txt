@@ -16,6 +16,13 @@ include_directories(include)
 # Auto-generated comment:
 # Post-compile data
 
+# This should work for any OS
+add_custom_target(copy_resources ALL
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+${PROJECT_SOURCE_DIR}/src/text
+${PROJECT_BINARY_DIR}/text
+COMMENT "Copying text resources into 'text' folder...")
+
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 if(WIN32)
