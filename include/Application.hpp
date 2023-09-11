@@ -55,6 +55,7 @@ private:
     std::string input_longstring(std::string& str);
 
     // Output
+    // const std::string read_vector_pos(std::vector<std::shared_ptr<Manager>> v, int elem);
 
     // Init
     void init_vars();
