@@ -18,7 +18,7 @@ private:
     bool is_active;
     bool valid_standard;
     bool has_package;
-    bool more_files;
+    //bool more_files;
 
     short actual = 0;
 
@@ -66,7 +66,7 @@ private:
     void free_data();
 
     // Objects
-    std::unique_ptr<AltString> text;
+    std::unique_ptr<AltString> alt;
     std::unique_ptr<Manager> ext_file;
     std::vector<std::shared_ptr<Manager>> text_files;
 };
