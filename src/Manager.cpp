@@ -131,22 +131,22 @@ void Manager::free_data()
   {
     this->infile.close();
 
-    std::cout << db_msg("Manager closed a read-only file.\n");
+    std::cout << db_msg("Manager: Closed a read-only file.\n");
   }
   else
   {
-    std::cout << db_msg("Manager wanted to close a read-only file, there was nothing.\n");
+    std::cout << db_msg("Manager: No read-only file to close.\n");
   }
 
   if(outfile.is_open())
   {
     this->outfile.close();
 
-    std::cout << db_msg("Manager closed an output file.\n");
+    std::cout << db_msg("Manager: Closed an output file.\n");
   }
   else
   {
-    std::cout << db_msg("Manager wanted to close an output file, there was nothing.\n");
+    std::cout << db_msg("Manager: No output file to close.\n");
   }
 }
 
