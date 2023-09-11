@@ -45,7 +45,7 @@ private:
     void init_vars();
 
     // Memory
-    void free();
+    void free_data();
 };
 
 #endif
