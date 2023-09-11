@@ -26,17 +26,12 @@ Manager::Manager(std::string target_file, bool read_only)
     }
   }
 
-  std::cout << db_msg("\n");
-  std::cout << db_msg("File name for instance: ");
-  std::cout << db_msg(file_name);
-  std::cout << db_msg("\n");
+  // Read-only
 
   try
   {
     if(read_only == true)
     {
-      std::cout << db_msg("Read-only function currently undefined.\n");
-
       if(infile.is_open())
       {
         std::cout << db_msg("\n");
@@ -55,14 +50,31 @@ Manager::Manager(std::string target_file, bool read_only)
           std::cout << db_msg(file_name);
           std::cout << db_msg("\n");
 
+          free_data();
+
           throw "Unable to open read-only file!";
         }
       }
     }
-    else // CMakeLists
-    {
-      std::cout << db_msg("Read-only flag set to false, initializing CMakeLists.txt...\n");
+  }
+  catch(const std::exception& e)
+  {
+    std::cerr << e.what();
+  }
+  
+  std::cout << db_msg("\n");
+  std::cout << db_msg("File name for instance: ");
+  std::cout << db_msg(file_name);
+  std::cout << db_msg("\n");
 
+  // Read-write
+
+  if(!read_only)
+  {
+    std::cout << db_msg("Read-only flag set to false, initializing CMakeLists.txt...\n");
+
+    try
+    {
       if(!outfile.is_open())
       {
         std::cout << db_msg("\n");
@@ -84,22 +96,24 @@ Manager::Manager(std::string target_file, bool read_only)
 
           throw "Unable to open file.";
         }
-        else // File is good
-        {
-          std::cout << "CMakeLists.txt file is valid, allowing edits.\n";
+      }
+      else
+      {
+        std::cout << "CMakeLists.txt file is valid, allowing edits.\n";
 
-          std::cout << db_msg("\n");
-          std::cout << db_msg(file_name);
-          std::cout << db_msg("\n");
-          std::cout << db_msg("is ready to be modified.\n");
-        }
+        std::cout << db_msg("\n");
+        std::cout << db_msg(file_name);
+        std::cout << db_msg("\n");
+        std::cout << db_msg("is ready to be modified.\n");
       }
     }
+    catch(const std::exception& e)
+    {
+      std::cerr << e.what() << '\n';
+    }
   }
-  catch(const std::exception& e)
-  {
-    std::cerr << e.what() << '\n';
-  }
+
+  // End of file check
 };
 
 Manager::~Manager()
