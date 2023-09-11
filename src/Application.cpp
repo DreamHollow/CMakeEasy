@@ -6,9 +6,14 @@ Application::Application()
     this->init_components();
 }
 
+/// @brief Releases vectors, allows smart pointers to remove themselves.
 Application::~Application()
 {
+    packages.clear();
+    packages.shrink_to_fit();
 
+    text_files.clear();
+    text_files.shrink_to_fit();
 }
 
 void Application::init_vars()
@@ -19,7 +24,6 @@ void Application::init_vars()
 
     is_active = true; // Starts runtime
     text = nullptr;
-    text_reader = nullptr;
     ext_file = nullptr;
 
     valid_standard = false;
@@ -30,12 +34,17 @@ void Application::init_vars()
 void Application::init_components()
 {
     text = std::make_unique<AltString>();
-    // text_reader = std::make_unique<Manager>("File.txt", true);
     ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
 }
 
+void Application::init_filetype(std::string file_name, bool read_only)
+{
+    std::shared_ptr<Manager> file_ptr = std::make_shared<Manager>(file_name, read_only);
+    text_files.push_back(file_ptr);
+}
+
 /// @brief Absolute call to free memory. Used during exceptions.
-void Application::free()
+void Application::free_data()
 {
     packages.clear();
     packages.shrink_to_fit();
@@ -52,17 +61,6 @@ void Application::free()
         text.reset();
     }
 
-    if(text_reader == nullptr)
-    {
-        std::cout << db_msg("Read-only text file was NULL, releasing...\n");
-        
-        text_reader.release();
-    }
-    else
-    {
-        text_reader.reset();
-    }
-
     if(ext_file == nullptr)
     {
 
@@ -74,6 +72,9 @@ void Application::free()
     {
         ext_file.reset();
     }
+
+    text_files.clear();
+    text_files.shrink_to_fit();
 
     std::cout << db_msg("'text' and 'ext_file' pointers released safely.\n");
 }
@@ -100,7 +101,7 @@ void Application::entry_check()
             std::cout << "Thank you." << "\n";
             std::cout << "\n";
 
-            this->free();
+            this->free_data();
 
             throw "Invalid data input!";
         }
@@ -1068,7 +1069,7 @@ void Application::run()
             std::cout << "File could not be opened.\n";
             std::cout << "\n";
 
-            free();
+            free_data();
 
             throw "Unable to open CMakeLists";
         }
