@@ -32,7 +32,7 @@ Manager::Manager(std::string target_file, bool read_only)
   {
     if(read_only == true)
     {
-      if(infile.is_open())
+      if(!infile.is_open())
       {
         std::cout << db_msg("\n");
         std::cout << db_msg("Current file path: ");
