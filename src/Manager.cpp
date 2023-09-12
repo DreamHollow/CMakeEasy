@@ -47,7 +47,10 @@ Manager::Manager(std::string target_file, bool read_only)
           std::cout << db_msg("\n");
           std::cout << db_msg("File opening failed.\n");
           std::cout << db_msg("Could not open: ");
-          std::cout << db_msg(file_name);
+          if(debug)
+          {
+            std::cout << (file_name);
+          }
           std::cout << db_msg("\n");
 
           std::cout << "\n";
@@ -140,26 +143,31 @@ Manager::~Manager()
 /// Outputs for debugger.
 void Manager::free_data()
 {
-  if(infile.is_open())
+  if(read_only)
   {
-    this->infile.close();
+    if(infile.is_open())
+    {
+      this->infile.close();
 
-    std::cout << db_msg("Manager: Closed a read-only file.\n");
+      std::cout << db_msg("Manager: Closed a read-only file.\n");
+    }
+    else
+    {
+      std::cout << db_msg("Manager: No read-only file to close.\n");
+    }
   }
   else
   {
-    std::cout << db_msg("Manager: No read-only file to close.\n");
-  }
+    if(outfile.is_open())
+    {
+      this->outfile.close();
 
-  if(outfile.is_open())
-  {
-    this->outfile.close();
-
-    std::cout << db_msg("Manager: Closed an output file.\n");
-  }
-  else
-  {
-    std::cout << db_msg("Manager: No output file to close.\n");
+      std::cout << db_msg("Manager: Closed an output file.\n");
+    }
+    else
+    {
+      std::cout << db_msg("Manager: No output file to close.\n");
+    }
   }
 }
 
