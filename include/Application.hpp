@@ -60,6 +60,7 @@ private:
     // Init
     void init_vars();
     void init_components();
+    std::string init_directory(std::string file_dir, std::string file);
     void init_filetype(std::string file_name, bool read_only);
 
     // Memory
