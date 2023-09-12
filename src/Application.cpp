@@ -122,13 +122,31 @@ void Application::init_components()
         const std::string win_dir("C:/Program Files/cmakeeasy/text/");
         std::string file_location;
 
-        for(auto it : dir_array)
+        try
         {
-            file_location = init_directory(win_dir, it);
-            init_filetype(file_location, true);
+            for(auto it : dir_array)
+            {
+                // Very unlikely, but worth catching if it happens
+                if(it.empty()) // A vector is missing and cannot be used
+                {
+                    free_data();
 
-            std::cout << db_msg("Last item appended: " + file_location);
-            std::cout << db_msg("\n");
+                    std::cout << "ERROR:\n";
+                    std::cout << "Some file data could not be initialized.\n";
+
+                    throw "Missing file data!";
+                }
+
+                file_location = init_directory(win_dir, it);
+                init_filetype(file_location, true);
+
+                std::cout << db_msg("Last item appended: " + file_location);
+                std::cout << db_msg("\n");
+            }
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
         }
     }
     else if(installed && !OS_WINDOWS)
@@ -136,13 +154,30 @@ void Application::init_components()
         const std::string directive{"/usr/local/opt/cmakeeasy/"};
         std::string file_location;
 
-        for(auto it : dir_array) // Iterate through each file
+        try
         {
-            file_location = init_directory(directive, it);
-            init_filetype(file_location, true);
+            for(auto it : dir_array)
+            {
+                if(it.empty()) // A vector is missing and cannot be used
+                {
+                    free_data();
 
-            std::cout << db_msg("Last item appended: " + file_location);
-            std::cout << db_msg("\n");
+                    std::cout << "ERROR:\n";
+                    std::cout << "Some file data could not be initialized.\n";
+
+                    throw "Missing file data!";
+                }
+
+                file_location = init_directory(directive, it);
+                init_filetype(file_location, true);
+
+                std::cout << db_msg("Last item appended: " + file_location);
+                std::cout << db_msg("\n");
+            }
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
         }
     }
 
