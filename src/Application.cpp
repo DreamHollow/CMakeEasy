@@ -158,7 +158,7 @@ void Application::init_components()
         {
             for(auto it : dir_array)
             {
-                if(it.empty()) // A vector is missing and cannot be used
+                if(it.empty())
                 {
                     free_data();
 
