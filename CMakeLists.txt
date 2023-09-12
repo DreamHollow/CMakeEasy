@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22.1)
-project(cmakeeasy VERSION 1.4.2 LANGUAGES CXX)
+project(cmakeeasy VERSION 1.4.3 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -26,17 +26,17 @@ COMMENT "Copying text resources into 'text' folder...")
 
 #end manual input
 
-# Installation disabled for now
-#if(WIN32)
-#   message(STATUS "Installing for Windows...")
-#   install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/CMakeEasy" PERMISSIONS GROUP_EXECUTE)
-#endif()
+if(WIN32)
+   message(STATUS "Installing for Windows...")
+   install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/cmakeeasy" PERMISSIONS GROUP_EXECUTE)
+   install(DIRECTORY src/text/ DESTINATION "C:/Program Files/cmakeeasy/text")
+endif()
 
-#if(UNIX)
-#   message(STATUS "Installing for Linux...")
-#   install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
-#   install(DIRECTORY src/text/ DESTINATION opt/cmakeeasy)
-#endif()
+if(UNIX)
+   message(STATUS "Installing for Linux...")
+   install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
+   install(DIRECTORY src/text/ DESTINATION opt/cmakeeasy)
+endif()
 
 # Auto-generated comment:
 # This list made with CMakeEasy.
