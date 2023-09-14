@@ -5,6 +5,9 @@ Manager::Manager()
 
 };
 
+/// @brief Constructor initializing a file, then determining write status.
+/// @param target_file 
+/// @param read_only 
 Manager::Manager(std::string target_file, bool read_only)
 {
   this->file_name = target_file;
