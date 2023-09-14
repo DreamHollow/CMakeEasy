@@ -9,5 +9,3 @@ to link any necessary components as well.
 Start linking libraries (and) components?
 1. Yes.
 2. No.
-        
-Your choice:
