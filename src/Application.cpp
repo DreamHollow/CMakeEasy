@@ -771,6 +771,7 @@ void Application::package_loop()
         std::cout << text_files.at(5)->read();
         std::cout << "\n";
         std::cout << "\n";
+        std::cout << "Your choice: ";
 
         input_val(yes_no);
         std::cout << "\n";
