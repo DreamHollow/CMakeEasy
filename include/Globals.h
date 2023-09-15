@@ -6,7 +6,7 @@
 #include <windows.h>
 #endif
 
-#ifdef linux // Linux
+#ifdef __linux__ // Linux
 #define OS_WINDOWS 0
 #include <stdio.h>
 #include <unistd.h>
