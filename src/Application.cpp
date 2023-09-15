@@ -116,7 +116,7 @@ void Application::init_components()
     dir_array.push_back("more_libs.txt"); // 13
     dir_array.push_back("promote.txt"); // 14
 
-    // Text files for Linux system
+    // Text files for Windows system
     if(installed && OS_WINDOWS)
     {
         const std::string win_dir("C:/Program Files/cmakeeasy/text/");
@@ -149,7 +149,7 @@ void Application::init_components()
             std::cerr << e.what() << '\n';
         }
     }
-    else if(installed && !OS_WINDOWS)
+    else if(installed && !OS_WINDOWS) // Text files for Linux system
     {
         const std::string directive{"/usr/local/opt/cmakeeasy/"};
         std::string file_location;
@@ -185,7 +185,11 @@ void Application::init_components()
     if(!installed)
     {
         std::string file_location;
+        // Windows does not allow char/string references to filesystem
+        // something new will be implemented soon; for now this
+        // is a WIP
         const std::string system_path = std::filesystem::current_path();
+        
         debug_dir = (system_path + "/" + "text/");
 
         std::cout << db_msg("\n");
