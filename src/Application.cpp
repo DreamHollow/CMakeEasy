@@ -184,12 +184,17 @@ void Application::init_components()
     // Use the debug configuration - Same for Windows and Linux
     if(!installed)
     {
+        // This is messy, but Windows hates playing nice with systempath
+
+        // If Windows is defined, just copy path string to this
+        #ifdef _WIN32
+        char* buffer;
+        std::size_t MAX;
+        system_path = getcwd(buffer, MAX);
+        #endif
+
         std::string file_location;
-        // Windows does not allow char/string references to filesystem
-        // something new will be implemented soon; for now this
-        // is a WIP
-        const std::string system_path = std::filesystem::current_path();
-        
+
         debug_dir = (system_path + "/" + "text/");
 
         std::cout << db_msg("\n");
