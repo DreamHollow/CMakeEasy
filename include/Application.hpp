@@ -3,7 +3,7 @@
 #include "AltString.hpp"
 #include <algorithm>
 #ifdef _WIN32
-#include <unistd.h>
+#include <WinBase.h>
 #endif
 
 class Application
@@ -34,8 +34,6 @@ private:
 
     std::string declaration;
     std::string requirement;
-
-    std::string system_path;
 
     std::vector<std::string> packages;
 
