@@ -190,9 +190,13 @@ void Application::init_components()
         // If Windows is defined, just copy path string to this
         #ifdef _WIN32
         std::filesystem::path cwd = std::filesystem::current_path();
+        system_path = cwd.string();
         #endif
 
-        system_path = cwd.string();
+        #ifdef __linux__
+        system_path = std::filesystem::current_path();
+        #endif
+
         std::string file_location;
 
         debug_dir = (system_path + "/" + "text/");
