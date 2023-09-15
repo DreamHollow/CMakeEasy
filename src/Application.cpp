@@ -40,6 +40,7 @@ void Application::init_components()
     bool installed;
     alt = std::make_unique<AltString>();
     ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
+    std::string system_path;
     std::string debug_dir;
 
     // Detect installation type
@@ -188,11 +189,10 @@ void Application::init_components()
 
         // If Windows is defined, just copy path string to this
         #ifdef _WIN32
-        char* buffer;
-        std::size_t MAX;
-        system_path = getcwd(buffer, MAX);
+        std::filesystem::path cwd = std::filesystem::current_path();
         #endif
 
+        system_path = cwd.string();
         std::string file_location;
 
         debug_dir = (system_path + "/" + "text/");
