@@ -20,7 +20,6 @@ static std::string homedir = "";
 class Manager
 {
 public:
-  Manager();
   Manager(std::string target_file, bool read_only);
   virtual ~Manager();
 
