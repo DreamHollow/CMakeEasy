@@ -23,6 +23,10 @@ Manager::Manager(std::string target_file, bool read_only)
       file_name = homedir + f_slash + file_name;
     }
   }
+  else
+  {
+    already_read = false;
+  }
 
   // Read-only
 
@@ -188,12 +192,23 @@ void Manager::write(int num)
 const std::string Manager::read()
 {
   std::string str;
-  if(infile)
+
+  // Reset the text file.
+  if(already_read)
+  {
+    infile.close();
+
+    infile.open(file_name);
+  }
+
+  if(infile && infile.is_open())
   {
     std::ostringstream ss;
     ss << infile.rdbuf();
     str = ss.str();
   }
+
+  already_read = true;
 
   return str;
 }
