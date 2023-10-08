@@ -23,6 +23,8 @@ private:
     bool has_package;
     //bool more_files;
 
+    short package_counter = 0;
+
     short actual = 0;
 
     const std::string linebreak = "------------";
