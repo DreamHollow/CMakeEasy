@@ -1,10 +1,5 @@
 #include "Manager.hpp"
 
-Manager::Manager()
-{
-
-};
-
 /// @brief Constructor initializing a file, then determining write status.
 /// @param target_file 
 /// @param read_only 
