@@ -31,9 +31,6 @@ private:
 
     std::string package_name;
 
-    std::string class_name;
-    std::string source{ "src/" };
-
     std::string declaration;
     std::string requirement;
 
