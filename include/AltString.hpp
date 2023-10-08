@@ -12,18 +12,8 @@ public:
     // Public Variables
     const std::string declare(int num);
 
-    // Public Functions - Readers
-
     // Public Functions - Explainers
-    //void package();
-    //void more_libs();
-    //void op_sys();
     void show_commands();
-    //void standard();
-    //void source();
-    //void include_dirs();
-    //void promote();
-    //void verbose();
 
     // Public Vars
     std::vector<std::string> commands;
