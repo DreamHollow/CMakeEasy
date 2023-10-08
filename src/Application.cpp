@@ -941,6 +941,8 @@ void Application::source_and_includes()
 {
     std::string exe_name;
     bool more_files = false;
+    std::string class_name;
+    std::string source = "src/";
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
     input_string(exe_name);
@@ -975,8 +977,8 @@ void Application::source_and_includes()
             std::cout << "No additional class names will be added." << "\n";
             std::cout << "\n";
 
-            source.clear(); // Make this empty to prevent write errors
             class_name.clear();
+            source.clear();
 
             more_files = false;
         }
@@ -998,14 +1000,12 @@ void Application::source_and_includes()
             }
         }
 
-        if(more_files)
+        if(more_files) // If source and class are empty, writes empty space.
         {
-            ext_file->write("\n"); // Seperator
+            ext_file->write("\n");
         }
         ext_file->write(source);
         ext_file->write(class_name);
-
-
 
         if(debug)
         {
