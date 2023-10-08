@@ -145,9 +145,9 @@ void Application::init_components()
                 std::cout << db_msg("\n");
             }
         }
-        catch(const std::exception& e)
+        catch(const std::runtime_error& r)
         {
-            std::cerr << e.what() << '\n';
+            std::cerr << r.what() << '\n';
         }
     }
     else if(installed && !OS_WINDOWS) // Text files for Linux system
@@ -176,9 +176,9 @@ void Application::init_components()
                 std::cout << db_msg("\n");
             }
         }
-        catch(const std::exception& e)
+        catch(const std::runtime_error& r)
         {
-            std::cerr << e.what() << '\n';
+            std::cerr << r.what() << '\n';
         }
     }
 
