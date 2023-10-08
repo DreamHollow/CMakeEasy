@@ -343,9 +343,9 @@ void Application::early_setup()
     std::cout << "\n";
     std::cout << "Saving " << ext_file->name() << " to your current directory..." << "\n";
 
-    ext_file->write(alt->declare(0)); // cmake_minimum
+    ext_file->write(alt->declare(CMAKE_MIN)); // cmake_minimum
     ext_file->write("(");
-    ext_file->write(alt->declare(2)); // VERSION
+    ext_file->write(alt->declare(VERS_NUM)); // VERSION
     ext_file->write(" ");
     ext_file->write(major);
     ext_file->write(".");
@@ -368,7 +368,7 @@ void Application::early_setup()
         std::cout << "\n";
     }
 
-    std::cout << "Wrote " << "'" << alt->declare(0) << "'" << " line automatically." << "\n";
+    std::cout << "Wrote " << "'" << alt->declare(CMAKE_MIN) << "'" << " line automatically." << "\n";
     std::cout << "\n";
 
     std::cout << "\n";
@@ -385,7 +385,7 @@ void Application::early_setup()
     std::cout << "and will be saved as such." << "\n";
     std::cout << "\n";
 
-    ext_file->write(alt->declare(1));
+    ext_file->write(alt->declare(PROJ));
     ext_file->write("(");
     ext_file->write(project_name);
     std::cout << "\n";
@@ -423,7 +423,7 @@ void Application::early_setup()
         input_val(release);
 
         ext_file->write(" ");
-        ext_file->write(alt->declare(2));
+        ext_file->write(alt->declare(VERS_NUM));
         ext_file->write(" ");
         ext_file->write(major);
         ext_file->write(".");
@@ -457,7 +457,7 @@ void Application::early_setup()
     std::cout << "\n";
 
     ext_file->write(" ");
-    ext_file->write(alt->declare(3));
+    ext_file->write(alt->declare(PROGRAM_LANG));
     ext_file->write(")");
     ext_file->write("\n");
 
@@ -466,15 +466,15 @@ void Application::early_setup()
         std::cout << "DEBUG STATEMENT:\n";
         std::cout << "\n";
         std::cout << "Line should read as: " << "\n";
-        std::cout << alt->declare(1) << "(" << project_name << " ";
+        std::cout << alt->declare(PROJ) << "(" << project_name << " ";
 
         if(major && minor != 0)
         {
-            std::cout << alt->declare(2) << " " << major << "." << minor << "." << release;
+            std::cout << alt->declare(VERS_NUM) << " " << major << "." << minor << "." << release;
         }
 
         std::cout << " ";
-        std::cout << alt->declare(3);
+        std::cout << alt->declare(PROGRAM_LANG);
         std::cout << ")";
         std::cout << "\n";
         std::cout << "\n";
@@ -596,7 +596,7 @@ void Application::package_setup()
             std::cout << db_msg("was added to 'packages' vector.\n");
             std::cout << db_msg("\n");
 
-            ext_file->write(alt->declare(19)); // find_package
+            ext_file->write(alt->declare(FIND_PACK)); // find_package
             ext_file->write("(");
             ext_file->write(package_name);
 
@@ -610,7 +610,7 @@ void Application::package_setup()
             if(req_package)
             {
                 ext_file->write(" ");
-                ext_file->write(alt->declare(17));
+                ext_file->write(alt->declare(REQ));
             }
 
             if(entries)
@@ -678,7 +678,7 @@ void Application::standard_setup()
             actual = 23;
 
             std::cout << "Configuring file for C++23 standards..." << "\n";
-            declaration = alt->declare(6);
+            declaration = alt->declare(CMAKE_STANDARD);
             declaration.append(" " + std::to_string(actual));
             break;
         }
@@ -688,7 +688,7 @@ void Application::standard_setup()
             actual = 20;
 
             std::cout << "Configuring file for C++20 standards..." << "\n";
-            declaration = alt->declare(6);
+            declaration = alt->declare(CMAKE_STANDARD);
             declaration.append(" " + std::to_string(actual));
             break;
         }
@@ -698,7 +698,7 @@ void Application::standard_setup()
             actual = 17;
 
             std::cout << "Configuring file for C++17 standards..." << "\n";
-            declaration = alt->declare(6);
+            declaration = alt->declare(CMAKE_STANDARD);
             declaration.append(" " + std::to_string(actual));
             break;
         }
@@ -721,15 +721,15 @@ void Application::standard_setup()
 
     if(valid_standard)
     {
-        requirement = alt->declare(16);
+        requirement = alt->declare(CMAKE_REQ);
         requirement.append(" ON");
 
-        ext_file->write(alt->declare(7)); // set
+        ext_file->write(alt->declare(SET_DATA)); // set
         ext_file->write("(");
         ext_file->write(declaration);
         ext_file->write(")");
         ext_file->write("\n");
-        ext_file->write(alt->declare(7));
+        ext_file->write(alt->declare(SET_DATA));
         ext_file->write("(");
         ext_file->write(requirement);
         ext_file->write(")\n");
@@ -747,7 +747,7 @@ void Application::standard_setup()
             std::cout << "\n";
             std::cout << "DEBUG DATA:" << "\n";
             std::cout << "Line in file should read as" << "\n";
-            std::cout << alt->declare(7) << "(" << declaration << ")'" << "\n";
+            std::cout << alt->declare(SET_DATA) << "(" << declaration << ")'" << "\n";
             std::cout << "'" << requirement << "'" << "\n";
             std::cout << "\n";
         }
@@ -871,11 +871,11 @@ void Application::package_loop()
                     }
                     else
                     {
-                        ext_file->write(alt->declare(9)); // target_link_libraries
+                        ext_file->write(alt->declare(TARGET_LINK_LIB)); // target_link_libraries
                         ext_file->write("(");
-                        ext_file->write(alt->declare(12));
+                        ext_file->write(alt->declare(PROJECT_NAME));
                         ext_file->write(" ");
-                        ext_file->write(alt->declare(14)); // Make this modifiable - TODO
+                        ext_file->write(alt->declare(PRIV)); // Make this modifiable - TODO
                         ext_file->write(" ");
                         ext_file->write(library_shorthand);
                         ext_file->write(library_segment); // library-component
@@ -946,9 +946,9 @@ void Application::source_and_includes()
     input_string(exe_name);
     std::cout << "\n";
 
-    ext_file->write(alt->declare(8)); // add exe
+    ext_file->write(alt->declare(ADD_EXEC)); // add exe
     ext_file->write("(");
-    ext_file->write(alt->declare(12));
+    ext_file->write(alt->declare(PROJECT_NAME));
     ext_file->write(" ");
     ext_file->write(source);
     ext_file->write(exe_name); // should appear as src/(exe_name)
@@ -989,9 +989,9 @@ void Application::source_and_includes()
                 std::cout << "\n";
                 std::cout << "DEBUG STATEMENT:\n";
                 std::cout << "Last written class information was\n";
-                std::cout << alt->declare(8);
+                std::cout << alt->declare(ADD_EXEC);
                 std::cout << "(";
-                std::cout << alt->declare(12) << " ";
+                std::cout << alt->declare(PROJECT_NAME) << " ";
                 std::cout << source;
                 std::cout << exe_name;
                 std::cout << "\n";
@@ -1424,13 +1424,22 @@ void Application::run()
     std::cout << linebreak << "\n";
     std::cout << "\n";
 
-    // move_file();
-
     // Memory will free automatically from here on.
 
-    std::cout << "The process is finished, you can find your\n";
-    std::cout << "CMakeLists.txt file at " << "\n";
-    std::cout << ext_file->file_dir << "\n";
+    if(OS_WINDOWS)
+    {
+        std::cout << "The process is finished.\n";
+        std::cout << "\n";
+        std::cout << "You can find your CMakeLists.txt file in\n";
+        std::cout << "your 'cmakeeasy' directory under 'Lists'.\n";
+    }
+    else
+    {
+        std::cout << "The process is finished.\n";
+        std::cout << "\n";
+        std::cout << "You can find your CMakeLists.txt file in\n";
+        std::cout << "your Linux home directory.\n";
+    }
 
     std::cout << db_msg("\n");
     std::cout << db_msg("Files closed.\n");
@@ -1499,7 +1508,7 @@ void Application::finish_touches()
     // Set standard include directory
 
     ext_file->write("\n");
-    ext_file->write(alt->declare(10));
+    ext_file->write(alt->declare(INCLUDE_DIR));
     ext_file->write("(include)\n");
     //ext_file->write("\n");
     //ext_file->write("# Auto-generated comment:\n");
@@ -1510,15 +1519,15 @@ void Application::finish_touches()
 
     if(valid_standard)
     {
-        ext_file->write(alt->declare(11));
+        ext_file->write(alt->declare(TARGET_COMPILE));
         ext_file->write("(");
 
         // Ask user about PRIVATE / PUBLIC / INTERFACE preference - TODO
 
         // Default this to PRIVATE for now
-        ext_file->write(alt->declare(12));
+        ext_file->write(alt->declare(PROJECT_NAME));
         ext_file->write(" ");
-        ext_file->write(alt->declare(14));
+        ext_file->write(alt->declare(PRIV));
         ext_file->write(" ");
         ext_file->write("cxx_std_");
         ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
@@ -1568,9 +1577,9 @@ void Application::verbose_output()
         {
             std::cout << "Committing changes to CMakeLists.txt file..." << "\n";
             std::cout << "\n";
-            ext_file->write(alt->declare(7)); // set
+            ext_file->write(alt->declare(SET_DATA)); // set
             ext_file->write("(");
-            ext_file->write(alt->declare(20));
+            ext_file->write(alt->declare(VERBOSE_MAKE));
             ext_file->write(" ");
             ext_file->write("true");
             ext_file->write(")");
@@ -1581,9 +1590,9 @@ void Application::verbose_output()
             {
                 std::cout << "DEBUG DATA:\n";
                 std::cout << "Wrote the following to CMakeLists.txt:\n";
-                std::cout << alt->declare(7);
+                std::cout << alt->declare(SET_DATA);
                 std::cout << "(";
-                std::cout << alt->declare(20);
+                std::cout << alt->declare(VERBOSE_MAKE);
                 std::cout << " true";
                 std::cout << ")";
                 std::cout << "\n";
