@@ -74,43 +74,6 @@ void AltString::show_commands()
     std::cout << "\n";
 }
 
-/*
-/// @brief Designed to read text explanations.
-/// @param text_name
-void AltString::read_segment(std::string text_name)
-{
-    std::ifstream in_file; // Text file to be read.
-
-    try
-    {
-        in_file.open(text_name);
-
-        if(in_file.fail())
-        {
-            std::cout << "\n";
-            std::cout << "-- ERROR: UNABLE TO OPEN ALTSTRING DATA --" << "\n";
-            std::cout << "\n";
-            std::cout << "CMakeEasy was unable to read a vital program file." << "\n";
-            std::cout << "Please check that all text documents are present in" << "\n";
-            std::cout << "your system. For Linux, this is /usr/local/etc" << "\n";
-            std::cout << "\n";
-            std::cout << "For Windows users, these text files should be present" << "\n";
-            std::cout << "in a folder called 'plaintext'." << "\n";
-
-            throw "File could not be read!";
-        }
-        else
-        {
-            // Read the file data as a set of strings
-        }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what();
-    }
-};
-*/
-
 /// @brief Because CMake parameters are generally reusable, this function is called.
 /// @param num 
 /// @return
