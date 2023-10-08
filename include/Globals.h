@@ -28,8 +28,6 @@ static const char db_string[]{"DEBUG: "};
 static short yes_no = 0;
 // static char exit_cmd[]{ "!exit" };
 
-static std::string db_msg(std::string msg);
-
 /// @brief Static function that checks if debugging is on,
 /// then adds debug data where appropriate.
 static std::string db_msg(std::string msg)
