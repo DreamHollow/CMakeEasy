@@ -39,18 +39,20 @@ void AltString::init_vars()
     declarations.push_back("CMAKE_CXX_STANDARD"); // 6
     declarations.push_back("set"); // 7
     declarations.push_back("add_executable"); // 8
-    declarations.push_back("target_link_libraries"); // 9
-    declarations.push_back("include_directories"); // 10
-    declarations.push_back("target_compile_features"); // 11
-    declarations.push_back("${PROJECT_NAME}"); // 12
-    declarations.push_back("PUBLIC"); // 13
-    declarations.push_back("PRIVATE"); // 14
-    declarations.push_back("INTERFACE"); // 15
-    declarations.push_back("CMAKE_CXX_STANDARD_REQUIRED"); // 16
-    declarations.push_back("REQUIRED"); // 17
-    declarations.push_back("COMPONENTS"); // 18
-    declarations.push_back("find_package"); // 19
-    declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 20
+
+    //declarations.push_back("target_link_libraries"); // 9
+    
+    declarations.push_back("include_directories"); // 9
+    declarations.push_back("target_compile_features"); // 10
+    declarations.push_back("${PROJECT_NAME}"); // 11
+    declarations.push_back("PUBLIC"); // 12
+    declarations.push_back("PRIVATE"); // 13
+    declarations.push_back("INTERFACE"); // 14
+    declarations.push_back("CMAKE_CXX_STANDARD_REQUIRED"); // 15
+    declarations.push_back("REQUIRED"); // 16
+    declarations.push_back("COMPONENTS"); // 17
+    declarations.push_back("find_package"); // 18
+    declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 19
 
     // Commands
     commands.push_back("message"); // 21
