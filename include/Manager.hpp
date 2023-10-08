@@ -37,6 +37,7 @@ public:
 private:
   // Variables
   bool read_only;
+  bool already_read;
   
   std::string list_dir;
   std::string file_name;
