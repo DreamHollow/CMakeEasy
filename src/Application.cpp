@@ -776,10 +776,22 @@ void Application::package_loop()
         {
             std::cout << it << "\n";
         }
+
+        if(package_counter > 0)
+        {
+            std::cout << "\n";
+            std::cout << "Package data for " << packages.at(package_counter - 1);
+            std::cout << " already parsed.\n";
+            std::cout << "Please parse data for: " << packages.at(package_counter) << "\n";
+            std::cout << "\n";
+        }
+
         std::cout << "\n";
         std::cout << "Please only enter components for packages" << "\n";
         std::cout << "that were not previously entered." << "\n";
         std::cout << "\n";
+
+        // Text file not loading in properly on loop-thru - TODO
 
         std::cout << text_files.at(5)->read();
         std::cout << "\n";
@@ -875,6 +887,15 @@ void Application::package_loop()
                     ext_file->write("\n"); // New line for new target
                 }while(more_libraries);
 
+                package_counter += 1;
+
+                if(debug)
+                {
+                    std::cout << db_string << "Package counter increased to ";
+                    std::cout << package_counter << "\n";
+                    std::cout << "\n";
+                }
+
                 break; // Still part of case 1
             }
             case 2:
@@ -965,6 +986,7 @@ void Application::source_and_includes()
 
             if(debug)
             {
+                std::cout << "\n";
                 std::cout << "DEBUG STATEMENT:\n";
                 std::cout << "Last written class information was\n";
                 std::cout << alt->declare(8);
@@ -991,6 +1013,7 @@ void Application::source_and_includes()
             std::cout << class_name;
             std::cout << "\n";
             std::cout << "END DEBUG STATEMENT.\n";
+            std::cout << "\n";
         }
 
     }while(more_files);
