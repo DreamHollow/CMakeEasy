@@ -313,14 +313,14 @@ void Application::early_setup()
 
     // Version numbering (CMake)
 
-    std::cout << text_files.at(1)->read();
+    std::cout << text_files.at(MINOR_V_TXT)->read();
     std::cout << "\n";
 
     std::cout << "Your version: ";
     input_val(minor);
     std::cout << "\n";
 
-    std::cout << text_files.at(2)->read();
+    std::cout << text_files.at(RELEASE_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
 
@@ -394,7 +394,7 @@ void Application::early_setup()
     minor = 0;
     release = 0;
 
-    std::cout << text_files.at(3)->read();
+    std::cout << text_files.at(PROGRAM_V_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
     
@@ -452,7 +452,7 @@ void Application::early_setup()
     // Declaring Program Language Format
 
     std::cout << "\n";
-    std::cout << text_files.at(4)->read();
+    std::cout << text_files.at(PROG_LANG_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
 
@@ -492,7 +492,7 @@ void Application::package_setup()
     {
         short package_vers = 0;
 
-        text_files.at(8)->read();
+        text_files.at(PACK_SET)->read();
         std::cout << "\n";
         std::cout << "\n";
 
@@ -793,7 +793,7 @@ void Application::package_loop()
 
         // Text file not loading in properly on loop-thru - TODO
 
-        std::cout << text_files.at(5)->read();
+        std::cout << text_files.at(COMPONENT_TXT)->read();
         std::cout << "\n";
         std::cout << "\n";
         std::cout << "Your choice: ";
@@ -1300,7 +1300,7 @@ void Application::run()
     std::cout << db_msg("Trying to read file at position 0...\n");
     std::cout << db_msg("\n");
 
-    std::cout << text_files.at(0)->read();
+    std::cout << text_files.at(START)->read();
     std::cout << "\n";
     std::cout << "\n";
 
@@ -1311,7 +1311,7 @@ void Application::run()
     std::cout << linebreak << "\n";
     std::cout << "\n";
 
-    std::cout << text_files.at(10)->read();
+    std::cout << text_files.at(PACKAGES_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
 
@@ -1320,7 +1320,7 @@ void Application::run()
     std::cout << linebreak << "\n";
     std::cout << "\n";
 
-    std::cout << text_files.at(11)->read();
+    std::cout << text_files.at(STANDARDS_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
     
@@ -1334,7 +1334,7 @@ void Application::run()
 
     std::cout << "\n";
 
-    std::cout << text_files.at(12)->read();
+    std::cout << text_files.at(SOURCES_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
 
@@ -1346,7 +1346,7 @@ void Application::run()
 
     // Ask user for any additional directories or included files - TODO
 
-    std::cout << text_files.at(9)->read();
+    std::cout << text_files.at(INCLUDE_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
 
@@ -1366,7 +1366,7 @@ void Application::run()
     package_loop();
 
     std::cout << "\n";
-    std::cout << text_files.at(13)->read();
+    std::cout << text_files.at(MORE_LIBS_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
     std::cout << "Your choice: ";
@@ -1411,7 +1411,7 @@ void Application::run()
 
     finish_touches();
 
-    std::cout << text_files.at(14)->read();
+    std::cout << text_files.at(PROMOTE_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
     std::cout << "Your choice: ";
@@ -1538,7 +1538,7 @@ void Application::finish_touches()
 
     // std::cout << linebreak << "\n";
 
-    std::cout << text_files.at(6)->read();
+    std::cout << text_files.at(OP_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
 
@@ -1559,7 +1559,7 @@ void Application::verbose_output()
     std::cout << db_msg("Asking user about verbose CMake setting...\n");
     std::cout << db_msg("\n");
 
-    std::cout << text_files.at(7)->read();
+    std::cout << text_files.at(VERB_TXT)->read();
     std::cout << "\n";
     std::cout << "\n";
 
