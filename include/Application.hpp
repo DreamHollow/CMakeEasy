@@ -31,6 +31,7 @@ private:
 
     short actual = 0;
 
+    const char exit_command[6] = "!exit";
     const std::string linebreak = "------------";
 
     std::string package_name;
@@ -46,7 +47,10 @@ private:
     void standard_setup();
     void source_and_includes();
     void package_loop();
-    void entry_check();
+    int entry_check(int& value);
+    short entry_check(short& value);
+    float entry_check(float& value);
+    std::string entry_check(std::string& str);
     void verbose_output();
     void finish_touches();
     void sys_flags();
