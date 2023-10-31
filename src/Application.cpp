@@ -268,7 +268,47 @@ void Application::free_data()
 
 /// @brief Checks iostream input. It will force the program to stop
 /// if the input fails or doesn't match the type.
-void Application::entry_check()
+int Application::entry_check(int &value)
+{
+    //void* ptr = &value;
+
+    //if(!isdigit(value) && ptr == exit_command)
+    //{
+        //break;
+    //}
+
+    try
+    {
+        if(std::cin.fail())
+        {
+            std::cout << "\n";
+            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
+            std::cout << "\n";
+
+            std::cout << "Sorry, the program encountered an error." << "\n";
+            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
+            std::cout << "for the program to process." << "\n";
+            std::cout << "\n";
+            std::cout << "If you don't understand why you have this error," << "\n";
+            std::cout << "please raise an issue on the Github repository." << "\n";
+            std::cout << "\n";
+            std::cout << "Thank you." << "\n";
+            std::cout << "\n";
+
+            this->free_data();
+
+            throw "Invalid data input!";
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+
+    return value;
+}
+
+short Application::entry_check(short& value)
 {
     try
     {
@@ -297,6 +337,74 @@ void Application::entry_check()
     {
         std::cerr << e.what();
     }
+
+    return value;
+}
+
+float Application::entry_check(float& value)
+{
+    try
+    {
+        if(std::cin.fail())
+        {
+            std::cout << "\n";
+            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
+            std::cout << "\n";
+
+            std::cout << "Sorry, the program encountered an error." << "\n";
+            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
+            std::cout << "for the program to process." << "\n";
+            std::cout << "\n";
+            std::cout << "If you don't understand why you have this error," << "\n";
+            std::cout << "please raise an issue on the Github repository." << "\n";
+            std::cout << "\n";
+            std::cout << "Thank you." << "\n";
+            std::cout << "\n";
+
+            this->free_data();
+
+            throw "Invalid data input!";
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+
+    return value;
+}
+
+std::string Application::entry_check(std::string& str)
+{
+    try
+    {
+        if(std::cin.fail())
+        {
+            std::cout << "\n";
+            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
+            std::cout << "\n";
+
+            std::cout << "Sorry, the program encountered an error." << "\n";
+            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
+            std::cout << "for the program to process." << "\n";
+            std::cout << "\n";
+            std::cout << "If you don't understand why you have this error," << "\n";
+            std::cout << "please raise an issue on the Github repository." << "\n";
+            std::cout << "\n";
+            std::cout << "Thank you." << "\n";
+            std::cout << "\n";
+
+            this->free_data();
+
+            throw "Invalid data input!";
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+
+    return str;
 }
 
 void Application::early_setup()
@@ -1300,6 +1408,21 @@ void Application::run()
     std::cout << db_msg("Trying to read file at position 0...\n");
     std::cout << db_msg("\n");
 
+    if(debug)
+    {
+        std::cout << "DEBUG STATEMENT:\n";
+        std::cout << "\n";
+        std::cout << "Memory being used by 'text_files' is ";
+        std::cout << sizeof(text_files);
+        std::cout << " bytes.\n";
+        std::cout << "Memory being used by 'alt' is ";
+        std::cout << sizeof(alt);
+        std::cout << " bytes.\n";
+        std::cout << "\n";
+        std::cout << "END DEBUG STATEMENT\n";
+    }
+
+
     std::cout << text_files.at(START)->read();
     std::cout << "\n";
     std::cout << "\n";
@@ -1373,7 +1496,7 @@ void Application::run()
 
     input_val(yes_no);
 
-    entry_check();
+    //entry_check(yes_no);
 
     // Must be outside a function
     switch(yes_no)
@@ -1569,7 +1692,7 @@ void Application::verbose_output()
     std::cout << "Your choice: ";
     input_val(yes_no);
 
-    entry_check();
+    //entry_check();
 
     switch(yes_no)
     {
@@ -1665,9 +1788,7 @@ short Application::input_val(short& num)
 {
     std::cin >> num;
 
-    entry_check();
-
-    return num;
+    return entry_check(num);
 }
 
 /// @brief Integer function that checks values before it assigns them.
@@ -1676,9 +1797,7 @@ int Application::input_val(int& num)
 {
     std::cin >> num;
 
-    entry_check();
-
-    return num;
+    return entry_check(num);
 }
 
 /// @brief Float function that checks values before it assigns them.
@@ -1687,9 +1806,7 @@ float Application::input_val(float& num)
 {
     std::cin >> num;
 
-    entry_check();
-
-    return num;
+    return entry_check(num);
 }
 
 /// @brief Function checks if string input is valid. Seperate from numerical input.
@@ -1698,9 +1815,7 @@ std::string Application::input_string(std::string& str)
 {
     std::cin >> str;
 
-    entry_check();
-
-    return str;
+    return entry_check(str);
 }
 
 std::string Application::input_longstring(std::string& str)
@@ -1709,7 +1824,5 @@ std::string Application::input_longstring(std::string& str)
     std::cin.ignore();
     std::getline(std::cin, str);
 
-    entry_check();
-
-    return str;
+    return entry_check(str);
 }
