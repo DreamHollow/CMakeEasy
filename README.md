@@ -8,6 +8,8 @@ CMakeEasy is configured to generate CMakeLists.txt files for applications, but n
 
 Please note you can only use the master branch with a working installation of SFML.
 
+NOTE: Branch versioning numbering has been revised. Project will start officially as 1.0.
+
 IMPORTANT NOTICE
 ----------------
 
