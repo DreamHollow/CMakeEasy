@@ -94,7 +94,7 @@ You will have to run CMakeEasy through terminal directly in the folder.
 
 If you cannot execute the pre-configured bash scripts like 'build_db.sh' and 'install.sh', then you should go to your CMakeEasy folder and use this command:
 
-`sudo chmod +x bdb.sh`
+`sudo chmod +x build.sh`
 
 The bdb script stands for "build debug" and automatically creates the CMakeEasy binary.
 
