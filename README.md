@@ -89,14 +89,16 @@ If you want to suggest that CMakeEasy follow a different build system, please fl
 Currently, terminal-based CMakeEasy can be used in two different ways.
 If you want to install a local version of CMakeEasy without installing it to your system, just comment out the "install" commands on your CMakeLists.txt file.
 
-Then you should run 'build_db.sh' and it will generate a working debug setup.
+Then you should run 'build.sh' and it will generate a working debug setup.
 You will have to run CMakeEasy through terminal directly in the folder.
 
 If you cannot execute the pre-configured bash scripts like 'build_db.sh' and 'install.sh', then you should go to your CMakeEasy folder and use this command:
 
 `sudo chmod +x build.sh`
 
-The bdb script stands for "build debug" and automatically creates the CMakeEasy binary.
+It should be possible to run the CMakeEasy binary from the build folder, unless the folder is renamed.
+
+`run.sh`
 
 If you are a super user, using
 `sudo ./install.sh`
