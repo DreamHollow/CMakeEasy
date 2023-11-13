@@ -11,9 +11,7 @@
 - cmakeeasy txt file directory changed from `/opt/local` to `/etc/local`
 - Updated `install.sh` script to remove old text data.
 
-<summary>Developer Notes</summary>
-- It's my own fault for not understanding the relationship of `/opt` compared to `/etc`
-- As such, I updated the program data and relocated everything to `/etc/local`
-- While text files are NOT config files, they are required for CMakeEasy to function.
+> [!IMPORTANT]
+> It's my own fault for not understanding the relationship of `/opt` compared to `/etc`. As such, I updated the program data and relocated everything to `/etc/local`
 
 </details>
