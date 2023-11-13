@@ -11,7 +11,7 @@
 - cmakeeasy txt file directory changed from `/opt/local` to `/etc/local`
 - Updated `install.sh` script to remove old text data.
 
-> [!IMPORTANT]
-> It's my own fault for not understanding the relationship of `/opt` compared to `/etc`. As such, I updated the program data and relocated everything to `/etc/local`
-
 </details>
+
+> [!IMPORTANT]
+> Original text directory `/opt` altered to `/etc`. As such, program will now use `/etc/local/cmakeeasy`. Please update as soon as possible.
