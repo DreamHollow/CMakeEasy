@@ -73,7 +73,7 @@ void Application::init_components()
     }
     else
     {
-        const char* unix_dir = "/usr/local/opt/cmakeeasy";
+        const char* unix_dir = "/usr/local/etc/cmakeeasy";
 
         if(std::filesystem::is_directory(unix_dir))
         {
@@ -152,7 +152,7 @@ void Application::init_components()
     }
     else if(installed && !OS_WINDOWS) // Text files for Linux system
     {
-        const std::string directive{"/usr/local/opt/cmakeeasy/"};
+        const std::string directive{"/usr/local/etc/cmakeeasy/"};
         std::string file_location;
 
         try
@@ -185,7 +185,6 @@ void Application::init_components()
     // Use the debug configuration - Same for Windows and Linux
     if(!installed)
     {
-        // This is messy, but Windows hates playing nice with systempath
 
         // If Windows is defined, just copy path string to this
         #ifdef _WIN32
