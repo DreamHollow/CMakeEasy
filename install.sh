@@ -1,8 +1,27 @@
 #!/bin/sh
 # Only works on Linux version!
-# You must run as SU for this to actually install!
+# You must run as sudo/wheel for this to actually install!
+
+old_file="/usr/local/opt/cmakeeasy"
+new_file="/usr/local/etc/cmakeeasy"
+
+if [ -d "$old_file" ]
+then
+    echo "Previous directory '$old_file' no longer in use."
+    echo "Updating directory to '$new_file'..."
+    # Remove obsolete directory
+    rm -r $old_file
+    echo "Obsolete directory '$old_file' removed."
+    echo "\n"
+else
+    echo "No previous directory '$old_file' found on this device."
+    echo "Continuing normal install."
+    echo "\n"
+fi
 
 echo "Building Release version..."
+
+cmake -S . -B build
 
 mkdir Release
 cd Release

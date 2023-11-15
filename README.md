@@ -104,7 +104,7 @@ It should be possible to run the CMakeEasy binary from the build folder, unless 
 `run.sh`
 
 IMPORTANT:
-Make ABSOLUTELY SURE that you run the `build.sh` script before using the `install.sh` script.
+`install.sh` should automatically create a build folder, which makes it possible to install the binary.
 
 Sometimes the CMake cache gets confused and will fail to install CMakeEasy properly.
 
