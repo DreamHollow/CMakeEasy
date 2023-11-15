@@ -4,6 +4,17 @@
 
 old_file="/usr/local/opt/cmakeeasy"
 new_file="/usr/local/etc/cmakeeasy"
+cmake_bin="/usr/bin/cmake"
+
+# Won't allow install if CMake isn't present
+if [ ! -f "$cmake_bin" ]
+then
+    echo "CMake was not found or not present in expected directories.";
+    echo "Installation cannot continue."
+    echo "\n"
+    echo "ERROR MSG: CMAKE_NOT_FOUND"
+    return 1
+fi
 
 if [ -d "$old_file" ]
 then
