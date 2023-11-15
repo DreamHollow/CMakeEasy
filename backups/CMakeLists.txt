@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22.1)
-project(cmakeeasy VERSION 1.5.2 LANGUAGES CXX)
+project(cmakeeasy VERSION 1.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -35,7 +35,7 @@ endif()
 if(UNIX)
    message(STATUS "Installing for Linux...")
    install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
-   install(DIRECTORY src/text/ DESTINATION opt/cmakeeasy)
+   install(DIRECTORY src/text/ DESTINATION etc/cmakeeasy)
 endif()
 
 # Auto-generated comment:
