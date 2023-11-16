@@ -44,7 +44,7 @@ void Application::init_components()
     std::string debug_dir;
 
     // Detect installation type
-    if(OS_WINDOWS)
+    if(OS_WIN)
     {
         const char* win_dir = "C:/Program Files/cmakeeasy";
 
@@ -118,7 +118,7 @@ void Application::init_components()
     dir_array.push_back("promote.txt"); // 14
 
     // Text files for Windows system
-    if(installed && OS_WINDOWS)
+    if(installed && OS_WIN)
     {
         const std::string win_dir("C:/Program Files/cmakeeasy/text/");
         std::string file_location;
@@ -150,7 +150,7 @@ void Application::init_components()
             std::cerr << r.what() << '\n';
         }
     }
-    else if(installed && !OS_WINDOWS) // Text files for Linux system
+    else if(installed && !OS_WIN) // Text files for Linux system
     {
         const std::string directive{"/usr/local/etc/cmakeeasy/"};
         std::string file_location;
@@ -1548,7 +1548,7 @@ void Application::run()
 
     // Memory will free automatically from here on.
 
-    if(OS_WINDOWS)
+    if(OS_WIN)
     {
         std::cout << "The process is finished.\n";
         std::cout << "\n";
