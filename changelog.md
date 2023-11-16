@@ -19,9 +19,11 @@
 ## NOVEMBER 16 2023
 
 <details>
-<summary>Major Change</summary>
+<summary>Major Changes</summary>
 - `build.sh` and `install.sh` check for CMake beforehand
+</details>
 
+<details>
 <summary>Minor Changes</summary>
 
 - Minor improvements to script error-checking
