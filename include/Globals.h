@@ -1,5 +1,5 @@
-#ifndef GLOBALS_H
-#define GLOBALS_H
+#ifndef GLOBALS_H_INCLUDED
+#define GLOBALS_H_INCLUDED 1
 
 #ifdef _WIN32
 #define OS_WINDOWS 1
