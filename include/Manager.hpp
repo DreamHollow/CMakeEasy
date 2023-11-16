@@ -11,7 +11,7 @@
 #include "Globals.h"
 
 // If a Windows system is being used
-#if OS_WINDOWS
+#if OS_WIN
 static std::string homedir = "";
 #endif
 
