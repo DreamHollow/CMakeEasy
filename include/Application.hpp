@@ -1,5 +1,5 @@
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
+#ifndef APPLICATION_HPP_INCLUDED
+#define APPLICATION_HPP_INCLUDED 1
 #include "AltString.hpp"
 #include <algorithm>
 #ifdef _WIN32
