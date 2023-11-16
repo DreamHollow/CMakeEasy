@@ -16,6 +16,17 @@ fi
 
 echo "Building CMakeEasy...\n"
 cmake -DCMAKE_BUILD_TYPE=Debug -S . -B build
+
+if [ ! -d "build" ]
+then
+    echo "ERROR: No build directory found in context!"
+    echo "Unable to continue."
+    echo "Please verify directory 'build' within CMakeEasy."
+    return 2
+else
+    echo "Build directory good, continue process.\n"
+fi
+
 cd build
 make
 
