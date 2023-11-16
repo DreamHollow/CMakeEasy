@@ -14,6 +14,8 @@ then
     echo "\n"
     echo "ERROR MSG: CMAKE_NOT_FOUND"
     return 1
+else
+    echo "CMake binary verified, continue process..."
 fi
 
 if [ -d "$old_file" ]
