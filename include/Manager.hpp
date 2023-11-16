@@ -1,5 +1,5 @@
-#ifndef MANAGER_HPP
-#define MANAGER_HPP
+#ifndef MANAGER_HPP_INCLUDED
+#define MANAGER_HPP_INCLUDED 1
 
 #include <fstream>
 #include <filesystem>
