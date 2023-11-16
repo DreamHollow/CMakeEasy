@@ -15,3 +15,18 @@
 
 > [!IMPORTANT]
 > Original text directory `/opt` altered to `/etc`. As such, program will now use `/etc/local/cmakeeasy`. Please update as soon as possible.
+
+## NOVEMBER 16 2023
+
+<details>
+<summary>Major Change</summary>
+- `build.sh` and `install.sh` check for CMake beforehand
+
+<summary>Minor Changes</summary>
+
+- Minor improvements to script error-checking
+- Redefined "OS_WINDOWS" to "OS_WIN" for shortening
+- Changed program headers to reflect more current C++ standards
+- Version update to `1.1.1`
+
+</details>
