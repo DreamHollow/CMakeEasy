@@ -2,12 +2,12 @@
 #define GLOBALS_H_INCLUDED 1
 
 #ifdef _WIN32
-#define OS_WINDOWS 1
+#define OS_WIN 1
 #include <windows.h>
 #endif
 
 #ifdef __linux__ // Linux
-#define OS_WINDOWS 0
+#define OS_WIN 0
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -17,7 +17,7 @@ static const char *homedir = pw->pw_dir;
 #endif
 
 #ifdef _WIN64
-#define OS_WINDOWS 1
+#define OS_WIN 1
 #include <windows.h>
 #endif
 
