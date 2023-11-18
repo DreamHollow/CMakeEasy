@@ -61,11 +61,9 @@ private:
     short input_val(short& num);
     int input_val(int& num);
     float input_val(float& num);
+    //auto input_val(auto& num);
     std::string input_string(std::string& str);
     std::string input_longstring(std::string& str);
-
-    // Output
-    // const std::string read_vector_pos(std::vector<std::shared_ptr<Manager>> v, int elem);
 
     // Init
     void init_vars();
