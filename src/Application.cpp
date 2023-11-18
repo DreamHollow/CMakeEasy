@@ -1810,10 +1810,24 @@ float Application::input_val(float& num)
     return entry_check(num);
 }
 
+/*
+// Does not work in current form
+auto Application::input_val(auto& num)
+{
+    std::cin >> num;
+
+    return entry_check(num);
+}
+*/
+
 /// @brief Function checks if string input is valid. Seperate from numerical input.
 /// @return str
 std::string Application::input_string(std::string& str)
 {
+    // Please note that trying to enter nothing will result in
+    // the program continuing to ask for data until something is
+    // actually entered.
+    
     std::cin >> str;
 
     return entry_check(str);
