@@ -3,7 +3,7 @@
 # Use sudo/wheel permissions just like install.sh
 
 text_database="/usr/local/etc/cmakeeasy"
-main_prog="/usr/local/bin/cmakeeasy"
+prog="/usr/local/bin/cmakeeasy"
 
 # There are easier ways to do this, but this works.
 echo "This operation will uninstall CMakeEasy from your system."
@@ -17,17 +17,18 @@ case $confirm in
         echo "Found etc directory at '$text_database'"
         echo "Uninstalling..."
         rm -r $text_database
+        rm -r $prog
         echo "CMakeEasy etc files uninstalled."
     else
         echo "No etc directory present, no files to uninstall."
         echo "\n"
     fi
 
-    if [ -d "$main_prog" ]
+    if [ -f "$prog" ]
     then
         echo "Found binary at '$main_prog'"
         echo "Uninstalling..."
-        rm -r $main_prog
+        rm -r $prog
         echo "CMakeEasy binary uninstalled."
     else
         echo "No binary found at expected location."
@@ -51,11 +52,11 @@ case $confirm in
         echo "\n"
     fi
 
-    if [ -d "$main_prog" ]
+    if [ -f "$prog" ]
     then
-        echo "Found binary at '$main_prog'"
+        echo "Found binary at '$prog'"
         echo "Uninstalling..."
-        rm -r $main_prog
+        rm -r $prog
         echo "CMakeEasy binary uninstalled."
     else
         echo "No binary found at expected location."
