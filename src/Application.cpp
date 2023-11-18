@@ -595,8 +595,14 @@ void Application::package_setup()
     // Package insertion loop continues in case of multiple packages
     // This can be a little confusing and will need to be reworked - TODO
 
+    //bool packages_done = false;
+
     do
     {
+        std::cout << text_files.at(PACKAGES_TXT)->read();
+        std::cout << "\n";
+        std::cout << "\n";
+
         short package_vers = 0;
 
         text_files.at(PACK_SET)->read();
@@ -1431,10 +1437,6 @@ void Application::run()
     early_setup();
 
     std::cout << linebreak << "\n";
-    std::cout << "\n";
-
-    std::cout << text_files.at(PACKAGES_TXT)->read();
-    std::cout << "\n";
     std::cout << "\n";
 
     package_setup();
