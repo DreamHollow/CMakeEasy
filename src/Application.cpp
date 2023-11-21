@@ -37,69 +37,13 @@ std::string Application::init_directory(std::string file_dir, std::string file)
 
 void Application::init_components()
 {
-    bool installed;
+    //bool installed;
     alt = std::make_unique<AltString>();
     ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
     std::string system_path;
     std::string debug_dir;
 
-    // Detect installation type
-    if(OS_WIN)
-    {
-        const char* win_dir = "C:/Program Files/cmakeeasy";
-
-        if(std::filesystem::is_directory(win_dir))
-        {
-            installed = true;
-
-            std::cout << db_msg("\n");
-            std::cout << db_msg("WINDOWS system\n");
-            std::cout << db_msg("\n");
-            std::cout << db_msg("CMakeEasy was found to be installed.\n");
-            std::cout << db_msg("Installed files will be used.\n");
-            std::cout << db_msg("\n");
-        }
-        else
-        {
-            installed = false;
-
-            std::cout << db_msg("\n");
-            std::cout << db_msg("WINDOWS system\n");
-            std::cout << db_msg("\n");
-            std::cout << db_msg("CMakeEasy 'text' directory not found,\n");
-            std::cout << db_msg("assuming debug configuration.\n");
-            std::cout << db_msg("\n");
-        }
-    }
-    else
-    {
-        const char* unix_dir = "/usr/local/etc/cmakeeasy";
-
-        if(std::filesystem::is_directory(unix_dir))
-        {
-            installed = true;
-
-            std::cout << db_msg("\n");
-            std::cout << db_msg("UNIX system\n");
-            std::cout << db_msg("\n");
-            std::cout << db_msg("CMakeEasy was found to be installed.\n");
-            std::cout << db_msg("Installed files will be used.\n");
-            std::cout << db_msg("\n");
-        }
-        else
-        {
-            installed = false;
-
-            std::cout << db_msg("\n");
-            std::cout << db_msg("UNIX system\n");
-            std::cout << db_msg("\n");
-            std::cout << db_msg("CMakeEasy opt directory not found,\n");
-            std::cout << db_msg("assuming debug configuration.\n");
-            std::cout << db_msg("\n");
-        }
-    }
-
-    std::vector<std::string> dir_array;
+    installed = set_install_config();
 
     dir_array.push_back("start.txt"); // 0
     dir_array.push_back("minor_vers.txt"); // 1
@@ -117,75 +61,11 @@ void Application::init_components()
     dir_array.push_back("more_libs.txt"); // 13
     dir_array.push_back("promote.txt"); // 14
 
-    // Text files for Windows system
-    if(installed && OS_WIN)
-    {
-        const std::string win_dir("C:/Program Files/cmakeeasy/text/");
-        std::string file_location;
-
-        try
-        {
-            for(auto it : dir_array)
-            {
-                // Very unlikely, but worth catching if it happens
-                if(it.empty()) // A vector is missing and cannot be used
-                {
-                    free_data();
-
-                    std::cout << "ERROR:\n";
-                    std::cout << "Some file data could not be initialized.\n";
-
-                    throw "Missing file data!";
-                }
-
-                file_location = init_directory(win_dir, it);
-                init_filetype(file_location, true);
-
-                std::cout << db_msg("Last item appended: " + file_location);
-                std::cout << db_msg("\n");
-            }
-        }
-        catch(const std::runtime_error& r)
-        {
-            std::cerr << r.what() << '\n';
-        }
-    }
-    else if(installed && !OS_WIN) // Text files for Linux system
-    {
-        const std::string directive{"/usr/local/etc/cmakeeasy/"};
-        std::string file_location;
-
-        try
-        {
-            for(auto it : dir_array)
-            {
-                if(it.empty())
-                {
-                    free_data();
-
-                    std::cout << "ERROR:\n";
-                    std::cout << "Some file data could not be initialized.\n";
-
-                    throw "Missing file data!";
-                }
-
-                file_location = init_directory(directive, it);
-                init_filetype(file_location, true);
-
-                std::cout << db_msg("Last item appended: " + file_location);
-                std::cout << db_msg("\n");
-            }
-        }
-        catch(const std::runtime_error& r)
-        {
-            std::cerr << r.what() << '\n';
-        }
-    }
+    config_text();
 
     // Use the debug configuration - Same for Windows and Linux
     if(!installed)
     {
-
         // If Windows is defined, just copy path string to this
         #ifdef _WIN32
         std::filesystem::path cwd = std::filesystem::current_path();
@@ -895,6 +775,26 @@ void Application::package_loop()
             std::cout << "\n";
             std::cout << "Package data for " << packages.at(package_counter - 1);
             std::cout << " already parsed.\n";
+
+            try
+            {
+                if(package_counter < 2)
+                {
+                    std::cout << "ERROR: ";
+                    std::cout << "New package data cannot be entered for less than 2 packages!\n";
+                    std::cout << "CMakeEasy cannot continue.\n";
+                    std::cout << "\n";
+
+                    free_data();
+
+                    throw "Invalid package data.";
+                }
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+            
             std::cout << "Please parse data for: " << packages.at(package_counter) << "\n";
             std::cout << "\n";
         }
@@ -1840,4 +1740,131 @@ std::string Application::input_longstring(std::string& str)
     std::getline(std::cin, str);
 
     return entry_check(str);
+}
+
+bool Application::set_install_config()
+{
+    bool install_state = false;
+
+    // Detect installation type
+    if(OS_WIN)
+    {
+        //bool installed;
+        const char* win_dir = "C:/Program Files/cmakeeasy";
+
+        if(std::filesystem::is_directory(win_dir))
+        {
+            std::cout << db_msg("\n");
+            std::cout << db_msg("WINDOWS system\n");
+            std::cout << db_msg("\n");
+            std::cout << db_msg("CMakeEasy was found to be installed.\n");
+            std::cout << db_msg("Installed files will be used.\n");
+            std::cout << db_msg("\n");
+
+            return true;
+        }
+        else
+        {
+            std::cout << db_msg("\n");
+            std::cout << db_msg("WINDOWS system\n");
+            std::cout << db_msg("\n");
+            std::cout << db_msg("CMakeEasy 'text' directory not found,\n");
+            std::cout << db_msg("assuming debug configuration.\n");
+            std::cout << db_msg("\n");
+        }
+    }
+    else // Linux
+    {
+        const char* unix_dir = "/usr/local/etc/cmakeeasy";
+
+        if(std::filesystem::is_directory(unix_dir))
+        {
+            std::cout << db_msg("\n");
+            std::cout << db_msg("UNIX system\n");
+            std::cout << db_msg("\n");
+            std::cout << db_msg("CMakeEasy was found to be installed.\n");
+            std::cout << db_msg("Installed files will be used.\n");
+            std::cout << db_msg("\n");
+
+            return true;
+        }
+        else
+        {
+            std::cout << db_msg("\n");
+            std::cout << db_msg("UNIX system\n");
+            std::cout << db_msg("\n");
+            std::cout << db_msg("CMakeEasy opt directory not found,\n");
+            std::cout << db_msg("assuming debug configuration.\n");
+            std::cout << db_msg("\n");
+        }
+    }
+
+    return false;
+}
+
+void Application::config_text()
+{
+    if(installed && OS_WIN)
+    {
+        const std::string win_dir("C:/Program Files/cmakeeasy/text/");
+        std::string file_location;
+
+        try
+        {
+            for(auto it : dir_array)
+            {
+                // Very unlikely, but worth catching if it happens
+                if(it.empty()) // A vector is missing and cannot be used
+                {
+                    free_data();
+
+                    std::cout << "ERROR:\n";
+                    std::cout << "Some file data could not be initialized.\n";
+
+                    throw "Missing file data!";
+                }
+
+                file_location = init_directory(win_dir, it);
+                init_filetype(file_location, true);
+
+                std::cout << db_msg("Last item appended: " + file_location);
+                std::cout << db_msg("\n");
+            }
+        }
+        catch(const std::runtime_error& r)
+        {
+            std::cerr << r.what() << '\n';
+        }
+    }
+    else if(installed && !OS_WIN) // Text files for Linux system
+    {
+        const std::string directive{"/usr/local/etc/cmakeeasy/"};
+        std::string file_location;
+
+        try
+        {
+            for(auto it : dir_array)
+            {
+                if(it.empty())
+                {
+                    free_data();
+
+                    std::cout << "ERROR:\n";
+                    std::cout << "Some file data could not be initialized.\n";
+
+                    throw "Missing file data!";
+                }
+
+                file_location = init_directory(directive, it);
+                init_filetype(file_location, true);
+
+                std::cout << db_msg("Last item appended: " + file_location);
+                std::cout << db_msg("\n");
+            }
+        }
+        catch(const std::runtime_error& r)
+        {
+            std::cerr << r.what() << '\n';
+        }
+    }
 }
