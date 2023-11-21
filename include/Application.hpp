@@ -22,6 +22,7 @@ public:
 
 private:
     // Variables
+    bool installed = false;
     bool is_active;
     bool valid_standard;
     bool has_package;
@@ -40,6 +41,7 @@ private:
     std::string requirement;
 
     std::vector<std::string> packages;
+    std::vector<std::string> dir_array;
 
     // Functions
     void early_setup();
@@ -56,6 +58,9 @@ private:
     void sys_flags();
     void flag_setting(int decision, bool is_windows);
     void generate_final();
+    bool set_install_config();
+    void config_text();
+    //void configure_sys(const bool win);
 
     // Input
     short input_val(short& num);
