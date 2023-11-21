@@ -2,6 +2,7 @@
 # Only works on Linux
 # Use sudo/wheel permissions just like install.sh
 
+old_database="/opt/cmakeeasy"
 text_database="/usr/local/etc/cmakeeasy"
 prog="/usr/local/bin/cmakeeasy"
 
@@ -11,6 +12,17 @@ read -p "Continue? (Y/N) " confirm
 case $confirm in
     Y)
     echo "Confirmed. Uninstalling CMakeEasy..."
+
+    if [ -d "$old_database" ]
+    then
+        echo "Found old opt directory at '$old_database'"
+        echo "Uninstalling..."
+        rm -r $old_database
+        echo "CMakeEasy opt files uninstalled."
+    else
+        echo "No old opt directory present."
+        echo "\n"
+    fi
 
     if [ -d "$text_database" ]
     then
@@ -40,6 +52,17 @@ case $confirm in
     ;;
     y)
     echo "Confirmed. Uninstalling CMakeEasy..."
+
+    if [ -d "$old_database" ]
+    then
+        echo "Found old opt directory at '$old_database'"
+        echo "Uninstalling..."
+        rm -r $old_database
+        echo "CMakeEasy opt files uninstalled."
+    else
+        echo "No old opt directory present."
+        echo "\n"
+    fi
 
     if [ -d "$text_database" ]
     then
