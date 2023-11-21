@@ -12,7 +12,7 @@ Manager::Manager(std::string target_file, bool read_only)
 
   if(!this->read_only)
   {
-    if(OS_WINDOWS)
+    if(OS_WIN)
     {
       system("mkdir Lists");
       homedir = "Lists/CMakeLists.txt";

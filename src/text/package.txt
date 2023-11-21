@@ -10,3 +10,5 @@ as the program will also link the libraries and add components.
 Please note that not understanding how this feature works
 may result on a compilation error by CMake and possibly
 generate a non-functional CMake cache.
+
+Please enter '!none' if you don't need to enter any package data.

@@ -1,5 +1,5 @@
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
+#ifndef APPLICATION_HPP_INCLUDED
+#define APPLICATION_HPP_INCLUDED 1
 #include "AltString.hpp"
 #include <algorithm>
 #ifdef _WIN32
@@ -22,6 +22,7 @@ public:
 
 private:
     // Variables
+    bool installed = false;
     bool is_active;
     bool valid_standard;
     bool has_package;
@@ -40,6 +41,7 @@ private:
     std::string requirement;
 
     std::vector<std::string> packages;
+    std::vector<std::string> dir_array;
 
     // Functions
     void early_setup();
@@ -56,16 +58,17 @@ private:
     void sys_flags();
     void flag_setting(int decision, bool is_windows);
     void generate_final();
+    bool set_install_config();
+    void config_text();
+    //void configure_sys(const bool win);
 
     // Input
     short input_val(short& num);
     int input_val(int& num);
     float input_val(float& num);
+    //auto input_val(auto& num);
     std::string input_string(std::string& str);
     std::string input_longstring(std::string& str);
-
-    // Output
-    // const std::string read_vector_pos(std::vector<std::shared_ptr<Manager>> v, int elem);
 
     // Init
     void init_vars();

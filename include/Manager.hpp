@@ -1,5 +1,5 @@
-#ifndef MANAGER_HPP
-#define MANAGER_HPP
+#ifndef MANAGER_HPP_INCLUDED
+#define MANAGER_HPP_INCLUDED 1
 
 #include <fstream>
 #include <filesystem>
@@ -11,7 +11,7 @@
 #include "Globals.h"
 
 // If a Windows system is being used
-#if OS_WINDOWS
+#if OS_WIN
 static std::string homedir = "";
 #endif
 

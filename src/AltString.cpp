@@ -1,7 +1,5 @@
 #include "AltString.hpp"
 
-// Potential TODO: Convert all void functions into large void function with switch statement.
-
 AltString::AltString()
 {
     init_vars();
@@ -55,9 +53,10 @@ void AltString::init_vars()
     declarations.push_back("CMAKE_VERBOSE_MAKEFILE"); // 19
 
     // Commands
-    commands.push_back("message"); // 21
-    commands.push_back("install"); // 22
-    commands.push_back("file"); // 23
+    commands.push_back("message"); // 21?
+    commands.push_back("install"); // 22?
+    commands.push_back("file"); // 23?
+    //commands.push_back("add_custom_target"); // 24?
 
     std::cout << db_msg("Declarations initialized.\n");
 };

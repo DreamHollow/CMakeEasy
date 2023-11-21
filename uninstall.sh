@@ -2,8 +2,9 @@
 # Only works on Linux
 # Use sudo/wheel permissions just like install.sh
 
+old_database="/opt/cmakeeasy"
 text_database="/usr/local/etc/cmakeeasy"
-main_prog="/usr/local/bin/cmakeeasy"
+prog="/usr/local/bin/cmakeeasy"
 
 # There are easier ways to do this, but this works.
 echo "This operation will uninstall CMakeEasy from your system."
@@ -12,22 +13,34 @@ case $confirm in
     Y)
     echo "Confirmed. Uninstalling CMakeEasy..."
 
+    if [ -d "$old_database" ]
+    then
+        echo "Found old opt directory at '$old_database'"
+        echo "Uninstalling..."
+        rm -r $old_database
+        echo "CMakeEasy opt files uninstalled."
+    else
+        echo "No old opt directory present."
+        echo "\n"
+    fi
+
     if [ -d "$text_database" ]
     then
         echo "Found etc directory at '$text_database'"
         echo "Uninstalling..."
         rm -r $text_database
+        rm -r $prog
         echo "CMakeEasy etc files uninstalled."
     else
         echo "No etc directory present, no files to uninstall."
         echo "\n"
     fi
 
-    if [ -d "$main_prog" ]
+    if [ -f "$prog" ]
     then
         echo "Found binary at '$main_prog'"
         echo "Uninstalling..."
-        rm -r $main_prog
+        rm -r $prog
         echo "CMakeEasy binary uninstalled."
     else
         echo "No binary found at expected location."
@@ -40,6 +53,17 @@ case $confirm in
     y)
     echo "Confirmed. Uninstalling CMakeEasy..."
 
+    if [ -d "$old_database" ]
+    then
+        echo "Found old opt directory at '$old_database'"
+        echo "Uninstalling..."
+        rm -r $old_database
+        echo "CMakeEasy opt files uninstalled."
+    else
+        echo "No old opt directory present."
+        echo "\n"
+    fi
+
     if [ -d "$text_database" ]
     then
         echo "Found etc directory at '$text_database'"
@@ -51,11 +75,11 @@ case $confirm in
         echo "\n"
     fi
 
-    if [ -d "$main_prog" ]
+    if [ -f "$prog" ]
     then
-        echo "Found binary at '$main_prog'"
+        echo "Found binary at '$prog'"
         echo "Uninstalling..."
-        rm -r $main_prog
+        rm -r $prog
         echo "CMakeEasy binary uninstalled."
     else
         echo "No binary found at expected location."
