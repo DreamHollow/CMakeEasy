@@ -60,6 +60,7 @@ private:
     void generate_final();
     bool set_install_config();
     void config_text();
+    void flag_instruction(const int choice, const bool windows);
     //void configure_sys(const bool win);
 
     // Input
