@@ -7,6 +7,7 @@
 <summary>Major Changes</summary>
 - Flag setting improved
 - Run script given better directory handling
+- Code syntax and readability improved
 </details>
 
 <details>
