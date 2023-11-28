@@ -1,4 +1,18 @@
-# CMakeEasy Changelog (Added 11/13/23)
+# CMakeEasy Changelog
+
+## NOVEMBER 28 2023
+-------------------
+
+<details>
+<summary>Major Changes</summary>
+- Flag setting improved
+- Run script given better directory handling
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+- Improved comments on Globals
+</details>
 
 ## NOVEMBER 13 2023
 ----------------
@@ -7,6 +21,7 @@
 
 <summary>Major Changes</summary>
 
+- Official changelog created
 - Program version updated to 1.1
 - cmakeeasy txt file directory changed from `/opt/local` to `/etc/local`
 - Updated `install.sh` script to remove old text data.
