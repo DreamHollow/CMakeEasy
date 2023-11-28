@@ -1611,11 +1611,6 @@ void Application::config_text()
 
 void Application::flag_instruction(const int choice, const bool windows)
 {
-    bool more_flags = false;
-    std::string current;
-    std::string str_context;
-    std::string permissions;
-    yes_no = 0;
 
     if(windows)
     {
@@ -1625,127 +1620,9 @@ void Application::flag_instruction(const int choice, const bool windows)
 
         switch(choice)
         {
-            case 1:
+            case 1: // Windows
             {
-                more_flags = true;
-                std::cout << "------\n";
-                std::cout << "WINDOWS SETTINGS\n";
-                std::cout << "------\n";
-                std::cout << "\n";
-                std::cout << "Adding Windows-specific instructions will require\n";
-                std::cout << "more data. A list of common operating system specific\n";
-                std::cout << "commands will be provided.\n";
-                std::cout << "\n";
-
-                ext_file->write("\n");
-                ext_file->write("if(WIN32)");
-                ext_file->write("\n");
-                std::cout << "\n";
-
-                while(more_flags)
-                {
-                    std::cout << "Recognized instructions:\n";
-                    alt->show_commands();
-                    std::cout << "\n";
-
-                    std::cout << "\n";
-                    std::cout << "Which instruction would you like to add?\n";
-                    std::cout << "Type !none if you want to stop adding instructions.\n";
-                    std::cout << "\n";
-                    std::cout << "Your instruction: ";
-                    input_string(current);
-                    std::cout << "\n";
-
-                    if(current == "!none")
-                    {
-                        std::cout << "\n";
-                        std::cout << "Understood, halting process.\n";
-                        std::cout << "\n";
-
-                        more_flags = false;
-                    }
-                    else // Add an indent for nesting
-                    {
-                        ext_file->write("   ");
-                    }
-
-                    // To prevent user error it checks the given command
-                    if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
-                    {
-                        db_msg("\n");
-                        db_msg("Command found in vector, proceeding...\n");
-                        db_msg("\n");
-
-                        if(current == "install")
-                        {
-                            std::cout << "\n";
-                            std::cout << "You will be asked to clarify install permissions for the system.\n";
-                            std::cout << "\n";
-                        }
-
-                        std::cout << "What is the context of this instruction " << "'" << current << "'" << "?\n";
-                        std::cout << "Parenthesis will be added automatically.\n";
-                        std::cout << "Example: message(STATUS This is a status message.)\n";
-                        std::cout << current << "(";
-                        input_longstring(str_context);
-
-                        if(current == "install")
-                        {
-                            std::cout << "What are the install permissions for this instruction?\n";
-                            std::cout << "Examples: OWNER_EXECUTE, GROUP_EXECUTE (etc.)";
-                            std::cout << "PERMISSIONS ";
-                            input_string(permissions);
-                            std::cout << "\n";
-                        }
-
-                        db_msg("\n");
-                        db_msg("Writing...\n");
-                        db_msg("\n");
-
-                        ext_file->write(current);
-                        ext_file->write("(");
-                        ext_file->write(str_context);
-
-                        if(current == "install")
-                        {
-                            ext_file->write(" PERMISSIONS ");
-                            ext_file->write(permissions);
-                        }
-
-                        ext_file->write(")");
-                        ext_file->write("\n");
-
-                        if(debug)
-                        {
-                            std::cout << "DEBUG STATEMENT:\n";
-                            std::cout << "Latest lines written are\n";
-                            std::cout << current << "(" << str_context;
-                            if(current == "install")
-                            {
-                                std::cout << " PERMISSIONS ";
-                                std::cout << permissions;
-                            }
-                            std::cout << ")";
-                            std::cout << "\n";
-                            std::cout << "END DEBUG STATEMENT\n";
-                        }
-                    }
-                    else // Do nothing for now
-                    {
-                        db_msg("\n");
-                        db_msg("Command not found in vector.\n");
-                        db_msg("\n");
-
-                        std::cout << "\n";
-                        std::cout << "This statement was not recognized by CMakeEasy.\n";
-                        std::cout << "\n";
-                    }
-                }
-
-                // Outside of instruction loop, so finish writing
-
-                ext_file->write("endif()");
-                ext_file->write("\n");
+                set_windows_flags();
 
                 break;
             }
@@ -1775,96 +1652,7 @@ void Application::flag_instruction(const int choice, const bool windows)
         {
             case 1:
             {
-                more_flags = true;
-
-                std::cout << "------\n";
-                std::cout << "LINUX SETTINGS\n";
-                std::cout << "------\n";
-                std::cout << "\n";
-                std::cout << "Adding Linux-specific instructions will require\n";
-                std::cout << "more data. A list of common operating system specific\n";
-                std::cout << "commands will be provided.\n";
-                std::cout << "\n";
-
-                ext_file->write("\n");
-                ext_file->write("if(UNIX)");
-                ext_file->write("\n");
-                std::cout << "\n";
-
-                while(more_flags)
-                {
-                    std::cout << "Recognized instructions:\n";
-                    alt->show_commands();
-                    std::cout << "\n";
-
-                    std::cout << "\n";
-                    std::cout << "Which instruction would you like to add?\n";
-                    std::cout << "Type !none if you want to stop adding instructions.\n";
-                    std::cout << "\n";
-                    std::cout << "Your instruction: ";
-                    input_string(current);
-                    std::cout << "\n";
-
-                    if(current == "!none")
-                    {
-                        std::cout << "\n";
-                        std::cout << "Understood, halting process.\n";
-                        std::cout << "\n";
-
-                        more_flags = false;
-                    }
-                    else
-                    {
-                        ext_file->write("   ");
-                    }
-
-                    // To prevent user error it checks the given command
-                    if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
-                    {
-                        db_msg("\n");
-                        db_msg("Command found in vector, proceeding...\n");
-                        db_msg("\n");
-
-                        std::cout << "What is the context of this instruction " << "'" << current << "'" << "?\n";
-                        std::cout << "Example: message(STATUS This is a status message.)\n";
-                        std::cout << current << "(";
-                        input_longstring(str_context);
-                        std::cout << ")\n";
-
-                        db_msg("\n");
-                        db_msg("Writing...\n");
-                        db_msg("\n");
-
-                        ext_file->write(current);
-                        ext_file->write("(");
-                        ext_file->write(str_context);
-                        ext_file->write(")");
-                        ext_file->write("\n");
-
-                        if(debug)
-                        {
-                            std::cout << "DEBUG STATEMENT:\n";
-                            std::cout << "Latest lines written are\n";
-                            std::cout << current << "(" << str_context << ")\n";
-                            std::cout << "END DEBUG STATEMENT\n";
-                        }
-                    }
-                    else // Do nothing for now
-                    {
-                        db_msg("\n");
-                        db_msg("Command not found in vector.\n");
-                        db_msg("\n");
-
-                        std::cout << "\n";
-                        std::cout << "This statement was not recognized by CMakeEasy.\n";
-                        std::cout << "\n";
-                    }
-                }
-
-                // Finish and write
-
-                ext_file->write("endif()");
-                ext_file->write("\n");
+                set_linux_flags();
 
                 break;
             }
@@ -1883,4 +1671,262 @@ void Application::flag_instruction(const int choice, const bool windows)
             }
         }
     }
+}
+
+void Application::set_windows_flags()
+{
+    bool more_flags = false;
+    std::string current;
+    std::string str_context;
+    std::string permissions;
+    yes_no = 0;
+
+    more_flags = true;
+    std::cout << "------\n";
+    std::cout << "WINDOWS SETTINGS\n";
+    std::cout << "------\n";
+    std::cout << "\n";
+    std::cout << "Adding Windows-specific instructions will require\n";
+    std::cout << "more data. A list of common operating system specific\n";
+    std::cout << "commands will be provided.\n";
+    std::cout << "\n";
+
+    ext_file->write("\n");
+    ext_file->write("if(WIN32)");
+    ext_file->write("\n");
+    std::cout << "\n";
+
+    while(more_flags)
+    {
+        std::cout << "Recognized instructions:\n";
+        alt->show_commands();
+        std::cout << "\n";
+
+        std::cout << "\n";
+        std::cout << "Which instruction would you like to add?\n";
+        std::cout << "Type !none if you want to stop adding instructions.\n";
+        std::cout << "\n";
+        std::cout << "Your instruction: ";
+        input_string(current);
+        std::cout << "\n";
+
+        if(current == "!none")
+        {
+            std::cout << "\n";
+            std::cout << "Understood, halting process.\n";
+            std::cout << "\n";
+
+            more_flags = false;
+        }
+        else // Add an indent for nesting
+        {
+            ext_file->write("   ");
+        }
+
+        // To prevent user error it checks the given command
+        if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
+        {
+            db_msg("\n");
+            db_msg("Command found in vector, proceeding...\n");
+            db_msg("\n");
+
+            if(current == "install")
+            {
+                std::cout << "\n";
+                std::cout << "You will be asked to clarify install permissions for the system.\n";
+                std::cout << "\n";
+            }
+
+            std::cout << "What is the context of this instruction " << "'" << current << "'" << "?\n";
+            std::cout << "Parenthesis will be added automatically.\n";
+            std::cout << "Example: message(STATUS This is a status message.)\n";
+            std::cout << current << "(";
+            input_longstring(str_context);
+
+            if(current == "install")
+            {
+                std::cout << "What are the install permissions for this instruction?\n";
+                std::cout << "Examples: OWNER_EXECUTE, GROUP_EXECUTE (etc.)";
+                std::cout << "PERMISSIONS ";
+                input_string(permissions);
+                std::cout << "\n";
+            }
+
+            db_msg("\n");
+            db_msg("Writing...\n");
+            db_msg("\n");
+
+            ext_file->write(current);
+            ext_file->write("(");
+            ext_file->write(str_context);
+
+            if(current == "install")
+            {
+                ext_file->write(" PERMISSIONS ");
+                ext_file->write(permissions);
+            }
+
+            ext_file->write(")");
+            ext_file->write("\n");
+
+            if(debug)
+            {
+                std::cout << "DEBUG STATEMENT:\n";
+                std::cout << "Latest lines written are\n";
+                std::cout << current << "(" << str_context;
+                    if(current == "install")
+                    {
+                        std::cout << " PERMISSIONS ";
+                        std::cout << permissions;
+                    }
+
+                std::cout << ")";
+                std::cout << "\n";
+                std::cout << "END DEBUG STATEMENT\n";
+            }
+        }
+        else // Do nothing for now
+        {
+            db_msg("\n");
+            db_msg("Command not found in vector.\n");
+            db_msg("\n");
+
+            std::cout << "\n";
+            std::cout << "This statement was not recognized by CMakeEasy.\n";
+            std::cout << "\n";
+        }
+    }
+
+    // Outside of instruction loop, so finish writing
+
+    ext_file->write("endif()");
+    ext_file->write("\n");
+}
+
+void Application::set_linux_flags()
+{
+    bool more_flags = false;
+    std::string current;
+    std::string str_context;
+    std::string permissions;
+    yes_no = 0;
+
+    more_flags = true;
+    std::cout << "------\n";
+    std::cout << "LINUX SETTINGS\n";
+    std::cout << "------\n";
+    std::cout << "\n";
+    std::cout << "Adding Windows-specific instructions will require\n";
+    std::cout << "more data. A list of common operating system specific\n";
+    std::cout << "commands will be provided.\n";
+    std::cout << "\n";
+
+    ext_file->write("\n");
+    ext_file->write("if(UNIX)");
+    ext_file->write("\n");
+    std::cout << "\n";
+
+    while(more_flags)
+    {
+        std::cout << "Recognized instructions:\n";
+        alt->show_commands();
+        std::cout << "\n";
+
+        std::cout << "\n";
+        std::cout << "Which instruction would you like to add?\n";
+        std::cout << "Type !none if you want to stop adding instructions.\n";
+        std::cout << "\n";
+        std::cout << "Your instruction: ";
+        input_string(current);
+        std::cout << "\n";
+
+        if(current == "!none")
+        {
+            std::cout << "\n";
+            std::cout << "Understood, halting process.\n";
+            std::cout << "\n";
+
+            more_flags = false;
+        }
+        else
+        {
+            ext_file->write("   ");
+        }
+
+        if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
+        {
+            db_msg("\n");
+            db_msg("Command found in vector, proceeding...\n");
+            db_msg("\n");
+
+            if(current == "install")
+            {
+                std::cout << "\n";
+                std::cout << "You will be asked to clarify install permissions for the system.\n";
+                std::cout << "\n";
+            }
+
+            std::cout << "What is the context of this instruction " << "'" << current << "'" << "?\n";
+            std::cout << "Parenthesis will be added automatically.\n";
+            std::cout << "Example: message(STATUS This is a status message.)\n";
+            std::cout << current << "(";
+            input_longstring(str_context);
+
+            /*
+            if(current == "install")
+            {
+                std::cout << "What are the install permissions for this instruction?\n";
+                std::cout << "Examples: OWNER_EXECUTE, GROUP_EXECUTE (etc.)";
+                std::cout << "PERMISSIONS ";
+                input_string(permissions);
+                std::cout << "\n";
+            }
+            */
+
+            db_msg("\n");
+            db_msg("Writing...\n");
+            db_msg("\n");
+
+            ext_file->write(current);
+            ext_file->write("(");
+            ext_file->write(str_context);
+
+            /*
+            if(current == "install")
+            {
+                ext_file->write(" PERMISSIONS ");
+                ext_file->write(permissions);
+            }
+            */
+
+            ext_file->write(")");
+            ext_file->write("\n");
+
+            if(debug)
+            {
+                std::cout << "DEBUG STATEMENT:\n";
+                std::cout << "Latest lines written are\n";
+                std::cout << current << "(" << str_context;
+
+                std::cout << ")";
+                std::cout << "\n";
+                std::cout << "END DEBUG STATEMENT\n";
+            }
+        }
+        else // Do nothing for now
+        {
+            db_msg("\n");
+            db_msg("Command not found in vector.\n");
+            db_msg("\n");
+
+            std::cout << "\n";
+            std::cout << "This statement was not recognized by CMakeEasy.\n";
+            std::cout << "\n";
+        }
+    }
+
+    // Outside of instruction loop, so finish writing
+
+    ext_file->write("endif()");
+    ext_file->write("\n");
 }
