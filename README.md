@@ -9,7 +9,7 @@ CMakeEasy is configured to generate CMakeLists.txt files for applications, but n
 Please note you can only use the master branch with a working installation of SFML.
 
 `master` holds the final, stable changes to CMakeEasy.
-`devel` holds source code in development that has not been finalized.
+`devel` branches or numbered branches such as `1.2` are in-development and not considered safe for general use. 
 
 NOTE: Branch versioning numbering has been revised. Project will start officially as 1.0.
 
