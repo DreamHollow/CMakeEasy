@@ -5,6 +5,7 @@
 
 <details>
 <summary>Major Changes</summary>
+
 * Flag setting improved
 
 * Run script given better directory handling
@@ -41,7 +42,9 @@
 
 <details>
 <summary>Major Changes</summary>
+
 * `build.sh` and `install.sh` check for CMake beforehand
+
 </details>
 
 <details>
