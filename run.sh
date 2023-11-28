@@ -3,5 +3,11 @@
 # not the installed version.
 
 echo "Attempting to run debug version of CMakeEasy..."
-cd build
-./cmakeeasy
+
+if [ -d 'build' ]
+then
+    cd build
+    ./cmakeeasy
+else
+    echo "ERROR: No build directory present!"
+fi
