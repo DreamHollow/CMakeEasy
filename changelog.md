@@ -6,7 +6,9 @@
 <details>
 <summary>Major Changes</summary>
 * Flag setting improved
+
 * Run script given better directory handling
+
 * Code syntax and readability improved
 </details>
 
@@ -23,8 +25,11 @@
 <summary>Major Changes</summary>
 
 * Official changelog created
+
 * Program version updated to 1.1
+
 * cmakeeasy txt file directory changed from `/opt/local` to `/etc/local`
+
 * Updated `install.sh` script to remove old text data.
 
 </details>
@@ -43,8 +48,11 @@
 <summary>Minor Changes</summary>
 
 * Minor improvements to script error-checking
+
 * Redefined "OS_WINDOWS" to "OS_WIN" for shortening
+
 * Changed program headers to reflect more current C++ standards
+
 * Version update to `1.1.1`
 
 </details>
