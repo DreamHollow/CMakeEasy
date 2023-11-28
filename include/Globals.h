@@ -45,7 +45,9 @@ static std::string db_msg(std::string msg)
         return (db_string + msg);
     }
 
-    if(msg == nextline) // Not debug
+    // If debug is off, this forces a newline
+    // without affecting the structure of display.
+    if(msg == nextline)
     {
         return nullstring;
     }
