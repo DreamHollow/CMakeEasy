@@ -57,6 +57,8 @@ private:
     void finish_touches();
     void sys_flags();
     void flag_setting(int decision, bool is_windows);
+    void set_windows_flags();
+    void set_linux_flags();
     void generate_final();
     bool set_install_config();
     void config_text();
