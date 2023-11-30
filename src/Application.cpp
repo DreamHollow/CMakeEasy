@@ -145,48 +145,15 @@ void Application::free_data()
     std::cout << db_msg("'alt' and 'ext_file' pointers released safely.\n");
 }
 
+/*
 /// @brief Checks iostream input. It will force the program to stop
 /// if the input fails or doesn't match the type.
 int Application::entry_check(int &value)
 {
-    //void* ptr = &value;
-
-    //if(!isdigit(value) && ptr == exit_command)
-    //{
-        //break;
-    //}
-
-    try
-    {
-        if(std::cin.fail())
-        {
-            std::cout << "\n";
-            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
-            std::cout << "\n";
-
-            std::cout << "Sorry, the program encountered an error." << "\n";
-            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-            std::cout << "for the program to process." << "\n";
-            std::cout << "\n";
-            std::cout << "If you don't understand why you have this error," << "\n";
-            std::cout << "please raise an issue on the Github repository." << "\n";
-            std::cout << "\n";
-            std::cout << "Thank you." << "\n";
-            std::cout << "\n";
-
-            this->free_data();
-
-            throw "Invalid data input!";
-        }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what();
-    }
-
-    return value;
 }
+*/
 
+/*
 short Application::entry_check(short& value)
 {
     try
@@ -219,7 +186,9 @@ short Application::entry_check(short& value)
 
     return value;
 }
+*/
 
+/*
 float Application::entry_check(float& value)
 {
     try
@@ -252,6 +221,7 @@ float Application::entry_check(float& value)
 
     return value;
 }
+*/
 
 std::string Application::entry_check(std::string& str)
 {
@@ -295,7 +265,7 @@ void Application::early_setup()
     std::string project_name;
 
     std::cout << "Your version: ";
-    input_val(major);
+    input_val<short>(major);
     std::cout << "\n";
 
     // Version numbering (CMake)
@@ -304,7 +274,7 @@ void Application::early_setup()
     std::cout << "\n";
 
     std::cout << "Your version: ";
-    input_val(minor);
+    input_val<short>(minor);
     std::cout << "\n";
 
     std::cout << text_files.at(RELEASE_TXT)->read();
@@ -312,7 +282,7 @@ void Application::early_setup()
     std::cout << "\n";
 
     std::cout << "Your version: ";
-    input_val(release);
+    input_val<short>(release);
     std::cout << "\n";
 
     // This is for CMake versioning, not program versioning.
@@ -386,7 +356,7 @@ void Application::early_setup()
     std::cout << "\n";
     
     std::cout << "Your choice: ";
-    input_val(yes_no);
+    input_val<short>(yes_no);
     std::cout << "\n";
 
     std::cout << "\n";
@@ -397,17 +367,17 @@ void Application::early_setup()
         std::cout << "Please enter the major version number for your program." << "\n";
         std::cout << "Example: [1].0.0" << "\n";
         std::cout << "Your version: ";
-        input_val(major);
+        input_val<short>(major);
 
         std::cout << "Please enter the minor version number for your program." << "\n";
         std::cout << "Example: 1.[0].0" << "\n";
         std::cout << "Your version: ";
-        input_val(minor);
+        input_val<short>(minor);
 
         std::cout << "Please enter the release version number for your program." << "\n";
         std::cout << "Example: 1.0.[0]" << "\n";
         std::cout << "Your version: ";
-        input_val(release);
+        input_val<short>(release);
 
         ext_file->write(" ");
         ext_file->write(alt->declare(VERS_NUM));
@@ -510,7 +480,7 @@ void Application::package_setup()
             std::cout << "If not, just type 0 instead." << "\n";
             std::cout << "\n";
             std::cout << "Your package version number: ";
-            input_val(package_vers);
+            input_val<short>(package_vers);
             std::cout << "\n";
 
             yes_no = 0; // reset
@@ -524,7 +494,7 @@ void Application::package_setup()
             std::cout << "1 for yes, 2 for no." << "\n";
             std::cout << "\n";
             std::cout << "Your choice: ";
-            input_val(yes_no);
+            input_val<short>(yes_no);
             std::cout << "\n";
 
             bool req_package = false;
@@ -641,7 +611,7 @@ void Application::standard_setup()
 
     std::cout << "Your standard: ";
     std::cin.clear();
-    input_val(standard);
+    input_val<short>(standard);
     std::cout << "\n";
 
     std::cout << "\n";
@@ -811,7 +781,7 @@ void Application::package_loop()
         std::cout << "\n";
         std::cout << "Your choice: ";
 
-        input_val(yes_no);
+        input_val<short>(yes_no);
         std::cout << "\n";
 
         std::string library_segment;
@@ -1133,7 +1103,7 @@ void Application::run()
     std::cout << "\n";
     std::cout << "Your choice: ";
 
-    input_val(yes_no);
+    input_val<short>(yes_no);
 
     //entry_check(yes_no);
 
@@ -1237,7 +1207,7 @@ void Application::sys_flags()
     std::cout << "\n";
 
     std::cout << "Your choice: ";
-    input_val(yes_no);
+    input_val<short>(yes_no);
     std::cout << "\n";
 
     flag_setting(yes_no, true);
@@ -1255,7 +1225,7 @@ void Application::sys_flags()
     std::cout << "\n";
 
     std::cout << "Your choice: ";
-    input_val(yes_no);
+    input_val<short>(yes_no);
     std::cout << "\n";
 
     flag_setting(yes_no, false);
@@ -1329,7 +1299,7 @@ void Application::verbose_output()
 
     std::cout << "\n";
     std::cout << "Your choice: ";
-    input_val(yes_no);
+    input_val<short>(yes_no);
 
     //entry_check();
 
@@ -1381,7 +1351,7 @@ void Application::generate_final()
     bool comment = false;
     yes_no = 0;
 
-    input_val(yes_no);
+    input_val<short>(yes_no);
 
     // Hopefully this fixes weird bug where comment is always added
     switch(yes_no)
@@ -1418,45 +1388,6 @@ void Application::generate_final()
         std::cout << "Comment will not be generated." << "\n";
     }
 }
-
-// These functions will always be checked for input errors.
-
-/// @brief Short function that checks values before it assigns them.
-/// @return num
-short Application::input_val(short& num)
-{
-    std::cin >> num;
-
-    return entry_check(num);
-}
-
-/// @brief Integer function that checks values before it assigns them.
-/// @return num
-int Application::input_val(int& num)
-{
-    std::cin >> num;
-
-    return entry_check(num);
-}
-
-/// @brief Float function that checks values before it assigns them.
-/// @return num
-float Application::input_val(float& num)
-{
-    std::cin >> num;
-
-    return entry_check(num);
-}
-
-/*
-// Does not work in current form
-auto Application::input_val(auto& num)
-{
-    std::cin >> num;
-
-    return entry_check(num);
-}
-*/
 
 /// @brief Function checks if string input is valid. Seperate from numerical input.
 /// @return str
