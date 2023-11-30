@@ -1859,12 +1859,14 @@ void Application::set_linux_flags()
             db_msg("Command found in vector, proceeding...\n");
             db_msg("\n");
 
+            /*
             if(current == "install")
             {
                 std::cout << "\n";
                 std::cout << "You will be asked to clarify install permissions for the system.\n";
                 std::cout << "\n";
             }
+            */
 
             std::cout << "What is the context of this instruction " << "'" << current << "'" << "?\n";
             std::cout << "Parenthesis will be added automatically.\n";
