@@ -49,9 +49,6 @@ private:
     void standard_setup();
     void source_and_includes();
     void package_loop();
-    int entry_check(int& value);
-    short entry_check(short& value);
-    float entry_check(float& value);
     std::string entry_check(std::string& str);
     void verbose_output();
     void finish_touches();
@@ -63,13 +60,12 @@ private:
     bool set_install_config();
     void config_text();
     void flag_instruction(const int choice, const bool windows);
-    //void configure_sys(const bool win);
+
+    // Templates - Input
+    template <typename InputVector> InputVector input_val(InputVector& num);
+    template <typename InputData> InputData entry_check(InputData& value);
 
     // Input
-    short input_val(short& num);
-    int input_val(int& num);
-    float input_val(float& num);
-    //auto input_val(auto& num);
     std::string input_string(std::string& str);
     std::string input_longstring(std::string& str);
 
@@ -89,3 +85,45 @@ private:
 };
 
 #endif
+
+template <typename InputVector>
+inline InputVector Application::input_val(InputVector &num)
+{
+    std::cin >> num;
+
+    return entry_check(num);
+}
+
+template <typename InputData>
+inline InputData Application::entry_check(InputData &value)
+{
+    try
+    {
+        if(std::cin.fail())
+        {
+            std::cout << "\n";
+            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
+            std::cout << "\n";
+
+            std::cout << "Sorry, the program encountered an error." << "\n";
+            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
+            std::cout << "for the program to process." << "\n";
+            std::cout << "\n";
+            std::cout << "If you don't understand why you have this error," << "\n";
+            std::cout << "please raise an issue on the Github repository." << "\n";
+            std::cout << "\n";
+            std::cout << "Thank you." << "\n";
+            std::cout << "\n";
+
+            this->free_data();
+
+            throw "Invalid data input!";
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+
+    return InputData();
+}
