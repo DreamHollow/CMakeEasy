@@ -25,16 +25,14 @@ then
     # Remove obsolete directory
     rm -r $old_file
     echo "Obsolete directory '$old_file' removed."
-    echo "\n"
+    echo
 else
     echo "No previous directory '$old_file' found on this device."
     echo "Continuing normal install."
-    echo "\n"
+    echo
 fi
 
 echo "Building Release version..."
-
-cmake -S . -B build
 
 mkdir Release
 cd Release
