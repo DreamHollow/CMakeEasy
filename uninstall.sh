@@ -21,7 +21,7 @@ case $confirm in
         echo "CMakeEasy opt files uninstalled."
     else
         echo "No old opt directory present."
-        echo "\n"
+        echo
     fi
 
     if [ -d "$text_database" ]
@@ -33,7 +33,7 @@ case $confirm in
         echo "CMakeEasy etc files uninstalled."
     else
         echo "No etc directory present, no files to uninstall."
-        echo "\n"
+        echo
     fi
 
     if [ -f "$prog" ]
@@ -44,7 +44,7 @@ case $confirm in
         echo "CMakeEasy binary uninstalled."
     else
         echo "No binary found at expected location."
-        echo "\n"
+        echo
     fi
 
     echo "Uninstall complete."
@@ -61,7 +61,7 @@ case $confirm in
         echo "CMakeEasy opt files uninstalled."
     else
         echo "No old opt directory present."
-        echo "\n"
+        echo
     fi
 
     if [ -d "$text_database" ]
@@ -72,7 +72,7 @@ case $confirm in
         echo "CMakeEasy etc files uninstalled."
     else
         echo "No etc directory present, no files to uninstall."
-        echo "\n"
+        echo
     fi
 
     if [ -f "$prog" ]
@@ -83,7 +83,7 @@ case $confirm in
         echo "CMakeEasy binary uninstalled."
     else
         echo "No binary found at expected location."
-        echo "\n"
+        echo
     fi
 
     echo "Uninstall complete."
