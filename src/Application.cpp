@@ -37,7 +37,7 @@ std::string Application::init_directory(std::string file_dir, std::string file)
 
 void Application::init_components()
 {
-    //bool installed;
+    bool installed = false;
     alt = std::make_unique<AltString>();
     ext_file = std::make_unique<Manager>("CMakeLists.txt", false);
     std::string system_path;
@@ -60,8 +60,9 @@ void Application::init_components()
     dir_array.push_back("source.txt"); // 12
     dir_array.push_back("more_libs.txt"); // 13
     dir_array.push_back("promote.txt"); // 14
+    dir_array.push_back("library_shorthand.txt");
 
-    config_text();
+    config_text(installed);
 
     // Use the debug configuration - Same for Windows and Linux
     if(!installed)
@@ -99,6 +100,9 @@ void Application::init_components()
     dir_array.shrink_to_fit();
 }
 
+/// @brief Adds individual text files to a vector for later iteration.
+/// @param file_name 
+/// @param read_only 
 void Application::init_filetype(std::string file_name, bool read_only)
 {
     std::shared_ptr<Manager> file_ptr = std::make_shared<Manager>(file_name, read_only);
@@ -144,84 +148,6 @@ void Application::free_data()
 
     std::cout << db_msg("'alt' and 'ext_file' pointers released safely.\n");
 }
-
-/*
-/// @brief Checks iostream input. It will force the program to stop
-/// if the input fails or doesn't match the type.
-int Application::entry_check(int &value)
-{
-}
-*/
-
-/*
-short Application::entry_check(short& value)
-{
-    try
-    {
-        if(std::cin.fail())
-        {
-            std::cout << "\n";
-            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
-            std::cout << "\n";
-
-            std::cout << "Sorry, the program encountered an error." << "\n";
-            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-            std::cout << "for the program to process." << "\n";
-            std::cout << "\n";
-            std::cout << "If you don't understand why you have this error," << "\n";
-            std::cout << "please raise an issue on the Github repository." << "\n";
-            std::cout << "\n";
-            std::cout << "Thank you." << "\n";
-            std::cout << "\n";
-
-            this->free_data();
-
-            throw "Invalid data input!";
-        }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what();
-    }
-
-    return value;
-}
-*/
-
-/*
-float Application::entry_check(float& value)
-{
-    try
-    {
-        if(std::cin.fail())
-        {
-            std::cout << "\n";
-            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
-            std::cout << "\n";
-
-            std::cout << "Sorry, the program encountered an error." << "\n";
-            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-            std::cout << "for the program to process." << "\n";
-            std::cout << "\n";
-            std::cout << "If you don't understand why you have this error," << "\n";
-            std::cout << "please raise an issue on the Github repository." << "\n";
-            std::cout << "\n";
-            std::cout << "Thank you." << "\n";
-            std::cout << "\n";
-
-            this->free_data();
-
-            throw "Invalid data input!";
-        }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what();
-    }
-
-    return value;
-}
-*/
 
 std::string Application::entry_check(std::string& str)
 {
@@ -444,8 +370,6 @@ void Application::package_setup()
 {
     // Package insertion loop continues in case of multiple packages
     // This can be a little confusing and will need to be reworked - TODO
-
-    //bool packages_done = false;
 
     do
     {
@@ -793,20 +717,8 @@ void Application::package_loop()
             {
                 ext_file->write("\n"); // Force newline
 
-                std::cout << "Please enter the library shorthand." << "\n";
-                std::cout << "\n";
-                std::cout << "For example, SFML becomes sfml and links to a component." << "\n";
-                std::cout << "e.g. sfml-graphics links the graphics module." << "\n";
-                std::cout << "\n";
-                std::cout << "Once the library shorthand is entered, it will be reused until the" << "\n";
-                std::cout << "user tells the program to stop entering components." << "\n";
-                std::cout << "\n";
-                std::cout << "PLEASE NOTE:\n";
-                std::cout << "You do not have to re-enter your library name." << "\n";
-                std::cout << "The library name you are providing components for\n";
-                std::cout << "Will be displayed before each iteration." << "\n";
-                std::cout << "\n";
-                std::cout << "Your library: ";
+                std::cout << text_files.at(LIB_SHORT)->read();
+                std::cout << " "; 
                 input_string(library_shorthand);
                 std::cout << "\n";
 
@@ -1020,21 +932,6 @@ void Application::run()
     std::cout << db_msg("\n");
     std::cout << db_msg("Trying to read file at position 0...\n");
     std::cout << db_msg("\n");
-
-    if(debug)
-    {
-        std::cout << "DEBUG STATEMENT:\n";
-        std::cout << "\n";
-        std::cout << "Memory being used by 'text_files' is ";
-        std::cout << sizeof(text_files);
-        std::cout << " bytes.\n";
-        std::cout << "Memory being used by 'alt' is ";
-        std::cout << sizeof(alt);
-        std::cout << " bytes.\n";
-        std::cout << "\n";
-        std::cout << "END DEBUG STATEMENT\n";
-    }
-
 
     std::cout << text_files.at(START)->read();
     std::cout << "\n";
@@ -1473,9 +1370,9 @@ bool Application::set_install_config()
 
 /// @brief Checks if a text directory can be accessed,
 /// then initializes files for program use.
-void Application::config_text()
+void Application::config_text(const bool is_installed)
 {
-    if(installed && OS_WIN)
+    if(is_installed && OS_WIN)
     {
         const std::string win_dir("C:/Program Files/cmakeeasy/text/");
         std::string file_location;
@@ -1507,7 +1404,7 @@ void Application::config_text()
             std::cerr << r.what() << '\n';
         }
     }
-    else if(installed && !OS_WIN) // Text files for Linux system
+    else if(is_installed && !OS_WIN) // Text files for Linux system
     {
         const std::string directive{"/usr/local/etc/cmakeeasy/"};
         std::string file_location;
