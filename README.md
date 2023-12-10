@@ -9,7 +9,7 @@ CMakeEasy is configured to generate CMakeLists.txt files for applications, but n
 Please note you can only use the master branch with a working installation of SFML.
 
 `master` holds the final, stable changes to CMakeEasy.
-`devel` branches or numbered branches such as `1.2` are in-development and not considered safe for general use. 
+`devel` branches or numbered branches such as `1.2.x` are in-development and not considered safe for general use. 
 
 NOTE: Branch versioning numbering has been revised. Project will start officially as 1.0.
 
@@ -95,7 +95,7 @@ If you want to install a local version of CMakeEasy without installing it to you
 Then you should run 'build.sh' and it will generate a working debug setup.
 You will have to run CMakeEasy through terminal directly in the folder.
 
-If you cannot execute the pre-configured bash scripts like 'build_db.sh' and 'install.sh', then you should go to your CMakeEasy folder and use this command:
+If you cannot execute the pre-configured bash scripts like 'build.sh' and 'install.sh', then you should go to your CMakeEasy folder and use this command:
 
 `sudo chmod +x build.sh`
 
@@ -126,7 +126,7 @@ If you get confused about which one that is, make sure it says the project name 
 Once you're sure you have the right one, just open up a Terminal in your CMakeEasy folder.
 
 Then enter:
-`cmake -S . -B build`
+`cmake -S . -B Debug` to build the project to a Debug folder.
 
 Go to your bin/build folder. Please run your 'make' command as a superuser, or the program may not compile.
 `sudo make`
@@ -148,7 +148,7 @@ Another way to do this is to run Visual Studio with Administrative rights and op
 
 Use this command to build CMakeEasy, you will need administration rights for this process to fully work:
 
-`cmake -S . -B build`
+`cmake -S . -B Debug`
 
 This should generate the relevant build files to that folder.
 For Visual Studio you should see a few different build types. For installation, you will want to open the CMakeEasy.sln file with Administrative rights again.

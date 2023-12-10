@@ -1,9 +1,10 @@
-#! /bin/sh
+#!/bin/sh
 # Build 'Debug'
 # You may need to be superuser to run
 # This script will NOT install the program to system
 
 cmake_bin="/usr/bin/cmake"
+DEBUG="Debug"
 
 if [ ! -f "$cmake_bin" ]
 then
@@ -15,20 +16,20 @@ else
 fi
 
 echo "Building CMakeEasy...\n"
-cmake -DCMAKE_BUILD_TYPE=Debug -S . -B build
+cmake -DCMAKE_BUILD_TYPE=Debug -S . -B "$DEBUG"
 
-if [ ! -d "build" ]
+if [ ! -d "$DEBUG" ]
 then
     echo "ERROR: No build directory found in context!"
     echo "Unable to continue."
     echo "Please verify directory 'build' within CMakeEasy."
     return 2
 else
-    echo "Build directory good, continue process.\n"
+    echo "Build directory is good, continuing...\n"
 fi
 
-cd build
+cd "$DEBUG"
 make
 
-echo "\nBuilt CMakeEasy in directory /build"
+echo "Built CMakeEasy in directory /Debug"
 echo "Please do not run 'make', binary should be built."

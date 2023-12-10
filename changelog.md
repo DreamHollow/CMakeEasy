@@ -1,5 +1,16 @@
 # CMakeEasy Changelog
 
+## DECEMBER 5 2023
+------------------
+
+<details>
+<summary>Minor Changes</summary>
+* Changes to all shell scripts to use "Debug" directory instead of "build"
+
+* Script clarity improvements
+
+</details>
+
 ## NOVEMBER 28 2023
 -------------------
 
