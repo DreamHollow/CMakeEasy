@@ -8,7 +8,7 @@
 
 enum TEXT_FILES { START = 0, MINOR_V_TXT, RELEASE_TXT, PROGRAM_V_TXT, PROG_LANG_TXT,
     COMPONENT_TXT, OP_TXT, VERB_TXT, PACK_SET, INCLUDE_TXT, PACKAGES_TXT,
-    STANDARDS_TXT, SOURCES_TXT, MORE_LIBS_TXT, PROMOTE_TXT };
+    STANDARDS_TXT, SOURCES_TXT, MORE_LIBS_TXT, PROMOTE_TXT, LIB_SHORT };
 
 class Application
 {
@@ -22,7 +22,6 @@ public:
 
 private:
     // Variables
-    bool installed = false;
     bool is_active;
     bool valid_standard;
     bool has_package;
@@ -58,7 +57,7 @@ private:
     void set_linux_flags();
     void generate_final();
     bool set_install_config();
-    void config_text();
+    void config_text(const bool is_installed);
     void flag_instruction(const int choice, const bool windows);
 
     // Templates - Input
