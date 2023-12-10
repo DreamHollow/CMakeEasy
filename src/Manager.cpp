@@ -193,7 +193,8 @@ const std::string Manager::read()
 {
   std::string str;
 
-  // Reset the text file.
+  // Resets the text file.
+  // This prevents text events from displaying nothing.
   if(already_read)
   {
     infile.close();
