@@ -1,5 +1,22 @@
 # CMakeEasy Changelog
 
+## DECEMBER 10 2023
+-------------------
+
+<details>
+<summary>Major Changes</summary>
+
+* Added new text file "library_shorthand" to improve readability
+
+</details>
+<details>
+<summary>Minor Changes</summary>
+
+* Improved commentary
+
+* Improved short term variable usage
+</details>
+
 ## DECEMBER 5 2023
 ------------------
 
