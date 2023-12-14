@@ -23,8 +23,6 @@ void AltString::free_data()
 
 void AltString::init_vars()
 {
-    is_command = false;
-
    std::cout << db_msg("Initializing declarations...\n");
 
     // Declarations
@@ -36,10 +34,7 @@ void AltString::init_vars()
     declarations.push_back("target_link_libraries"); // 5
     declarations.push_back("CMAKE_CXX_STANDARD"); // 6
     declarations.push_back("set"); // 7
-    declarations.push_back("add_executable"); // 8
-
-    //declarations.push_back("target_link_libraries"); // 9
-    
+    declarations.push_back("add_executable"); // 8    
     declarations.push_back("include_directories"); // 9
     declarations.push_back("target_compile_features"); // 10
     declarations.push_back("${PROJECT_NAME}"); // 11
