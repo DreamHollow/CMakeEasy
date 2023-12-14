@@ -25,7 +25,6 @@ public:
 
 private:
     // Variables
-    bool is_command;
     std::vector<std::string> declarations;
 
     // Init
