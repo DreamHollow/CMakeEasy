@@ -155,7 +155,7 @@ For Visual Studio you should see a few different build types. For installation, 
 
 Select the INSTALL build setup from your solution view in Visual Studio and right click, then build it.
 
-If you have administrative rights, this process should fully build the program and install CMakeEasy to your 'Program Files (x86)' folder on your hard drive.
+If you have administrative rights, this process should fully build the program and install CMakeEasy to your 'Program Files' folder on your hard drive.
 
 Because CMakeEasy requires administrator permission to create and edit CMakeLists.txt files, you will have to enable "run as Administrator" for the CMakeEasy binary to fully work.
 If you do not do this, you may encounter a system warning that says "Access Denied" or something similar. CMakeEasy will also warn you that a file path could not be accessed.
