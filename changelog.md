@@ -1,5 +1,31 @@
 # CMakeEasy Changelog
 
+## DECEMBER 26 2023
+-------------------
+
+<details>
+<summary>Major Changes</summary>
+
+* Program version updated to 1.2.0
+
+* Added exit command for general program use
+
+* Updated text files with exit instructions
+
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+
+* Better comment clarity.
+
+* Unused data removed.
+
+</details>
+
+> [!IMPORTANT]
+> This update essentially overhauls CMakeEasy from previous 1.0 versions. Please consider updating.
+
 ## DECEMBER 10 2023
 -------------------
 
