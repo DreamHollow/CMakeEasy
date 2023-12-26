@@ -25,7 +25,6 @@ private:
     bool is_active;
     bool valid_standard;
     bool has_package;
-    //bool more_files;
 
     short package_counter = 0;
 
@@ -59,6 +58,8 @@ private:
     bool set_install_config();
     void config_text(const bool is_installed);
     void flag_instruction(const int choice, const bool windows);
+    bool allow_runtime(std::string& string);
+    void stop_and_remove(bool start_process);
 
     // Templates - Input
     template <typename InputVector> InputVector input_val(InputVector& num);
