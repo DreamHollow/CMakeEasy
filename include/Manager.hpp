@@ -33,11 +33,13 @@ public:
   void write(std::string context);
   void write(int num);
   const std::string read();
+  void mark_to_delete();
 
 private:
   // Variables
   bool read_only;
   bool already_read;
+  bool liquidate;
   
   std::string list_dir;
   std::string file_name;
