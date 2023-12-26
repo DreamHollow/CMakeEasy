@@ -7,6 +7,7 @@ Manager::Manager(std::string target_file, bool read_only)
 {
   this->file_name = target_file;
   this->read_only = read_only;
+  this->liquidate = false;
 
   std::string f_slash = "/";
 
@@ -136,9 +137,45 @@ Manager::Manager(std::string target_file, bool read_only)
 
 Manager::~Manager()
 {
-  std::cout << db_msg("Manager deconstructed...\n");
+  std::cout << db_msg("Manager deconstructing...\n");
 
   free_data();
+
+  if(liquidate)
+  {
+    std::cout << db_msg("File was set to be liquidated by Manager.\n");
+    std::cout << db_msg("Known file path: \n");
+    std::cout << db_msg(file_name);
+    std::cout << db_msg("\n");
+
+    // This should NEVER happen.
+    try
+    {
+      if(outfile.is_open())
+      {
+        std::cout << "ERROR: CMakeLists.txt was still open for some reason.\n";
+
+        std::cout << db_msg("ERROR: Manager file was still open! Can't delete.\n");
+
+        throw "Manager failed to delete marked file.";
+      }
+    }
+    catch(const std::exception& e)
+    {
+      std::cerr << e.what() << '\n';
+    }
+
+    std::remove(file_name.c_str());
+
+    std::cout << db_msg("File removed.\n");
+  }
+  else
+  {
+    if(!read_only)
+    {
+      std::cout << db_msg("No files were liquidated.\n");
+    }
+  }
 };
 
 /// @brief Forces file to close to prevent leaks.
@@ -212,4 +249,14 @@ const std::string Manager::read()
   already_read = true;
 
   return str;
+}
+
+void Manager::mark_to_delete()
+{
+  liquidate = true;
+
+  std::cout << db_msg("File marked for deletion.\n");
+
+  std::cout << "CMakeLists.txt will be deleted on program exit.\n";
+  std::cout << "\n";
 }
