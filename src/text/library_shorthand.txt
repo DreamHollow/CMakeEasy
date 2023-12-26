@@ -11,4 +11,6 @@ You do not have to re-enter your library name.
 The library name you are providing components for;
 Will be displayed before each iteration. 
 
+Please enter '!exit' at any time if you want to stop CMakeEasy.
+
 Your library:
