@@ -113,7 +113,7 @@ void Application::init_filetype(std::string file_name, bool read_only)
     std::cout << db_msg("\n");
 }
 
-/// @brief Absolute call to free memory. Used during exceptions.
+/// @brief Absolute call to free memory. Used during exceptions and forced exits.
 void Application::free_data()
 {
     packages.clear();
@@ -121,7 +121,6 @@ void Application::free_data()
 
     if(alt == nullptr)
     {
-
         std::cout << db_msg("AltString was NULL, releasing...\n");
 
         alt.release();
@@ -133,7 +132,6 @@ void Application::free_data()
 
     if(ext_file == nullptr)
     {
-
         std::cout << db_msg("Manager was NULL, releasing...\n");
 
         ext_file.release();
@@ -258,6 +256,8 @@ void Application::early_setup()
     std::cout << "Please enter the name of the project that you are trying to create." << "\n";
     std::cout << "\n";
     std::cout << "The input will only handle up to 32 characters, please don't abuse it!" << "\n";
+    std::cout << "\n";
+    std::cout << "Type '!exit' if you want to stop CMakeEasy.\n";
     std::cout << "\n";
     std::cout << "Your project name: ";
     input_string(project_name);
@@ -1159,7 +1159,7 @@ void Application::finish_touches()
         ext_file->write(alt->declare(PRIV));
         ext_file->write(" ");
         ext_file->write("cxx_std_");
-        ext_file->write(actual); // Matches 'standard' int, i.e. 20, 17, etc.
+        ext_file->write(actual);
         ext_file->write(")\n");
     }
 
@@ -1176,8 +1176,6 @@ void Application::finish_touches()
     sys_flags();
 
     std::cout << linebreak << "\n" << "\n";
-
-    // win_flags();
 
     yes_no = 0;
 }
@@ -1197,8 +1195,6 @@ void Application::verbose_output()
     std::cout << "\n";
     std::cout << "Your choice: ";
     input_val<short>(yes_no);
-
-    //entry_check();
 
     switch(yes_no)
     {
@@ -1295,6 +1291,13 @@ std::string Application::input_string(std::string& str)
     // actually entered.
     
     std::cin >> str;
+
+    if(!allow_runtime(str))
+    {
+        free_data();
+
+        exit(0);
+    }
 
     return entry_check(str);
 }
@@ -1536,6 +1539,7 @@ void Application::set_windows_flags()
         std::cout << "\n";
         std::cout << "Your instruction: ";
         input_string(current);
+
         std::cout << "\n";
 
         if(current == "!none")
@@ -1759,4 +1763,94 @@ void Application::set_linux_flags()
 
     ext_file->write("endif()");
     ext_file->write("\n");
+}
+
+/// @brief Runtime checker. If relevant command is given, program must stop.
+/// @param string 
+/// @return 
+bool Application::allow_runtime(std::string& string)
+{
+    if(string == "!exit")
+    {
+        short temp = 0;
+
+        std::cout << "WARNING: Stopping CMakeEasy before completing the CMakeLists.txt\n";
+        std::cout << "file will result in an incomplete and possibly inoperable file.\n";
+        std::cout << "\n";
+        std::cout << "Really quit CMakeEasy?\n";
+        std::cout << "\n";
+        std::cout << "1. Yes, and also delete the CMakeLists.txt file.\n";
+        std::cout << "2. Yes, but keep the CMakeLists.txt file.\n";
+        std::cout << "3. No, continue operation.\n";
+        std::cout << "\n";
+        std::cout << "Your choice: ";
+
+        std::cin >> temp;
+        entry_check(temp);
+
+        switch(temp)
+        {
+            case 0:
+            {
+                std::cout << "ERROR: 0 is not a valid choice.\n";
+                std::cout << "Exiting CMakeEasy without deleting anything...\n";
+
+                stop_and_remove(false);
+
+                return false;
+            }
+            case 1:
+            {
+                std::cout << "Understood.\n";
+                std::cout << "CMakeEasy will stop running and delete it's generated file.\n";
+
+                stop_and_remove(true);
+
+                return false;
+            }
+            case 2:
+            {
+                std::cout << "Understood.\n";
+                std::cout << "CMakeEasy will stop running, but keep the created file.\n";
+
+                stop_and_remove(false);
+
+                return false;
+            }
+            case 3:
+            {
+                std::cout << "Understood.\n";
+                std::cout << "CMakeEasy will continue normally.\n";
+
+                // Clean the string, it's useless as-is.
+
+                string.clear();
+
+                break;
+            }
+        }
+    }
+
+    return true;
+}
+
+void Application::stop_and_remove(bool start_process)
+{
+    if(start_process)
+    {
+        std::cout << db_msg("stop_and_remove() starting...\n");
+        std::cout << db_msg("Marking CMakeLists.txt for deletion...\n");
+
+        ext_file->mark_to_delete();
+
+        //db_msg("Forcing runtime to stop...");
+        std::cout << db_msg("\n");
+    }
+    else // Debugging purposes
+    {
+        std::cout << db_msg("\n");
+        std::cout << db_msg("stop_and_remove() was called,\n");
+        std::cout << db_msg("stop_and_remove() exited without making changes.\n");
+        std::cout << db_msg("\n");
+    }
 }
