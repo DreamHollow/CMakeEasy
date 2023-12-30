@@ -26,14 +26,15 @@ COMMENT "Copying text resources into 'text' folder...")
 
 #end manual input
 
+# If `make install` is run then it actually installs
 if(WIN32)
-   message(STATUS "Installing for Windows...")
+   message(STATUS "Preparing data for Windows system...")
    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/cmakeeasy" PERMISSIONS GROUP_EXECUTE)
    install(DIRECTORY src/text/ DESTINATION "C:/Program Files/cmakeeasy/text")
 endif()
 
 if(UNIX)
-   message(STATUS "Installing for Linux...")
+   message(STATUS "Preparing data for Linux system...")
    install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
    install(DIRECTORY src/text/ DESTINATION etc/cmakeeasy)
 endif()
