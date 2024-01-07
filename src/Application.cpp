@@ -105,7 +105,7 @@ void Application::init_components()
 /// @param read_only 
 void Application::init_filetype(std::string file_name, bool read_only)
 {
-    std::shared_ptr<Manager> file_ptr = std::make_shared<Manager>(file_name, read_only);
+    std::shared_ptr<Manager> file_ptr = std::make_unique<Manager>(file_name, read_only);
     text_files.push_back(file_ptr);
 
     std::cout << db_msg("File added to vector: ");
