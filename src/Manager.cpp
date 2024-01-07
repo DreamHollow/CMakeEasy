@@ -143,7 +143,9 @@ Manager::~Manager()
 
   if(liquidate)
   {
-    std::cout << db_msg("File was set to be liquidated by Manager.\n");
+    std::cout << db_msg("File was set to be liquidated by Manager:\n");
+    std::cout << db_msg(this->file_name);
+    std::cout << db_msg("\n");
     std::cout << db_msg("Known file path: \n");
     std::cout << db_msg(file_name);
     std::cout << db_msg("\n");
