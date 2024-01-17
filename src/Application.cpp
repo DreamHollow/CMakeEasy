@@ -149,32 +149,24 @@ void Application::free_data()
 
 std::string Application::entry_check(std::string& str)
 {
-    try
+
+    if(std::cin.fail())
     {
-        if(std::cin.fail())
-        {
-            std::cout << "\n";
-            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
-            std::cout << "\n";
+        std::cout << "\n";
+        std::cout << "-- ERROR: INVALID INPUT --" << "\n";
+        std::cout << "\n";
 
-            std::cout << "Sorry, the program encountered an error." << "\n";
-            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-            std::cout << "for the program to process." << "\n";
-            std::cout << "\n";
-            std::cout << "If you don't understand why you have this error," << "\n";
-            std::cout << "please raise an issue on the Github repository." << "\n";
-            std::cout << "\n";
-            std::cout << "Thank you." << "\n";
-            std::cout << "\n";
+        std::cout << "Sorry, the program encountered an error." << "\n";
+        std::cout << "This error message is encountered if input was considered unsafe" << "\n";
+        std::cout << "for the program to process." << "\n";
+        std::cout << "\n";
+        std::cout << "If you don't understand why you have this error," << "\n";
+        std::cout << "please raise an issue on the Github repository." << "\n";
+        std::cout << "\n";
+        std::cout << "Thank you." << "\n";
+        std::cout << "\n";
 
-            this->free_data();
-
-            throw "Invalid data input!";
-        }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what();
+        throw std::runtime_error("APPLICATION::ENTRY_CHECK::INVALID_INPUT");
     }
 
     return str;
@@ -670,23 +662,14 @@ void Application::package_loop()
             std::cout << "Package data for " << packages.at(package_counter - 1);
             std::cout << " already parsed.\n";
 
-            try
+            if(package_counter < 2)
             {
-                if(package_counter < 2)
-                {
-                    std::cout << "ERROR: ";
-                    std::cout << "New package data cannot be entered for less than 2 packages!\n";
-                    std::cout << "CMakeEasy cannot continue.\n";
-                    std::cout << "\n";
+                std::cout << "ERROR: ";
+                std::cout << "New package data cannot be entered for less than 2 packages!\n";
+                std::cout << "CMakeEasy cannot continue.\n";
+                std::cout << "\n";
 
-                    free_data();
-
-                    throw "Invalid package data.";
-                }
-            }
-            catch(const std::exception& e)
-            {
-                std::cerr << e.what() << '\n';
+                throw std::runtime_error("APPLICATION::PACKAGE_LOOP::INVALID_COUNTER");
             }
             
             std::cout << "Please parse data for: " << packages.at(package_counter) << "\n";
@@ -1380,31 +1363,22 @@ void Application::config_text(const bool is_installed)
         const std::string win_dir("C:/Program Files/cmakeeasy/text/");
         std::string file_location;
 
-        try
+        for(auto it : dir_array)
         {
-            for(auto it : dir_array)
+            // Very unlikely, but worth catching if it happens
+            if(it.empty()) // A vector is missing and cannot be used
             {
-                // Very unlikely, but worth catching if it happens
-                if(it.empty()) // A vector is missing and cannot be used
-                {
-                    free_data();
+                std::cout << "ERROR:\n";
+                std::cout << "Some file data could not be initialized.\n";
 
-                    std::cout << "ERROR:\n";
-                    std::cout << "Some file data could not be initialized.\n";
-
-                    throw "Missing file data!";
-                }
-
-                file_location = init_directory(win_dir, it);
-                init_filetype(file_location, true);
-
-                std::cout << db_msg("Last item appended: " + file_location);
-                std::cout << db_msg("\n");
+                throw std::runtime_error("APPLICATION::CONFIG_TEXT::FILE_DATA_MISSING"); //"Missing file data!";
             }
-        }
-        catch(const std::runtime_error& r)
-        {
-            std::cerr << r.what() << '\n';
+
+            file_location = init_directory(win_dir, it);
+            init_filetype(file_location, true);
+
+            std::cout << db_msg("Last item appended: " + file_location);
+            std::cout << db_msg("\n");
         }
     }
     else if(is_installed && !OS_WIN) // Text files for Linux system
@@ -1412,30 +1386,21 @@ void Application::config_text(const bool is_installed)
         const std::string directive{"/usr/local/etc/cmakeeasy/"};
         std::string file_location;
 
-        try
+        for(auto it : dir_array)
         {
-            for(auto it : dir_array)
+            if(it.empty())
             {
-                if(it.empty())
-                {
-                    free_data();
+                std::cout << "ERROR:\n";
+                std::cout << "Some file data could not be initialized.\n";
 
-                    std::cout << "ERROR:\n";
-                    std::cout << "Some file data could not be initialized.\n";
-
-                    throw "Missing file data!";
-                }
-
-                file_location = init_directory(directive, it);
-                init_filetype(file_location, true);
-
-                std::cout << db_msg("Last item appended: " + file_location);
-                std::cout << db_msg("\n");
+                throw std::runtime_error("APPLICATION::CONFIG_TEXT::FILE_DATA_MISSING"); //"Missing file data!";
             }
-        }
-        catch(const std::runtime_error& r)
-        {
-            std::cerr << r.what() << '\n';
+
+            file_location = init_directory(directive, it);
+            init_filetype(file_location, true);
+
+            std::cout << db_msg("Last item appended: " + file_location);
+            std::cout << db_msg("\n");
         }
     }
 }
