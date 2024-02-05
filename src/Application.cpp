@@ -67,7 +67,7 @@ void Application::init_components()
     // Use the debug configuration - Same for Windows and Linux
     if(!installed)
     {
-        // If Windows is defined, just copy path string to this
+        // Windows and Linux handle this differently
         #ifdef _WIN32
         std::filesystem::path cwd = std::filesystem::current_path();
         system_path = cwd.string();
@@ -149,7 +149,6 @@ void Application::free_data()
 
 std::string Application::entry_check(std::string& str)
 {
-
     if(std::cin.fail())
     {
         std::cout << "\n";
@@ -362,6 +361,8 @@ void Application::package_setup()
 {
     // Package insertion loop continues in case of multiple packages
     // This can be a little confusing and will need to be reworked - TODO
+
+    // Package loop cannot be exited with !exit in the same way other loops can
 
     do
     {
@@ -984,8 +985,6 @@ void Application::run()
     std::cout << "Your choice: ";
 
     input_val<short>(yes_no);
-
-    //entry_check(yes_no);
 
     // Must be outside a function
     switch(yes_no)
