@@ -21,7 +21,7 @@ class Manager
 {
 public:
   Manager(std::string target_file, bool read_only);
-  virtual ~Manager();
+  ~Manager();
 
   // Public Variables
   std::string file_dir;

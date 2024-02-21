@@ -14,7 +14,7 @@ class Application
 {
 public:
     Application();
-    virtual ~Application();
+    ~Application();
 
     const bool running() const { return this->is_active; };
 

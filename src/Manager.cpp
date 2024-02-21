@@ -31,53 +31,46 @@ Manager::Manager(std::string target_file, bool read_only)
 
   // Read-only
 
-  try
+  if(read_only == true)
   {
-    if(read_only == true)
+    if(!infile.is_open())
     {
-      if(!infile.is_open())
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Current file path: ");
+      std::cout << db_msg(file_name);
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Attempting to open read-only file...");
+
+      infile.open(file_name.c_str());
+
+      if(infile.fail())
       {
         std::cout << db_msg("\n");
-        std::cout << db_msg("Current file path: ");
+        std::cout << db_msg("File opening failed.\n");
+        std::cout << db_msg("Could not open: ");
+        if(debug)
+        {
+          std::cout << (file_name);
+        }
+        std::cout << db_msg("\n");
+
+        std::cout << "\n";
+        std::cout << "ERROR: CMakeEasy failed to read a vital text file.\n";
+        std::cout << "Program execution cannot continue.\n";
+        std::cout << "Stopping CMakeEasy...\n";
+
+        free_data();
+
+        throw std::runtime_error("MANAGER::INFILE::LOAD_FAIL"); //"Unable to open read-only file!";
+      }
+      else
+      {
+        std::cout << db_msg("\n");
+        std::cout << db_msg("Read-only file was opened successfully: ");
         std::cout << db_msg(file_name);
         std::cout << db_msg("\n");
-        std::cout << db_msg("Attempting to open read-only file...");
-
-        infile.open(file_name.c_str());
-
-        if(infile.fail())
-        {
-          std::cout << db_msg("\n");
-          std::cout << db_msg("File opening failed.\n");
-          std::cout << db_msg("Could not open: ");
-          if(debug)
-          {
-            std::cout << (file_name);
-          }
-          std::cout << db_msg("\n");
-
-          std::cout << "\n";
-          std::cout << "ERROR: CMakeEasy failed to read a vital text file.\n";
-          std::cout << "Program execution cannot continue.\n";
-          std::cout << "Stopping CMakeEasy...\n";
-
-          free_data();
-
-          throw "Unable to open read-only file!";
-        }
-        else
-        {
-          std::cout << db_msg("\n");
-          std::cout << db_msg("Read-only file was opened successfully: ");
-          std::cout << db_msg(file_name);
-          std::cout << db_msg("\n");
-        }
       }
     }
-  }
-  catch(const std::exception& e)
-  {
-    std::cerr << e.what();
   }
   
   std::cout << db_msg("\n");
@@ -91,30 +84,27 @@ Manager::Manager(std::string target_file, bool read_only)
   {
     std::cout << db_msg("Read-only flag set to false, initializing CMakeLists.txt...\n");
 
-    try
+    if(!outfile.is_open())
     {
-      if(!outfile.is_open())
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Current file path: ");
+      std::cout << db_msg(file_name);
+      std::cout << db_msg("\n");
+      std::cout << db_msg("Attempting to create/edit CMakeLists.txt...\n");
+
+      outfile.open(file_name.c_str(), std::ios::out | std::ios::trunc);
+
+      // Flags a boolean fail -- moves program to application, then main
+      if(outfile.fail())
       {
-        std::cout << db_msg("\n");
-        std::cout << db_msg("Current file path: ");
-        std::cout << db_msg(file_name);
-        std::cout << db_msg("\n");
-        std::cout << db_msg("Attempting to create/edit CMakeLists.txt...\n");
+        std::cout << "\n";
+        std::cout << "ERROR: CMakeLists.txt file is unable to be opened.\n";
+        std::cout << "CMakeEasy cannot continue.\n";
+        std::cout << "\n";
 
-        outfile.open(file_name.c_str(), std::ios::out | std::ios::trunc);
+        free_data();
 
-        // Flags a boolean fail -- moves program to application, then main
-        if(outfile.fail())
-        {
-          std::cout << "\n";
-          std::cout << "ERROR: CMakeLists.txt file is unable to be opened.\n";
-          std::cout << "CMakeEasy cannot continue.\n";
-          std::cout << "\n";
-
-          free_data();
-
-          throw "Unable to open file.";
-        }
+        throw std::runtime_error("MANAGER::OUTFILE::LOAD_FAIL"); //"Unable to open file.";
       }
       else
       {
@@ -126,13 +116,7 @@ Manager::Manager(std::string target_file, bool read_only)
         std::cout << db_msg("is ready to be modified.\n");
       }
     }
-    catch(const std::exception& e)
-    {
-      std::cerr << e.what() << '\n';
-    }
   }
-
-  // End of file check
 };
 
 Manager::~Manager()
@@ -141,29 +125,14 @@ Manager::~Manager()
 
   free_data();
 
-  if(liquidate)
+  if(liquidate && !outfile.is_open())
   {
-    std::cout << db_msg("File was set to be liquidated by Manager.\n");
+    std::cout << db_msg("File was set to be liquidated by Manager:\n");
+    std::cout << db_msg(this->file_name);
+    std::cout << db_msg("\n");
     std::cout << db_msg("Known file path: \n");
     std::cout << db_msg(file_name);
     std::cout << db_msg("\n");
-
-    // This should NEVER happen.
-    try
-    {
-      if(outfile.is_open())
-      {
-        std::cout << "ERROR: CMakeLists.txt was still open for some reason.\n";
-
-        std::cout << db_msg("ERROR: Manager file was still open! Can't delete.\n");
-
-        throw "Manager failed to delete marked file.";
-      }
-    }
-    catch(const std::exception& e)
-    {
-      std::cerr << e.what() << '\n';
-    }
 
     std::remove(file_name.c_str());
 

@@ -4,10 +4,18 @@ int main()
 {
     Application app;
 
-    while(app.running())
+    try
     {
-        app.run();
+        while(app.running())
+        {
+            app.run();
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return EXIT_FAILURE;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 };

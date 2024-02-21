@@ -7,7 +7,7 @@ BRANCHES
 CMakeEasy is configured to generate CMakeLists.txt files for applications, but not libraries.
 
 `master` holds the final, stable changes to CMakeEasy.
-`devel` branches or numbered branches such as `1.2.x` are in-development and not considered safe for general use. 
+`devel` branches or numbered branches such as `1.3.x` are in-development and not considered safe for general use. 
 
 NOTE: Branch versioning numbering has been revised. Project will start officially as 1.0.
 
