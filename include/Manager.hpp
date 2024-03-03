@@ -7,7 +7,6 @@
 #include <iostream>
 #include <vector>
 #include <streambuf>
-#include <filesystem>
 #include "Globals.h"
 
 // If a Windows system is being used
