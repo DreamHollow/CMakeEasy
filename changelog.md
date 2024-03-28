@@ -1,5 +1,27 @@
 # CMakeEasy Changelog
 
+## MARCH 28 2024
+----------------
+
+<details>
+<summary>Major Changes</summary>
+
+* Program version updated to 1.3.0
+
+* Stability fixes and improvements
+
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+
+* Some documentation updates
+
+</details>
+
+> [!NOTE]
+> This is currently considered the most stable version of CMakeEasy at this time. Please consider updating.
+
 ## DECEMBER 26 2023
 -------------------
 
