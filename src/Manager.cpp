@@ -134,7 +134,8 @@ Manager::~Manager()
     std::cout << db_msg(file_name);
     std::cout << db_msg("\n");
 
-    std::remove(file_name.c_str());
+    //std::remove(file_name.c_str());
+    std::filesystem::remove(file_name.c_str());
 
     std::cout << db_msg("File removed.\n");
   }
