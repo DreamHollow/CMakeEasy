@@ -45,6 +45,9 @@ void Application::init_components()
 
     installed = set_install_config();
 
+    // Directory vector appends known system files
+    // It's up to the installation state which set are actually used.
+
     dir_array.push_back("start.txt"); // 0
     dir_array.push_back("minor_vers.txt"); // 1
     dir_array.push_back("release_vers.txt"); // 2
@@ -64,7 +67,6 @@ void Application::init_components()
 
     config_text(installed);
 
-    // Use the debug configuration - Same for Windows and Linux
     if(!installed)
     {
         // Windows and Linux handle this differently
@@ -746,7 +748,10 @@ void Application::package_loop()
 
                     if(library_shorthand.empty()) // No library to link
                     {
-                        // ext_file->write("\n");
+                        std::cout << "\n";
+                        std::cout << "No new library information was entered.\n";
+                        std::cout << "Skipping...\n";
+                        std::cout << "\n";
                     }
                     else
                     {
@@ -803,7 +808,7 @@ void Application::package_loop()
     else
     {
         std::cout << "\n";
-        std::cout << "No package or library data entered. Skipping..." << "\n";
+        std::cout << "No package or library data entered. Moving on..." << "\n";
         std::cout << "\n";
     }
 
@@ -1296,6 +1301,9 @@ std::string Application::input_longstring(std::string& str)
 bool Application::set_install_config()
 {
     bool install_state = false;
+
+    // Instead of using the #define call
+    // The OS_WIN flag helps determine if Windows or Linux
 
     // Detect installation type
     if(OS_WIN)
@@ -1798,6 +1806,8 @@ bool Application::allow_runtime(std::string& string)
     return true;
 }
 
+/// @brief A normally silent process that just deletes a created CMake list if necessary.
+/// @param start_process 
 void Application::stop_and_remove(bool start_process)
 {
     if(start_process)
