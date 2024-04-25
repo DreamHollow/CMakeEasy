@@ -24,20 +24,25 @@ ${PROJECT_SOURCE_DIR}/src/text
 ${PROJECT_BINARY_DIR}/text
 COMMENT "Copying text resources into 'text' folder...")
 
-#end manual input
+# CPack information is incomplete and is commented out for now.
 
 # If `make install` is run then it actually installs
 if(WIN32)
    message(STATUS "Preparing data for Windows system...")
    install(TARGETS ${PROJECT_NAME} DESTINATION "C:/Program Files/cmakeeasy" PERMISSIONS GROUP_EXECUTE)
    install(DIRECTORY src/text/ DESTINATION "C:/Program Files/cmakeeasy/text")
+   #include(CPack)
 endif()
 
 if(UNIX)
    message(STATUS "Preparing data for Linux system...")
    install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
    install(DIRECTORY src/text/ DESTINATION etc/cmakeeasy)
+   #include(CPack)
 endif()
+
+#set(CPACK_PACKAGE_NAME "cmakeeasy")
+#set(CPACK_PACKAGE_VENDOR "dreamhollow4219")
 
 # Auto-generated comment:
 # This list made with CMakeEasy.
