@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_VERBOSE_MAKEFILE true)
+set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
 add_executable(${PROJECT_NAME} src/Main.cpp
 src/AltString.cpp
