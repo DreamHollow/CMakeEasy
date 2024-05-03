@@ -1,5 +1,26 @@
 # CMakeEasy Changelog
 
+## APRIL 23 2024
+----------------
+
+<details>
+<summary>Major Changes</summary>
+
+* Update file removal function to std::filesystem call
+
+* New 'clean' script for Linux
+
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+
+* Minor stability improvements
+
+* New commentary
+
+</details>
+
 ## MARCH 28 2024
 ----------------
 
