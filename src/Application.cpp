@@ -478,7 +478,7 @@ void Application::package_setup()
             std::cout << db_msg("was added to 'packages' vector.\n");
             std::cout << db_msg("\n");
 
-            ext_file->write(alt->declare(FIND_PACK)); // find_package
+            ext_file->write(alt->declare(FIND_PACKAGE)); // find_package
             ext_file->write("(");
             ext_file->write(package_name);
 
