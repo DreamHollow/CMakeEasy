@@ -1,5 +1,20 @@
 # CMakeEasy Changelog
 
+## AUGUST 1 2024
+
+<details>
+<summary>Major Changes</summary>
+
+* Pre-emptive CPack preparation
+
+</details>
+<details>
+<summary>Minor Changes</summary>
+
+* Text explanation cleanup
+
+</details>
+
 ## APRIL 23 2024
 ----------------
 
