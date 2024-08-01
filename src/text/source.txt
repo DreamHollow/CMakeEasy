@@ -1,4 +1,9 @@
     Please set the 'source files' that allow your program to run.
     Source files are necessary for your program to run.
     They are NOT libraries.
-    Example: main.cpp
+
+    These files will be automatically amended as 'src/[your file]'
+    or folders may be included with the syntax of '/[folder]/[your file]'
+    that amends to 'src/[your folder]/[your file]' automatically.
+
+    For example: main.cpp (becomes src/main.cpp)

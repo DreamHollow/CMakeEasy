@@ -3,6 +3,7 @@ Please enter any extra packages you would like to add.
 Please note that you can enter packages one after another, then you will
 be asked to add the relevant components afterward.
 
-If you don't want to add any more packages, just type '!none' instead.
+If you want to stop entering packages, type '!none'.
 If you want to quit CMakeEasy, type '!exit'
+
 Your package:

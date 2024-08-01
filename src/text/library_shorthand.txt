@@ -1,10 +1,15 @@
 Please enter the library shorthand. 
 
 For example, SFML becomes sfml and links to a component. 
-e.g. sfml-graphics links the graphics module. 
+e.g. sfml-graphics links the graphics module.
+
+Please note that not all libraries require this step but it is common with
+some libraries such as SFML.
 
 Once the library shorthand is entered, it will be reused until the 
-user tells the program to stop entering components. 
+user tells the program to stop entering components.
+
+This format will appear as '[your library]-[your library component]'
 
 PLEASE NOTE:
 You do not have to re-enter your library name. 

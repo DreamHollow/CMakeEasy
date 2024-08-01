@@ -1,4 +1,5 @@
 Welcome to the CMakeLists all-purpose generator!
+
 This generator will help further simplify CMakeLists.txt generation
 for inexperienced users.
 
@@ -6,15 +7,20 @@ This program will not tell you how to use CMake. Learning proper CMake
 usage requires that you read the documentation at 
 https://cmake.org/documentation/
 
-Please keep in mind that incorrect inputs will force the program to
+Please keep in mind that some incorrect inputs will force the program to
 terminate prematurely.
+
+Also please keep in mind that CMakeEasy is not a cure-all and incorrect data
+in a CMakeLists.txt file may cause programs to build incorrectly or not at all.
 
 This version of CMakeEasy works exclusively for
 configuring CMake to work with C++ files.
 
 You will be asked what version of CMake you are using.
-A major and minor version of the program must be provided.
+A major, minor, and release version of the program must be provided.
 This will designate the 'minimum version' needed for things to work.
 
+The brackets and text will explain which data is being entered.
+
 What is the major version of CMake that you are using?
-Example: [3].22.1
+For example: [3].22.1

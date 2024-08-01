@@ -5,6 +5,9 @@ linking these files will not work.
         
 Please note that while adding libraries, you will need
 to link any necessary components as well.
+
+If you don't need to link any components to your library,
+CMakeEasy will allow you to skip component entry.
         
 Start linking libraries (and) components?
 1. Yes.
