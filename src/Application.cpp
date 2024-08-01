@@ -248,8 +248,6 @@ void Application::early_setup()
     std::cout << "\n";
     std::cout << "Please enter the name of the project that you are trying to create." << "\n";
     std::cout << "\n";
-    std::cout << "The input will only handle up to 32 characters, please don't abuse it!" << "\n";
-    std::cout << "\n";
     std::cout << "Type '!exit' if you want to stop CMakeEasy.\n";
     std::cout << "\n";
     std::cout << "Your project name: ";
@@ -999,7 +997,7 @@ void Application::run()
             std::cout << "Understood." << "\n";
             std::cout << "Looping back to library linking." << "\n";
             std::cout << "\n";
-            goto PACK_LOOP;
+            goto PACK_LOOP; // goto is actually easier here than other options
 
             break;
         }
