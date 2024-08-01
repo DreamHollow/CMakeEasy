@@ -13,6 +13,8 @@
 
 * Text explanation cleanup
 
+* Added 'rebuild' script for easy clean and build
+
 </details>
 
 ## APRIL 23 2024
