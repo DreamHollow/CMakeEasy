@@ -3,6 +3,9 @@
 # Only works for debug version of CMakeEasy
 # Do not modify this file! It may cause issues.
 
+# Please note that if you create the Release version of the program,
+# you will need to run sudo ./clean.sh for it to work.
+
 BUILD_DIR='build'
 DEBUG_DIR='Debug'
 RELEASE_DIR='Release'
