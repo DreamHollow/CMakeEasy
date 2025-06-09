@@ -1,8 +1,11 @@
 #ifndef APPLICATION_HPP_INCLUDED
 #define APPLICATION_HPP_INCLUDED 1
 #include "AltString.hpp"
+#include <iostream>
+#include <vector>
+#include <memory>
 #include <algorithm>
-#ifdef _WIN32
+#ifdef _WIN64
 #include <WinBase.h>
 #endif
 
@@ -16,13 +19,14 @@ public:
     Application();
     ~Application();
 
-    const bool running() const { return this->is_active; };
+    bool running = false;
+
+    //const bool running() const { return this->is_active; };
 
     void run();
 
 private:
     // Variables
-    bool is_active;
     bool valid_standard;
     bool has_package;
 
