@@ -1,4 +1,5 @@
 #include "AltString.hpp"
+#include <iostream>
 
 AltString::AltString()
 {
