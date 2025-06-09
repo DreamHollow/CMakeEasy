@@ -1,15 +1,11 @@
 #ifndef MANAGER_HPP_INCLUDED
 #define MANAGER_HPP_INCLUDED 1
-
+#include <string>
 #include <fstream>
-#include <filesystem>
-#include <cstring>
-#include <iostream>
-#include <vector>
-#include <streambuf>
 #include "Globals.h"
 
-// If a Windows system is being used
+// Homedir is used and recycled for initialization
+// But this part only takes over for a Windows system
 #if OS_WIN
 static std::string homedir = "";
 #endif
