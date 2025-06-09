@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include <filesystem>
 
 Application::Application()
 {
@@ -21,8 +22,8 @@ void Application::init_vars()
     // Do not alter debugging state except in Globals.h
 
     // Start the pointers at null for safety reasons
-
-    is_active = true; // Starts runtime
+    
+    running = true; // Starts runtime
     alt = nullptr;
     ext_file = nullptr;
 
@@ -1065,7 +1066,7 @@ void Application::run()
     std::cout << db_msg("Reached end of program.\n");
     std::cout << db_msg("\n");
 
-    is_active = false; // Terminate program
+    running = false; // Terminate program
 }
 
 
