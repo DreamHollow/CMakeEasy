@@ -1,5 +1,21 @@
 # CMakeEasy Changelog
 
+## JUNE 5 2025
+
+<details>
+<summary>Major Changes</summary>
+
+* Redefined includes for better compilation.
+
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+
+* 'is_running()' function changed to a regular bool.
+
+</details>
+
 ## AUGUST 1 2024
 
 <details>
