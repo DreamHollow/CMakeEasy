@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include <iostream>
 
 int main()
 {
@@ -6,7 +7,7 @@ int main()
 
     try
     {
-        while(app.running())
+        while(app.running)
         {
             app.run();
         }
