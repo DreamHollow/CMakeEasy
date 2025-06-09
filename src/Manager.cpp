@@ -1,4 +1,7 @@
 #include "Manager.hpp"
+#include <filesystem>
+#include <sstream>
+#include <iostream>
 
 /// @brief Constructor initializing a file, then determining write status.
 /// @param target_file 
