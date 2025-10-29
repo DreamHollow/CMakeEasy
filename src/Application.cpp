@@ -1,5 +1,6 @@
 #include "Application.hpp"
 #include <filesystem>
+#include <algorithm>
 
 Application::Application()
 {
@@ -150,7 +151,7 @@ void Application::free_data()
     std::cout << db_msg("'alt' and 'ext_file' pointers released safely.\n");
 }
 
-std::string Application::entry_check(std::string& str)
+const std::string Application::entry_check(std::string *str)
 {
     if(std::cin.fail())
     {
@@ -171,7 +172,7 @@ std::string Application::entry_check(std::string& str)
         throw std::runtime_error("APPLICATION::ENTRY_CHECK::INVALID_INPUT");
     }
 
-    return str;
+    return *str;
 }
 
 void Application::early_setup()
@@ -252,7 +253,7 @@ void Application::early_setup()
     std::cout << "Type '!exit' if you want to stop CMakeEasy.\n";
     std::cout << "\n";
     std::cout << "Your project name: ";
-    input_string(project_name);
+    input_string(&project_name);
     std::cout << "\n";
 
     std::cout << "\n";
@@ -378,7 +379,7 @@ void Application::package_setup()
         std::cout << "\n";
 
         std::cout << "Your package: ";
-        input_string(package_name);
+        input_string(&package_name);
         std::cout << "\n";
 
         if(package_name == "!none")
@@ -457,7 +458,7 @@ void Application::package_setup()
                 std::cout << "If you don't need to add any components, enter '!none' instead." << "\n";
                 std::cout << "\n";
                 std::cout << "Your next component: ";
-                input_string(co_entry);
+                input_string(&co_entry);
                 std::cout << "\n";
 
                 if(co_entry == "!none")
@@ -704,7 +705,7 @@ void Application::package_loop()
 
                 std::cout << text_files.at(LIB_SHORT)->read();
                 std::cout << " "; 
-                input_string(library_shorthand);
+                input_string(&library_shorthand);
                 std::cout << "\n";
 
                 library_shorthand.append("-"); // Append a dash
@@ -727,7 +728,7 @@ void Application::package_loop()
                     std::cout << "\n";
                     std::cout << "Your next library target: ";
 
-                    input_string(library_segment);
+                    input_string(&library_segment);
 
                     if(library_segment == "!none") // Stop the process
                     {
@@ -828,7 +829,7 @@ void Application::source_and_includes()
     std::string source = "src/";
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
-    input_string(exe_name);
+    input_string(&exe_name);
     std::cout << "\n";
 
     ext_file->write(alt->declare(ADD_EXEC)); // add exe
@@ -852,7 +853,7 @@ void Application::source_and_includes()
         std::cout << "Your next class file: ";
 
         // Input class name
-        input_string(class_name);
+        input_string(&class_name);
 
         if(class_name == "!none")
         {
@@ -1268,33 +1269,36 @@ void Application::generate_final()
     }
 }
 
-/// @brief Function checks if string input is valid. Seperate from numerical input.
+/// @brief Function checks if string input is valid. If it can't be, it halts operation.
 /// @return str
-std::string Application::input_string(std::string& str)
+std::string Application::input_string(std::string* str)
 {
     // Please note that trying to enter nothing will result in
     // the program continuing to ask for data until something is
     // actually entered.
     
-    std::cin >> str;
+    std::cin >> *str;
 
-    if(!allow_runtime(str))
+    if(!allow_runtime(*str))
     {
         free_data();
 
         exit(0);
     }
 
-    return entry_check(str);
+    return entry_check(*str);
 }
 
-std::string Application::input_longstring(std::string& str)
+/// @brief Similar function to input_string but with less truncation.
+/// @param str 
+/// @return 
+std::string Application::input_longstring(std::string* str)
 {
     std::cin.clear();
     std::cin.ignore();
-    std::getline(std::cin, str);
+    std::getline(std::cin, *str);
 
-    return entry_check(str);
+    return entry_check(*str);
 }
 
 bool Application::set_install_config()
@@ -1509,7 +1513,7 @@ void Application::set_windows_flags()
         std::cout << "Type !none if you want to stop adding instructions.\n";
         std::cout << "\n";
         std::cout << "Your instruction: ";
-        input_string(current);
+        input_string(&current);
 
         std::cout << "\n";
 
@@ -1544,14 +1548,14 @@ void Application::set_windows_flags()
             std::cout << "Parenthesis will be added automatically.\n";
             std::cout << "Example: message(STATUS This is a status message.)\n";
             std::cout << current << "(";
-            input_longstring(str_context);
+            input_longstring(&str_context);
 
             if(current == "install")
             {
                 std::cout << "What are the install permissions for this instruction?\n";
                 std::cout << "Examples: OWNER_EXECUTE, GROUP_EXECUTE (etc.)";
                 std::cout << "PERMISSIONS ";
-                input_string(permissions);
+                input_string(&permissions);
                 std::cout << "\n";
             }
 
@@ -1640,7 +1644,7 @@ void Application::set_linux_flags()
         std::cout << "Type !none if you want to stop adding instructions.\n";
         std::cout << "\n";
         std::cout << "Your instruction: ";
-        input_string(current);
+        input_string(&current);
         std::cout << "\n";
 
         if(current == "!none")
@@ -1675,7 +1679,7 @@ void Application::set_linux_flags()
             std::cout << "Parenthesis will be added automatically.\n";
             std::cout << "Example: message(STATUS This is a status message.)\n";
             std::cout << current << "(";
-            input_longstring(str_context);
+            input_longstring(&str_context);
 
             /*
             if(current == "install")
