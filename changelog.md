@@ -1,5 +1,27 @@
 # CMakeEasy Changelog
 
+## JAN 13 2025
+
+<details>
+<summary>Major Changes</summary>
+
+* New declarations added for future features.
+
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+
+* README updated.
+
+* In-code documentation improvements.
+
+</details>
+
+> [!NOTE]
+> CMakeEasy is still focused on executable generation, but
+> compatibility for building libraries is in the works.
+
 ## JUNE 5 2025
 
 <details>
