@@ -9,6 +9,7 @@
 #include <WinBase.h>
 #endif
 
+/// @brief Refers to text documents included with program.
 enum TEXT_FILES { START = 0, MINOR_V_TXT, RELEASE_TXT, PROGRAM_V_TXT, PROG_LANG_TXT,
     COMPONENT_TXT, OP_TXT, VERB_TXT, PACK_SET, INCLUDE_TXT, PACKAGES_TXT,
     STANDARDS_TXT, SOURCES_TXT, MORE_LIBS_TXT, PROMOTE_TXT, LIB_SHORT };
@@ -20,8 +21,6 @@ public:
     ~Application();
 
     bool running = false;
-
-    //const bool running() const { return this->is_active; };
 
     void run();
 
@@ -98,35 +97,32 @@ inline InputVector Application::input_val(InputVector &num)
     return entry_check(num);
 }
 
+/// @brief Template that throws an exception if there's a type mismatch.
+/// @tparam InputData 
+/// @param value 
+/// @return 
 template <typename InputData>
 inline InputData Application::entry_check(InputData &value)
 {
-    try
+    if(std::cin.fail() || std::cin.bad())
     {
-        if(std::cin.fail())
-        {
-            std::cout << "\n";
-            std::cout << "-- ERROR: INVALID INPUT --" << "\n";
-            std::cout << "\n";
+        std::cout << "\n";
+        std::cout << "-- ERROR: INVALID INPUT --" << "\n";
+        std::cout << "\n";
 
-            std::cout << "Sorry, the program encountered an error." << "\n";
-            std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-            std::cout << "for the program to process." << "\n";
-            std::cout << "\n";
-            std::cout << "If you don't understand why you have this error," << "\n";
-            std::cout << "please raise an issue on the Github repository." << "\n";
-            std::cout << "\n";
-            std::cout << "Thank you." << "\n";
-            std::cout << "\n";
+        std::cout << "Sorry, the program encountered an error." << "\n";
+        std::cout << "This error message is encountered if input was considered unsafe" << "\n";
+        std::cout << "for the program to process." << "\n";
+        std::cout << "\n";
+        std::cout << "If you don't understand why you have this error," << "\n";
+        std::cout << "please raise an issue on the Github repository." << "\n";
+        std::cout << "\n";
+        std::cout << "Thank you." << "\n";
+        std::cout << "\n";
 
-            this->free_data();
+        this->free_data();
 
-            throw "Invalid data input!";
-        }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what();
+        throw std::runtime_error("CMAKEEASY::INPUT::NON_VIABLE");
     }
 
     return InputData();
