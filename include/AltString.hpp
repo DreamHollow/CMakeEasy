@@ -3,10 +3,15 @@
 #include "Manager.hpp"
 #include <vector>
 
+/// @brief Enumerated declarations to make syntax less confusing.
 enum DECLARATION { CMAKE_MIN = 0, PROJ, VERS_NUM, PROGRAM_LANG, CONF_FILE,
     TARGET_LINK_LIB, CMAKE_STANDARD, SET_DATA, ADD_EXEC, INCLUDE_DIR,
     TARGET_COMPILE, PROJECT_NAME, PUB, PRIV, INTERFACE, CMAKE_REQ,
-    REQ, COMP, FIND_PACKAGE, VERBOSE_MAKE };
+    REQ, COMP, FIND_PACKAGE, VERBOSE_MAKE
+};
+
+// INTERFACE is excluded as it is already defined elsewhere
+enum LIBRARY_TYPE { STATIC, SHARED, MODULE, OBJECT };
 
 /// @brief Reduces some output clutter and loosely handles inputs.
 class AltString
