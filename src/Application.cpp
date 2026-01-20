@@ -122,28 +122,6 @@ void Application::free_data()
     packages.clear();
     packages.shrink_to_fit();
 
-    if(alt == nullptr)
-    {
-        std::cout << db_msg("AltString was NULL, releasing...\n");
-
-        alt.release();
-    }
-    else
-    {
-        alt.reset();
-    }
-
-    if(ext_file == nullptr)
-    {
-        std::cout << db_msg("Manager was NULL, releasing...\n");
-
-        ext_file.release();
-    }
-    else
-    {
-        ext_file.reset();
-    }
-
     text_files.clear();
     text_files.shrink_to_fit();
 
