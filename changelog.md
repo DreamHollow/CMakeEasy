@@ -1,5 +1,25 @@
 # CMakeEasy Changelog
 
+## MAR 15 2026
+
+<details>
+<summary>Major Changes</summary>
+
+* Complete reconfiguration of debugging and usage of 'Config.h' over 'Globals.h'
+
+* Rework of debugging format and variables.
+
+* Official version update to 2.0
+
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+
+* Updated comments for some classes.
+
+</details>
+
 ## JAN 13 2025
 
 <details>
