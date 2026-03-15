@@ -131,35 +131,6 @@ void Application::free_data()
     packages.clear();
     packages.shrink_to_fit();
 
-<<<<<<< Updated upstream
-=======
-    if(alt == nullptr)
-    {
-        #if DEBUGGING
-        std::cout << db_msg("AltString was NULL, releasing...\n");
-        #endif
-
-        alt.release();
-    }
-    else
-    {
-        alt.reset();
-    }
-
-    if(ext_file == nullptr)
-    {
-        #if DEBUGGING
-        std::cout << db_msg("Manager was NULL, releasing...\n");
-        #endif
-
-        ext_file.release();
-    }
-    else
-    {
-        ext_file.reset();
-    }
-
->>>>>>> Stashed changes
     text_files.clear();
     text_files.shrink_to_fit();
 
