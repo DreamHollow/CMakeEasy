@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-//#include <algorithm>
+
 #ifdef _WIN64
 #include <WinBase.h>
 #endif
@@ -77,6 +77,7 @@ private:
 
     // These only really work if they can free memory after call.
     // Because templates are messy there is no way to separate this.
+
     // Templates
     template <typename InputVector>
     inline const InputVector input_val(InputVector &num)
@@ -129,51 +130,4 @@ private:
     std::vector<std::shared_ptr<Manager>> text_files;
 };
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 #endif
-
-template <typename InputVector>
-inline InputVector Application::input_val(InputVector &num)
-{
-    std::cin >> num;
-
-    return entry_check(num);
-}
-
-/// @brief Template that throws an exception if there's a type mismatch.
-/// @tparam InputData 
-/// @param value 
-/// @return 
-template <typename InputData>
-inline InputData Application::entry_check(InputData &value)
-{
-    if(std::cin.fail() || std::cin.bad())
-    {
-        std::cout << "\n";
-        std::cout << "-- ERROR: INVALID INPUT --" << "\n";
-        std::cout << "\n";
-
-        std::cout << "Sorry, the program encountered an error." << "\n";
-        std::cout << "This error message is encountered if input was considered unsafe" << "\n";
-        std::cout << "for the program to process." << "\n";
-        std::cout << "\n";
-        std::cout << "If you don't understand why you have this error," << "\n";
-        std::cout << "please raise an issue on the Github repository." << "\n";
-        std::cout << "\n";
-        std::cout << "Thank you." << "\n";
-        std::cout << "\n";
-
-        this->free_data();
-
-        throw std::runtime_error("CMAKEEASY::INPUT::NON_VIABLE");
-    }
-
-    return InputData();
-}
-=======
-#endif
->>>>>>> Stashed changes
-=======
-#endif
->>>>>>> Stashed changes
