@@ -1,5 +1,8 @@
 #include "Application.hpp"
 #include <filesystem>
+#include <algorithm>
+
+static short yes_no = 0;
 
 Application::Application()
 {
@@ -84,18 +87,22 @@ void Application::init_components()
 
         debug_dir = (system_path + "/" + "text/");
 
+        #if DEBUGGING
         std::cout << db_msg("\n");
         std::cout << db_msg("Current debug directory: " + debug_dir);
         std::cout << db_msg("\n");
         std::cout << db_msg("Performing debug file checks...\n");
+        #endif
 
         for(auto it : dir_array)
         {
             file_location = init_directory(debug_dir, it);
             init_filetype(file_location, true);
 
+            #if DEBUGGING
             std::cout << db_msg("Last item appended: " + file_location);
             std::cout << db_msg("\n");
+            #endif
         }
     }
 
@@ -111,9 +118,11 @@ void Application::init_filetype(std::string file_name, bool read_only)
     std::shared_ptr<Manager> file_ptr = std::make_unique<Manager>(file_name, read_only);
     text_files.push_back(file_ptr);
 
+    #if DEBUGGING
     std::cout << db_msg("File added to vector: ");
     std::cout << db_msg(file_name);
     std::cout << db_msg("\n");
+    #endif
 }
 
 /// @brief Absolute call to free memory. Used during exceptions and forced exits.
@@ -122,13 +131,44 @@ void Application::free_data()
     packages.clear();
     packages.shrink_to_fit();
 
+<<<<<<< Updated upstream
+=======
+    if(alt == nullptr)
+    {
+        #if DEBUGGING
+        std::cout << db_msg("AltString was NULL, releasing...\n");
+        #endif
+
+        alt.release();
+    }
+    else
+    {
+        alt.reset();
+    }
+
+    if(ext_file == nullptr)
+    {
+        #if DEBUGGING
+        std::cout << db_msg("Manager was NULL, releasing...\n");
+        #endif
+
+        ext_file.release();
+    }
+    else
+    {
+        ext_file.reset();
+    }
+
+>>>>>>> Stashed changes
     text_files.clear();
     text_files.shrink_to_fit();
 
+    #if DEBUGGING
     std::cout << db_msg("'alt' and 'ext_file' pointers released safely.\n");
+    #endif
 }
 
-std::string Application::entry_check(std::string& str)
+const std::string Application::entry_check(std::string *str)
 {
     if(std::cin.fail())
     {
@@ -149,7 +189,7 @@ std::string Application::entry_check(std::string& str)
         throw std::runtime_error("APPLICATION::ENTRY_CHECK::INVALID_INPUT");
     }
 
-    return str;
+    return *str;
 }
 
 void Application::early_setup()
@@ -208,18 +248,17 @@ void Application::early_setup()
     ext_file->write(")");
     ext_file->write("\n");
 
-    if(debug)
-    {
-        std::cout << "DEBUG STATEMENT:\n";
-        std::cout << "\n";
-        std::cout << "Line in CMakeLists should read as\n";
-        std::cout << "'cmake_minimum_required(VERSION";
-        std::cout << " " << major << "." << minor << "." << release << ")" << "'";
-        std::cout << "\n";
-        std::cout << "\n";
-        std::cout << "END DEBUG STATEMENT\n";
-        std::cout << "\n";
-    }
+    #if DEBUGGING
+    std::cout << "DEBUG STATEMENT:\n";
+    std::cout << "\n";
+    std::cout << "Line in CMakeLists should read as\n";
+    std::cout << "'cmake_minimum_required(VERSION";
+    std::cout << " " << major << "." << minor << "." << release << ")" << "'";
+    std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "END DEBUG STATEMENT\n";
+    std::cout << "\n";
+    #endif
 
     std::cout << "Wrote " << "'" << alt->declare(CMAKE_MIN) << "'" << " line automatically." << "\n";
     std::cout << "\n";
@@ -230,7 +269,7 @@ void Application::early_setup()
     std::cout << "Type '!exit' if you want to stop CMakeEasy.\n";
     std::cout << "\n";
     std::cout << "Your project name: ";
-    input_string(project_name);
+    input_string(&project_name);
     std::cout << "\n";
 
     std::cout << "\n";
@@ -314,26 +353,25 @@ void Application::early_setup()
     ext_file->write(")");
     ext_file->write("\n");
 
-    if(debug)
+    #if DEBUGGING
+    std::cout << "DEBUG STATEMENT:\n";
+    std::cout << "\n";
+    std::cout << "Line should read as: " << "\n";
+    std::cout << alt->declare(PROJ) << "(" << project_name << " ";
+
+    if(major && minor != 0)
     {
-        std::cout << "DEBUG STATEMENT:\n";
-        std::cout << "\n";
-        std::cout << "Line should read as: " << "\n";
-        std::cout << alt->declare(PROJ) << "(" << project_name << " ";
-
-        if(major && minor != 0)
-        {
-            std::cout << alt->declare(VERS_NUM) << " " << major << "." << minor << "." << release;
-        }
-
-        std::cout << " ";
-        std::cout << alt->declare(PROGRAM_LANG);
-        std::cout << ")";
-        std::cout << "\n";
-        std::cout << "\n";
-        std::cout << "END DEBUG STATEMENT\n";
-        std::cout << "\n";
+        std::cout << alt->declare(VERS_NUM) << " " << major << "." << minor << "." << release;
     }
+
+    std::cout << " ";
+    std::cout << alt->declare(PROGRAM_LANG);
+    std::cout << ")";
+    std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "END DEBUG STATEMENT\n";
+    std::cout << "\n";
+    #endif
 }
 
 void Application::package_setup()
@@ -356,7 +394,7 @@ void Application::package_setup()
         std::cout << "\n";
 
         std::cout << "Your package: ";
-        input_string(package_name);
+        input_string(&package_name);
         std::cout << "\n";
 
         if(package_name == "!none")
@@ -435,7 +473,7 @@ void Application::package_setup()
                 std::cout << "If you don't need to add any components, enter '!none' instead." << "\n";
                 std::cout << "\n";
                 std::cout << "Your next component: ";
-                input_string(co_entry);
+                input_string(&co_entry);
                 std::cout << "\n";
 
                 if(co_entry == "!none")
@@ -449,11 +487,13 @@ void Application::package_setup()
                 }
             }
 
+            #if DEBUGGING
             std::cout << db_msg("\n");
             std::cout << db_msg(package_name);
             std::cout << db_msg("\n");
             std::cout << db_msg("was added to 'packages' vector.\n");
             std::cout << db_msg("\n");
+            #endif
 
             ext_file->write(alt->declare(FIND_PACKAGE)); // find_package
             ext_file->write("(");
@@ -524,10 +564,12 @@ void Application::standard_setup()
             std::cout << "Your standard will be configured to the default." << "\n";
             standard = 4;
 
+            #if DEBUGGING
             std::cout << db_msg("\n");
             std::cout << db_msg("DEBUG:");
             std::cout << db_msg("'standard' was assigned to the number 4.\n");
             std::cout << db_msg("\n");
+            #endif
 
             break;
         }
@@ -599,7 +641,7 @@ void Application::standard_setup()
         ext_file->write("\n");
     }
 
-    if(debug)
+    #if DEBUGGING
     {
         if(valid_standard)
         {
@@ -617,6 +659,7 @@ void Application::standard_setup()
             std::cout << "Declaration was either invalid or not assigned." << "\n";
         }
     }
+    #endif
 }
 
 /// @brief The look where package components are linked to libraries.
@@ -682,7 +725,7 @@ void Application::package_loop()
 
                 std::cout << text_files.at(LIB_SHORT)->read();
                 std::cout << " "; 
-                input_string(library_shorthand);
+                input_string(&library_shorthand);
                 std::cout << "\n";
 
                 library_shorthand.append("-"); // Append a dash
@@ -705,7 +748,7 @@ void Application::package_loop()
                     std::cout << "\n";
                     std::cout << "Your next library target: ";
 
-                    input_string(library_segment);
+                    input_string(&library_segment);
 
                     if(library_segment == "!none") // Stop the process
                     {
@@ -750,12 +793,12 @@ void Application::package_loop()
 
                 package_counter += 1;
 
-                if(debug)
-                {
-                    std::cout << db_string << "Package counter increased to ";
-                    std::cout << package_counter << "\n";
-                    std::cout << "\n";
-                }
+                #if DEBUGGING
+                std::cout << db_string << "Package counter increased to ";
+                std::cout << package_counter << "\n";
+                std::cout << "\n";
+                #endif
+                
 
                 break; // Still part of case 1
             }
@@ -789,10 +832,9 @@ void Application::package_loop()
         std::cout << "\n";
     }
 
-    if(debug)
-    {
-        std::cout << db_msg("Package loop exited here.\n");
-    }
+    #if DEBUGGING
+    std::cout << db_msg("Package loop exited here.\n");
+    #endif
 
     yes_no = 0;
 }
@@ -806,7 +848,7 @@ void Application::source_and_includes()
     std::string source = "src/";
 
     std::cout << "Please enter the name of your main executable, along with .cpp: ";
-    input_string(exe_name);
+    input_string(&exe_name);
     std::cout << "\n";
 
     ext_file->write(alt->declare(ADD_EXEC)); // add exe
@@ -830,7 +872,7 @@ void Application::source_and_includes()
         std::cout << "Your next class file: ";
 
         // Input class name
-        input_string(class_name);
+        input_string(&class_name);
 
         if(class_name == "!none")
         {
@@ -847,8 +889,7 @@ void Application::source_and_includes()
         {
             more_files = true;
 
-            if(debug)
-            {
+            #if DEBUGGING
                 std::cout << "\n";
                 std::cout << "DEBUG STATEMENT:\n";
                 std::cout << "Last written class information was\n";
@@ -858,7 +899,7 @@ void Application::source_and_includes()
                 std::cout << source;
                 std::cout << exe_name;
                 std::cout << "\n";
-            }
+            #endif
         }
 
         if(more_files) // If source and class are empty, writes empty space.
@@ -868,14 +909,13 @@ void Application::source_and_includes()
         ext_file->write(source);
         ext_file->write(class_name);
 
-        if(debug)
-        {
-            std::cout << source;
-            std::cout << class_name;
-            std::cout << "\n";
-            std::cout << "END DEBUG STATEMENT.\n";
-            std::cout << "\n";
-        }
+        #if DEBUGGING
+        std::cout << source;
+        std::cout << class_name;
+        std::cout << "\n";
+        std::cout << "END DEBUG STATEMENT.\n";
+        std::cout << "\n";
+        #endif
 
     }while(more_files);
 
@@ -888,16 +928,20 @@ void Application::flag_setting(int decision, bool is_windows)
 
     flag_instruction(decision, is_windows);
 
+    #if DEBUGGING
     db_msg("\n");
     db_msg("Ending flag setting routine...\n");
+    #endif
 }
 
 /// @brief Main run loop for CMakeEasy, defines all function entry points.
 void Application::run()
 {
+    #if DEBUGGING
     std::cout << db_msg("\n");
     std::cout << db_msg("Trying to read file at position 0...\n");
     std::cout << db_msg("\n");
+    #endif
 
     std::cout << text_files.at(START)->read();
     std::cout << "\n";
@@ -1034,6 +1078,7 @@ void Application::run()
         std::cout << "your Linux home directory.\n";
     }
 
+    #if DEBUGGING
     std::cout << db_msg("\n");
     std::cout << db_msg("Files closed.\n");
     std::cout << db_msg("\n");
@@ -1043,6 +1088,7 @@ void Application::run()
     std::cout << db_msg("\n");
     std::cout << db_msg("Reached end of program.\n");
     std::cout << db_msg("\n");
+    #endif
 
     running = false; // Terminate program
 }
@@ -1094,9 +1140,11 @@ void Application::sys_flags()
 
 void Application::finish_touches()
 {
+    #if DEBUGGING
     std::cout << db_msg("\n");
     std::cout << db_msg("Writing additional standards info...\n");
     std::cout << db_msg("\n");
+    #endif
 
     // Set standard include directory
 
@@ -1146,9 +1194,11 @@ void Application::finish_touches()
 
 void Application::verbose_output()
 {
+    #if DEBUGGING
     std::cout << db_msg("\n");
     std::cout << db_msg("Asking user about verbose CMake setting...\n");
     std::cout << db_msg("\n");
+    #endif
 
     std::cout << text_files.at(VERB_TXT)->read();
     std::cout << "\n";
@@ -1175,7 +1225,7 @@ void Application::verbose_output()
             ext_file->write("\n");
             ext_file->write("\n");
 
-            if(debug)
+            #if DEBUGGING
             {
                 std::cout << "DEBUG DATA:\n";
                 std::cout << "Wrote the following to CMakeLists.txt:\n";
@@ -1186,6 +1236,7 @@ void Application::verbose_output()
                 std::cout << ")";
                 std::cout << "\n";
             }
+            #endif
 
             break;
         }
@@ -1246,33 +1297,36 @@ void Application::generate_final()
     }
 }
 
-/// @brief Function checks if string input is valid. Seperate from numerical input.
+/// @brief Function checks if string input is valid. If it can't be, it halts operation.
 /// @return str
-std::string Application::input_string(std::string& str)
+std::string Application::input_string(std::string* str)
 {
     // Please note that trying to enter nothing will result in
     // the program continuing to ask for data until something is
     // actually entered.
     
-    std::cin >> str;
+    std::cin >> *str;
 
-    if(!allow_runtime(str))
+    if(!allow_runtime(*str))
     {
         free_data();
 
         exit(0);
     }
 
-    return entry_check(str);
+    return entry_check(*str);
 }
 
-std::string Application::input_longstring(std::string& str)
+/// @brief Similar function to input_string but with less truncation.
+/// @param str 
+/// @return 
+std::string Application::input_longstring(std::string* str)
 {
     std::cin.clear();
     std::cin.ignore();
-    std::getline(std::cin, str);
+    std::getline(std::cin, *str);
 
-    return entry_check(str);
+    return entry_check(*str);
 }
 
 bool Application::set_install_config()
@@ -1290,23 +1344,27 @@ bool Application::set_install_config()
 
         if(std::filesystem::is_directory(win_dir))
         {
+            #if DEBUGGING
             std::cout << db_msg("\n");
             std::cout << db_msg("WINDOWS system\n");
             std::cout << db_msg("\n");
             std::cout << db_msg("CMakeEasy was found to be installed.\n");
             std::cout << db_msg("Installed files will be used.\n");
             std::cout << db_msg("\n");
+            #endif
 
             return true;
         }
         else
         {
+            #if DEBUGGING
             std::cout << db_msg("\n");
             std::cout << db_msg("WINDOWS system\n");
             std::cout << db_msg("\n");
             std::cout << db_msg("CMakeEasy 'text' directory not found,\n");
             std::cout << db_msg("assuming debug configuration.\n");
             std::cout << db_msg("\n");
+            #endif
         }
     }
     else // Linux
@@ -1315,23 +1373,27 @@ bool Application::set_install_config()
 
         if(std::filesystem::is_directory(unix_dir))
         {
+            #if DEBUGGING
             std::cout << db_msg("\n");
             std::cout << db_msg("UNIX system\n");
             std::cout << db_msg("\n");
             std::cout << db_msg("CMakeEasy was found to be installed.\n");
             std::cout << db_msg("Installed files will be used.\n");
             std::cout << db_msg("\n");
+            #endif
 
             return true;
         }
         else
         {
+            #if DEBUGGING
             std::cout << db_msg("\n");
             std::cout << db_msg("UNIX system\n");
             std::cout << db_msg("\n");
             std::cout << db_msg("CMakeEasy opt directory not found,\n");
             std::cout << db_msg("assuming debug configuration.\n");
             std::cout << db_msg("\n");
+            #endif
         }
     }
 
@@ -1361,8 +1423,10 @@ void Application::config_text(const bool is_installed)
             file_location = init_directory(win_dir, it);
             init_filetype(file_location, true);
 
+            #if DEBUGGING
             std::cout << db_msg("Last item appended: " + file_location);
             std::cout << db_msg("\n");
+            #endif
         }
     }
     else if(is_installed && !OS_WIN) // Text files for Linux system
@@ -1383,8 +1447,10 @@ void Application::config_text(const bool is_installed)
             file_location = init_directory(directive, it);
             init_filetype(file_location, true);
 
+            #if DEBUGGING
             std::cout << db_msg("Last item appended: " + file_location);
             std::cout << db_msg("\n");
+            #endif
         }
     }
 }
@@ -1394,9 +1460,11 @@ void Application::flag_instruction(const int choice, const bool windows)
 
     if(windows)
     {
+        #if DEBUGGING
         std::cout << db_msg("\n");
         std::cout << db_msg("Beginning flag/instruction routine...\n");
         std::cout << db_msg("\n");
+        #endif
 
         switch(choice)
         {
@@ -1424,9 +1492,11 @@ void Application::flag_instruction(const int choice, const bool windows)
 
     if(!windows)
     {
+        #if DEBUGGING
         std::cout << db_msg("\n");
         std::cout << db_msg("Beginning flag/instruction routine...\n");
         std::cout << db_msg("\n");
+        #endif
 
         switch(choice)
         {
@@ -1487,7 +1557,7 @@ void Application::set_windows_flags()
         std::cout << "Type !none if you want to stop adding instructions.\n";
         std::cout << "\n";
         std::cout << "Your instruction: ";
-        input_string(current);
+        input_string(&current);
 
         std::cout << "\n";
 
@@ -1507,9 +1577,11 @@ void Application::set_windows_flags()
         // To prevent user error it checks the given command
         if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
         {
+            #if DEBUGGING
             db_msg("\n");
             db_msg("Command found in vector, proceeding...\n");
             db_msg("\n");
+            #endif
 
             if(current == "install")
             {
@@ -1522,20 +1594,22 @@ void Application::set_windows_flags()
             std::cout << "Parenthesis will be added automatically.\n";
             std::cout << "Example: message(STATUS This is a status message.)\n";
             std::cout << current << "(";
-            input_longstring(str_context);
+            input_longstring(&str_context);
 
             if(current == "install")
             {
                 std::cout << "What are the install permissions for this instruction?\n";
                 std::cout << "Examples: OWNER_EXECUTE, GROUP_EXECUTE (etc.)";
                 std::cout << "PERMISSIONS ";
-                input_string(permissions);
+                input_string(&permissions);
                 std::cout << "\n";
             }
 
+            #if DEBUGGING
             db_msg("\n");
             db_msg("Writing...\n");
             db_msg("\n");
+            #endif
 
             ext_file->write(current);
             ext_file->write("(");
@@ -1550,7 +1624,7 @@ void Application::set_windows_flags()
             ext_file->write(")");
             ext_file->write("\n");
 
-            if(debug)
+            #if DEBUGGING
             {
                 std::cout << "DEBUG STATEMENT:\n";
                 std::cout << "Latest lines written are\n";
@@ -1565,12 +1639,15 @@ void Application::set_windows_flags()
                 std::cout << "\n";
                 std::cout << "END DEBUG STATEMENT\n";
             }
+            #endif
         }
         else // Do nothing for now
         {
+            #if DEBUGGING
             db_msg("\n");
             db_msg("Command not found in vector.\n");
             db_msg("\n");
+            #endif
 
             std::cout << "\n";
             std::cout << "This statement was not recognized by CMakeEasy.\n";
@@ -1618,7 +1695,7 @@ void Application::set_linux_flags()
         std::cout << "Type !none if you want to stop adding instructions.\n";
         std::cout << "\n";
         std::cout << "Your instruction: ";
-        input_string(current);
+        input_string(&current);
         std::cout << "\n";
 
         if(current == "!none")
@@ -1636,9 +1713,11 @@ void Application::set_linux_flags()
 
         if(std::find(alt->commands.begin(),alt->commands.end(), current) != alt->commands.end())
         {
+            #if DEBUGGING
             db_msg("\n");
             db_msg("Command found in vector, proceeding...\n");
             db_msg("\n");
+            #endif
 
             /*
             if(current == "install")
@@ -1653,7 +1732,7 @@ void Application::set_linux_flags()
             std::cout << "Parenthesis will be added automatically.\n";
             std::cout << "Example: message(STATUS This is a status message.)\n";
             std::cout << current << "(";
-            input_longstring(str_context);
+            input_longstring(&str_context);
 
             /*
             if(current == "install")
@@ -1666,9 +1745,11 @@ void Application::set_linux_flags()
             }
             */
 
+            #if DEBUGGING
             db_msg("\n");
             db_msg("Writing...\n");
             db_msg("\n");
+            #endif
 
             ext_file->write(current);
             ext_file->write("(");
@@ -1685,7 +1766,7 @@ void Application::set_linux_flags()
             ext_file->write(")");
             ext_file->write("\n");
 
-            if(debug)
+            #if DEBUGGING
             {
                 std::cout << "DEBUG STATEMENT:\n";
                 std::cout << "Latest lines written are\n";
@@ -1695,12 +1776,15 @@ void Application::set_linux_flags()
                 std::cout << "\n";
                 std::cout << "END DEBUG STATEMENT\n";
             }
+            #endif
         }
         else // Do nothing for now
         {
+            #if DEBUGGING
             db_msg("\n");
             db_msg("Command not found in vector.\n");
             db_msg("\n");
+            #endif
 
             std::cout << "\n";
             std::cout << "This statement was not recognized by CMakeEasy.\n";
@@ -1789,19 +1873,25 @@ void Application::stop_and_remove(bool start_process)
 {
     if(start_process)
     {
+        #if DEBUGGING
         std::cout << db_msg("stop_and_remove() starting...\n");
         std::cout << db_msg("Marking CMakeLists.txt for deletion...\n");
+        #endif
 
         ext_file->mark_to_delete();
 
+        #if DEBUGGING
         //db_msg("Forcing runtime to stop...");
         std::cout << db_msg("\n");
+        #endif
     }
     else // Debugging purposes
     {
+        #if DEBUGGING
         std::cout << db_msg("\n");
         std::cout << db_msg("stop_and_remove() was called,\n");
         std::cout << db_msg("stop_and_remove() exited without making changes.\n");
         std::cout << db_msg("\n");
+        #endif
     }
 }

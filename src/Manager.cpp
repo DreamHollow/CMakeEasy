@@ -3,7 +3,9 @@
 #include <sstream>
 #include <iostream>
 
-/// @brief Constructor initializing a file, then determining write status.
+/// @brief File Manager Constructor
+/// @details This constructor initializes a file, checks it's write status,
+/// then keeps the file open for further operations.
 /// @param target_file 
 /// @param read_only 
 Manager::Manager(std::string target_file, bool read_only)
@@ -38,24 +40,26 @@ Manager::Manager(std::string target_file, bool read_only)
   {
     if(!infile.is_open())
     {
+      #if DEBUGGING
       std::cout << db_msg("\n");
       std::cout << db_msg("Current file path: ");
       std::cout << db_msg(file_name);
       std::cout << db_msg("\n");
       std::cout << db_msg("Attempting to open read-only file...");
+      #endif
 
       infile.open(file_name.c_str());
 
       if(infile.fail())
       {
+        #if DEBUGGING
         std::cout << db_msg("\n");
         std::cout << db_msg("File opening failed.\n");
         std::cout << db_msg("Could not open: ");
-        if(debug)
-        {
-          std::cout << (file_name);
-        }
+
+        std::cout << (file_name);
         std::cout << db_msg("\n");
+        #endif
 
         std::cout << "\n";
         std::cout << "ERROR: CMakeEasy failed to read a vital text file.\n";
@@ -68,32 +72,40 @@ Manager::Manager(std::string target_file, bool read_only)
       }
       else
       {
+        #if DEBUGGING
         std::cout << db_msg("\n");
         std::cout << db_msg("Read-only file was opened successfully: ");
         std::cout << db_msg(file_name);
         std::cout << db_msg("\n");
+        #endif
       }
     }
   }
   
+  #if DEBUGGING
   std::cout << db_msg("\n");
   std::cout << db_msg("File name for instance: ");
   std::cout << db_msg(file_name);
   std::cout << db_msg("\n");
+  #endif
 
   // Read-write
 
   if(!read_only)
   {
+    #if DEBUGGING
     std::cout << db_msg("Read-only flag set to false, initializing CMakeLists.txt...\n");
+    #endif
 
     if(!outfile.is_open())
     {
+      #if DEBUGGING
       std::cout << db_msg("\n");
       std::cout << db_msg("Current file path: ");
       std::cout << db_msg(file_name);
       std::cout << db_msg("\n");
       std::cout << db_msg("Attempting to create/edit CMakeLists.txt...\n");
+      #endif
 
       outfile.open(file_name.c_str(), std::ios::out | std::ios::trunc);
 
@@ -113,10 +125,12 @@ Manager::Manager(std::string target_file, bool read_only)
       {
         std::cout << "CMakeLists.txt file is valid, allowing edits.\n";
 
+        #if DEBUGGING
         std::cout << db_msg("\n");
         std::cout << db_msg(file_name);
         std::cout << db_msg("\n");
         std::cout << db_msg("is ready to be modified.\n");
+        #endif
       }
     }
   }
@@ -124,29 +138,37 @@ Manager::Manager(std::string target_file, bool read_only)
 
 Manager::~Manager()
 {
+  #if DEBUGGING
   std::cout << db_msg("Manager deconstructing...\n");
+  #endif
 
   free_data();
 
   if(liquidate && !outfile.is_open())
   {
+    #if DEBUGGING
     std::cout << db_msg("File was set to be liquidated by Manager:\n");
     std::cout << db_msg(this->file_name);
     std::cout << db_msg("\n");
     std::cout << db_msg("Known file path: \n");
     std::cout << db_msg(file_name);
     std::cout << db_msg("\n");
+    #endif
 
     //std::remove(file_name.c_str());
     std::filesystem::remove(file_name.c_str());
 
+    #if DEBUGGING
     std::cout << db_msg("File removed.\n");
+    #endif
   }
   else
   {
     if(!read_only)
     {
+      #if DEBUGGING
       std::cout << db_msg("No files were liquidated.\n");
+      #endif
     }
   }
 };
@@ -161,11 +183,15 @@ void Manager::free_data()
     {
       this->infile.close();
 
+      #if DEBUGGING
       std::cout << db_msg("Manager: Closed a read-only file.\n");
+      #endif
     }
     else
     {
+      #if DEBUGGING
       std::cout << db_msg("Manager: No read-only file to close.\n");
+      #endif
     }
   }
   else
@@ -174,11 +200,15 @@ void Manager::free_data()
     {
       this->outfile.close();
 
+      #if DEBUGGING
       std::cout << db_msg("Manager: Closed an output file.\n");
+      #endif
     }
     else
     {
+      #if DEBUGGING
       std::cout << db_msg("Manager: No output file to close.\n");
+      #endif
     }
   }
 }
@@ -228,7 +258,9 @@ void Manager::mark_to_delete()
 {
   liquidate = true;
 
+  #if DEBUGGING
   std::cout << db_msg("File marked for deletion.\n");
+  #endif
 
   std::cout << "CMakeLists.txt will be deleted on program exit.\n";
   std::cout << "\n";

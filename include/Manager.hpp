@@ -1,8 +1,7 @@
 #ifndef MANAGER_HPP_INCLUDED
 #define MANAGER_HPP_INCLUDED 1
-#include <string>
 #include <fstream>
-#include "Globals.h"
+#include "Config.h"
 
 // Homedir is used and recycled for initialization
 // But this part only takes over for a Windows system
@@ -10,8 +9,10 @@
 static std::string homedir = "";
 #endif
 
-/// @brief File manager. Designed to input or output file data
-/// as needed, usually through simple read-write directives.
+/// @brief File Manager Class
+/// @details Designed to determine file for writing or reading,
+/// demanding explicit status for purpose of reading to buffer
+/// or writing strings to files.
 class Manager
 {
 public:

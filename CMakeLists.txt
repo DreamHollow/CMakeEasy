@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22.1)
-project(cmakeeasy VERSION 1.4.1 LANGUAGES CXX)
+project(cmakeeasy VERSION 2.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,9 +8,10 @@ set(CMAKE_VERBOSE_MAKEFILE true)
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
 add_executable(${PROJECT_NAME} src/Main.cpp
-src/AltString.cpp
-src/Application.cpp
-src/Manager.cpp)
+   src/AltString.cpp
+   src/Application.cpp
+   src/Manager.cpp
+)
 
 include_directories(include)
 
@@ -43,7 +44,6 @@ if(UNIX)
 endif()
 
 #set(CPACK_PACKAGE_NAME "cmakeeasy")
-#set(CPACK_PACKAGE_VENDOR "dreamhollow4219")
 
 # Auto-generated comment:
 # This list made with CMakeEasy.

@@ -19,12 +19,16 @@ void AltString::free_data()
     commands.clear();
     commands.shrink_to_fit();
 
+    #if DEBUGGING
     std::cout << db_msg("AltString: Freed vectors.\n");
+    #endif
 };
 
 void AltString::init_vars()
 {
-   std::cout << db_msg("Initializing declarations...\n");
+    #if DEBUGGING
+    std::cout << db_msg("Initializing declarations...\n");
+    #endif
 
     // Declarations
     declarations.push_back("cmake_minimum_required"); // 0
@@ -54,7 +58,9 @@ void AltString::init_vars()
     commands.push_back("file"); // 23?
     //commands.push_back("add_custom_target"); // 24?
 
+    #if DEBUGGING
     std::cout << db_msg("Declarations initialized.\n");
+    #endif
 };
 
 void AltString::show_commands()

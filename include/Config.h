@@ -1,5 +1,7 @@
-#ifndef GLOBALS_H_INCLUDED
-#define GLOBALS_H_INCLUDED 1
+#ifndef CONFIGURATION_H_INCLUDED
+#define CONFIGURATION_H_INCLUDED 1
+#define DEBUGGING 1
+#include <string>
 
 #ifdef _WIN32
 #define OS_WIN 1
@@ -16,17 +18,8 @@ static struct passwd *pw = getpwuid(getuid());
 static const char *homedir = pw->pw_dir;
 #endif
 
-#ifdef _WIN64
-#define OS_WIN 1
-#include <windows.h>
-#endif
-
-#include <string>
-
-static const bool debug = false;
+#if DEBUGGING
 static const char db_string[]{"DEBUG: "};
-static short yes_no = 0;
-// static char exit_cmd[]{ "!exit" };
 
 /// @brief Static function that checks if debugging is on,
 /// then adds debug data where appropriate.
@@ -35,15 +28,13 @@ static std::string db_msg(std::string msg)
     std::string nextline = "\n";
     const std::string nullstring = "";
 
-    if(debug)
-    {
-        if(msg == nextline)
-        {
-            return nextline;
-        }
 
-        return (db_string + msg);
+    if(msg == nextline)
+    {
+        return nextline;
     }
+
+    return (db_string + msg);
 
     // If debug is off, this forces a newline
     // without affecting the structure of display.
@@ -54,5 +45,8 @@ static std::string db_msg(std::string msg)
 
     return nullstring;
 }
+#endif
+
+// End debugging define.
 
 #endif

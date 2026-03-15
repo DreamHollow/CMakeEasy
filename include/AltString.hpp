@@ -1,6 +1,6 @@
 #ifndef ALTSTRING_HPP_INCLUDED
 #define ALTSTRING_HPP_INCLUDED 1
-#include "Manager.hpp"
+#include <string>
 #include <vector>
 
 /// @brief Enumerated declarations to make syntax less confusing.
