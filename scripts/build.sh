@@ -6,6 +6,8 @@
 cmake_bin="/usr/bin/cmake"
 DEBUG="Debug"
 
+cd ..
+
 if [ ! -f "$cmake_bin" ]
 then
     echo "CMake binary not found."

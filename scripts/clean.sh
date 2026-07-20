@@ -10,6 +10,8 @@ BUILD_DIR='build'
 DEBUG_DIR='Debug'
 RELEASE_DIR='Release'
 
+cd ..
+
 if [ -d $BUILD_DIR ]
 then
     rm -r $BUILD_DIR

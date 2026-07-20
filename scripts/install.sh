@@ -6,6 +6,8 @@ old_file="/usr/local/opt/cmakeeasy"
 new_file="/usr/local/etc/cmakeeasy"
 cmake_bin="/usr/bin/cmake"
 
+cd ..
+
 # Won't allow install if CMake isn't present
 if [ ! -f "$cmake_bin" ]
 then

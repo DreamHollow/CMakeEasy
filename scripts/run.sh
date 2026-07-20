@@ -6,6 +6,8 @@ DIR="Debug"
 
 echo "Attempting to run debug version of CMakeEasy..."
 
+cd ..
+
 if [ -d "$DIR" ]
 then
     cd $DIR

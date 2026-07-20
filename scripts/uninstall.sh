@@ -6,7 +6,9 @@ old_database="/opt/cmakeeasy"
 text_database="/usr/local/etc/cmakeeasy"
 prog="/usr/local/bin/cmakeeasy"
 
-# There are easier ways to do this, but this works.
+# This is still designed to remove older versions of the program just in case.
+echo "Please run this script with administrative rights in order for it to work."
+echo
 echo "This operation will uninstall CMakeEasy from your system."
 read -p "Continue? (Y/N) " confirm
 case $confirm in
