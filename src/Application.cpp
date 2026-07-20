@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <algorithm>
 
+// This value is recycled several times to save on overhead.
 static short yes_no = 0;
 
 Application::Application()
@@ -67,7 +68,9 @@ void Application::init_components()
     dir_array.push_back("source.txt"); // 12
     dir_array.push_back("more_libs.txt"); // 13
     dir_array.push_back("promote.txt"); // 14
-    dir_array.push_back("library_shorthand.txt");
+    dir_array.push_back("library_shorthand.txt"); // 15
+    dir_array.push_back("instructions_win.txt"); // 16
+    dir_array.push_back("instructions_linux.txt"); // 17
 
     config_text(installed);
 
@@ -125,7 +128,7 @@ void Application::init_filetype(std::string file_name, bool read_only)
     #endif
 }
 
-/// @brief Absolute call to free memory. Used during exceptions and forced exits.
+/// @brief Frees and shrinks vectors to improve memory cleaning.
 void Application::free_data()
 {
     packages.clear();
@@ -139,6 +142,9 @@ void Application::free_data()
     #endif
 }
 
+/// @brief A catch-all designed to prevent improper menu entry.
+/// @param str 
+/// @return 
 const std::string Application::entry_check(std::string *str)
 {
     if(std::cin.fail())
@@ -156,6 +162,8 @@ const std::string Application::entry_check(std::string *str)
         std::cout << "\n";
         std::cout << "Thank you." << "\n";
         std::cout << "\n";
+
+        free_data();
 
         throw std::runtime_error("APPLICATION::ENTRY_CHECK::INVALID_INPUT");
     }
@@ -218,6 +226,8 @@ void Application::early_setup()
     ext_file->write(release);
     ext_file->write(")");
     ext_file->write("\n");
+
+    // Mostly debugging and explaining what is happening.
 
     #if DEBUGGING
     std::cout << "DEBUG STATEMENT:\n";
@@ -345,10 +355,10 @@ void Application::early_setup()
     #endif
 }
 
+/// @brief Inserts package data for CMakeLists.txt, as many as required.
 void Application::package_setup()
 {
-    // Package insertion loop continues in case of multiple packages
-    // This can be a little confusing and will need to be reworked - TODO
+    // Known bug where this may not loop properly. - FIXME
 
     // Package loop cannot be exited with !exit in the same way other loops can
 
@@ -574,7 +584,7 @@ void Application::standard_setup()
             declaration.append(" " + std::to_string(actual));
             break;
         }
-        case 4:
+        case 4: // This and default just means no C++ standards will be implemented.
         {
             valid_standard = false;
 
@@ -1072,17 +1082,8 @@ void Application::sys_flags()
     std::string flag;
     std::string parameter;
 
-    std::cout << "Would you like to set CMake instructions for Windows?\n";
-    std::cout << "\n";
-    std::cout << "If you choose yes, CMakeEasy will write out an instructional\n";
-    std::cout << "set for Windows users to compile CMake programs with.\n";
-    std::cout << "\n";
-    std::cout << "This will make it possible to add crucial Windows-specific\n";
-    std::cout << "instructions.\n";
-    std::cout << "\n";
-    std::cout << "1. Yes, I want to provide CMake with extra instruction.\n";
-    std::cout << "2. No, I don't want to add any additional instructions.\n";
-    std::cout << "\n";
+    std::cout << text_files.at(WIN_INSTALL)->read();
+    std::cout << "\n" << "\n";
 
     std::cout << "Your choice: ";
     input_val<short>(yes_no);
@@ -1090,17 +1091,8 @@ void Application::sys_flags()
 
     flag_setting(yes_no, true);
 
-    std::cout << "Would you like to set CMake instructions for Linux?\n";
-    std::cout << "\n";
-    std::cout << "If you choose yes, CMakeEasy will write out an instructional\n";
-    std::cout << "set for Linux users to compile with.\n";
-    std::cout << "\n";
-    std::cout << "This makes it possible to add crucial Linux-specific instructions.\n";
-    std::cout << "\n";
-    std::cout << "\n";
-    std::cout << "1. Yes, I want to provide CMake with extra instruction.\n";
-    std::cout << "2. No, I don't want to add any additional instructions.\n";
-    std::cout << "\n";
+    std::cout << text_files.at(LINUX_INSTALL)->read();
+    std::cout << "\n" << "\n";
 
     std::cout << "Your choice: ";
     input_val<short>(yes_no);
@@ -1122,9 +1114,6 @@ void Application::finish_touches()
     ext_file->write("\n");
     ext_file->write(alt->declare(INCLUDE_DIR));
     ext_file->write("(include)\n");
-    //ext_file->write("\n");
-    //ext_file->write("# Auto-generated comment:\n");
-    //ext_file->write("# Post-compile data\n");
     ext_file->write("\n");
 
     // Recycle multiple input var here
@@ -1147,8 +1136,6 @@ void Application::finish_touches()
     }
 
     yes_no = 0;
-
-    // std::cout << linebreak << "\n";
 
     std::cout << text_files.at(OP_TXT)->read();
     std::cout << "\n";
