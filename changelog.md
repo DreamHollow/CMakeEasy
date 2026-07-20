@@ -1,5 +1,27 @@
 # CMakeEasy Changelog
 
+## JULY 20 2026
+
+<details>
+<summary>Major Changes</summary>
+
+* All scripts moved to 'scripts' directory.
+
+* New text files for improved reading.
+
+</details>
+
+<details>
+<summary>Minor Changes</summary>
+
+* Some description and text improvements.
+
+* Improvements to text output.
+
+* Improvements to comments.
+
+</details>
+
 ## MAR 15 2026
 
 <details>
@@ -9,7 +31,7 @@
 
 * Rework of debugging format and variables.
 
-* Official version update to 2.0
+* Official version update to 2.0.0
 
 </details>
 
