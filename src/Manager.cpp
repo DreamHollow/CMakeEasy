@@ -68,7 +68,7 @@ Manager::Manager(std::string target_file, bool read_only)
 
         free_data();
 
-        throw std::runtime_error("MANAGER::INFILE::LOAD_FAIL"); //"Unable to open read-only file!";
+        throw std::runtime_error("MANAGER::INFILE::LOAD_FAIL");
       }
       else
       {
@@ -104,7 +104,7 @@ Manager::Manager(std::string target_file, bool read_only)
       std::cout << db_msg("Current file path: ");
       std::cout << db_msg(file_name);
       std::cout << db_msg("\n");
-      std::cout << db_msg("Attempting to create/edit CMakeLists.txt...\n");
+      std::cout << db_msg("Attempting to open CMakeLists.txt...\n");
       #endif
 
       outfile.open(file_name.c_str(), std::ios::out | std::ios::trunc);
@@ -144,34 +144,32 @@ Manager::~Manager()
 
   free_data();
 
-  if(liquidate && !outfile.is_open())
+  // This should never happen but just in case.
+  if(outfile.is_open())
+  {
+    outfile.close();
+  }
+
+  // If file is tagged for removal.
+  if(liquidate)
   {
     #if DEBUGGING
-    std::cout << db_msg("File was set to be liquidated by Manager:\n");
+    std::cout << db_msg("CMakeLists.txt set to be removed.\n");
     std::cout << db_msg(this->file_name);
     std::cout << db_msg("\n");
-    std::cout << db_msg("Known file path: \n");
-    std::cout << db_msg(file_name);
-    std::cout << db_msg("\n");
     #endif
 
-    //std::remove(file_name.c_str());
-    std::filesystem::remove(file_name.c_str());
-
-    #if DEBUGGING
-    std::cout << db_msg("File removed.\n");
-    #endif
-  }
-  else
-  {
-    if(!read_only)
+    if(!std::filesystem::remove(file_name.c_str()))
     {
-      #if DEBUGGING
-      std::cout << db_msg("No files were liquidated.\n");
-      #endif
+      std::cout << "There was a problem during CMakeEasy execution;\n";
+      std::cout << "CMakeLists.txt could not be removed during operation.\n";
+    }
+    else
+    {
+      std::cout << "CMakeLists.txt was removed successfully.\n";
     }
   }
-};
+}
 
 /// @brief Forces file to close to prevent leaks.
 /// Outputs for debugger.
