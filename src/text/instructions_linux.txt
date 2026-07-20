@@ -1,0 +1,9 @@
+Would you like to set CMake instructions for Linux?
+
+If you choose yes, CMakeEasy will write out an instructional
+set for Linux users to compile with.
+
+This makes it possible to add crucial Linux-specific instructions.
+
+1. Yes, I want to provide CMake with extra instruction.
+2. No, I don't want to add any additional instructions.

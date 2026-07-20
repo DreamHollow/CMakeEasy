@@ -1,0 +1,10 @@
+Would you like to set CMake instructions for Windows?
+
+If you choose yes, CMakeEasy will write out an instructional
+set for Windows users to compile CMake programs with.
+
+This will make it possible to add crucial Windows-specific
+instructions.
+
+1. Yes, I want to provide CMake with extra instruction.
+2. No, I don't want to add any additional instructions.
